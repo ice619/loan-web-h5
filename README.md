@@ -1,6 +1,6 @@
-# ruleengine
+# loan_manager
 
-> RuleEngine Web Project
+> loan manager Web Project
 
 ## Build Setup
 
