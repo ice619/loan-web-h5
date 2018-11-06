@@ -1,0 +1,206 @@
+<template>
+  <div class="border">
+    <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+      <el-form-item label="变量名称">
+        <el-input v-model="searchForm.name" placeholder="变量名称"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="list">查询</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
+        <el-button type="danger" icon="el-icon-delete" @click="removeVariable">删除</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table ref="variableTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55">
+      </el-table-column>
+      <el-table-column prop="id" label="ID" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="name" label="变量名" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="description" label="变量描述" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="dataType" label="变量类型" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="domain" label="变量所属域" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="creditAgency" label="征信源" header-align="center" align="center" :formatter="formatCreditAgency">
+      </el-table-column>
+      <el-table-column label="状态" header-align="center" align="center">
+        <template slot-scope="scope">
+          <el-switch style="display: block" v-model="scope.row.status" active-color="#13ce66" inactive-color="#ff4949" @change="changeStatus(scope.row)"></el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column prop="version" label="版本号" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center">
+      </el-table-column>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center">
+      </el-table-column>
+
+      <el-table-column label="操作" header-align="center" align="center">
+        <template slot-scope="scope">
+          <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-delete" @click="removeVariable(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
+      :current-page="pageIndex"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="pageSize"
+      layout="->,total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+    <!--子组件-->
+    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
+    <edit :ifshow="showEditFlag" :variable="variable" @handleCloseDialog="showEditFlag=false;list();"></edit>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      searchForm: {
+        name: null,
+        type: null
+      },
+      variable: {},
+      tableData: [],
+      pageIndex: 1,
+      pageSize: 10,
+      total: 0,
+      selectIds: [],
+      showAddFlag: false,
+      showEditFlag: false
+    }
+  },
+  created () {
+    this.list()
+  },
+  methods: {
+    async list () {
+      let params = {
+        ...this.searchForm,
+        pageIndex: this.pageIndex - 1,
+        pageSize: this.pageSize
+      }
+      try {
+        const res = await this.$http.post('/variables/list', params)
+        if (res.code === '200') {
+          this.tableData = res.data.content
+          this.total = res.data.totalElements
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    handleCurrentChange (currentPage) {
+      this.pageIndex = currentPage
+      this.list()
+    },
+    handleSizeChange (size) {
+      this.pageSize = size
+      this.list()
+    },
+    handleSelectionChange (val) {
+      this.selectIds = []
+      val.forEach(v => {
+        this.selectIds.push(v.id)
+      })
+    },
+    changeStatus (row) {
+      if (!row.status) {
+        this.$confirm('此操作会影响到规则/规则集, 确认置为无效吗？', '提示', {
+          type: 'warning'
+        }).then(() => {
+          this.putChangeStatus(row)
+        }).catch(action => {
+          row.status = true
+        })
+      } else {
+        this.putChangeStatus(row)
+      }
+    },
+    async putChangeStatus (row) {
+      const url = `/variables/${row.id}/${row.status}`
+      try {
+        const res = await this.$http.put(url)
+        if (res.code === '200') {
+          this.$message.success('操作成功!')
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    editVariable (row) {
+      this.showEditFlag = true
+      this.variable = row
+    },
+    removeVariable (row) {
+      let selectIdsStr = ''
+      let idsLength = this.selectIds.length
+      if (row instanceof Event) {
+        if (idsLength > 0) {
+          this.selectIds.forEach(v => {
+            selectIdsStr += `${v},`
+          })
+          selectIdsStr = selectIdsStr.substring(0, selectIdsStr.length - 1)
+        } else {
+          this.$message.warning('至少选择一条记录')
+          return
+        }
+      } else {
+        this.$refs.variableTable.clearSelection()
+        idsLength = 1
+        this.selectIds.push(row.id)
+        selectIdsStr = row.id
+      }
+      const url = `/variables?ids=${selectIdsStr}`
+      const tableLength = this.tableData.length
+      this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
+        try {
+          const res = await this.$http.delete(url)
+          if (res.code === '200') {
+            this.$message.success('删除成功!')
+            // this.list()
+            this.selectIds.forEach(v => {
+              let i = this.tableData.findIndex(s => s.id === v)
+              this.tableData.splice(i, 1)
+            })
+            this.total -= idsLength
+            if (idsLength === tableLength) {
+              this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1
+              this.list()
+            }
+          } else {
+            this.$message.error(res.message)
+          }
+          this.selectIds = []
+        } catch (err) {
+          console.error(err)
+        }
+      }).catch(action => {
+        this.selectIds = []
+      })
+    }
+  },
+  components: {
+    'add': () => import('./add'),
+    'edit': () => import('./edit')
+  }
+}
+</script>
+
+<style scoped lang="stylus">
+</style>
