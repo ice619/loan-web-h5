@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
-import variable from '@/views/variable/list'
+import iosCompanySign from '@/views/iosCompanySign/list'
 
 Vue.use(Router)
 
@@ -14,8 +14,13 @@ export default new Router({
     // },
     {
       path: '/',
-      name: 'variable',
-      component: variable
+      name: 'iosCompanySign',
+      component: iosCompanySign
+    },
+    {
+      path: '/ios-company-sign',
+      name: 'iosCompanySign',
+      component: iosCompanySign
     }
   ]
 })
