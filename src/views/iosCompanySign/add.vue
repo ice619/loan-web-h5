@@ -93,21 +93,20 @@ export default {
     saveIosCompanySign: debounce(300, function () {
       this.$refs['iosCompanySignForm'].validate((valid) => {
         if (valid) {
-          this.$confirm('确认新增吗？')
-            .then(async () => {
-              try {
-                const res = await this.$http.post('/ios-company-sign', this.iosCompanySignForm)
-                if (res.code === '200') {
-                  this.$message.success('新增成功!')
-                  this.closeDialog()
-                } else {
-                  this.$message.error(res.message)
-                }
-              } catch (err) {
-                console.error(err)
+          this.$confirm('确认新增吗？', '提示', {type: 'warning'}).then(async () => {
+            try {
+              const res = await this.$http.post('/ios-company-sign', this.iosCompanySignForm)
+              if (res.code === '200') {
+                this.$message.success('新增成功!')
+                this.closeDialog()
+              } else {
+                this.$message.error(res.message)
               }
-            })
-            .catch(() => {})
+            } catch (err) {
+              console.error(err)
+            }
+          }).catch(() => {
+          })
         }
       })
     })
