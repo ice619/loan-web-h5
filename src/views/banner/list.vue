@@ -1,9 +1,24 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item style="float: left">
+      <el-form-item label="用户标签">
+        <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
+          <el-option v-for="item in globalConfig.userTags" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="应用名称">
+        <el-select v-model="searchForm.appName" clearable placeholder="请选择">
+          <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="searchForm.status" clearable placeholder="请选择">
+          <el-option v-for="item in globalConfig.status" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="list">搜索</el-button>
         <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
-        <el-button type="danger" icon="el-icon-delete" @click="removeIosCompanySign">删除</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
@@ -12,13 +27,13 @@
       </el-table-column>
       <el-table-column prop="id" label="ID" header-align="center" align="center">
       </el-table-column>
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="center">
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" :formatter="formatAppNum">
       </el-table-column>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center">
+      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center" :formatter="formatUserTags">
       </el-table-column>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center">
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" :formatter="formatTerminals">
       </el-table-column>
-      <el-table-column prop="version" label="开始版本" header-align="center" align="center">
+      <el-table-column prop="version" label="开始版本" header-align="center" align="center" :formatter="formatVersions">
       </el-table-column>
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center">
       </el-table-column>
@@ -37,8 +52,8 @@
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editIosCompanySign(scope.row)" type="text" size="small">更新</el-button>
-          <el-button icon="el-icon-delete" @click="removeIosCompanySign(scope.row)" type="text" size="small"
+          <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small"
                      style="color: #F56C6C">删除
           </el-button>
         </template>
@@ -54,9 +69,8 @@
       :total="total">
     </el-pagination>
     <!--子组件-->
-    <!--<add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>-->
-    <!--<edit :ifshow="showEditFlag" :iosCompanySign="iosCompanySign"-->
-          <!--@handleCloseDialog="showEditFlag=false;list();"></edit>-->
+    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
+    <edit :ifshow="showEditFlag" :bannerWindow="bannerWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -66,9 +80,11 @@ export default {
   data () {
     return {
       searchForm: {
-        osType: null
+        userTag: null,
+        appName: null,
+        status: null
       },
-      iosCompanySign: {},
+      bannerWindow: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -114,11 +130,11 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editIosCompanySign (row) {
+    editBanner (row) {
       this.showEditFlag = true
-      this.iosCompanySign = row
+      this.bannerWindow = row
     },
-    removeIosCompanySign (row) {
+    removeBanner (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -167,8 +183,8 @@ export default {
     }
   },
   components: {
-    // 'add': () => import('./add'),
-    // 'edit': () => import('./edit')
+    'add': () => import('./add'),
+    'edit': () => import('./edit')
   }
 }
 </script>
