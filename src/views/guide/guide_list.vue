@@ -1,38 +1,32 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="标题">
-        <el-input v-model="searchForm.title" placeholder="模糊查询"/>
+      <el-form-item label="标题查询：">
+        <el-input v-model="searchForm.name" placeholder="支持模糊查询"></el-input>
       </el-form-item>
-      <el-form-item label="应用名称">
-        <el-select v-model="searchForm.appName" clearable placeholder="请选择">
+      <el-form-item label="APP平台：">
+        <el-select v-model="searchForm.creditAgency" clearable placeholder="请选择">
           <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="list">搜索</el-button>
-        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
-        <el-button type="danger" icon="el-icon-delete" @click="removeMarketWindow">删除</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="guideList">查询</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增弹窗</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"/>
+    <el-table ref="guidePageTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <!--<el-table-column type="selection" width="55"/>-->
       <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center" :formatter="formatAppNum"/>
+      <el-table-column prop="appName" :formatter="formatAppNum" label="APP平台" header-align="center" align="center"/>
       <el-table-column prop="title" label="标题" header-align="center" align="center"/>
-      <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="center"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center"/>
-      <el-table-column prop="imageUrl" label="图片" header-align="center" align="center"/>
-      <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="center"/>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"/>
-      <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatStatus"/>
-
+      <el-table-column prop="skip" :formatter="formatSkip" label="是否支持跳过" header-align="center" align="center"/>
+      <el-table-column prop="terminal" :formatter="formatTerminal" label="生效终端" header-align="center" align="center"/>
+      <el-table-column prop="version" label="开始版本" header-align="center" align="center"/>
+      <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editMarketWindow(scope.row)" type="text" size="small">更新</el-button>
-          <el-button icon="el-icon-delete" @click="removeMarketWindow(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
+          <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button icon="el-icon-delete" @click="removeVariable(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,8 +40,8 @@
       :total="total">
     </el-pagination>
     <!--子组件-->
-    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :marketWindow="marketWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
+    <add :ifshow="showAddFlag" :judges="judges" :terminals="terminals" @handleCloseDialog="showAddFlag=false;guideList();"></add>
+    <edit :ifshow="showEditFlag" :guidePage="guidePage" :judges="judges" :terminals="terminals" @handleCloseDialog="showEditFlag=false;guideList();"></edit>
   </div>
 </template>
 
@@ -56,31 +50,69 @@ export default {
   data () {
     return {
       searchForm: {
-        title: null,
-        appName: null
+        name: null,
+        type: null
       },
-      marketWindow: {},
+      guidePage: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
       total: 0,
       selectIds: [],
       showAddFlag: false,
-      showEditFlag: false
+      showEditFlag: false,
+      judges: [{
+        value: 1,
+        label: '<'
+      }, {
+        value: 2,
+        label: '<='
+      }, {
+        value: 3,
+        label: '='
+      }, {
+        value: 4,
+        label: '>'
+      }, {
+        value: 5,
+        label: '=>'
+      }],
+      terminals: [{
+        value: 1,
+        label: '全部'
+      }, {
+        value: 2,
+        label: '安卓'
+      }, {
+        value: 3,
+        label: 'IOS'
+      }, {
+        value: 4,
+        label: '未知'
+      }]
     }
   },
   created () {
-    this.list()
+    this.guideList()
   },
   methods: {
-    async list () {
+    formatTerminal (row, col, val) {
+      let label = null
+      this.terminals.forEach(ter => {
+        if (ter.value === val) {
+          label = ter.label
+        }
+      })
+      return label
+    },
+    async guideList () {
       let params = {
         ...this.searchForm,
-        pageIndex: this.pageIndex,
+        pageIndex: this.pageIndex - 1,
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/market-window-web/list', params)
+        const res = await this.$http.post('/config/guide-page/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -93,11 +125,11 @@ export default {
     },
     handleCurrentChange (currentPage) {
       this.pageIndex = currentPage
-      this.list()
+      this.guideList()
     },
     handleSizeChange (size) {
       this.pageSize = size
-      this.list()
+      this.guideList()
     },
     handleSelectionChange (val) {
       this.selectIds = []
@@ -105,11 +137,11 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editMarketWindow (row) {
+    editVariable (row) {
       this.showEditFlag = true
-      this.marketWindow = row
+      this.guidePage = row
     },
-    removeMarketWindow (row) {
+    removeVariable (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -123,12 +155,12 @@ export default {
           return
         }
       } else {
-        this.$refs.marketWindowTable.clearSelection()
+        this.$refs.guidePageTable.clearSelection()
         idsLength = 1
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/config/market-window-web?ids=${selectIdsStr}`
+      const url = `/config/guide-page/del/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
@@ -143,7 +175,7 @@ export default {
             this.total -= idsLength
             if (idsLength === tableLength) {
               this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1
-              this.list()
+              this.guideList()
             }
           } else {
             this.$message.error(res.message)
@@ -158,8 +190,8 @@ export default {
     }
   },
   components: {
-    'add': () => import('./add'),
-    'edit': () => import('./edit')
+    'add': () => import('./guide_add'),
+    'edit': () => import('./guide_edit')
   }
 }
 </script>

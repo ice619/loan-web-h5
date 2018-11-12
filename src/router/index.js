@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
 import marketWindow from '@/views/marketWindow/list'
+import guide from '@/views/guide/guide_list'
 
 Vue.use(Router)
 
@@ -13,10 +14,11 @@ export default new Router({
     //   name: 'HelloWorld',
     //   component: HelloWorld
     // },
+
     {
       path: '/',
-      name: 'index',
-      component: iosCompanySign
+      name: 'guide',
+      component: guide
     },
     {
       path: '/ios-company-sign',
@@ -32,6 +34,11 @@ export default new Router({
       path: '/market-window',
       name: 'marketWindow',
       component: marketWindow
+    },
+    {
+      path: '/guide-page',
+      name: 'guide',
+      component: guide
     }
   ]
 })

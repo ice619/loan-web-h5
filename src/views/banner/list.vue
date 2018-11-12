@@ -35,9 +35,17 @@
       </el-table-column>
       <el-table-column prop="version" label="开始版本" header-align="center" align="center" :formatter="formatVersions">
       </el-table-column>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center">
+      <el-table-column label="开始时间" header-align="center" align="center">
+        <template slot-scope="scope">
+          <el-icon name="time"></el-icon>
+          <span style="margin-left: 10px">{{ formatTimeStamp(scope.row.startTime) }}</span>
+        </template>
       </el-table-column>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center">
+      <el-table-column label="结束时间" header-align="center" align="center">
+        <template slot-scope="scope">
+          <el-icon name="time"></el-icon>
+          <span style="margin-left: 10px">{{ formatTimeStamp(scope.row.endTime) }}</span>
+        </template>
       </el-table-column>
       <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center">
       </el-table-column>
