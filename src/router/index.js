@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
 import iosCompanySign from '@/views/iosCompanySign/list'
+import banner from '@/views/banner/list'
 import marketWindow from '@/views/marketWindow/list'
 
 Vue.use(Router)
@@ -22,6 +22,11 @@ export default new Router({
       path: '/ios-company-sign',
       name: 'iosCompanySign',
       component: iosCompanySign
+    },
+    {
+      path: '/banner',
+      name: 'banner',
+      component: banner
     },
     {
       path: '/market-window',

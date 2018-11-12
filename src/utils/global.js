@@ -32,7 +32,15 @@ const formatAppNum = function (row, col, val) {
   return label
 }
 
+const formatStatus = function (row, col, val) {
+  if (val) {
+    return '有效'
+  }
+  return '失效'
+}
+
 exports.install = function (Vue, options) {
   Vue.prototype.globalConfig = config
   Vue.prototype.formatAppNum = formatAppNum
+  Vue.prototype.formatStatus = formatStatus
 }
