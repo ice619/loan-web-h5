@@ -19,10 +19,7 @@
       </el-table-column>
       <el-table-column prop="priority" label="优先级" header-align="center" align="center">
       </el-table-column>
-      <el-table-column label="状态" header-align="center" align="center">
-        <template slot-scope="scope">
-          <el-switch style="display: block" v-model="scope.row.status" active-color="#13ce66" inactive-color="#ff4949" disabled></el-switch>
-        </template>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatStatus">
       </el-table-column>
       <el-table-column prop="appNum" label="应用号" header-align="center" align="center" :formatter="formatAppNum">
       </el-table-column>
@@ -83,7 +80,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/ios-company-sign/list', params)
+        const res = await this.$http.post('/config/ios-company-sign/list', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -131,7 +128,7 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/ios-company-sign?ids=${selectIdsStr}`
+      const url = `/config/ios-company-sign?ids=${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
