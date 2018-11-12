@@ -39,8 +39,16 @@ const formatStatus = function (row, col, val) {
   return '失效'
 }
 
+const formatSkip = function (row, col, val) {
+  if (val) {
+    return '支持'
+  }
+  return '不支持'
+}
+
 exports.install = function (Vue, options) {
   Vue.prototype.globalConfig = config
   Vue.prototype.formatAppNum = formatAppNum
   Vue.prototype.formatStatus = formatStatus
+  Vue.prototype.formatSkip = formatSkip
 }
