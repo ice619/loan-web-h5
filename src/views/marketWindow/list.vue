@@ -27,7 +27,7 @@
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center"/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"/>
       <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatStatus"/>
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">

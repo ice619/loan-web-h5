@@ -74,14 +74,14 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="开始时间">
-              <el-date-picker v-model="marketWindowForm.startTime" type="datetime" placeholder="选择开始时间"></el-date-picker>
+              <el-date-picker v-model="marketWindowForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="结束时间">
-              <el-date-picker v-model="marketWindowForm.endTime" type="datetime" placeholder="选择结束时间"></el-date-picker>
+              <el-date-picker v-model="marketWindowForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -140,7 +140,7 @@ export default {
     return {
       marketWindowForm: {},
       rules: {},
-      actionUrl: `${process.env.API_ROOT}/upload-image-file`,
+      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
       terminals: [{
         value: 1,
         label: 'value1'
@@ -204,7 +204,7 @@ export default {
         // }
         if (valid) {
           try {
-            const res = await this.$http.post('/config/market-window-web', this.marketWindowForm)
+            const res = await this.$http.put('/config/market-window-web', this.marketWindowForm)
             if (res.code === '200') {
               this.$message.success('更新成功!')
               this.closeDialog()
