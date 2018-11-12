@@ -18,7 +18,7 @@
     <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center"/>
+      <el-table-column prop="appName" label="应用名称" header-align="center" align="center" :formatter="formatAppNum"/>
       <el-table-column prop="title" label="标题" header-align="center" align="center"/>
       <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="center"/>
       <el-table-column prop="terminal" label="生效终端" header-align="center" align="center"/>
