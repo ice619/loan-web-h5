@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="修改banner配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增banner配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="bannerForm" :rules="rules" ref="bannerForm" label-width="100px"
                class="demo-form-inline">
         <el-row>
@@ -32,14 +32,14 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="生效版本">
-              <el-select style="width: 110px;" v-model="bannerForm.judge" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.judges" :key="item.value" :label="item.label"
+              <el-select style="width: 110px;" v-model="bannerForm.versionLowerLimit" clearable placeholder="请选择">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-select style="width: 110px;" v-model="bannerForm.version" clearable placeholder="请选择">
+            <el-select style="width: 110px;" v-model="bannerForm.versionUpperLimit" clearable placeholder="请选择">
               <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
@@ -88,7 +88,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="排序值">
-                  <el-input v-model="bannerForm.sort" style="width: 176px;" min="1" max="99" placeholder="排序值"></el-input>
+                  <el-input-number v-model="bannerForm.sort" style="width: 176px;" :min="1" :max="99" label="排序值"></el-input-number>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -172,21 +172,18 @@ export default {
     return {
       bannerDetails: [],
       bannerFormInitForm: {
-        appName: 6,
-        terminal: 1,
-        userTag: 1,
-        showFrequency: 1,
-        title: 1,
-        priority: 1,
-        judge: 1,
+        appName: '',
+        terminal: '',
+        userTag: '',
+        versionUpperLimit: '',
+        versionLowerLimit: '',
+        position: '',
         displayPosition: '',
-        version: '',
         startTime: null,
         endTime: null,
-        position: '',
-        imageUrl: '',
         status: true
       },
+      sort: 1,
       bannerForm: {},
       rules: {},
       actionUrl: `${process.env.API_ROOT}/config/upload-image-file`
@@ -209,12 +206,23 @@ export default {
       this.$refs['bannerForm'].resetFields()
       this.$emit('handleCloseDialog')
     },
-    handleFilesChange (file, fileList) {
+    handleFilesChange: function (file, fileList) {
       if (fileList.length > 1) {
         fileList.shift()
       }
-      if (file.status === 'success') {
+
+      if (file.status === 'ready') {
+        return
+      }
+
+      if (file.status === 'success' && file.response.code === '200') {
         this.bannerForm.imageUrl = file.response.data
+        this.$message({
+          message: '图片上传成功',
+          type: 'success'
+        })
+      } else {
+        this.$message.error('图片上传失败')
       }
     },
     deleteRow (index, rows) {
@@ -227,8 +235,6 @@ export default {
         //   }).catch(() => {
         //   })
         // }
-        this.bannerForm.startTime = new Date(this.bannerForm.startTime).getTime()
-        this.bannerForm.endTime = new Date(this.bannerForm.endTime).getTime()
         this.bannerForm.bannerDetails = this.bannerDetails
         if (valid) {
           try {
