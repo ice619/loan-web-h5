@@ -7,7 +7,6 @@ const config = {
   terminals: [{value: 1, label: '全部'}, {value: 2, label: '安卓'}, {value: 3, label: 'IOS'}],
   position: [{value: 1, label: '借款页'}, {value: 2, label: '商场页'}, {value: 3, label: '提额页'}, {value: 4, label: '赚钱页'}, {value: 5, label: '我的页'}, {value: 6, label: '绑卡页'}, {value: 7, label: '身份认证页'}, {value: 8, label: '个人信息页'}, {value: 9, label: '信用认证页'}],
   displayPosition: [{value: 1, label: '页头'}, {value: 2, label: '页中'}, {value: 3, label: '页尾'}],
-  judges: [{value: 1, label: '<'}, {value: 2, label: '<='}, {value: 3, label: '='}, {value: 4, label: '>'}, {value: 5, label: '>='}],
   versions: [{value: 1, label: '1.8.0'}, {value: 2, label: '1.8.2'}, {value: 3, label: '1.8.3'}]
 }
 

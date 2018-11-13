@@ -23,40 +23,20 @@
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55">
-      </el-table-column>
-      <el-table-column prop="id" label="ID" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" :formatter="formatAppNum">
-      </el-table-column>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center" :formatter="formatUserTags">
-      </el-table-column>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" :formatter="formatTerminals">
-      </el-table-column>
-      <el-table-column prop="version" label="开始版本" header-align="center" align="center" :formatter="formatVersions">
-      </el-table-column>
-      <el-table-column label="开始时间" header-align="center" align="center">
-        <template slot-scope="scope">
-          <el-icon name="time"></el-icon>
-          <span style="margin-left: 10px">{{ formatTimeStamp(scope.row.startTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="结束时间" header-align="center" align="center">
-        <template slot-scope="scope">
-          <el-icon name="time"></el-icon>
-          <span style="margin-left: 10px">{{ formatTimeStamp(scope.row.endTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatStatus">
-      </el-table-column>
+      <el-table-column type="selection" width="40"/>
+      <el-table-column prop="id" label="ID" header-align="center" align="center" width="50"/>
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" width="130" :formatter="formatAppNum"/>
+      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center" width="130" :formatter="formatUserTags"/>
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" width="130" :formatter="formatTerminals"/>
+      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="center" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="center" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" width="164"/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" width="164"/>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" width="130"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" width="164"/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" width="130"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="164"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" width="130" :formatter="formatStatus"/>
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
