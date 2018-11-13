@@ -15,8 +15,7 @@ const getSelectionOptions = function (prop) {
   return options
 }
 
-const formatSelection = function (row, col, val) {
-  const prop = col.property
+const simpleFormatSelection = function (prop, val) {
   let label = null
   for (const propName in selections) {
     if (propName === prop) {
@@ -34,6 +33,10 @@ const formatSelection = function (row, col, val) {
   return label
 }
 
+const formatSelection = function (row, col, val, index) {
+  return simpleFormatSelection(col.property, val)
+}
+
 const loadSelections = function () {
   this.$http.post('http://192.168.87.53:7991/web/backend/scDicBiglist/selections').then(res => {
     setSelections(res.data)
@@ -45,6 +48,7 @@ const loadSelections = function () {
 exports.install = function (Vue, options) {
   Vue.prototype.setSelections = setSelections
   Vue.prototype.getSelectionOptions = getSelectionOptions
+  Vue.prototype.simpleFormatSelection = simpleFormatSelection
   Vue.prototype.formatSelection = formatSelection
   Vue.prototype.loadSelections = loadSelections
 }
