@@ -36,8 +36,7 @@ const formatSelection = function (row, col, val) {
 
 const loadSelections = function () {
   this.$http.post('http://192.168.87.53:7991/web/backend/scDicBiglist/selections').then(res => {
-    console.log(res)
-    setSelections([])
+    setSelections(res.data)
   }).catch((err) => {
     console.log(err)
   })
