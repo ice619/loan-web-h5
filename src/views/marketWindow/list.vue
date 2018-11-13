@@ -22,6 +22,7 @@
       <el-table-column prop="title" label="标题" header-align="center" align="center"/>
       <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="center"/>
       <el-table-column prop="terminal" label="生效终端" header-align="center" align="center"/>
+      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="center"/>
       <el-table-column prop="imageUrl" label="图片" header-align="center" align="center"/>
       <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="center"/>
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center"/>
