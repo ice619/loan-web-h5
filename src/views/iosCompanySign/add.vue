@@ -28,9 +28,9 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="应用号">
-              <el-select v-model="iosCompanySignForm.appNum" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
+            <el-form-item label="应用名称">
+              <el-select v-model="iosCompanySignForm.appName" clearable placeholder="请选择">
+                <el-option v-for="item in getSelectionOptions('appName22222')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -74,7 +74,7 @@ export default {
         urlKey: '',
         url: '',
         priority: 1,
-        appNum: 6,
+        appName: 6,
         remark: '',
         status: true
       },
