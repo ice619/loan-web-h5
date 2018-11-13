@@ -30,12 +30,12 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="生效版本:" >
-              <el-input placeholder="请输入生效版本" v-model="guideForm.version" class="input-with-select" style="float: left">
-                <el-select v-model="guideForm.judge" slot="prepend" placeholder="请选择" style="width: 80px">
-                  <el-option v-for="item in judges" :key="item.value" :label="item.label" :value="item.value"/>
-                </el-select>
-              </el-input>
-              <div style="float: left">非必选，不选则通用</div>
+              <el-select v-model="guideForm.versionLowerLimit" clearable style="width: 120px">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+              <el-select v-model="guideForm.versionUpperLimit" clearable style="width: 120px">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -43,8 +43,8 @@
           <el-col :span="30">
             <el-form-item label="是否支持跳过:">
               <el-radio-group v-model="guideForm.skip">
-                <el-radio label="true">支持</el-radio>
-                <el-radio label="false">不支持</el-radio>
+                <el-radio :label="true">支持</el-radio>
+                <el-radio :label="false">不支持</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -53,8 +53,8 @@
           <el-col :span="30">
             <el-form-item label="状态:">
               <el-radio-group v-model="guideForm.status">
-                <el-radio label="true">有效</el-radio>
-                <el-radio label="false">无效</el-radio>
+                <el-radio :label="true">有效</el-radio>
+                <el-radio :label="false">无效</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -62,6 +62,7 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-upload
+              ref="upload"
               class="upload-demo"
               :action="actionUrl"
               :on-remove="handleRemove"
@@ -78,7 +79,7 @@
           <el-col :span="30">
             <el-form-item>
               <el-button type="primary" @click="saveVariable">提交</el-button>
-              <el-button @click="closeDialog">重置</el-button>
+              <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -93,7 +94,6 @@ import {clone} from '@/utils/common'
 export default {
   props: {
     'ifshow': Boolean,
-    'judges': Array,
     'terminals': Array
   },
   data: function () {
@@ -104,11 +104,11 @@ export default {
         appName: '',
         terminal: '',
         title: '',
-        judge: '',
-        version: '',
-        skip: 'true',
+        versionLowerLimit: '',
+        versionUpperLimit: '',
+        skip: true,
         pictureUrls: '',
-        status: 'false'
+        status: false
       },
       guideForm: {},
       rules: {},
@@ -118,11 +118,17 @@ export default {
   methods: {
     openDialog () {
       this.guideForm = clone(this.guideFormInitForm)
+      this.picList = []
     },
     handleRemove (file, fileList) {
       this.urlHandler(fileList)
     },
     handleSuccess (response, file, fileList) {
+      if (response.code !== '200') {
+        this.$message.error('上传失败！' + response.message)
+        this.$refs.upload.clearFiles()
+        return
+      }
       this.urlHandler(fileList)
     },
     urlHandler (fileList) {
@@ -138,6 +144,7 @@ export default {
     },
     closeDialog () {
       this.$refs['guideForm'].resetFields()
+      this.picList = []
       this.$emit('handleCloseDialog')
     },
     saveVariable: debounce(300, function () {
@@ -149,6 +156,10 @@ export default {
         // }
         if (valid) {
           try {
+            if (this.guideForm.versionLowerLimit > this.guideForm.versionUpperLimit) {
+              this.$message.error('开始版本号不能大于结束版本号')
+              return
+            }
             const res = await this.$http.post('/config/guide-page', this.guideForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
