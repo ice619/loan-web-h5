@@ -28,8 +28,8 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="应用号">
-              <el-select v-model="iosCompanySignForm.appNum" clearable placeholder="请选择">
+            <el-form-item label="应用名称">
+              <el-select v-model="iosCompanySignForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -44,11 +44,6 @@
           <el-col :span="40">
             <el-form-item label="状态">
               <el-switch style="margin: 10px;" v-model="iosCompanySignForm.status" :active-value="true" :inactive-value="false" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
-            </el-form-item>
-          </el-col>
-          <el-col :span="40">
-            <el-form-item>
-              <el-input v-model="iosCompanySignForm.id" type="hidden"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

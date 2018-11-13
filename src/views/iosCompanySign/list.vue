@@ -7,28 +7,17 @@
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55">
-      </el-table-column>
-      <el-table-column prop="id" label="ID" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="osType" label="手机系统" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="urlKey" label="下载链接key" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="url" label="下载链接" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="priority" label="优先级" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatSelection">
-      </el-table-column>
-      <el-table-column prop="appNum" label="应用号" header-align="center" align="center" :formatter="formatSelection">
-      </el-table-column>
-      <el-table-column prop="remark" label="备注说明" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center">
-      </el-table-column>
+      <el-table-column type="selection" width="55"/>
+      <el-table-column prop="id" label="ID" header-align="center" align="center"/>
+      <el-table-column prop="osType" label="手机系统" header-align="center" align="center"/>
+      <el-table-column prop="urlKey" label="下载链接key" header-align="center" align="center"/>
+      <el-table-column prop="url" label="下载链接" header-align="center" align="center"/>
+      <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatSelection"/>
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" :formatter="formatSelection"/>
+      <el-table-column prop="remark" label="备注说明" header-align="center" align="center"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"/>
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
