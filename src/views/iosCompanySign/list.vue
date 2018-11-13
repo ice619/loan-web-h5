@@ -19,9 +19,9 @@
       </el-table-column>
       <el-table-column prop="priority" label="优先级" header-align="center" align="center">
       </el-table-column>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatStatus">
+      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatSelection">
       </el-table-column>
-      <el-table-column prop="appNum" label="应用号" header-align="center" align="center" :formatter="formatAppNum">
+      <el-table-column prop="appNum" label="应用号" header-align="center" align="center" :formatter="formatSelection">
       </el-table-column>
       <el-table-column prop="remark" label="备注说明" header-align="center" align="center">
       </el-table-column>
@@ -164,5 +164,5 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 </style>

@@ -1,34 +1,51 @@
-const formatTimeStamp = function (timeStamp, format) {
-  if (!timeStamp) return null
-  if (timeStamp < 1000000000000) timeStamp *= 1000
-  let date = new Date(timeStamp)
-  return formatDate(date, format)
+let selections = []
+
+const setSelections = function (selectionsIn) {
+  selections = selectionsIn
 }
 
-const formatDate = function (date, format) {
-  if (!date) return null
-  if (!format) format = 'yyyy-MM-dd hh:mm:ss'
-  let o = {
-    'M+': date.getMonth() + 1,
-    'd+': date.getDate(),
-    'h+': date.getHours(),
-    'm+': date.getMinutes(),
-    's+': date.getSeconds(),
-    'q+': Math.floor((date.getMonth() + 3) / 3),
-    'S': date.getMilliseconds()
-  }
-  if (/(y+)/.test(format)) {
-    format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
-  }
-  for (let k in o) {
-    if (new RegExp('(' + k + ')').test(format)) {
-      format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length))
+const getSelectionOptions = function (prop) {
+  let options = null
+  for (const propName in selections) {
+    if (propName === prop) {
+      options = selections[propName]
+      break
     }
   }
-  return format
+  return options
+}
+
+const formatSelection = function (row, col, val) {
+  const prop = col.property
+  let label = null
+  for (const propName in selections) {
+    if (propName === prop) {
+      const options = selections[propName]
+      for (const j in options) {
+        const option = options[j]
+        if (option.value === val) {
+          label = option.label
+          break
+        }
+      }
+      break
+    }
+  }
+  return label
+}
+
+const loadSelections = function () {
+  this.$http.post('http://192.168.87.53:7991/web/backend/scDicBiglist/selections').then(res => {
+    console.log(res)
+    setSelections([])
+  }).catch((err) => {
+    console.log(err)
+  })
 }
 
 exports.install = function (Vue, options) {
-  Vue.prototype.formatTimeStamp = formatTimeStamp
-  Vue.prototype.formatDate = formatDate
+  Vue.prototype.setSelections = setSelections
+  Vue.prototype.getSelectionOptions = getSelectionOptions
+  Vue.prototype.formatSelection = formatSelection
+  Vue.prototype.loadSelections = loadSelections
 }
