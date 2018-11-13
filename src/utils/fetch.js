@@ -21,7 +21,7 @@ FetchDog.prototype.delete = function (url, data, options) {
 const fd = new FetchDog({fetch, Headers})
 
 fd.interceptors.request.push(req => {
-  req.url = req.url.indexOf('http') > 0 ? req.url : process.env.API_ROOT + req.url
+  req.url = req.url.indexOf('http') >= 0 ? req.url : process.env.API_ROOT + req.url
   return req
 })
 fd.interceptors.response.push(async response => {

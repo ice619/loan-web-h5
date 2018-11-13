@@ -18,7 +18,7 @@
     <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center" :formatter="formatAppNum"/>
+      <el-table-column prop="appName" label="应用名称" header-align="center" align="center" :formatter="formatSelection"/>
       <el-table-column prop="title" label="标题" header-align="center" align="center"/>
       <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="center"/>
       <el-table-column prop="terminal" label="生效终端" header-align="center" align="center"/>
@@ -27,7 +27,7 @@
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center"/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"/>
       <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatStatus"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="formatSelection"/>
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
@@ -164,5 +164,5 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 </style>
