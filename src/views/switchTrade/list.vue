@@ -1,27 +1,31 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="标题查询：">
-        <el-input v-model="searchForm.name" placeholder="支持模糊查询"></el-input>
-      </el-form-item>
       <el-form-item label="APP平台：">
-        <el-select v-model="searchForm.creditAgency" clearable placeholder="请选择">
+        <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="状态：">
+        <el-select v-model="searchForm.status" clearable placeholder="请选择">
+          <el-option :key="true" label="有效" :value="true"/>
+          <el-option :key="false" label="无效" :value="false"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="guideList">查询</el-button>
-        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增弹窗</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="list">查询</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增开关</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="guidePageTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+    <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <!--<el-table-column type="selection" width="55"/>-->
       <el-table-column prop="id" label="序号" header-align="center" align="center"/>
       <el-table-column prop="appName" :formatter="formatAppNum" label="APP平台" header-align="center" align="center"/>
-      <el-table-column prop="title" label="标题" header-align="center" align="center"/>
-      <el-table-column prop="skip" :formatter="formatSkip" label="是否支持跳过" header-align="center" align="center"/>
-      <el-table-column prop="terminal" :formatter="formatTerminal" label="生效终端" header-align="center" align="center"/>
-      <el-table-column prop="version" label="开始版本" header-align="center" align="center"/>
+      <el-table-column prop="switchType" :formatter="formatSwitchType" label="开关类型" header-align="center" align="center"/>
+      <el-table-column prop="versionLowerLimit" :formatter="formatVersions" label="开始版本" header-align="center" align="center"/>
+      <el-table-column prop="versionUpperLimit" :formatter="formatVersions" label="结束版本" header-align="center" align="center"/>
+      <el-table-column prop="userType" :formatter="formatUserType" label="用户类型" header-align="center" align="center"/>
+      <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
       <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
@@ -40,8 +44,8 @@
       :total="total">
     </el-pagination>
     <!--子组件-->
-    <add :ifshow="showAddFlag" :judges="judges" :terminals="terminals" @handleCloseDialog="showAddFlag=false;guideList();"></add>
-    <edit :ifshow="showEditFlag" :guidePage="guidePage" :judges="judges" :terminals="terminals" @handleCloseDialog="showEditFlag=false;guideList();"></edit>
+    <add :ifshow="showAddFlag"  :userTypes="userTypes" :switchTypes="switchTypes" @handleCloseDialog="showAddFlag=false;list();"></add>
+    <edit :ifshow="showEditFlag" :entry="entry"  :userTypes="userTypes" :switchTypes="switchTypes" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -50,10 +54,10 @@ export default {
   data () {
     return {
       searchForm: {
-        name: null,
-        type: null
+        appName: null,
+        status: null
       },
-      guidePage: {},
+      entry: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -61,58 +65,61 @@ export default {
       selectIds: [],
       showAddFlag: false,
       showEditFlag: false,
-      judges: [{
-        value: 1,
-        label: '<'
-      }, {
-        value: 2,
-        label: '<='
-      }, {
-        value: 3,
-        label: '='
-      }, {
-        value: 4,
-        label: '>'
-      }, {
-        value: 5,
-        label: '=>'
-      }],
-      terminals: [{
+      userTypes: [{
         value: 1,
         label: '全部'
       }, {
         value: 2,
-        label: '安卓'
+        label: '新用户'
       }, {
         value: 3,
-        label: 'IOS'
+        label: '老用户'
+      }],
+      switchTypes: [{
+        value: 1,
+        label: '排队页开关'
+      }, {
+        value: 2,
+        label: '保险弹窗开关'
+      }, {
+        value: 3,
+        label: '（灾备）用户提现开关'
       }, {
         value: 4,
-        label: '未知'
+        label: '（灾备）保险开关'
       }]
     }
   },
   created () {
-    this.guideList()
+    this.list()
   },
   methods: {
-    formatTerminal (row, col, val) {
+    formatUserType (row, col, val) {
       let label = null
-      this.terminals.forEach(ter => {
+      this.userTypes.forEach(ter => {
         if (ter.value === val) {
           label = ter.label
         }
       })
       return label
     },
-    async guideList () {
+    formatSwitchType (row, col, val) {
+      let label = null
+      this.switchTypes.forEach(ter => {
+        if (ter.value === val) {
+          label = ter.label
+        }
+      })
+      return label
+    },
+    async list () {
       let params = {
         ...this.searchForm,
         pageIndex: this.pageIndex - 1,
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/guide-page/page', params)
+        const res = await this.$http.post('/config/switch-trade/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -125,11 +132,11 @@ export default {
     },
     handleCurrentChange (currentPage) {
       this.pageIndex = currentPage
-      this.guideList()
+      this.list()
     },
     handleSizeChange (size) {
       this.pageSize = size
-      this.guideList()
+      this.list()
     },
     handleSelectionChange (val) {
       this.selectIds = []
@@ -139,7 +146,7 @@ export default {
     },
     editVariable (row) {
       this.showEditFlag = true
-      this.guidePage = row
+      this.entry = row
     },
     removeVariable (row) {
       let selectIdsStr = ''
@@ -155,12 +162,12 @@ export default {
           return
         }
       } else {
-        this.$refs.guidePageTable.clearSelection()
+        this.$refs.switchTable.clearSelection()
         idsLength = 1
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/config/guide-page/del/${selectIdsStr}`
+      const url = `/config/switch-trade/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
@@ -175,7 +182,7 @@ export default {
             this.total -= idsLength
             if (idsLength === tableLength) {
               this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1
-              this.guideList()
+              this.list()
             }
           } else {
             this.$message.error(res.message)
@@ -190,8 +197,8 @@ export default {
     }
   },
   components: {
-    'add': () => import('./guide_add'),
-    'edit': () => import('./guide_edit')
+    'add': () => import('./add'),
+    'edit': () => import('./edit')
   }
 }
 </script>

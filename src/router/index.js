@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
 import marketWindow from '@/views/marketWindow/list'
-import guide from '@/views/guide/guide_list'
+import guide from '@/views/guide/list'
+import switchTrade from '@/views/switchTrade/list'
 
 Vue.use(Router)
 
@@ -11,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: guide
+      name: 'switchTrade',
+      component: switchTrade
     },
     {
       path: '/ios-company-sign',
@@ -33,6 +34,11 @@ export default new Router({
       path: '/guide-page',
       name: 'guide',
       component: guide
+    },
+    {
+      path: '/switch-trade',
+      name: 'switchTrade',
+      component: switchTrade
     }
   ]
 })

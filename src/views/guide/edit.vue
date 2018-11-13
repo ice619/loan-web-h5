@@ -23,12 +23,12 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="生效版本:" >
-              <el-input placeholder="请输入生效版本" v-model="guideForm.version" class="input-with-select">
-                <el-select v-model="guideForm.judge" slot="prepend" placeholder="请选择" style="width: 80px">
-                  <el-option v-for="item in judges" :key="item.value" :label="item.label" :value="item.value"/>
-                </el-select>
-              </el-input>
-              <span slot="tip" class="el-upload__tip">非必选，不选则通用</span>
+              <el-select v-model="guideForm.versionLowerLimit" clearable style="width: 120px">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+              <el-select v-model="guideForm.versionUpperLimit" clearable style="width: 120px">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -55,6 +55,7 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-upload
+              ref="upload"
               class="upload-demo"
               :action="actionUrl"
               :on-remove="handleRemove"
@@ -71,7 +72,7 @@
           <el-col :span="30">
             <el-form-item>
               <el-button type="primary" @click="saveGuidePage">提交</el-button>
-              <el-button @click="closeDialog">重置</el-button>
+              <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -87,7 +88,6 @@ export default {
   props: {
     'ifshow': Boolean,
     'guidePage': Object,
-    'judges': Array,
     'terminals': Array
   },
   data () {
@@ -108,7 +108,7 @@ export default {
         for (let i = 0; i < pics.length; i++) {
           let pic = pics[i]
           let obj = {}
-          obj.name = i
+          // obj.name = i
           obj.url = pic
           let response = {}
           response.data = pic
@@ -117,12 +117,16 @@ export default {
         }
       }
       this.picList = fileList
-      console.log(this.guideForm)
     },
     handleRemove (file, fileList) {
       this.urlHandler(fileList)
     },
     handleSuccess (response, file, fileList) {
+      if (response.code !== '200') {
+        this.$message.error('上传失败！' + response.message)
+        this.$refs.upload.clearFiles()
+        return
+      }
       this.urlHandler(fileList)
     },
     urlHandler (fileList) {
@@ -149,7 +153,11 @@ export default {
         // }
         if (valid) {
           try {
-            const res = await this.$http.post('/config/guide-page', this.guideForm)
+            if (this.guideForm.versionLowerLimit > this.guideForm.versionUpperLimit) {
+              this.$message.error('开始版本号不能大于结束版本号')
+              return
+            }
+            const res = await this.$http.put('/config/guide-page', this.guideForm)
             if (res.code === '200') {
               this.$message.success('更新成功!')
               this.closeDialog()
