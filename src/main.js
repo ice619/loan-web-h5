@@ -12,9 +12,9 @@ import router from './router'
 
 Vue.use(Element)
 Vue.use(global)
-Vue.use(formatter)
 
 Vue.prototype.$http = fetch
+Vue.prototype.$formatter = formatter
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -22,8 +22,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: {App},
-  created: function () {
-    this.loadSelections()
-  }
+  components: {App}
 })

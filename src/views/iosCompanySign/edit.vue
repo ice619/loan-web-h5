@@ -30,7 +30,7 @@
           <el-col :span="40">
             <el-form-item label="应用名称">
               <el-select v-model="iosCompanySignForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('APP_NAME')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
