@@ -52,8 +52,8 @@
           <el-col :span="30">
             <el-form-item label="状态:">
               <el-radio-group v-model="entryForm.status">
-                <el-radio label="true">有效</el-radio>
-                <el-radio label="false">无效</el-radio>
+                <el-radio :label="true">有效</el-radio>
+                <el-radio :label="false">无效</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
