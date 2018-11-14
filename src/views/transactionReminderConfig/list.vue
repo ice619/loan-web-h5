@@ -1,11 +1,6 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="用户标签">
-        <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
-          <el-option v-for="item in globalConfig.userTags" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
-      </el-form-item>
       <el-form-item label="应用名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
@@ -62,7 +57,6 @@ export default {
   data () {
     return {
       searchForm: {
-        userTag: null,
         appName: null,
         status: null
       },
