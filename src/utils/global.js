@@ -116,7 +116,6 @@ const formatDate = function (date, format) {
 
 exports.install = function (Vue, options) {
   Vue.prototype.globalConfig = config
-  Vue.prototype.formatAppNum = formatAppNum
   Vue.prototype.formatStatus = formatStatus
   Vue.prototype.formatSkip = formatSkip
   Vue.prototype.formatUserTags = formatUserTags
