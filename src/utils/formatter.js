@@ -1,15 +1,5 @@
-class Formatter {
-  constructor () {
-    this.selections = {}
-    if (localStorage.selections) {
-      this.selections = JSON.parse(localStorage.selections)
-    }
-    this.formatSelection = (row, col, val, index) => {
-      this.simpleFormatSelection(col.property, val)
-    }
-  }
-
-  getSelectionOptions (prop) {
+export default class Formatter {
+  static getSelectionOptions (prop) {
     let options = null
     for (const propName in this.selections) {
       if (propName === prop) {
@@ -20,7 +10,11 @@ class Formatter {
     return options
   }
 
-  simpleFormatSelection (prop, val) {
+  static formatSelection = (row, col, val, index) => {
+    Formatter.simpleFormatSelection(col.property, val)
+  }
+
+  static simpleFormatSelection (prop, val) {
     let label = null
     for (const propName in this.selections) {
       if (propName === prop) {
@@ -38,5 +32,4 @@ class Formatter {
     return label
   }
 }
-
-export default new Formatter()
+Formatter.selections = {}

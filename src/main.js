@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import fetch from './utils/fetch'
-import global from './utils/global'
-import formatter from './utils/formatter'
+import fetch from '@/utils/fetch'
+import global from '@/utils/global'
+import formatter from '@/utils/formatter'
 
 import App from './App'
 import router from './router'
