@@ -5,6 +5,7 @@ import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
 import marketWindow from '@/views/marketWindow/list'
+import transactionReminderConfig from '@/views/transactionReminderConfig/list'
 import guide from '@/views/guide/list'
 import switchTrade from '@/views/switchTrade/list'
 import dict from '@/views/dict/big-list'
@@ -37,6 +38,11 @@ const router = new Router({
       path: '/guide-page',
       name: 'guide',
       component: guide
+    },
+    {
+      path: '/transaction/reminder/config',
+      name: 'transactionReminderConfig',
+      component: transactionReminderConfig
     },
     {
       path: '/switch-trade',
