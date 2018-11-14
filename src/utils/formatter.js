@@ -22,9 +22,10 @@ export default class Formatter {
    * @param col
    * @param val
    * @param index
+   * @returns {*}
    */
   static formatSelection = (row, col, val, index) => {
-    Formatter.simpleFormatSelection(col.property, val)
+    return Formatter.simpleFormatSelection(col.property, val)
   }
 
   /**
