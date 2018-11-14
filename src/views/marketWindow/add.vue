@@ -15,7 +15,7 @@
           <el-col :span="40">
             <el-form-item label="生效终端">
               <el-select v-model="marketWindowForm.terminal" clearable placeholder="请选择">
-                <el-option v-for="item in terminals" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in globalConfig.terminals" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -24,7 +24,7 @@
           <el-col :span="40">
             <el-form-item label="用户标签">
               <el-select v-model="marketWindowForm.userTag" clearable placeholder="请选择">
-                <el-option v-for="item in userTags" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in globalConfig.userTags" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -53,17 +53,23 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="版本号">
-              <el-select v-model="marketWindowForm.judge" clearable placeholder="请选择">
-                <el-option v-for="item in judges" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="40">
-            <el-input v-model="marketWindowForm.version" placeholder="版本号"></el-input>
-          </el-col>
-        </el-row>
+        <el-col :span="40">
+          <el-form-item label="版本号下限">
+            <el-select v-model="marketWindowForm.versionLowerLimit" clearable placeholder="请选择">
+              <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="40">
+          <el-form-item label="版本号上限">
+            <el-select v-model="marketWindowForm.versionUpperLimit" clearable placeholder="请选择">
+              <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="弹窗链接">
@@ -89,7 +95,7 @@
           <el-col :span="40">
             <el-form-item label="弹框位置">
               <el-select v-model="marketWindowForm.popPosition" clearable placeholder="请选择">
-                <el-option v-for="item in popPositions" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in globalConfig.position" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -97,7 +103,7 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="状态">
-              <el-switch style="margin: 10px;" v-model="marketWindowForm.status" :active-value="true" :inactive-value="false" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+              <el-switch style="margin: 10px;" v-model="marketWindowForm.status" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
@@ -142,10 +148,10 @@ export default {
         terminal: 1,
         userTag: 1,
         showFrequency: 1,
-        title: 1,
+        title: '',
         priority: 1,
-        judge: 1,
-        version: '',
+        versionLowerLimit: null,
+        versionUpperLimit: null,
         popUrl: '',
         startTime: null,
         endTime: null,
@@ -156,40 +162,9 @@ export default {
       marketWindowForm: {},
       rules: {},
       actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
-      terminals: [{
-        value: 1,
-        label: 'value1'
-      }, {
-        value: 2,
-        label: 'value2'
-      }],
-      userTags: [{
-        value: 1,
-        label: 'value1'
-      }, {
-        value: 2,
-        label: 'value2'
-      }],
       showFrequencies: [{
         value: 1,
         label: 'value1'
-      }, {
-        value: 2,
-        label: 'value2'
-      }],
-      judges: [{
-        value: 1,
-        label: 'value1'
-      }, {
-        value: 2,
-        label: 'value2'
-      }],
-      popPositions: [{
-        value: 1,
-        label: 'value1'
-      }, {
-        value: 2,
-        label: 'value2'
       }]
     }
   },

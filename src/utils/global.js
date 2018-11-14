@@ -3,6 +3,7 @@ const config = {
   // 应用名
   appNames: [{value: 1, label: '闪贷'}, {value: 2, label: '速贷'}, {value: 3, label: '应急现金'}, {value: 4, label: '惠花花'}, {value: 5, label: '秒购'}, {value: 6, label: '分多多'}],
   status: [{value: true, label: '有效'}, {value: false, label: '失效'}],
+  skip: [{value: true, label: '支持'}, {value: false, label: '不支持'}],
   userTags: [{value: 1, label: '全部用户'}, {value: 2, label: '仅注册用户'}, {value: 3, label: '审核失败用户'}, {value: 4, label: '过审未借款用户'}, {value: 5, label: '已借款用户'}, {value: 6, label: '逾期用户'}, {value: 7, label: '逾期7天未还款用户'}],
   terminals: [{value: 1, label: '全部'}, {value: 2, label: '安卓'}, {value: 3, label: 'IOS'}],
   position: [{value: 1, label: '借款页'}, {value: 2, label: '商场页'}, {value: 3, label: '提额页'}, {value: 4, label: '赚钱页'}, {value: 5, label: '我的页'}, {value: 6, label: '绑卡页'}, {value: 7, label: '身份认证页'}, {value: 8, label: '个人信息页'}, {value: 9, label: '信用认证页'}],
@@ -33,13 +34,7 @@ const formatUserTags = function (row, col, val) {
 }
 
 const formatStatus = function (row, col, val) {
-  let label = null
-  config.status.forEach(state => {
-    if (state.value === val) {
-      label = state.label
-    }
-  })
-  return label
+  return val ? '有效' : '失效'
 }
 
 const formatSkip = function (row, col, val) {
@@ -121,6 +116,7 @@ const formatDate = function (date, format) {
 
 exports.install = function (Vue, options) {
   Vue.prototype.globalConfig = config
+  Vue.prototype.formatAppNum = formatAppNum
   Vue.prototype.formatStatus = formatStatus
   Vue.prototype.formatSkip = formatSkip
   Vue.prototype.formatUserTags = formatUserTags
