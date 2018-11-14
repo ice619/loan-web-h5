@@ -4,6 +4,7 @@ import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
 import marketWindow from '@/views/marketWindow/list'
 import guide from '@/views/guide/guide_list'
+import transactionReminderConfig from '@/views/transactionReminderConfig/list'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/guide-page',
       name: 'guide',
       component: guide
+    },
+    {
+      path: '/transaction/reminder/config',
+      name: 'transactionReminderConfig',
+      component: transactionReminderConfig
     }
   ]
 })

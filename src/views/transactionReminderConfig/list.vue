@@ -26,18 +26,15 @@
       <el-table-column type="selection" width="40"/>
       <el-table-column prop="id" label="ID" header-align="center" align="center" width="50"/>
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" width="130" :formatter="formatAppNume"/>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center" width="150" :formatter="formatUserTags"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" width="130" :formatter="formatTerminals"/>
-      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="center" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="center" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" width="164"/>
+      <el-table-column prop="configType" label="提示类型" header-align="center" align="center" width="150" :formatter="formatConfigTypes"/>
+      <el-table-column prop="configType" label="图片链接" header-align="center" align="center" width="200" :formatter="configTypeImages"/>
+      <el-table-column prop="hint" label="提示语" header-align="center" align="center" width="200" />
+      <el-table-column prop="remark" label="备注" header-align="center" align="center" width="200"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" width="70" :formatter="formatStatus"/>
       <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" width="130"/>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" width="164"/>
       <el-table-column prop="createUser" label="创建人" header-align="center" align="center" width="130"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" width="130" :formatter="formatStatus"/>
-
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">更新</el-button>
@@ -56,12 +53,11 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :bannerWindow="bannerWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
+    <edit :ifshow="showEditFlag" :transactionReminderConfigWindow="transactionReminderConfigWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -91,7 +87,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/banner/page', params)
+        const res = await this.$http.post('/config/transaction/reminder/config/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -118,7 +114,7 @@ export default {
     },
     editBanner (row) {
       this.showEditFlag = true
-      this.bannerWindow = row
+      this.transactionReminderConfigWindow = row
     },
     removeBanner (row) {
       let selectIdsStr = ''
@@ -139,7 +135,7 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/config/banner/${selectIdsStr}`
+      const url = `/config/transaction/reminder/config/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
@@ -175,5 +171,6 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style scoped>
+
 </style>
