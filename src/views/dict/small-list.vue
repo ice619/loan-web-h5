@@ -45,7 +45,7 @@ export default {
   data () {
     return {
       searchForm: {
-        dictBigId: 168
+        dictBigId: null
       },
       dictSmall: null,
       tableData: [],
@@ -68,12 +68,18 @@ export default {
   },
   methods: {
     openDialog () {
-      this.searchForm.dictBigId = this.dictBig.id
+      if (this.dictBig) {
+        this.searchForm.dictBigId = this.dictBig.id
+        this.list()
+      }
     },
     closeDialog () {
       this.$emit('handleCloseDialog')
     },
     async list () {
+      if (!this.dictBig) {
+        return
+      }
       let params = {
         ...this.searchForm,
         pageIndex: this.pageIndex,
