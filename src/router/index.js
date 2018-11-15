@@ -68,7 +68,8 @@ router.beforeEach((to, from, next) => {
         Formatter.selections = res.data
         localStorage.selections = JSON.stringify(res.data)
       }
-    }).then(() => next())
+      next()
+    })
   }
 })
 
