@@ -16,7 +16,7 @@
         <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
+    <el-table ref="transactionReminderConfigTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="40"/>
       <el-table-column prop="id" label="ID" header-align="center" align="center" width="50"/>
@@ -32,8 +32,8 @@
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="164"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">更新</el-button>
-          <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
+          <el-button icon="el-icon-edit" @click="editTransactionReminderConfig(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-delete" @click="removeTransactionReminderConfig(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -60,7 +60,7 @@ export default {
         appName: null,
         status: null
       },
-      bannerWindow: {},
+      transactionReminderConfigWindow: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -106,11 +106,11 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editBanner (row) {
+    editTransactionReminderConfig (row) {
       this.showEditFlag = true
       this.transactionReminderConfigWindow = row
     },
-    removeBanner (row) {
+    removeTransactionReminderConfig (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -124,7 +124,7 @@ export default {
           return
         }
       } else {
-        this.$refs.iosCompanySignTable.clearSelection()
+        this.$refs.transactionReminderConfigTable.clearSelection()
         idsLength = 1
         this.selectIds.push(row.id)
         selectIdsStr = row.id
