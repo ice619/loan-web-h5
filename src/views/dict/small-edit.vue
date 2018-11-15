@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增/编辑数据字典小类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增/编辑数据字典小类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" modal-append-to-body append-to-body>
       <el-form :inline="true" :model="dictSmallForm" :rules="rules" ref="dictSmallForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">
