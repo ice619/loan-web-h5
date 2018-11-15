@@ -11,8 +11,8 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="小类中文名称">
-              <el-input v-model="dictSmallForm.dicSmallValue" placeholder="小类中文名称"></el-input>
+            <el-form-item label="小类值">
+              <el-input v-model="dictSmallForm.dicSmallValue" placeholder="小类值"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
