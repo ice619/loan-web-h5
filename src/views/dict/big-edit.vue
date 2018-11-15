@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增/编辑数据字典大类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog :title="dictBig ? '更新大类' : '新增大类'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="dictBigForm" :rules="rules" ref="dictBigForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">
