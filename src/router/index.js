@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
     Formatter.selections = JSON.parse(selectionsStr)
     next()
   } else {
-    fetch.get('/config/dic-big/selections').then(res => {
+    fetch.get('/config/dict-big/selections').then(res => {
       Formatter.selections = res.data
       localStorage.selections = JSON.stringify(res.data)
     }).then(() => next())
