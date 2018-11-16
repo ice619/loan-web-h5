@@ -5,5 +5,5 @@ const devEnv = require('./dev.env')
 module.exports = merge(devEnv, {
   NODE_ENV: '"production"',
   ENV_CONFIG: '"sit"',
-  API_ROOT:'"//test06.xnshandai.net/rest"'
+  API_ROOT:'"//devfdd.51huihuahua.com"'
 })
