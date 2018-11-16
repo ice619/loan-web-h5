@@ -19,7 +19,11 @@
       <el-table-column prop="id" label="序号" header-align="center" align="center"/>
       <el-table-column prop="dicBigCode" label="大类编码" header-align="center" align="center"/>
       <el-table-column prop="dicBigValue" label="大类中文名称" header-align="center" align="center"/>
-      <el-table-column prop="dicBigStaues" label="大类使用状态" header-align="center" align="center"/>
+      <el-table-column prop="dicBigStaues" label="大类使用状态" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span :style="{color: scope.row.dicBigStaues === '1' ? '#13ce66' : '#ff4949'}">{{scope.row.dicBigStaues === '1' ? '正常' : '停用'}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center"/>
