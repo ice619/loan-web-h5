@@ -128,13 +128,13 @@
             </el-row>
           </div>
           <el-table :data="bannerDetails" v-model="bannerDetails" height="250" border style="width: 100%">
-            <el-table-column type="index" header-align="center" align="center" width="50"></el-table-column>
-            <el-table-column prop="title" header-align="center" align="center" label="标题" width="150"></el-table-column>
-            <el-table-column prop="sort" header-align="center" align="center" label="排序值"  width="80"></el-table-column>
-            <el-table-column prop="activityCode" header-align="center" align="center" label="活动编号" width="150"></el-table-column>
-            <el-table-column prop="activityUrl" header-align="center" align="center" label="活动链接" width="150"></el-table-column>
+            <el-table-column type="index" header-align="center" align="left" width="50"></el-table-column>
+            <el-table-column prop="title" header-align="center" align="left" label="标题" width="150"></el-table-column>
+            <el-table-column prop="sort" header-align="center" align="left" label="排序值"  width="80"></el-table-column>
+            <el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" width="150"></el-table-column>
+            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接" width="150"></el-table-column>
             <el-table-column prop="imageUrl" label="图片地址" width="750"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="120">
+            <el-table-column fixed="right" header-align="center" align="center" label="操作" width="60">
               <template slot-scope="scope">
                 <el-button
                   @click.native.prevent="deleteRow(scope.$index, bannerDetails)"
