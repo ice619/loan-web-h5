@@ -16,15 +16,19 @@
     </el-form>
     <el-table ref="guidePageTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <!--<el-table-column type="selection" width="55"/>-->
-      <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="appName" :formatter="formatAppNum" label="APP平台" header-align="center" align="center"/>
-      <el-table-column prop="title" label="标题" header-align="center" align="center"/>
-      <el-table-column prop="skip" :formatter="formatSkip" label="是否支持跳过" header-align="center" align="center"/>
-      <el-table-column prop="terminal" :formatter="formatTerminal" label="生效终端" header-align="center" align="center"/>
-      <el-table-column prop="versionLowerLimit" :formatter="formatVersions" label="开始版本" header-align="center" align="center"/>
-      <el-table-column prop="versionUpperLimit" :formatter="formatVersions" label="结束版本" header-align="center" align="center"/>
-      <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center"/>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column prop="id" label="序号" header-align="center" align="center" min-width="50"/>
+      <el-table-column prop="appName" :formatter="formatAppNume" label="APP平台" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="title" label="标题" header-align="center" align="center" min-width="250"/>
+      <el-table-column prop="skip" :formatter="formatSkip" label="是否支持跳过" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="terminal" :formatter="formatTerminal" label="生效终端" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="versionLowerLimit" :formatter="formatVersions" label="版本号下限" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="versionUpperLimit" :formatter="formatVersions" label="版本号上限" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center" min-width="60"/>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="120"/>
+      <el-table-column label="操作" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeVariable(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
@@ -71,9 +75,6 @@ export default {
       }, {
         value: 3,
         label: 'IOS'
-      }, {
-        value: 4,
-        label: '未知'
       }]
     }
   },

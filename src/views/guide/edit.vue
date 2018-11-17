@@ -1,7 +1,7 @@
 <template>
   <div class="border">
-    <el-dialog title="修改引导页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%" >
-      <el-form :inline="true" :model="guideForm" :rules="rules" ref="guideForm" label-width="100px" class="demo-form-inline">
+    <el-dialog title="修改引导页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
+      <el-form :inline="true" :model="guideForm" :rules="rules" ref="guideForm" label-width="100px" class="demo-form-inline"  style="margin-left: 60px">
         <el-row type="flex" justify="left">
           <el-col :span="40">
             <el-form-item label="APP平台">
@@ -17,6 +17,13 @@
               <el-select v-model="guideForm.terminal" clearable >
                 <el-option v-for="item in terminals" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="标题:">
+              <el-input v-model="guideForm.title" style="width: 400px"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -44,7 +51,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="状态:">
+            <el-form-item label="状态:" >
               <el-radio-group v-model="guideForm.status" :value="guideForm.status">
                 <el-radio :label="true">有效</el-radio>
                 <el-radio :label="false">无效</el-radio>
@@ -52,7 +59,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="left">
+        <el-row type="flex" justify="left" style="padding-left: 50px">
           <el-col :span="30">
             <el-upload
               ref="upload"
@@ -60,6 +67,7 @@
               :action="actionUrl"
               :on-remove="handleRemove"
               :on-success="handleSuccess"
+              :on-exceed="handleExceed"
               :file-list="picList"
               :limit="5"
               list-type="picture">
@@ -68,7 +76,7 @@
             </el-upload>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="left" style="padding-top: 20px">
+        <el-row type="flex" justify="left" style="padding-top: 20px;padding-left: 50px">
           <el-col :span="30">
             <el-form-item>
               <el-button type="primary" @click="saveGuidePage">提交</el-button>
@@ -121,11 +129,24 @@ export default {
     handleRemove (file, fileList) {
       this.urlHandler(fileList)
     },
+    handleExceed (files, fileList) {
+      this.$message({
+        message: '最多上传5张图片',
+        type: 'warning',
+        duration: 2000
+      })
+    },
     handleSuccess (response, file, fileList) {
       if (response.code !== '200') {
         this.$message.error('上传失败！' + response.message)
         this.$refs.upload.clearFiles()
         return
+      } else {
+        this.$message({
+          message: '上传成功',
+          type: 'success',
+          duration: 1000
+        })
       }
       this.urlHandler(fileList)
     },
