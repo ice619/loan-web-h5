@@ -1,7 +1,7 @@
 <template>
   <div class="border">
-    <el-dialog title="新增开关" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
-      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="100px" class="demo-form-inline">
+    <el-dialog title="新增开关" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
+      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="100px" class="demo-form-inline" style="padding-left: 40px">
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="APP平台:" align="left">
@@ -58,7 +58,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="left" style="padding-top: 20px">
+        <el-row type="flex" justify="left" style="padding-top: 20px;padding-left: 50px">
           <el-col :span="30">
             <el-form-item>
               <el-button type="primary" @click="saveVariable">提交</el-button>

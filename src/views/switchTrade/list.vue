@@ -19,15 +19,19 @@
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <!--<el-table-column type="selection" width="55"/>-->
-      <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="appName" :formatter="formatAppNum" label="APP平台" header-align="center" align="center"/>
-      <el-table-column prop="switchType" :formatter="formatSwitchType" label="开关类型" header-align="center" align="center"/>
-      <el-table-column prop="versionLowerLimit" :formatter="formatVersions" label="开始版本" header-align="center" align="center"/>
-      <el-table-column prop="versionUpperLimit" :formatter="formatVersions" label="结束版本" header-align="center" align="center"/>
-      <el-table-column prop="userType" :formatter="formatUserType" label="用户类型" header-align="center" align="center"/>
-      <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
-      <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center"/>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column prop="id" label="序号" header-align="center" align="center" min-width="40"/>
+      <el-table-column prop="appName" :formatter="formatAppNume" label="APP平台" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="switchType" :formatter="formatSwitchType" label="开关类型" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="versionLowerLimit" :formatter="formatVersions" label="版本号下限" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="versionUpperLimit" :formatter="formatVersions" label="版本号上限" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="userType" :formatter="formatUserType" label="用户类型" header-align="center" align="center" min-width="60"/>
+      <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="200"/>
+      <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center" min-width="50"/>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" min-width="60"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="60"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="120"/>
+      <el-table-column label="操作" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeVariable(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
@@ -66,13 +70,13 @@ export default {
       showAddFlag: false,
       showEditFlag: false,
       userTypes: [{
-        value: 1,
+        value: 2,
         label: '全部'
       }, {
-        value: 2,
+        value: 0,
         label: '新用户'
       }, {
-        value: 3,
+        value: 1,
         label: '老用户'
       }],
       switchTypes: [{
