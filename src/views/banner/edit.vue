@@ -117,7 +117,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="图片">
-                  <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false"
+                  <el-upload :action="actionUrl" :show-file-list="false"
                              :on-change="handleFilesChange">
                     <i class="el-icon-plus avatar-uploader-icon"></i>
                     <el-input style="display: none" type="hidden" v-model="bannerForm.imageUrl"></el-input>
@@ -192,6 +192,31 @@ export default {
   },
   methods: {
     addBannerDetailsTableRows () {
+      if (this.bannerForm.title == null) {
+        this.$message.error('标题不能为空')
+        return
+      }
+
+      if (this.bannerForm.sort == null) {
+        this.$message.error('排序值不能为空')
+        return
+      }
+
+      if (this.bannerForm.activityCode == null) {
+        this.$message.error('活动编号不能为空')
+        return
+      }
+
+      if (this.bannerForm.activityUrl == null) {
+        this.$message.error('活动链接不能为空')
+        return
+      }
+
+      if (this.bannerForm.imageUrl == null) {
+        this.$message.error('图片不能为空')
+        return
+      }
+
       this.bannerDetails.push({
         title: this.bannerForm.title,
         sort: this.bannerForm.sort,
