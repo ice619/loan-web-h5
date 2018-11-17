@@ -27,22 +27,22 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="显示频率">
-              <el-select v-model="marketWindowForm.showFrequency" clearable placeholder="请选择">
-                <el-option v-for="item in showFrequencies" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
+            <el-form-item label="优先级">
+              <el-input-number style="width: 217px" v-model="marketWindowForm.priority" controls-position="right" :min="1" :max="999"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="标题">
-              <el-input style="width: 217px" v-model="marketWindowForm.title" placeholder="标题"></el-input>
+              <el-input style="width: 672px;" v-model="marketWindowForm.title" placeholder="标题"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="优先级">
-              <el-input-number style="width: 217px" v-model="marketWindowForm.priority" controls-position="right" :min="1" :max="999"></el-input-number>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="24">
+            <el-form-item label="弹窗链接">
+              <el-input style="width: 672px" v-model="marketWindowForm.popUrl" placeholder="弹窗链接"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -60,8 +60,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="弹窗链接">
-              <el-input style="width: 217px" v-model="marketWindowForm.popUrl" placeholder="弹窗链接"></el-input>
+            <el-form-item label="弹框位置">
+              <el-select v-model="marketWindowForm.popPosition" clearable placeholder="请选择">
+                <el-option v-for="item in globalConfig.positions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -79,23 +81,6 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="弹框位置">
-              <el-select v-model="marketWindowForm.popPosition" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.positions" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="状态">
-              <el-radio-group v-model="marketWindowForm.status">
-                <el-radio :label="true">有效</el-radio>
-                <el-radio :label="false">无效</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="12">
             <el-form-item label="弹窗图片">
               <el-row type="flex" justify="center">
                 <el-col :span="40">
@@ -107,7 +92,14 @@
               </el-row>
             </el-form-item>
           </el-col>
-          <el-col :span="12"></el-col>
+          <el-col :span="12">
+            <el-form-item label="状态">
+              <el-radio-group v-model="marketWindowForm.status">
+                <el-radio :label="true">有效</el-radio>
+                <el-radio :label="false">无效</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
