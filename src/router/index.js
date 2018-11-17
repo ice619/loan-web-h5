@@ -7,7 +7,7 @@ import banner from '@/views/banner/list'
 import marketWindow from '@/views/marketWindow/list'
 import transactionReminderConfig from '@/views/transactionReminderConfig/list'
 import guide from '@/views/guide/list'
-import switchTrade from '@/views/switchTrade/list'
+import transactionSwitch from '@/views/transactionSwitch/list'
 import dict from '@/views/dict/big-list'
 
 Vue.use(Router)
@@ -17,7 +17,7 @@ const router = new Router({
     {
       path: '/',
       name: 'index',
-      component: switchTrade
+      component: transactionSwitch
     },
     {
       path: '/ios-company-sign',
@@ -45,9 +45,9 @@ const router = new Router({
       component: transactionReminderConfig
     },
     {
-      path: '/switch-trade',
-      name: 'switchTrade',
-      component: switchTrade
+      path: '/transaction-switch',
+      name: 'transactionSwitch',
+      component: transactionSwitch
     },
     {
       path: '/dict',

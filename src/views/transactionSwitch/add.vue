@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="编辑引导页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%" >
+    <el-dialog title="新增开关" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="100px" class="demo-form-inline" style="padding-left: 40px">
         <el-row type="flex" justify="left">
           <el-col :span="30">
@@ -61,7 +61,7 @@
         <el-row type="flex" justify="left" style="padding-top: 20px;padding-left: 50px">
           <el-col :span="30">
             <el-form-item>
-              <el-button type="primary" @click="saveGuidePage">提交</el-button>
+              <el-button type="primary" @click="saveVariable">提交</el-button>
               <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
@@ -70,37 +70,47 @@
     </el-dialog>
   </div>
 </template>
+
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
-
 export default {
   props: {
     'ifshow': Boolean,
-    'entry': Object,
     'userTypes': Array,
     'switchTypes': Array
   },
-  data () {
+  data: function () {
     return {
+      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
+      entryFormInitForm: {
+        id: '',
+        appName: '',
+        switchType: '',
+        versionLowerLimit: '',
+        versionUpperLimit: '',
+        userType: '',
+        remark: '',
+        status: false
+      },
       entryForm: {},
       rules: {},
-      picList: [],
-      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`
+      dialogVisible: false,
+      displayFlag: true
     }
   },
   methods: {
     openDialog () {
-      this.entryForm = clone(this.entry)
+      this.entryForm = clone(this.entryFormInitForm)
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
       this.$emit('handleCloseDialog')
     },
-    saveGuidePage: debounce(300, function () {
+    saveVariable: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         // if (valid) {
-        //   this.$confirm('确认更新吗？', '提示', {type: 'warning'}).then(async () => {
+        //   this.$confirm('确认新增吗？', '提示', {type: 'warning'}).then(async () => {
         //   }).catch(() => {
         //   })
         // }
@@ -110,9 +120,9 @@ export default {
               this.$message.error('开始版本号不能大于结束版本号')
               return
             }
-            const res = await this.$http.put('/config/switch-trade', this.entryForm)
+            const res = await this.$http.post('/config/transaction-switch', this.entryForm)
             if (res.code === '200') {
-              this.$message.success('更新成功!')
+              this.$message.success('新增成功!')
               this.closeDialog()
             } else {
               this.$message.error(res.message)
@@ -126,28 +136,18 @@ export default {
   }
 }
 </script>
-<style scoped lang="stylus">
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
+
+<style lang="stylus">
+  .el-upload-list--picture-card .el-upload-list__item {
     overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+    background-color: #fff;
+    border: 1px solid #c0ccda;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 330px;
+    height: 500px;
+    margin: 0 8px 8px 0;
+    display: inline-block;
   }
 </style>
