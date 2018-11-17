@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增运营弹窗" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑运营弹窗" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="marketWindowForm" :rules="rules" ref="marketWindowForm" label-width="100px" class="demo-form-inline">
         <el-row>
           <el-col :span="12">

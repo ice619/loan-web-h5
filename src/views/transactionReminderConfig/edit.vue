@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="修改交易提醒配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑交易提醒配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="transactionReminderConfigForm" :rules="rules" ref="transactionReminderConfigForm"
                label-width="100px"
                class="demo-form-inline">
