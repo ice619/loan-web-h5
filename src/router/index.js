@@ -40,7 +40,7 @@ const router = new Router({
       component: guide
     },
     {
-      path: '/transaction/reminder/config',
+      path: '/transaction-reminder-config',
       name: 'transactionReminderConfig',
       component: transactionReminderConfig
     },

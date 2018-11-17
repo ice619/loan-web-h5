@@ -2,17 +2,15 @@
   <div class="border">
     <el-dialog title="新增运营弹窗" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="marketWindowForm" :rules="rules" ref="marketWindowForm" label-width="100px" class="demo-form-inline">
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="应用名称">
               <el-select v-model="marketWindowForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="12">
             <el-form-item label="生效终端">
               <el-select v-model="marketWindowForm.terminal" clearable placeholder="请选择">
                 <el-option v-for="item in globalConfig.terminals" :key="item.value" :label="item.label" :value="item.value"/>
@@ -21,16 +19,14 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="12">
             <el-form-item label="用户标签">
               <el-select v-model="marketWindowForm.userTag" clearable placeholder="请选择">
                 <el-option v-for="item in globalConfig.userTags" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="12">
             <el-form-item label="显示频率">
               <el-select v-model="marketWindowForm.showFrequency" clearable placeholder="请选择">
                 <el-option v-for="item in showFrequencies" :key="item.value" :label="item.label" :value="item.value"/>
@@ -39,76 +35,67 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="12">
             <el-form-item label="标题">
-              <el-input v-model="marketWindowForm.title" placeholder="标题"></el-input>
+              <el-input style="width: 217px" v-model="marketWindowForm.title" placeholder="标题"></el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="12">
             <el-form-item label="优先级">
-              <el-input-number v-model="marketWindowForm.priority" controls-position="right" :min="1" :max="999"></el-input-number>
+              <el-input-number style="width: 217px" v-model="marketWindowForm.priority" controls-position="right" :min="1" :max="999"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-        <el-col :span="40">
-          <el-form-item label="版本号下限">
-            <el-select v-model="marketWindowForm.versionLowerLimit" clearable placeholder="请选择">
-              <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="center">
-        <el-col :span="40">
-          <el-form-item label="版本号上限">
-            <el-select v-model="marketWindowForm.versionUpperLimit" clearable placeholder="请选择">
-              <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="弹窗链接">
-              <el-input v-model="marketWindowForm.popUrl" placeholder="弹窗链接"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="开始时间">
-              <el-date-picker v-model="marketWindowForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="结束时间">
-              <el-date-picker v-model="marketWindowForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="弹框位置">
-              <el-select v-model="marketWindowForm.popPosition" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.position" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-col :span="12">
+            <el-form-item label="版本号下限">
+              <el-select style="width: 107px;" v-model="marketWindowForm.versionLowerLimit" clearable placeholder="请选择">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+              <el-select style="width: 107px;" v-model="marketWindowForm.versionUpperLimit" clearable placeholder="请选择">
+                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label"
+                           :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="状态">
-              <el-switch style="margin: 10px;" v-model="marketWindowForm.status" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+          <el-col :span="12">
+            <el-form-item label="弹窗链接">
+              <el-input style="width: 217px" v-model="marketWindowForm.popUrl" placeholder="弹窗链接"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="12">
+            <el-form-item label="开始时间">
+              <el-date-picker style="width: 217px" v-model="marketWindowForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="结束时间">
+              <el-date-picker style="width: 217px" v-model="marketWindowForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item label="弹框位置">
+              <el-select v-model="marketWindowForm.popPosition" clearable placeholder="请选择">
+                <el-option v-for="item in globalConfig.positions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="状态">
+              <el-radio-group v-model="marketWindowForm.status">
+                <el-radio :label="true">有效</el-radio>
+                <el-radio :label="false">无效</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="12">
             <el-form-item label="弹窗图片">
               <el-row type="flex" justify="center">
                 <el-col :span="40">
@@ -120,12 +107,13 @@
               </el-row>
             </el-form-item>
           </el-col>
+          <el-col :span="12"></el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item>
-              <el-button @click="closeDialog">取消</el-button>
-              <el-button type="primary" @click="saveMarketWindow">确定</el-button>
+              <el-button type="primary" @click="saveMarketWindow">提交</el-button>
+              <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
         </el-row>

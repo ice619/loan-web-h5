@@ -12,31 +12,30 @@
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="list">搜索</el-button>
         <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
-        <el-button type="danger" icon="el-icon-delete" @click="removeMarketWindow">删除</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"/>
-      <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('APP_NAME', scope.row.appName)}}</span>
-        </template>
+      <el-table-column prop="id" label="ID" header-align="center" align="left" width="50"/>
+      <el-table-column prop="appName" label="应用名称" header-align="center" align="left" width="100" :formatter="formatAppNume">
+        <!--<template slot-scope="scope">-->
+          <!--<span>{{$formatter.simpleFormatSelection('APP_NAME', scope.row.appName)}}</span>-->
+        <!--</template>-->
       </el-table-column>
-      <el-table-column prop="title" label="标题" header-align="center" align="center"/>
-      <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="center"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center"/>
-      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="center"/>
-      <el-table-column prop="imageUrl" label="图片" header-align="center" align="center"/>
-      <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="center"/>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"/>
-      <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="$formatter.formatSelection"/>
+      <el-table-column prop="title" label="标题" header-align="center" align="left" width="240"/>
+      <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="left" width="118" :formatter="formatPositions"/>
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" width="80" :formatter="formatTerminals"/>
+      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="versionUpperLimit" label="版本上限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="imageUrl" label="图片" header-align="center" align="left" width="300"/>
+      <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="left" width="300"/>
+      <el-table-column prop="startTime" label="开始时间" header-align="center" align="left"/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="left"/>
+      <el-table-column prop="priority" label="优先级" header-align="center" align="left" width="65"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="left" width="65" :formatter="formatStatus"/>
 
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editMarketWindow(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-edit" @click="editMarketWindow(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeMarketWindow(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
