@@ -24,8 +24,8 @@
       <el-table-column prop="title" label="标题" header-align="center" align="left" width="240"/>
       <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="left" width="118" :formatter="formatPositions"/>
       <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" width="80" :formatter="formatTerminals"/>
-      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="left" align="center" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="versionUpperLimit" label="版本上限" header-align="left" align="center" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="versionUpperLimit" label="版本上限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
       <el-table-column prop="imageUrl" label="图片" header-align="center" align="left" width="300"/>
       <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="left" width="300"/>
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="left"/>
