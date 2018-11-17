@@ -80,24 +80,28 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="12">
-            <el-form-item label="弹窗图片">
-              <el-row type="flex" justify="center">
-                <el-col :span="40">
-                  <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
-                    <img v-if="marketWindowForm.imageUrl" :src="marketWindowForm.imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                  </el-upload>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="状态">
               <el-radio-group v-model="marketWindowForm.status">
                 <el-radio :label="true">有效</el-radio>
                 <el-radio :label="false">无效</el-radio>
               </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="24">
+            <el-form-item label="弹窗图片">
+              <el-upload
+                class="upload-demo"
+                :action="actionUrl"
+                :on-change="handleFilesChange"
+                limit="1"
+                :file-list="picList"
+                list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传1张图</div>
+              </el-upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -124,6 +128,7 @@ export default {
   },
   data () {
     return {
+      picList: [],
       marketWindowForm: {},
       rules: {},
       actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
@@ -139,7 +144,7 @@ export default {
   methods: {
     openDialog () {
       this.marketWindowForm = clone(this.marketWindow)
-      console.log(JSON.stringify(this.marketWindowForm))
+      this.picList = [{name: '1.png', url: this.marketWindowForm.imageUrl}]
     },
     closeDialog () {
       this.$refs['marketWindowForm'].resetFields()
