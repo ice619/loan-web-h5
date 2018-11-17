@@ -96,11 +96,11 @@
                 class="upload-demo"
                 :action="actionUrl"
                 :on-change="handleFilesChange"
-                limit="1"
+                :on-exceed="handleFilesExceed"
+                :limit= 1
                 :file-list="picList"
                 list-type="picture">
                 <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传1张图</div>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -150,6 +150,9 @@ export default {
       this.$refs['marketWindowForm'].resetFields()
       this.$emit('handleCloseDialog')
     },
+    handleFilesExceed (response, file, fileList) {
+      this.$message.error('上传文件超过限制，请先删除在重新上传!')
+    },
     handleFilesChange (file, fileList) {
       if (fileList.length > 1) {
         fileList.shift()
@@ -165,6 +168,17 @@ export default {
         //   }).catch(() => {
         //   })
         // }
+
+        if (this.marketWindowForm.versionLowerLimit > this.marketWindowForm.versionUpperLimit) {
+          this.$message.error('开始版本要小于结束版本')
+          return
+        }
+
+        if (this.marketWindowForm.startTime > this.marketWindowForm.endTime) {
+          this.$message.error('开始时间要小于结束时间')
+          return
+        }
+
         if (valid) {
           try {
             this.marketWindowForm.showFrequency = 0
