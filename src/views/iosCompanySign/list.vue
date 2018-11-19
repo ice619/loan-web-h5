@@ -23,7 +23,7 @@
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注说明" header-align="center" align="center"/>
+      <el-table-column prop="remark" label="备注说明" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"/>
 
