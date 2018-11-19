@@ -13,7 +13,7 @@
               <el-col :span="24">
                 <el-form-item label="应用名称">
                   <el-select v-model="transactionReminderConfigForm.appName" clearable placeholder="请选择">
-                    <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label"
+                    <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                                :value="item.value"/>
                   </el-select>
                 </el-form-item>
@@ -23,7 +23,7 @@
               <el-col :span="24">
                 <el-form-item label="配置类型">
                   <el-select v-model="transactionReminderConfigForm.configType" @change="changeConfigType" clearable placeholder="请选择">
-                    <el-option v-for="item in globalConfig.configTypes" :key="item.value" :label="item.label"
+                    <el-option v-for="item in $formatter.getSelectionOptions('configTypes')" :key="item.value" :label="item.label"
                                :value="item.value"/>
                   </el-select>
                 </el-form-item>
@@ -101,7 +101,7 @@ export default {
       this.$emit('handleCloseDialog')
     },
     changeConfigType () {
-      this.transactionReminderConfigForm.imageUrl = this.configTypeImages('', '', this.transactionReminderConfigForm.configType)
+      this.transactionReminderConfigForm.imageUrl = this.$formatter.simpleFormatSelection('configTypeImages', this.transactionReminderConfigForm.configType)
     },
     saveTransactionReminderConfig: debounce(300, function () {
       this.$refs['transactionReminderConfigForm'].validate(async (valid) => {
