@@ -15,23 +15,43 @@
       </el-form-item>
     </el-form>
     <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="id" label="ID" header-align="center" align="left" width="50"/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="left" width="90" :formatter="formatAppNume">
-        <!--<template slot-scope="scope">-->
-          <!--<span>{{$formatter.simpleFormatSelection('APP_NAME', scope.row.appName)}}</span>-->
-        <!--</template>-->
+      <el-table-column prop="id" label="ID" header-align="center" align="left"/>
+      <el-table-column prop="appName" label="应用名称" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
+        </template>
       </el-table-column>
-      <el-table-column prop="title" label="标题" header-align="center" align="left" width="240"/>
-      <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="left" width="118" :formatter="formatPositions"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" width="80" :formatter="formatTerminals"/>
-      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="versionUpperLimit" label="版本上限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="imageUrl" label="图片" header-align="center" align="left" width="250"/>
-      <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="left" width="250"/>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="left" width="164"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="left" width="164"/>
-      <el-table-column prop="priority" label="优先级" header-align="center" align="left" width="65"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="left" width="65" :formatter="formatStatus"/>
+      <el-table-column prop="title" label="标题" header-align="center" align="left" show-overflow-tooltip/>
+      <el-table-column prop="popPosition" label="弹框位置" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('marketPositions', scope.row.popPosition)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('terminals', scope.row.terminal)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionLowerLimit)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="versionUpperLimit" label="版本上限" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionUpperLimit)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="imageUrl" label="图片" header-align="center" align="left" show-overflow-tooltip/>
+      <el-table-column prop="popUrl" label="跳转链接" header-align="center" align="left" show-overflow-tooltip/>
+      <el-table-column prop="startTime" label="开始时间" header-align="center" align="left"/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="left"/>
+      <el-table-column prop="priority" label="优先级" header-align="center" align="left"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
