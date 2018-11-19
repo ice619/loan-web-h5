@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog :title="dictSmall ? '更新小类' : '新增小类'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" append-to-body>
+    <el-dialog :title="dictSmall ? '编辑小类' : '新增小类'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" append-to-body>
       <el-form :inline="true" :model="dictSmallForm" :rules="rules" ref="dictSmallForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">
@@ -33,8 +33,8 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item>
-              <el-button @click="closeDialog">取消</el-button>
-              <el-button type="primary" @click="saveDictSmall">确定</el-button>
+              <el-button type="primary" @click="saveDictSmall">提交</el-button>
+              <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
         </el-row>

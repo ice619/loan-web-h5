@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="编辑引导页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%" >
+    <el-dialog title="编辑交易开关" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%" >
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="100px" class="demo-form-inline" style="padding-left: 40px">
         <el-row type="flex" justify="left">
           <el-col :span="30">
