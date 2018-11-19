@@ -30,7 +30,7 @@
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editDictBig(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-edit" @click="editDictBig(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-edit" @click="showSmallList(scope.row)" type="text" size="small">配置小类</el-button>
         </template>
       </el-table-column>
