@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="修改banner配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑banner配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="bannerForm" :rules="rules" ref="bannerForm" label-width="100px"
                class="demo-form-inline">
         <el-input style="display: none" type="hidden" v-model="bannerForm.id"></el-input>
@@ -50,7 +50,7 @@
           <el-col :span="12">
             <el-form-item label="banner位置">
               <el-select v-model="bannerForm.position" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.position" :key="item.value" :label="item.label"
+                <el-option v-for="item in globalConfig.positions" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -58,7 +58,7 @@
           <el-col :span="12">
             <el-form-item label="显示位置">
               <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.displayPosition" :key="item.value" :label="item.label"
+                <el-option v-for="item in globalConfig.displayPositions" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -78,7 +78,18 @@
             </el-form-item>
           </el-col>
         </el-row>
-
+        <el-row type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item label="状态">
+              <el-radio-group v-model="bannerForm.status">
+                <el-radio :label="true">有效</el-radio>
+                <el-radio :label="false">无效</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+          </el-col>
+        </el-row>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <el-row>
@@ -106,7 +117,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="图片">
-                  <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false"
+                  <el-upload :action="actionUrl" :show-file-list="false"
                              :on-change="handleFilesChange">
                     <i class="el-icon-plus avatar-uploader-icon"></i>
                     <el-input style="display: none" type="hidden" v-model="bannerForm.imageUrl"></el-input>
@@ -119,16 +130,13 @@
             </el-row>
           </div>
           <el-table :data="bannerDetails" v-model="bannerDetails" height="250" border style="width: 1000px">
-            <el-table-column type="index" width="50"></el-table-column>
-            <el-table-column prop="title" label="标题" width="150"></el-table-column>
-            <el-table-column prop="sort" label="排序值" width="150"></el-table-column>
-            <el-table-column prop="activityCode" label="活动编号" width="150"></el-table-column>
-            <el-table-column prop="activityUrl" label="活动地址" width="150"></el-table-column>
+            <el-table-column type="index" header-align="center" align="left" width="50"></el-table-column>
+            <el-table-column prop="title" header-align="center" align="left" label="标题" width="150"></el-table-column>
+            <el-table-column prop="sort" header-align="center" align="left" label="排序值"  width="80"></el-table-column>
+            <el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" width="150"></el-table-column>
+            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接" width="150"></el-table-column>
             <el-table-column prop="imageUrl" label="图片地址" width="750"></el-table-column>
-            <el-table-column
-              fixed="right"
-              label="操作"
-              width="120">
+            <el-table-column fixed="right" label="操作" width="60">
               <template slot-scope="scope">
                 <el-button
                   @click.native.prevent="deleteRow(scope.$index, bannerDetails)"
@@ -140,19 +148,11 @@
             </el-table-column>
           </el-table>
         </el-card>
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="状态">
-              <el-switch style="margin: 10px;" v-model="bannerForm.status" :active-value="true"
-                         :inactive-value="false" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
+        <el-row type="flex" justify="center" style="margin-top: 10px">
           <el-col :span="40">
             <el-form-item>
-              <el-button type="primary" @click="saveBanner">确定</el-button>
-              <el-button @click="closeDialog">取消</el-button>
+              <el-button type="primary" @click="saveBanner">提交</el-button>
+              <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -192,6 +192,31 @@ export default {
   },
   methods: {
     addBannerDetailsTableRows () {
+      if (this.bannerForm.title == null) {
+        this.$message.error('标题不能为空')
+        return
+      }
+
+      if (this.bannerForm.sort == null) {
+        this.$message.error('排序值不能为空')
+        return
+      }
+
+      if (this.bannerForm.activityCode == null) {
+        this.$message.error('活动编号不能为空')
+        return
+      }
+
+      if (this.bannerForm.activityUrl == null) {
+        this.$message.error('活动链接不能为空')
+        return
+      }
+
+      if (this.bannerForm.imageUrl == null) {
+        this.$message.error('图片不能为空')
+        return
+      }
+
       this.bannerDetails.push({
         title: this.bannerForm.title,
         sort: this.bannerForm.sort,
@@ -237,11 +262,19 @@ export default {
         //   }).catch(() => {
         //   })
         // }
-        this.bannerForm.startTime = new Date(this.bannerForm.startTime).getTime()
-        this.bannerForm.endTime = new Date(this.bannerForm.endTime).getTime()
-        this.bannerForm.bannerDetails = this.bannerDetails
+        if (this.bannerForm.versionLowerLimit > this.bannerForm.versionUpperLimit) {
+          this.$message.error('开始版本要小于结束版本')
+          return
+        }
+
+        if (this.bannerForm.startTime > this.bannerForm.endTime) {
+          this.$message.error('开始时间要小于结束时间')
+          return
+        }
+
         if (valid) {
           try {
+            this.bannerForm.bannerDetails = this.bannerDetails
             const res = await this.$http.post('/config/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')

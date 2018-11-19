@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="更新IOS企业签" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑IOS企业签" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="iosCompanySignForm" :rules="rules" ref="iosCompanySignForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">

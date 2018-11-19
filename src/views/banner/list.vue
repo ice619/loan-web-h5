@@ -23,24 +23,24 @@
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="40"/>
       <el-table-column prop="id" label="ID" header-align="center" align="center" width="50"/>
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" width="130" :formatter="formatAppNume"/>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center" width="150" :formatter="formatUserTags"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" width="130" :formatter="formatTerminals"/>
-      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="center" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="center" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" width="130"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" width="130"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" width="130" :formatter="formatStatus"/>
-
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="left" width="104" :formatter="formatAppNume"/>
+      <el-table-column prop="userTag" label="用户标签" header-align="center" align="left" width="150" :formatter="formatUserTags"/>
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" width="80" :formatter="formatTerminals"/>
+      <el-table-column prop="position" label="banner位置" header-align="center" align="left" width="118" :formatter="formatPositions"/>
+      <el-table-column prop="displayPosition" label="显示位置" header-align="center" align="left" width="82" :formatter="formatDisplayPositions"/>
+      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="left" width="60" :formatter="formatStatus"/>
+      <el-table-column prop="startTime" label="开始时间" header-align="center" align="left" width="164"/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="left" width="164"/>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="left" width="110"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" width="164"/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="left" width="110"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" width="164"/>
+      <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>

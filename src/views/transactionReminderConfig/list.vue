@@ -18,21 +18,20 @@
     </el-form>
     <el-table ref="transactionReminderConfigTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="40"/>
       <el-table-column prop="id" label="ID" header-align="center" align="center" width="50"/>
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" width="130" :formatter="formatAppNume"/>
-      <el-table-column prop="configType" label="提示类型" header-align="center" align="center" width="150" :formatter="formatConfigTypes"/>
-      <el-table-column prop="configType" label="图片链接" header-align="center" align="center" width="200" :formatter="configTypeImages"/>
-      <el-table-column prop="hint" label="提示语" header-align="center" align="center" width="200" />
-      <el-table-column prop="remark" label="备注" header-align="center" align="center" width="200"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" width="70" :formatter="formatStatus"/>
-      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" width="130"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" width="164"/>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" width="130"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="164"/>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="left" width="104" :formatter="formatAppNume"/>
+      <el-table-column prop="configType" label="提示类型" header-align="center" align="left" width="204" :formatter="formatConfigTypes"/>
+      <el-table-column prop="configType" label="图片链接" header-align="center" align="left" width="297" :formatter="configTypeImages"/>
+      <el-table-column prop="hint" label="提示语" header-align="center" align="left" width="248" />
+      <el-table-column prop="remark" label="备注" header-align="center" align="left" width="214"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="left" width="70" :formatter="formatStatus"/>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="left" width="130"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" width="164"/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="left" width="130"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" width="164"/>
+      <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editTransactionReminderConfig(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-edit" @click="editTransactionReminderConfig(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeTransactionReminderConfig(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>

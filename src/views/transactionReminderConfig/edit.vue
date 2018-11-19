@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="修改交易提醒配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑交易提醒配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="transactionReminderConfigForm" :rules="rules" ref="transactionReminderConfigForm"
                label-width="100px"
                class="demo-form-inline">
@@ -8,7 +8,6 @@
         <el-container>
           <el-aside width="300px" style="border: solid 1px black">
             <img v-if="transactionReminderConfigForm.imageUrl" :src="transactionReminderConfigForm.imageUrl" style="width: 100%;height: 502px;">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-aside>
           <el-main>
             <el-row>
@@ -49,15 +48,17 @@
             <el-row type="flex" justify="center">
               <el-col :span="24">
                 <el-form-item label="状态">
-                  <el-switch style="margin: 10px;" v-model="transactionReminderConfigForm.status" :active-value="true"
-                             :inactive-value="false" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+                  <el-radio-group v-model="transactionReminderConfigForm.status">
+                    <el-radio :label="true">有效</el-radio>
+                    <el-radio :label="false">无效</el-radio>
+                  </el-radio-group>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row type="flex" justify="center">
               <el-col :span="40">
                 <el-form-item>
-                  <el-button type="primary" @click="saveTransactionReminderConfig">确定</el-button>
+                  <el-button type="primary" @click="saveTransactionReminderConfig">提交</el-button>
                   <el-button @click="closeDialog">取消</el-button>
                 </el-form-item>
               </el-col>

@@ -6,11 +6,11 @@ const config = {
   skip: [{value: true, label: '支持'}, {value: false, label: '不支持'}],
   userTags: [{value: 1, label: '全部用户'}, {value: 2, label: '仅注册用户'}, {value: 3, label: '审核失败用户'}, {value: 4, label: '过审未借款用户'}, {value: 5, label: '已借款用户'}, {value: 6, label: '逾期用户'}, {value: 7, label: '逾期7天未还款用户'}],
   terminals: [{value: 1, label: '全部'}, {value: 2, label: '安卓'}, {value: 3, label: 'IOS'}],
-  position: [{value: 1, label: '借款页'}, {value: 2, label: '商场页'}, {value: 3, label: '提额页'}, {value: 4, label: '赚钱页'}, {value: 5, label: '我的页'}, {value: 6, label: '绑卡页'}, {value: 7, label: '身份认证页'}, {value: 8, label: '个人信息页'}, {value: 9, label: '信用认证页'}],
-  displayPosition: [{value: 1, label: '页头'}, {value: 2, label: '页中'}, {value: 3, label: '页尾'}],
+  positions: [{value: 1, label: '借款页'}, {value: 2, label: '商场页'}, {value: 3, label: '提额页'}, {value: 4, label: '赚钱页'}, {value: 5, label: '我的页'}, {value: 6, label: '绑卡页'}, {value: 7, label: '身份认证页'}, {value: 8, label: '个人信息页'}, {value: 9, label: '信用认证页'}],
+  displayPositions: [{value: 1, label: '页头'}, {value: 2, label: '页中'}, {value: 3, label: '页尾'}],
   versions: [{value: 1, label: '1.8.0'}, {value: 2, label: '1.8.2'}, {value: 3, label: '1.8.3'}],
   configTypes: [{value: 1, label: '提现开关关闭提示语'}, {value: 2, label: '放款金额不足排队描述'}, {value: 3, label: '放款中显示描述'}, {value: 4, label: '支付宝还款页面注意事项描述'}],
-  configTypeImages: [{value: 1, label: 'http://fddimage.51huihuahua.com/image/user-withdrawal-master-switch.png'}, {value: 2, label: 'http://fddimage.51huihuahua.com/image/cash-ithdrawal-switch-prompt.png'}, {value: 3, label: 'http://fddimage.51huihuahua.com/image/show-description-in-loan.png'}, {value: 4, label: 'http://fddimage.51huihuahua.com/image/alipay-repayment-considerations.png'}]
+  configTypeImages: [{value: 1, label: 'http://fddimage.51huihuahua.com/image/cash-ithdrawal-switch-prompt.png'}, {value: 2, label: 'http://fddimage.51huihuahua.com/image/queue-page-switch.png'}, {value: 3, label: 'http://fddimage.51huihuahua.com/image/show-description-in-loan.png'}, {value: 4, label: 'http://fddimage.51huihuahua.com/image/alipay-repayment-considerations.png'}]
 }
 
 const formatAppNume = function (row, col, val) {
@@ -74,6 +74,26 @@ const formatConfigTypes = function (row, col, val) {
   return label
 }
 
+const formatPositions = function (row, col, val) {
+  let label = null
+  config.positions.forEach(position => {
+    if (position.value === val) {
+      label = position.label
+    }
+  })
+  return label
+}
+
+const formatDisplayPositions = function (row, col, val) {
+  let label = null
+  config.displayPositions.forEach(displayPosition => {
+    if (displayPosition.value === val) {
+      label = displayPosition.label
+    }
+  })
+  return label
+}
+
 const configTypeImages = function (row, col, val) {
   let label = null
   config.configTypeImages.forEach(configTypeImage => {
@@ -126,4 +146,6 @@ exports.install = function (Vue, options) {
   Vue.prototype.formatAppNume = formatAppNume
   Vue.prototype.formatConfigTypes = formatConfigTypes
   Vue.prototype.configTypeImages = configTypeImages
+  Vue.prototype.formatPositions = formatPositions
+  Vue.prototype.formatDisplayPositions = formatDisplayPositions
 }
