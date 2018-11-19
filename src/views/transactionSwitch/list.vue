@@ -20,33 +20,33 @@
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <!--<el-table-column type="selection" width="55"/>-->
       <el-table-column prop="id" label="序号" header-align="center" align="center" min-width="40"/>
-      <el-table-column prop="appName" :formatter="formatAppNume" label="APP平台" header-align="center" align="center" min-width="80">
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="switchType" :formatter="formatSwitchType" label="开关类型" header-align="center" align="center" min-width="120">
+      <el-table-column prop="switchType" label="开关类型" header-align="center" align="center" min-width="120">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('switchTypes', scope.row.switchType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionLowerLimit" :formatter="formatVersions" label="版本号下限" header-align="center" align="center" min-width="80">
+      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionLowerLimit)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionUpperLimit" :formatter="formatVersions" label="版本号上限" header-align="center" align="center" min-width="80">
+      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionUpperLimit)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="userType" :formatter="formatUserType" label="用户类型" header-align="center" align="center" min-width="60">
+      <el-table-column prop="userType" label="用户类型" header-align="center" align="center" min-width="60">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('userTypes', scope.row.userType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="200" show-overflow-tooltip/>
-      <el-table-column prop="status" :formatter="formatStatus" label="状态" header-align="center" align="center" min-width="50">
+      <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="50">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
         </template>
