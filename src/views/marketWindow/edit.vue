@@ -34,7 +34,7 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="24">
-            <el-form-item label="标题">
+            <el-form-item label="标题" prop="title">
               <el-input style="width: 672px;" v-model="marketWindowForm.title" placeholder="标题"></el-input>
             </el-form-item>
           </el-col>
@@ -121,7 +121,12 @@ export default {
   data () {
     return {
       marketWindowForm: {},
-      rules: {},
+      rules: {
+        title: [
+          { required: true, message: '请输入标题', trigger: 'blur' },
+          { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' }
+        ]
+      },
       actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
       showFrequencies: [{
         value: 1,

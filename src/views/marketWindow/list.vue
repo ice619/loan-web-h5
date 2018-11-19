@@ -98,6 +98,12 @@ export default {
   },
   methods: {
     async list () {
+      if (this.searchForm.title) {
+        if (this.searchForm.title.length > 25) {
+          this.$message.error('字符长度不能超过25')
+          return
+        }
+      }
       let params = {
         ...this.searchForm,
         pageIndex: this.pageIndex,
