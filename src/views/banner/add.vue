@@ -7,7 +7,7 @@
           <el-col :span="12">
             <el-form-item label="应用名称">
               <el-select v-model="bannerForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -15,7 +15,7 @@
           <el-col :span="12">
             <el-form-item label="生效终端">
               <el-select v-model="bannerForm.terminal" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.terminals" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -25,7 +25,7 @@
           <el-col :span="12">
             <el-form-item label="用户标签">
               <el-select v-model="bannerForm.userTag" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.userTags" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -33,14 +33,14 @@
           <el-col :span="6">
             <el-form-item label="生效版本">
               <el-select style="width: 110px;" v-model="bannerForm.versionLowerLimit" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-select style="width: 110px;" v-model="bannerForm.versionUpperLimit" clearable placeholder="请选择">
-              <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label"
+              <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-col>
@@ -49,7 +49,7 @@
           <el-col :span="12">
             <el-form-item label="banner位置">
               <el-select v-model="bannerForm.position" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.positions" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -57,7 +57,7 @@
           <el-col :span="12">
             <el-form-item label="显示位置">
               <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.displayPositions" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>

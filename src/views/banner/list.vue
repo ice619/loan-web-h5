@@ -3,17 +3,17 @@
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="用户标签">
         <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
-          <el-option v-for="item in globalConfig.userTags" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="应用名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
-          <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="searchForm.status" clearable placeholder="请选择">
-          <el-option v-for="item in globalConfig.status" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('statuses')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -23,21 +23,53 @@
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column prop="id" label="ID" header-align="center" align="center" width="50"/>
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="left" width="104" :formatter="formatAppNume"/>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="left" width="150" :formatter="formatUserTags"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" width="80" :formatter="formatTerminals"/>
-      <el-table-column prop="position" label="banner位置" header-align="center" align="left" width="118" :formatter="formatPositions"/>
-      <el-table-column prop="displayPosition" label="显示位置" header-align="center" align="left" width="82" :formatter="formatDisplayPositions"/>
-      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="left" width="100" :formatter="formatVersions"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="left" width="60" :formatter="formatStatus"/>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="left" width="164"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="left" width="164"/>
-      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="left" width="110"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" width="164"/>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="left" width="110"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" width="164"/>
+      <el-table-column prop="id" label="ID" header-align="center" align="center"/>
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="left">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="userTag" label="用户标签" header-align="center" align="left" :formatter="formatUserTags">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('userTags', scope.row.userTag)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" :formatter="formatTerminals">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('terminals', scope.row.terminal)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="position" label="banner位置" header-align="center" align="left" :formatter="formatPositions">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('bannerPositions', scope.row.position)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="displayPosition" label="显示位置" header-align="center" align="left" :formatter="formatDisplayPositions">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('displayPositions', scope.row.displayPosition)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="left" :formatter="formatVersions">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionLowerLimit)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="left" :formatter="formatVersions">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionUpperLimit)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="status" label="状态" header-align="center" align="left" :formatter="formatStatus">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="startTime" label="开始时间" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="left"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="left"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" min-width="90"/>
       <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">编辑</el-button>
