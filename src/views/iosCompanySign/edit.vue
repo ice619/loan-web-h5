@@ -15,7 +15,7 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="40">
+          <el-col :span="40" style="margin-left: -22px">
             <el-form-item label="下载链接">
               <el-input v-model="iosCompanySignForm.url" placeholder="下载链接"></el-input>
             </el-form-item>
@@ -30,7 +30,7 @@
           <el-col :span="40">
             <el-form-item label="应用名称">
               <el-select v-model="iosCompanySignForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('APP_NAME')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -43,15 +43,18 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="状态">
-              <el-switch style="margin: 10px;" v-model="iosCompanySignForm.status" :active-value="true" :inactive-value="false" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+              <el-radio-group v-model="iosCompanySignForm.status">
+                <el-radio :label="true">有效</el-radio>
+                <el-radio :label="false">无效</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item>
-              <el-button @click="closeDialog">取消</el-button>
-              <el-button type="primary" @click="saveIosCompanySign">确定</el-button>
+              <el-button type="primary" @click="saveIosCompanySign">提交</el-button>
+              <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
         </el-row>

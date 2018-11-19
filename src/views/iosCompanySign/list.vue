@@ -13,10 +13,14 @@
       <el-table-column prop="urlKey" label="下载链接key" header-align="center" align="center"/>
       <el-table-column prop="url" label="下载链接" header-align="center" align="center"/>
       <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center" :formatter="$formatter.formatSelection"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('APP_NAME', scope.row.appName)}}</span>
+          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注说明" header-align="center" align="center"/>
@@ -25,7 +29,7 @@
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editIosCompanySign(scope.row)" type="text" size="small">更新</el-button>
+          <el-button icon="el-icon-edit" @click="editIosCompanySign(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeIosCompanySign(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
