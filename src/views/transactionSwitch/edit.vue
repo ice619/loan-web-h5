@@ -6,7 +6,7 @@
           <el-col :span="30">
             <el-form-item label="APP平台:" align="left">
               <el-select v-model="entryForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in globalConfig.appNames" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -15,7 +15,7 @@
           <el-col :span="30">
             <el-form-item label="开关类型:" align="left">
               <el-select v-model="entryForm.switchType" clearable placeholder="请选择" style="width: 400px" >
-                <el-option v-for="item in switchTypes" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('switchTypes')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -24,10 +24,10 @@
           <el-col :span="30">
             <el-form-item label="针对版本:">
               <el-select v-model="entryForm.versionLowerLimit" clearable style="width: 120px">
-                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${entryForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
               <el-select v-model="entryForm.versionUpperLimit" clearable style="width: 120px">
-                <el-option v-for="item in globalConfig.versions" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${entryForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -36,7 +36,7 @@
           <el-col :span="30">
             <el-form-item label="用户类型:">
               <el-select v-model="entryForm.userType" clearable >
-                <el-option v-for="item in userTypes" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('userTypes')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
