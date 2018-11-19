@@ -64,7 +64,7 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     fetch.get('/config/dict-big/selections').then(res => {
-      if (res && res.status === '200') {
+      if (res && res.code === '200') {
         Formatter.selections = res.data
         localStorage.selections = JSON.stringify(res.data)
       }
