@@ -92,15 +92,9 @@
         <el-row type="flex" justify="center">
           <el-col :span="24">
             <el-form-item label="弹窗图片">
-              <el-upload
-                class="upload-demo"
-                :action="actionUrl"
-                :on-change="handleFilesChange"
-                :on-exceed="handleFilesExceed"
-                :limit= 1
-                :file-list="picList"
-                list-type="picture">
-                <el-button size="small" type="primary">点击上传</el-button>
+              <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
+                <img v-if="marketWindowForm.imageUrl" :src="marketWindowForm.imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -128,7 +122,6 @@ export default {
   },
   data () {
     return {
-      picList: [],
       marketWindowForm: {},
       rules: {},
       actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
@@ -144,7 +137,6 @@ export default {
   methods: {
     openDialog () {
       this.marketWindowForm = clone(this.marketWindow)
-      this.picList = [{name: '1.png', url: this.marketWindowForm.imageUrl}]
     },
     closeDialog () {
       this.$refs['marketWindowForm'].resetFields()
@@ -162,23 +154,20 @@ export default {
       }
     },
     saveMarketWindow: debounce(300, function () {
+      if (this.marketWindowForm.versionLowerLimit > this.marketWindowForm.versionUpperLimit) {
+        this.$message.error('开始版本要小于结束版本')
+        return
+      }
+      if (this.marketWindowForm.startTime > this.marketWindowForm.endTime) {
+        this.$message.error('开始时间要小于结束时间')
+        return
+      }
       this.$refs['marketWindowForm'].validate(async (valid) => {
         // if (valid) {
         //   this.$confirm('确认更新吗？', '提示', {type: 'warning'}).then(async () => {
         //   }).catch(() => {
         //   })
         // }
-
-        if (this.marketWindowForm.versionLowerLimit > this.marketWindowForm.versionUpperLimit) {
-          this.$message.error('开始版本要小于结束版本')
-          return
-        }
-
-        if (this.marketWindowForm.startTime > this.marketWindowForm.endTime) {
-          this.$message.error('开始时间要小于结束时间')
-          return
-        }
-
         if (valid) {
           try {
             this.marketWindowForm.showFrequency = 0
