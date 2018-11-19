@@ -29,37 +29,37 @@
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="left" :formatter="formatUserTags">
+      <el-table-column prop="userTag" label="用户标签" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('userTags', scope.row.userTag)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left" :formatter="formatTerminals">
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('terminals', scope.row.terminal)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="position" label="banner位置" header-align="center" align="left" :formatter="formatPositions">
+      <el-table-column prop="position" label="banner位置" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('bannerPositions', scope.row.position)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="displayPosition" label="显示位置" header-align="center" align="left" :formatter="formatDisplayPositions">
+      <el-table-column prop="displayPosition" label="显示位置" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('displayPositions', scope.row.displayPosition)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="left" :formatter="formatVersions">
+      <el-table-column prop="versionLowerLimit" label="版本号下限" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionLowerLimit)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="left" :formatter="formatVersions">
+      <el-table-column prop="versionUpperLimit" label="版本号上限" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionUpperLimit)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="status" label="状态" header-align="center" align="left" :formatter="formatStatus">
+      <el-table-column prop="status" label="状态" header-align="center" align="left">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
         </template>
