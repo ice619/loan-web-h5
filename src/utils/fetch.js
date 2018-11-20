@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-expressions */
 import FetchDog from 'fetch-dog'
+import Cookies from 'js-cookie'
 
 FetchDog.prototype.put = function (url, data, options) {
   return this.create({
@@ -21,6 +23,9 @@ FetchDog.prototype.delete = function (url, data, options) {
 const fd = new FetchDog({fetch, Headers})
 
 fd.interceptors.request.push(req => {
+  const sessionIdKey = 'xxl_sso_sessionid'
+  const sessionId = Cookies.get(sessionIdKey)
+  sessionId ? req.headers.set(sessionIdKey, sessionId) : null
   req.url = req.url.indexOf('http') >= 0 ? req.url : process.env.API_ROOT + req.url
   return req
 })
