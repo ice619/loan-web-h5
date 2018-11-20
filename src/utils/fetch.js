@@ -27,12 +27,11 @@ fd.interceptors.request.push(req => {
 fd.interceptors.response.push(async response => {
   await checkStatus(response)
   let res = await parseJSON(response)
-  switch (res.code) {
-    case '00001':
-      break
-    default:
-      return res
+  if (res.code === 501) {
+    parent.location.href = `${process.env.API_ROOT}/umanagement/login`
+    return
   }
+  return res
 })
 export default fd
 
