@@ -1,5 +1,5 @@
 import FetchDog from 'fetch-dog'
-import Cookies from 'js-cookie'
+import VueCookies from 'vue-cookies'
 
 FetchDog.prototype.put = function (url, data, options) {
   return this.create({
@@ -22,8 +22,8 @@ FetchDog.prototype.delete = function (url, data, options) {
 const fd = new FetchDog({fetch, Headers})
 
 fd.interceptors.request.push(req => {
-  const sessionIdKey = 'xxl_sso_sessionid'
-  req.headers.set(sessionIdKey, Cookies.get(sessionIdKey))
+  const sessionIdKey = 'xxl_sso_user'
+  req.headers.set(sessionIdKey, VueCookies.get(sessionIdKey))
   req.url = req.url.indexOf('http') >= 0 ? req.url : process.env.API_ROOT + req.url
   return req
 })
