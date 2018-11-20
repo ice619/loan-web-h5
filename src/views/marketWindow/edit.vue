@@ -48,7 +48,7 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="版本号下限">
+            <el-form-item label="生效版本">
               <el-select style="width: 107px;" v-model="marketWindowForm.versionLowerLimit" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions(`versions_${marketWindowForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
