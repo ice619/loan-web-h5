@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import FetchDog from 'fetch-dog'
 import Cookies from 'js-cookie'
 
