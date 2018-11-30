@@ -117,7 +117,7 @@
               <el-col :span="8">
                 <el-form-item label="图片">
                   <el-upload :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
-                    <i class="el-icon-plus avatar-uploader-icon"></i>
+                    <i class="el-icon-plus"></i>
                     <el-input style="display: none" type="hidden" v-model="bannerForm.imageUrl"></el-input>
                   </el-upload>
                 </el-form-item>
