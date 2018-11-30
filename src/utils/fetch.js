@@ -31,7 +31,7 @@ fd.interceptors.response.push(async response => {
   await checkStatus(response)
   let res = await parseJSON(response)
   if (res.code === 501) {
-    parent.location.href = `${process.env.API_ROOT}/umanagement/login`
+    parent.location.href = `${process.env.WEB_ROOT}/umanagement/login`
     return
   }
   return res
