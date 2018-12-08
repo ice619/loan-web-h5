@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="编辑" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="appPatchVersionForm" :rules="rules" ref="appPatchVersionForm" label-width="100px"
                class="demo-form-inline">
         <el-row>
@@ -158,7 +158,6 @@ export default {
       this.$refs['appPatchVersionForm'].validate(async (valid) => {
         if (valid) {
           try {
-            this.appPatchVersionForm.appPatchVersionDetails = this.appPatchVersionDetails
             const res = await this.$http.post('/config/appPatchVersion', this.appPatchVersionForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')

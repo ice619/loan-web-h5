@@ -145,7 +145,6 @@ export default {
       this.$refs['appPatchVersionForm'].validate(async (valid) => {
         if (valid) {
           try {
-            this.appPatchVersionForm.appPatchVersionDetails = this.appPatchVersionDetails
             const res = await this.$http.post('/config/appPatchVersion', this.appPatchVersionForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')

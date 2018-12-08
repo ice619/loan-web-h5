@@ -12,6 +12,7 @@ import dict from '@/views/dict/big-list'
 import fadada from '@/views/fadada/list'
 import fadadaContract from '@/views/fadadaContract/list'
 import appPatchVersion from '@/views/appPatchVersion/list'
+import sesameCertification from '@/views/sesameCertification/list'
 
 Vue.use(Router)
 
@@ -71,6 +72,11 @@ const router = new Router({
       path: '/appPatchVersion',
       name: 'appPatchVersion',
       component: appPatchVersion
+    },
+    {
+      path: '/sesameCertification',
+      name: 'sesameCertification',
+      component: sesameCertification
     }
   ]
 })
