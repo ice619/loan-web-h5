@@ -11,6 +11,7 @@ import transactionSwitch from '@/views/transactionSwitch/list'
 import dict from '@/views/dict/big-list'
 import fadada from '@/views/fadada/list'
 import fadadaContract from '@/views/fadadaContract/list'
+import appPatchVersion from '@/views/appPatchVersion/list'
 
 Vue.use(Router)
 
@@ -65,6 +66,11 @@ const router = new Router({
       path: '/fadada-contract',
       name: 'fadadaContract',
       component: fadadaContract
+    },
+    {
+      path: '/appPatchVersion',
+      name: 'appPatchVersion',
+      component: appPatchVersion
     }
   ]
 })
