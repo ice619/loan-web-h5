@@ -76,7 +76,7 @@ export default {
   },
   data: function () {
     return {
-      actionUrl: `${process.env.API_ROOT}/config/fadada/file-upload`,
+      actionUrl: `${process.env.API_ROOT}/management/fadada/file-upload`,
       entryFormInitForm: {
         appName: '',
         fddVersion: '',
@@ -116,7 +116,7 @@ export default {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/config/fadada/save', this.entryForm)
+            const res = await this.$http.post('/management/fadada/save', this.entryForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()

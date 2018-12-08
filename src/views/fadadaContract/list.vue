@@ -118,7 +118,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/fadada-contract/page', params)
+        const res = await this.$http.post('/management/fadada-contract/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -145,7 +145,7 @@ export default {
     },
     async updataFailTime (row) {
       try {
-        const res = await this.$http.post('/config/fadada-contract/update-failure-times-zero', row.contractNo)
+        const res = await this.$http.post('/management/fadada-contract/update-failure-times-zero', row.contractNo)
         if (res.code === '200') {
           this.$message.success('清空成功')
         } else {

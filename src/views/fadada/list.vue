@@ -68,7 +68,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/fadada/page', params)
+        const res = await this.$http.post('/management/fadada/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
