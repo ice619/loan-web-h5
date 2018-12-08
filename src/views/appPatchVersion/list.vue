@@ -7,7 +7,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="searchForm.status" clearable placeholder="请选择">
+        <el-select v-model="searchForm.state" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
