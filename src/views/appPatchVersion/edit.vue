@@ -110,7 +110,7 @@ export default {
     return {
       appPatchVersionForm: {},
       rules: {},
-      uploadAppPatchUrl: `${process.env.API_ROOT}/config/appPatchVersion/uploadAppPathFile`
+      uploadAppPatchUrl: `${process.env.API_ROOT}/app-patch-version/uploadAppPathFile`
     }
   },
   methods: {
@@ -145,7 +145,7 @@ export default {
       this.$refs['appPatchVersionForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/config/appPatchVersion', this.appPatchVersionForm)
+            const res = await this.$http.post('/app-patch-version', this.appPatchVersionForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')
               this.closeDialog()
