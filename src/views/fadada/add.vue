@@ -76,7 +76,7 @@ export default {
   },
   data: function () {
     return {
-      actionUrl: `${process.env.API_ROOT}/management/fadada/file-upload`,
+      actionUrl: `${process.env.API_ROOT}/fadada/file-upload`,
       entryFormInitForm: {
         appName: '',
         fddVersion: '',
@@ -108,15 +108,15 @@ export default {
           type: 'success',
           duration: 1000
         })
-        console.log(response.data)
-        this.entryForm.templateUrl = response.data
+        console.log(response.data.url)
+        this.entryForm.templateUrl = response.data.url
       }
     },
     saveForm: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/management/fadada/save', this.entryForm)
+            const res = await this.$http.post('/fadada/save', this.entryForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
