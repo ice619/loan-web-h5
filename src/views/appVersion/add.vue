@@ -61,16 +61,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--<el-row>
-          <el-col :span="40">
-            <el-form-item label="是否弹窗">
-              <el-select style="width: 110px;" v-model="appVersionForm.isPopup" clearable placeholder="请选择" @change="showPopupChange">
-                <el-option v-for="item in $formatter.getSelectionOptions('appIsPopup')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>-->
         <el-row>
           <el-col :span="40">
             <el-form-item label="开始时间">
@@ -152,8 +142,7 @@ export default {
       },
       appVersionForm: {},
       sort: 1,
-      rules: {},
-      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`
+      rules: {}
     }
   },
   methods: {
@@ -169,11 +158,6 @@ export default {
     },
     saveAppVersion: debounce(300, function () {
       this.$refs['appVersionForm'].validate(async (valid) => {
-        // if (valid) {
-        //   this.$confirm('确认新增吗？', '提示', {type: 'warning'}).then(async () => {
-        //   }).catch(() => {
-        //   })
-        // }
         if (this.appVersionForm.beginTime > this.appVersionForm.endTime) {
           this.$message.error('开始时间要小于结束时间')
           return
@@ -194,14 +178,6 @@ export default {
         }
       })
     })
-    // ,showPopupChange (selVal) {
-    //   // 2:否,1:是
-    //   if (selVal === 1) {
-    //     this.showPopupFlag = true
-    //   } else {
-    //     this.showPopupFlag = false
-    //   }
-    // }
   }
 }
 </script>
