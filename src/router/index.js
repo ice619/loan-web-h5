@@ -13,6 +13,8 @@ import fadada from '@/views/fadada/list'
 import fadadaContract from '@/views/fadadaContract/list'
 import appPatchVersion from '@/views/appPatchVersion/list'
 import sesameCertification from '@/views/sesameCertification/list'
+import appVersionAudit from '@/views/appVersionAudit/list'
+import appVersion from '@/views/appVersion/list'
 
 Vue.use(Router)
 
@@ -77,6 +79,16 @@ const router = new Router({
       path: '/sesameCertification',
       name: 'sesameCertification',
       component: sesameCertification
+    },
+    {
+      path: '/appVersionAudit',
+      name: 'appVersionAudit',
+      component: appVersionAudit
+    },
+    {
+      path: '/appVersion',
+      name: 'appVersion',
+      component: appVersion
     }
   ]
 })
