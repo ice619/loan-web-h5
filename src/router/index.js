@@ -9,6 +9,10 @@ import transactionReminderConfig from '@/views/transactionReminderConfig/list'
 import guide from '@/views/guide/list'
 import transactionSwitch from '@/views/transactionSwitch/list'
 import dict from '@/views/dict/big-list'
+import fadada from '@/views/fadada/list'
+import fadadaContract from '@/views/fadadaContract/list'
+import appPatchVersion from '@/views/appPatchVersion/list'
+import sesameCertification from '@/views/sesameCertification/list'
 
 Vue.use(Router)
 
@@ -53,6 +57,26 @@ const router = new Router({
       path: '/dict',
       name: 'dict',
       component: dict
+    },
+    {
+      path: '/fadada',
+      name: 'fadada',
+      component: fadada
+    },
+    {
+      path: '/fadada-contract',
+      name: 'fadadaContract',
+      component: fadadaContract
+    },
+    {
+      path: '/appPatchVersion',
+      name: 'appPatchVersion',
+      component: appPatchVersion
+    },
+    {
+      path: '/sesameCertification',
+      name: 'sesameCertification',
+      component: sesameCertification
     }
   ]
 })
