@@ -65,7 +65,7 @@ export default {
       this.$refs['sesameCertificationSwitchForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/sesame-certification-switch', this.sesameCertificationSwitchForm)
+            const res = await this.$http.post('/management/sesame-certification-switch', this.sesameCertificationSwitchForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')
               this.closeDialog()

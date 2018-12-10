@@ -88,7 +88,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/sesame-certification-switch/page', params)
+        const res = await this.$http.post('/management/sesame-certification-switch/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total

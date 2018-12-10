@@ -95,7 +95,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/app-patch-version/page', params)
+        const res = await this.$http.post('/management/app-patch-version/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
