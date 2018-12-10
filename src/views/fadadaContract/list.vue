@@ -145,7 +145,7 @@ export default {
     },
     async updataFailTime (row) {
       try {
-        const res = await this.$http.post('/fadada-contract/update-failure-times-zero', row.contractNo)
+        const res = await this.$http.post('/management/fadada-contract/update-failure-times-zero', row.contractNo)
         if (res.code === '200') {
           this.$message.success('清空成功')
         } else {

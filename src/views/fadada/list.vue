@@ -12,20 +12,20 @@
       </el-form-item>
     </el-form>
     <el-table ref="fadadaTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="40">
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="40" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="fddVersion" label="版本号" header-align="center" align="center" min-width="40"/>
-      <el-table-column prop="templateNo" label="合同模板编号" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="templateUrl" label="合同模板url" header-align="center" align="center" min-width="150" />
-      <el-table-column prop="fddHandlerResult" label="处理结果" header-align="center" align="center" min-width="60"/>
-      <el-table-column prop="fddHandlerCode" label="返回状态码" header-align="center" align="center" min-width="60"/>
-      <el-table-column prop="traceId" label="请求流水号" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="80"/>
-      <el-table-column prop="createMan" label="创建人" header-align="center" align="center" min-width="40"/>
-      <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="fddVersion" label="版本号" header-align="center" align="center" min-width="40"  show-overflow-tooltip/>
+      <el-table-column prop="templateNo" label="合同模板编号" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <el-table-column prop="templateUrl" label="合同模板url" header-align="center" align="center" min-width="60"  show-overflow-tooltip/>
+      <el-table-column prop="fddHandlerResult" label="处理结果" header-align="center" align="center" min-width="60" show-overflow-tooltip/>
+      <el-table-column prop="fddHandlerCode" label="返回状态码" header-align="center" align="center" min-width="40" show-overflow-tooltip/>
+      <el-table-column prop="traceId" label="请求流水号" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="80" show-overflow-tooltip/>
+      <el-table-column prop="createMan" label="创建人" header-align="center" align="center" min-width="40" show-overflow-tooltip/>
+      <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="100" show-overflow-tooltip/>
     </el-table>
     <el-pagination
       @current-change="handleCurrentChange"
