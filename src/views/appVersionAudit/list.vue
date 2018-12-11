@@ -155,7 +155,7 @@ export default {
             this.$message.success('删除成功!')
             // this.list()
             this.selectIds.forEach(v => {
-              let i = this.tableData.findIndex(s => s.id === v)
+              let i = this.tableData.findIndex(s => s.appVersionId === v)
               this.tableData.splice(i, 1)
             })
             this.total -= idsLength
