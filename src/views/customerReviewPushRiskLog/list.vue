@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="创建时间：">
+      <el-form-item label="创建时间">
         <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"/>
         ~
         <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"/>
