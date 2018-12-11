@@ -57,10 +57,10 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="客户姓名" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="left" min-width="130"/>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="left" min-width="120" show-overflow-tooltip/>
       <el-table-column prop="authMoney" label="授信额度" header-align="center" align="left" min-width="120"/>
       <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="left" min-width="120"/>
-      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="left" min-width="130"/>
       <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="left" min-width="155"/>
       <el-table-column prop="exceptionType" label="异常类型" header-align="center" align="left" min-width="120">
         <template slot-scope="scope">
