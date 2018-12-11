@@ -71,7 +71,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="补丁地址" prop="patchUrl" style="height: 40px;">
+            <el-form-item label="补丁地址" prop="patchUrl">
               <el-upload
                 class="upload-demo"
                 :action="uploadAppPatchUrl"
@@ -80,7 +80,7 @@
                 <el-input v-model="ruleForm.patchUrl" readonly clearable placeholder="补丁地址" suffix-icon="el-icon-circle-plus"/>
                 <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
               </el-upload>
-              <el-input type="hidden" v-model="ruleForm.patchEncryption"/>
+              <el-input type="hidden" v-model="ruleForm.patchEncryption" style="display: none;"/>
             </el-form-item>
           </el-col>
         </el-row>
