@@ -1,14 +1,14 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="创建时间：">
+      <el-form-item label="创建时间">
         <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"/>
         ~
         <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"/>
       </el-form-item>
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="客户编号">
@@ -18,7 +18,7 @@
         <el-input v-model="searchForm.appSerialNumber" placeholder="申请单编号"/>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="searchForm.pushStatus" clearable placeholder="请选择">
+        <el-select v-model="searchForm.status" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('pushStatus')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -57,10 +57,10 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="客户姓名" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="left" min-width="130"/>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="left" min-width="120" show-overflow-tooltip/>
       <el-table-column prop="authMoney" label="授信额度" header-align="center" align="left" min-width="120"/>
       <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="left" min-width="120"/>
-      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="left" min-width="130"/>
       <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="left" min-width="155"/>
       <el-table-column prop="exceptionType" label="异常类型" header-align="center" align="left" min-width="120">
         <template slot-scope="scope">
