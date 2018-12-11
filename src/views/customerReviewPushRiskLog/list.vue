@@ -8,7 +8,7 @@
       </el-form-item>
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="客户编号">
