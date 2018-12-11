@@ -1,14 +1,25 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+      <el-form-item label="创建时间：">
+        <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"/>
+        ~
+        <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"/>
+      </el-form-item>
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="客户编号">
+        <el-input v-model="searchForm.customerId" placeholder="客户编号"/>
+      </el-form-item>
+      <el-form-item label="申请单编号">
+        <el-input v-model="searchForm.appSerialNumber" placeholder="申请单编号"/>
+      </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="searchForm.state" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label" :value="item.value"/>
+        <el-select v-model="searchForm.pushStatus" clearable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('pushStatus')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -16,38 +27,57 @@
         <el-button type="primary" icon="el-icon-plus" @click="showAddFlag=true">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="appPatchVersionTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="left">
+    <el-table ref="pushRiskLogTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="left" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="clientType" label="平台类型" header-align="center" align="left">
+      <el-table-column prop="applicationType" label="申请单类型" header-align="center" align="left" min-width="100">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('clientType', scope.row.clientType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('applicationType', scope.row.applicationType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="baseVersion" label="基线版本" header-align="center" align="left"/>
-      <el-table-column prop="patchVersion" label="补丁版本" header-align="center" align="left"/>
-      <el-table-column prop="versionCode" label="版本代号" header-align="center" align="left"/>
-      <el-table-column prop="versionName" label="版本名字" header-align="center" align="left"/>
-      <el-table-column prop="channel" label="渠道" header-align="center" align="left"/>
-      <el-table-column prop="validateFrom" label="开始生效" header-align="center" align="left"/>
-      <el-table-column prop="state" label="状态" header-align="center" align="left">
+      <el-table-column prop="status" label="状态" header-align="center" align="left" min-width="75">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
+          <span>{{$formatter.simpleFormatSelection('pushStatus', scope.row.status)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="补丁说明" header-align="center" align="left" min-width="90"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" min-width="90"/>
-      <el-table-column prop="createMan" label="创建人" header-align="center" align="left"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" min-width="90"/>
-      <el-table-column prop="modifyMan" label="修改人" header-align="center" align="left"/>
-      <el-table-column label="操作" header-align="center" align="left">
+      <el-table-column prop="auditingState" label="审批状态" header-align="center" align="left" min-width="100">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+          <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.auditingState)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" min-width="160"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" min-width="160"/>
+      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="left" min-width="180" show-overflow-tooltip/>
+      <el-table-column prop="appLevel" label="客户标识" header-align="center" align="left" min-width="90">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="客户姓名" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="left" min-width="120" show-overflow-tooltip/>
+      <el-table-column prop="authMoney" label="授信额度" header-align="center" align="left" min-width="120"/>
+      <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="left" min-width="120"/>
+      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="left" min-width="130"/>
+      <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="left" min-width="155"/>
+      <el-table-column prop="exceptionType" label="异常类型" header-align="center" align="left" min-width="120">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('exceptionType', scope.row.exceptionType)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="appVersion" label="App版本号" header-align="center" align="left" min-width="100"/>
+      <el-table-column prop="appChannel" label="app下载渠道" header-align="center" align="left" min-width="110"/>
+      <el-table-column prop="source" label="申请来源" header-align="center" align="left" min-width="100">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('clientType', scope.row.source)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="jxlToken" label="聚信立运营商token" header-align="center" align="left" min-width="150" show-overflow-tooltip/>
+      <el-table-column prop="tdBlockBox" label="同盾black_box" header-align="center" align="left" min-width="135" show-overflow-tooltip/>
+      <el-table-column prop="sesameScope" label="芝麻分" header-align="center" align="left" min-width="90"/>
+      <el-table-column prop="loanIp" label="申请用户公网IP" header-align="center" align="left" min-width="140"/>
     </el-table>
     <el-pagination
       @current-change="handleCurrentChange"
@@ -58,9 +88,6 @@
       layout="->,total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
-    <!--子组件-->
-    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :appPatchVersionWindow="appPatchVersionWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -70,11 +97,14 @@ export default {
   data () {
     return {
       searchForm: {
-        userTag: null,
+        customerId: null,
+        appSerialNumber: null,
         appName: null,
-        status: null
+        startTime: null,
+        endTime: null,
+        pushStatus: null
       },
-      appPatchVersionWindow: {},
+      pushRiskLogWindow: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -95,7 +125,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/app-patch-version/page', params)
+        const res = await this.$http.post('/management/push-risk-log/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -122,12 +152,55 @@ export default {
     },
     edit (row) {
       this.showEditFlag = true
-      this.appPatchVersionWindow = row
+      this.pushRiskLogWindow = row
+    },
+    delete (row) {
+      let selectIdsStr = ''
+      let idsLength = this.selectIds.length
+      if (row instanceof Event) {
+        if (idsLength > 0) {
+          this.selectIds.forEach(v => {
+            selectIdsStr += `${v},`
+          })
+          selectIdsStr = selectIdsStr.substring(0, selectIdsStr.length - 1)
+        } else {
+          this.$message.warning('至少选择一条记录')
+          return
+        }
+      } else {
+        this.$refs.iosCompanySignTable.clearSelection()
+        idsLength = 1
+        this.selectIds.push(row.id)
+        selectIdsStr = row.id
+      }
+      const url = `/push-risk-log/${selectIdsStr}`
+      const tableLength = this.tableData.length
+      this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
+        try {
+          const res = await this.$http.delete(url)
+          if (res.code === '200') {
+            this.$message.success('删除成功!')
+            // this.list()
+            this.selectIds.forEach(v => {
+              let i = this.tableData.findIndex(s => s.id === v)
+              this.tableData.splice(i, 1)
+            })
+            this.total -= idsLength
+            if (idsLength === tableLength) {
+              this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1
+              this.list()
+            }
+          } else {
+            this.$message.error(res.message)
+          }
+          this.selectIds = []
+        } catch (err) {
+          console.error(err)
+        }
+      }).catch(action => {
+        this.selectIds = []
+      })
     }
-  },
-  components: {
-    'add': () => import('./add'),
-    'edit': () => import('./edit')
   }
 }
 </script>
