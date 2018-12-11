@@ -73,8 +73,7 @@ export default {
     return {
       appVersionAuditDetails: [],
       appVersionAuditForm: {},
-      rules: {},
-      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`
+      rules: {}
     }
   },
   methods: {
@@ -102,7 +101,7 @@ export default {
         if (valid) {
           try {
             this.appVersionAuditForm.appVersionAuditDetails = this.appVersionAuditDetails
-            const res = await this.$http.post('/app-version-audit', this.appVersionAuditForm)
+            const res = await this.$http.post('/management/app-version-audit', this.appVersionAuditForm)
             if (res.code === '200') {
               this.$message.success('编辑成功!')
               this.closeDialog()

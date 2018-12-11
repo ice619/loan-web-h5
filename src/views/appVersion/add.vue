@@ -165,7 +165,7 @@ export default {
         if (valid) {
           try {
             this.appVersionForm.appVersionDetails = this.appVersionDetails
-            const res = await this.$http.post('/app-version', this.appVersionForm)
+            const res = await this.$http.post('/management/app-version', this.appVersionForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
