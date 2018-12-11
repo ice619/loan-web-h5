@@ -107,7 +107,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/app-version/page', params)
+        const res = await this.$http.post('/management/app-version/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -155,7 +155,7 @@ export default {
         this.selectIds.push(row.appVersionId)
         selectIdsStr = row.appVersionId
       }
-      const url = `/app-version/${selectIdsStr}`
+      const url = `/management/app-version/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
