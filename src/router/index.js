@@ -12,7 +12,7 @@ import dict from '@/views/dict/big-list'
 import fadada from '@/views/fadada/list'
 import fadadaContract from '@/views/fadadaContract/list'
 import appPatchVersion from '@/views/appPatchVersion/list'
-import sesameCertification from '@/views/sesameCertification/list'
+import sesameCertificationSwitch from '@/views/sesameCertificationSwitch/list'
 import appVersionAudit from '@/views/appVersionAudit/list'
 import appVersion from '@/views/appVersion/list'
 
@@ -71,14 +71,14 @@ const router = new Router({
       component: fadadaContract
     },
     {
-      path: '/appPatchVersion',
+      path: '/app-patch-version',
       name: 'appPatchVersion',
       component: appPatchVersion
     },
     {
-      path: '/sesameCertification',
-      name: 'sesameCertification',
-      component: sesameCertification
+      path: '/sesame-certification-switch',
+      name: 'sesameCertificationSwitch',
+      component: sesameCertificationSwitch
     },
     {
       path: '/appVersionAudit',
