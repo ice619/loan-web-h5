@@ -77,9 +77,7 @@ import {clone} from '@/utils/common'
 export default {
   props: {
     'ifshow': Boolean,
-    'entry': Object,
-    'userTypes': Array,
-    'switchTypes': Array
+    'entry': Object
   },
   data () {
     return {
@@ -99,11 +97,6 @@ export default {
     },
     saveGuidePage: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
-        // if (valid) {
-        //   this.$confirm('确认更新吗？', '提示', {type: 'warning'}).then(async () => {
-        //   }).catch(() => {
-        //   })
-        // }
         if (valid) {
           try {
             if (this.entryForm.versionLowerLimit > this.entryForm.versionUpperLimit) {
