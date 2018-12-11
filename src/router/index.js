@@ -15,6 +15,7 @@ import appPatchVersion from '@/views/appPatchVersion/list'
 import sesameCertificationSwitch from '@/views/sesameCertificationSwitch/list'
 import appVersionAudit from '@/views/appVersionAudit/list'
 import appVersion from '@/views/appVersion/list'
+import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
 
 Vue.use(Router)
 
@@ -89,6 +90,11 @@ const router = new Router({
       path: '/appVersion',
       name: 'appVersion',
       component: appVersion
+    },
+    {
+      path: '/customer-review-push-risk-log',
+      name: 'customerReviewPushRiskLog',
+      component: customerReviewPushRiskLog
     }
   ]
 })
