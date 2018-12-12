@@ -26,15 +26,15 @@
       <el-table-column prop="positiveIdCardLevel" label="身份证正面身份认证级别" header-align="center" align="center" min-width="110px"/>
       <el-table-column prop="identifyResultLevel" label="身份综合验证级别" header-align="center" align="center"/>
       <el-table-column prop="oppositeIdCardLevel" label="反面身份认证级别" header-align="center" align="center"/>
-      <el-table-column prop="state" label="状态" header-align="center" align="left">
+      <el-table-column prop="state" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="modifyMan" label="修改人" header-align="center" align="center"/>
       <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
