@@ -18,6 +18,7 @@ import appVersion from '@/views/appVersion/list'
 import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
 import appClosureSwitch from '@/views/appClosureSwitch/list'
 import systemDict from '@/views/systemDict/list'
+import faceLevelConfig from '@/views/faceLevelConfig/list'
 
 Vue.use(Router)
 
@@ -107,6 +108,11 @@ const router = new Router({
       path: '/system-dict',
       name: 'systemDict',
       component: systemDict
+    },
+    {
+      path: '/face-level-config',
+      name: 'faceLevelConfig',
+      component: faceLevelConfig
     }
   ]
 })
