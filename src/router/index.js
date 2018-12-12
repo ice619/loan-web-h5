@@ -9,6 +9,14 @@ import transactionReminderConfig from '@/views/transactionReminderConfig/list'
 import guide from '@/views/guide/list'
 import transactionSwitch from '@/views/transactionSwitch/list'
 import dict from '@/views/dict/big-list'
+import fadada from '@/views/fadada/list'
+import fadadaContract from '@/views/fadadaContract/list'
+import appPatchVersion from '@/views/appPatchVersion/list'
+import sesameCertificationSwitch from '@/views/sesameCertificationSwitch/list'
+import appVersionAudit from '@/views/appVersionAudit/list'
+import appVersion from '@/views/appVersion/list'
+import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
+import appClosureSwitch from '@/views/appClosureSwitch/list'
 
 Vue.use(Router)
 
@@ -53,6 +61,46 @@ const router = new Router({
       path: '/dict',
       name: 'dict',
       component: dict
+    },
+    {
+      path: '/fadada',
+      name: 'fadada',
+      component: fadada
+    },
+    {
+      path: '/fadada-contract',
+      name: 'fadadaContract',
+      component: fadadaContract
+    },
+    {
+      path: '/app-patch-version',
+      name: 'appPatchVersion',
+      component: appPatchVersion
+    },
+    {
+      path: '/sesame-certification-switch',
+      name: 'sesameCertificationSwitch',
+      component: sesameCertificationSwitch
+    },
+    {
+      path: '/app-version-audit',
+      name: 'appVersionAudit',
+      component: appVersionAudit
+    },
+    {
+      path: '/app-version',
+      name: 'appVersion',
+      component: appVersion
+    },
+    {
+      path: '/customer-review-push-risk-log',
+      name: 'customerReviewPushRiskLog',
+      component: customerReviewPushRiskLog
+    },
+    {
+      path: '/app-closure-switch',
+      name: 'appClosureSwitch',
+      component: appClosureSwitch
     }
   ]
 })

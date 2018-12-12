@@ -174,7 +174,7 @@ export default {
         if (valid) {
           try {
             this.marketWindowForm.showFrequency = 0
-            const res = await this.$http.put('/config/market-window-web', this.marketWindowForm)
+            const res = await this.$http.put('/management/market-window', this.marketWindowForm)
             if (res.code === '200') {
               this.$message.success('更新成功!')
               this.closeDialog()

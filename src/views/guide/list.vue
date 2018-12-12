@@ -20,7 +20,11 @@
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="title" label="标题" header-align="center" align="center" min-width="250"/>
       <el-table-column prop="skip" label="是否支持跳过" header-align="center" align="center" min-width="80"/>
-      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="terminal" label="生效终端" header-align="center" align="center" min-width="80">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('terminals', scope.row.terminal)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="versionUpperLimit" label="版本上限" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="60"/>
@@ -45,8 +49,8 @@
       :total="total">
     </el-pagination>
     <!--子组件-->
-    <add :ifshow="showAddFlag" :terminals="terminals" @handleCloseDialog="showAddFlag=false;guideList();"></add>
-    <edit :ifshow="showEditFlag" :guidePage="guidePage" :terminals="terminals" @handleCloseDialog="showEditFlag=false;guideList();"></edit>
+    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;guideList();"></add>
+    <edit :ifshow="showEditFlag" :guidePage="guidePage" @handleCloseDialog="showEditFlag=false;guideList();"></edit>
   </div>
 </template>
 
@@ -65,17 +69,7 @@ export default {
       total: 0,
       selectIds: [],
       showAddFlag: false,
-      showEditFlag: false,
-      terminals: [{
-        value: 1,
-        label: '全部'
-      }, {
-        value: 2,
-        label: '安卓'
-      }, {
-        value: 3,
-        label: 'IOS'
-      }]
+      showEditFlag: false
     }
   },
   created () {

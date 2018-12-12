@@ -18,7 +18,6 @@
       </el-form-item>
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <!--<el-table-column type="selection" width="55"/>-->
       <el-table-column prop="id" label="序号" header-align="center" align="center" min-width="40"/>
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
@@ -72,8 +71,8 @@
       :total="total">
     </el-pagination>
     <!--子组件-->
-    <add :ifshow="showAddFlag"  :userTypes="userTypes" :switchTypes="switchTypes" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :entry="entry"  :userTypes="userTypes" :switchTypes="switchTypes" @handleCloseDialog="showEditFlag=false;list();"></edit>
+    <add :ifshow="showAddFlag"  @handleCloseDialog="showAddFlag=false;list();"></add>
+    <edit :ifshow="showEditFlag" :entry="entry"  @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -92,30 +91,7 @@ export default {
       total: 0,
       selectIds: [],
       showAddFlag: false,
-      showEditFlag: false,
-      userTypes: [{
-        value: 2,
-        label: '全部'
-      }, {
-        value: 0,
-        label: '新用户'
-      }, {
-        value: 1,
-        label: '老用户'
-      }],
-      switchTypes: [{
-        value: 1,
-        label: '排队页开关'
-      }, {
-        value: 2,
-        label: '保险弹窗开关'
-      }, {
-        value: 3,
-        label: '（灾备）用户提现开关'
-      }, {
-        value: 4,
-        label: '（灾备）保险开关'
-      }]
+      showEditFlag: false
     }
   },
   created () {
@@ -143,11 +119,11 @@ export default {
     async list () {
       let params = {
         ...this.searchForm,
-        pageIndex: this.pageIndex - 1,
+        pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/transaction-switch/page', params)
+        const res = await this.$http.post('/management/transaction-switch/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -195,7 +171,7 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/config/transaction-switch/${selectIdsStr}`
+      const url = `/management/transaction-switch/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
