@@ -30,10 +30,12 @@
           <span>{{$formatter.simpleFormatSelection('clientType', parseInt(scope.row.appType))}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center">
+      <!--<el-table-column prop="versionNumber" label="版本号" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, parseInt(scope.row.versionNumber))}}</span>
         </template>
+      </el-table-column>-->
+      <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center">
       </el-table-column>
       <el-table-column prop="remark" label="渠道" header-align="center" align="center">
       </el-table-column>

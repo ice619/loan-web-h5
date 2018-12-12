@@ -20,13 +20,20 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <!--<el-row>
           <el-col :span="40">
             <el-form-item label="版本号" prop="appVersion">
               <el-select v-model="appClosureSwitchForm.appVersion" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions(`versions_${appClosureSwitchForm.appName}`)" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>-->
+        <el-row>
+          <el-col :span="40">
+            <el-form-item label="版本号" prop="appVersion">
+              <el-input v-model="appClosureSwitchForm.appVersion" style="width: 217px;" clearable placeholder="请输入版本号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -81,7 +88,7 @@ export default {
           {required: true, message: '请输入渠道', trigger: 'blur'}
         ],
         appVersion: [
-          {required: true, message: '请选择版本号', trigger: 'blur'}
+          {required: true, message: '请输入版本号', trigger: 'blur'}
         ],
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}
@@ -92,10 +99,6 @@ export default {
   methods: {
     openDialog () {
       this.appClosureSwitchForm = clone(this.appClosureSwitchWindow)
-      try {
-        this.appClosureSwitchForm.appVersion = parseInt(this.appClosureSwitchForm.appVersion)
-      } catch (e) {
-      }
     },
     closeDialog () {
       this.$refs['appClosureSwitchForm'].resetFields()

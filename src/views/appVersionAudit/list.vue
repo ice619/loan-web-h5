@@ -6,11 +6,14 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="版本号：">
+      <!--<el-form-item label="版本号：">
           <el-select v-model="searchForm.appVersion" clearable placeholder="请输入版本号">
             <el-option v-for="item in $formatter.getSelectionOptions(`versions_${searchForm.appName}`)" :key="item.value" :label="item.label"
                        :value="item.value"/>
           </el-select>
+      </el-form-item>-->
+      <el-form-item label="版本号：">
+        <el-input v-model="searchForm.appVersion" clearable placeholder="请输入版本号"></el-input>
       </el-form-item>
       <el-form-item label="IOS标识：">
           <el-input v-model="searchForm.marketName" clearable placeholder="请输入IOS标识"></el-input>
@@ -27,10 +30,12 @@
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appVersion" label="版本号" header-align="center" align="center">
+      <!--<el-table-column prop="appVersion" label="版本号" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, parseInt(scope.row.appVersion))}}</span>
         </template>
+      </el-table-column>-->
+      <el-table-column prop="appVersion" label="版本号" header-align="center" align="center">
       </el-table-column>
       <el-table-column prop="marketName" label="IOS标识" header-align="center" align="center">
       </el-table-column>
