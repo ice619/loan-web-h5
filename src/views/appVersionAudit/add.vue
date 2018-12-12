@@ -26,14 +26,14 @@
         <el-row>
           <el-col :span="40">
             <el-form-item label="IOS标识">
-              <el-input v-model="appVersionAuditForm.marketName" style="width: 176px;" placeholder="IOS标识"></el-input>
+              <el-input v-model="appVersionAuditForm.marketName" style="width: 217px;" clearable placeholder="IOS标识"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
             <el-form-item label="是否审核">
-              <el-select style="width: 110px;" v-model="appVersionAuditForm.isAudit" clearable placeholder="请选择">
+              <el-select style="width: 217px;" v-model="appVersionAuditForm.isAudit" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('isAudit')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
@@ -43,7 +43,7 @@
         <el-row>
           <el-col :span="40">
             <el-form-item label="备注">
-              <el-input type="textarea" cols="40" rows="5" v-model="appVersionAuditForm.remark" maxlength="200" placeholder="备注"></el-input>
+              <el-input type="textarea" cols="40" rows="5" v-model="appVersionAuditForm.remark" maxlength="200" clearable placeholder="备注"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -77,8 +77,7 @@ export default {
         marketName: 'IOS1',
         isAudit: 0,
         remark: '',
-        appPlatform: 1,
-        status: true
+        appPlatform: 1
       },
       appVersionAuditForm: {},
       sort: 1,

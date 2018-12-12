@@ -12,31 +12,37 @@
                        :value="item.value"/>
           </el-select>
       </el-form-item>
-      <el-form-item label="IOS标识：">
-          <el-input v-model="searchForm.marketName" clearable placeholder="请输入IOS标识"></el-input>
+      <el-form-item label="渠道：">
+          <el-input v-model="searchForm.channel" clearable placeholder="请输入渠道"></el-input>
+      </el-form-item>
+      <el-form-item label="状态：">
+        <el-select v-model="searchForm.state" clearable placeholder="请选择状态">
+          <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label"
+                     :value="item.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="appVersionAuditTable" :data="tableData" border stripe highlight-current-row
+    <el-table ref="appClosureSwitchTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="channel" label="渠道" header-align="center" align="center">
+      </el-table-column>
       <el-table-column prop="appVersion" label="版本号" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, parseInt(scope.row.appVersion))}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="marketName" label="IOS标识" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="isAudit" label="是否审核" header-align="center" align="center">
+      <el-table-column prop="state" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('isAudit', scope.row.isAudit)}}</span>
+          <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
@@ -46,8 +52,8 @@
       <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editAppVersionAudit(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button icon="el-icon-delete" @click="removeAppVersionAudit(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
+          <el-button icon="el-icon-edit" @click="editAppClosureSwitch(scope.row)" type="text" size="small">编辑</el-button>
+          <!--<el-button icon="el-icon-delete" @click="removeAppClosureSwitch(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -62,7 +68,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :appVersionAuditWindow="appVersionAuditWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
+    <edit :ifshow="showEditFlag" :appClosureSwitchWindow="appClosureSwitchWindow" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -74,9 +80,10 @@ export default {
       searchForm: {
         appName: null,
         appVersion: null,
-        marketName: null
+        channel: null,
+        state: null
       },
-      appVersionAuditWindow: {},
+      appClosureSwitchWindow: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -97,7 +104,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/app-version-audit/page', params)
+        const res = await this.$http.post('/management/app-closure-switch/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -122,11 +129,11 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editAppVersionAudit (row) {
+    editAppClosureSwitch (row) {
       this.showEditFlag = true
-      this.appVersionAuditWindow = row
+      this.appClosureSwitchWindow = row
     },
-    removeAppVersionAudit (row) {
+    removeAppClosureSwitch (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -140,12 +147,12 @@ export default {
           return
         }
       } else {
-        this.$refs.appVersionAuditTable.clearSelection()
+        this.$refs.appClosureSwitchTable.clearSelection()
         idsLength = 1
-        this.selectIds.push(row.appVersionId)
-        selectIdsStr = row.appVersionId
+        this.selectIds.push(row.id)
+        selectIdsStr = row.id
       }
-      const url = `/management/app-version-audit/${selectIdsStr}`
+      const url = `/management/app-closure-switch/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
@@ -154,7 +161,7 @@ export default {
             this.$message.success('删除成功!')
             // this.list()
             this.selectIds.forEach(v => {
-              let i = this.tableData.findIndex(s => s.appVersionId === v)
+              let i = this.tableData.findIndex(s => s.id === v)
               this.tableData.splice(i, 1)
             })
             this.total -= idsLength

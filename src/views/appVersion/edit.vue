@@ -26,7 +26,7 @@
         <el-row>
           <el-col :span="40">
             <el-form-item label="渠道">
-              <el-input v-model="appVersionForm.remark" style="width: 300px;" placeholder="请输入更新渠道"></el-input>
+              <el-input v-model="appVersionForm.remark" style="width: 217px;" clearable placeholder="请输入更新渠道"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -43,21 +43,21 @@
         <el-row>
           <el-col :span="40">
             <el-form-item label="下载地址">
-              <el-input v-model="appVersionForm.downloadUrl" style="width: 500px;" placeholder="请输入下载地址"></el-input>
+              <el-input v-model="appVersionForm.downloadUrl" style="width: 400px;" clearable placeholder="请输入下载地址"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
             <el-form-item label="强更版本">
-              <el-input v-model="appVersionForm.isForcedUpdate" style="width: 300px;" placeholder="请输入需要强制更新的版本"></el-input>
+              <el-input v-model="appVersionForm.isForcedUpdate" style="width: 217px;" clearable placeholder="请输入需要强制更新的版本"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
             <el-form-item label="非强更版本">
-              <el-input v-model="appVersionForm.versionUpdate" style="width: 300px;" placeholder="请输入需要更新的版本"></el-input>
+              <el-input v-model="appVersionForm.versionUpdate" style="width: 217px;" clearable placeholder="请输入需要更新的版本"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -80,21 +80,21 @@
         <el-row>
           <el-col :span="40">
             <el-form-item label="更新标题">
-              <el-input v-model="appVersionForm.changeTitle" style="width: 300px;" placeholder="请输入弹框标题"></el-input>
+              <el-input v-model="appVersionForm.changeTitle" style="width: 400px;" clearable placeholder="请输入弹框标题"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
             <el-form-item label="更新描述">
-              <el-input type="textarea" cols="50" rows="5" v-model="appVersionForm.changeCopy" placeholder="请输入弹窗内显示的更新内容"></el-input>
+              <el-input type="textarea" cols="50" rows="5" v-model="appVersionForm.changeCopy" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
             <el-form-item label="状态">
-              <el-select style="width: 110px;" v-model="appVersionForm.state" clearable placeholder="请选择">
+              <el-select style="width: 217px;" v-model="appVersionForm.state" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>

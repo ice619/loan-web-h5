@@ -13,7 +13,7 @@
           </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="list">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
       </el-form-item>
     </el-form>
@@ -46,11 +46,6 @@
           <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
       </el-table-column>
-      <!--<el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appIsPopup', parseInt(scope.row.isPopup))}}</span>
-        </template>
-      </el-table-column>-->
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="90"/>

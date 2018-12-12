@@ -16,6 +16,7 @@ import sesameCertificationSwitch from '@/views/sesameCertificationSwitch/list'
 import appVersionAudit from '@/views/appVersionAudit/list'
 import appVersion from '@/views/appVersion/list'
 import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
+import appClosureSwitch from '@/views/appClosureSwitch/list'
 
 Vue.use(Router)
 
@@ -82,12 +83,12 @@ const router = new Router({
       component: sesameCertificationSwitch
     },
     {
-      path: '/appVersionAudit',
+      path: '/app-version-audit',
       name: 'appVersionAudit',
       component: appVersionAudit
     },
     {
-      path: '/appVersion',
+      path: '/app-version',
       name: 'appVersion',
       component: appVersion
     },
@@ -95,6 +96,11 @@ const router = new Router({
       path: '/customer-review-push-risk-log',
       name: 'customerReviewPushRiskLog',
       component: customerReviewPushRiskLog
+    },
+    {
+      path: '/app-closure-switch',
+      name: 'appClosureSwitch',
+      component: appClosureSwitch
     }
   ]
 })

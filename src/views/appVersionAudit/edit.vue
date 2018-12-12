@@ -26,14 +26,14 @@
         <el-row>
           <el-col :span="40">
             <el-form-item label="IOS标识">
-              <el-input v-model="appVersionAuditForm.marketName" style="width: 176px;" placeholder="IOS标识"></el-input>
+              <el-input v-model="appVersionAuditForm.marketName" style="width: 217px;" clearable placeholder="IOS标识"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
             <el-form-item label="是否审核">
-              <el-select style="width: 110px;" v-model="appVersionAuditForm.isAudit" clearable placeholder="请选择">
+              <el-select style="width: 217px;" v-model="appVersionAuditForm.isAudit" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('isAudit')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
@@ -93,11 +93,6 @@ export default {
     },
     saveAppVersionAudit: debounce(300, function () {
       this.$refs['appVersionAuditForm'].validate(async (valid) => {
-        // if (valid) {
-        //   this.$confirm('确认新增吗？', '提示', {type: 'warning'}).then(async () => {
-        //   }).catch(() => {
-        //   })
-        // }
         if (valid) {
           try {
             this.appVersionAuditForm.appVersionAuditDetails = this.appVersionAuditDetails
