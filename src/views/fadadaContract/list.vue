@@ -114,7 +114,7 @@ export default {
     async list () {
       let params = {
         ...this.searchForm,
-        pageIndex: this.pageIndex - 1,
+        pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }
       try {
