@@ -150,7 +150,7 @@ export default {
           {required: true, message: '请上传补丁包', trigger: 'blur'}
         ]
       },
-      uploadAppPatchUrl: `${process.env.API_ROOT}/management/app-patch-version/uploadAppPathFile`
+      uploadAppPatchUrl: `${process.env.API_ROOT}/management/app-patch-version/upload-app-path-file`
     }
   },
   methods: {
