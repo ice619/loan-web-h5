@@ -17,6 +17,7 @@ import appVersionAudit from '@/views/appVersionAudit/list'
 import appVersion from '@/views/appVersion/list'
 import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
 import appClosureSwitch from '@/views/appClosureSwitch/list'
+import systemDict from '@/views/systemDict/list'
 
 Vue.use(Router)
 
@@ -101,24 +102,25 @@ const router = new Router({
       path: '/app-closure-switch',
       name: 'appClosureSwitch',
       component: appClosureSwitch
+    },
+    {
+      path: '/system-dict',
+      name: 'systemDict',
+      component: systemDict
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  let selectionsStr = localStorage.selections
-  if (selectionsStr) {
-    Formatter.selections = JSON.parse(selectionsStr)
+  fetch.get('/management/dict-big/selections').then(res => {
+    if (res && res.code === '200') {
+      Formatter.selections = res.data
+    }
     next()
-  } else {
-    fetch.get('/config/dict-big/selections').then(res => {
-      if (res && res.code === '200') {
-        Formatter.selections = res.data
-        localStorage.selections = JSON.stringify(res.data)
-      }
-      next()
-    })
-  }
+  }).catch(e => {
+    console.info(e)
+    next()
+  })
 })
 
 export default router

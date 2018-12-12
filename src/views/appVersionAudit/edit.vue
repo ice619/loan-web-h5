@@ -5,7 +5,7 @@
                class="demo-form-inline">
         <el-row>
           <el-col :span="40">
-            <el-form-item label="APP名称">
+            <el-form-item label="APP名称" prop="appName">
               <el-select v-model="appVersionAuditForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                            :value="item.value"/>
@@ -13,26 +13,33 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <!--<el-row>
           <el-col :span="40">
             <el-form-item label="版本号">
-              <el-select v-model="appVersionAuditForm.appVersion" clearable placeholder="请选择">
+              <el-select v-model="appVersionAuditForm.appVersion" clearable placeholder="请选择版本号">
                 <el-option v-for="item in $formatter.getSelectionOptions(`versions_${appVersionAuditForm.appName}`)" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
+        </el-row>-->
         <el-row>
           <el-col :span="40">
-            <el-form-item label="IOS标识">
-              <el-input v-model="appVersionAuditForm.marketName" style="width: 217px;" clearable placeholder="IOS标识"></el-input>
+            <el-form-item label="版本号" prop="appVersion">
+              <el-input v-model="appVersionAuditForm.appVersion" style="width: 217px;" clearable placeholder="请输入版本号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="40">
-            <el-form-item label="是否审核">
+            <el-form-item label="IOS标识" prop="marketName">
+              <el-input v-model="appVersionAuditForm.marketName" style="width: 217px;" clearable placeholder="请输入IOS标识"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="40">
+            <el-form-item label="是否审核" prop="isAudit">
               <el-select style="width: 217px;" v-model="appVersionAuditForm.isAudit" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('isAudit')" :key="item.value" :label="item.label"
                            :value="item.value"/>
@@ -73,16 +80,25 @@ export default {
     return {
       appVersionAuditDetails: [],
       appVersionAuditForm: {},
-      rules: {}
+      rules: {
+        appName: [
+          {required: true, message: '请选择APP名称', trigger: 'blur'}
+        ],
+        appVersion: [
+          {required: true, message: '请输入版本号', trigger: 'blur'}
+        ],
+        marketName: [
+          {required: true, message: '请输入IOS标识', trigger: 'blur'}
+        ],
+        isAudit: [
+          {required: true, message: '请选择是否审核', trigger: 'blur'}
+        ]
+      }
     }
   },
   methods: {
     openDialog () {
       this.appVersionAuditForm = clone(this.appVersionAuditWindow)
-      try {
-        this.appVersionAuditForm.appVersion = parseInt(this.appVersionAuditForm.appVersion)
-      } catch (e) {
-      }
     },
     closeDialog () {
       this.$refs['appVersionAuditForm'].resetFields()
