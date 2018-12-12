@@ -103,7 +103,7 @@ export default {
               this.$message.error('开始版本号不能大于结束版本号')
               return
             }
-            const res = await this.$http.put('/config/transaction-switch', this.entryForm)
+            const res = await this.$http.put('/management/transaction-switch', this.entryForm)
             if (res.code === '200') {
               this.$message.success('更新成功!')
               this.closeDialog()

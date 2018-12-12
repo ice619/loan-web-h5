@@ -11,7 +11,7 @@
       <el-table-column prop="id" label="ID" header-align="center" align="center"/>
       <el-table-column prop="osType" label="手机系统" header-align="center" align="center"/>
       <el-table-column prop="urlKey" label="下载链接key" header-align="center" align="center"/>
-      <el-table-column prop="url" label="下载链接" header-align="center" align="center"/>
+      <el-table-column prop="url" label="下载链接" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="priority" label="优先级" header-align="center" align="center"/>
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
@@ -77,7 +77,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/ios-company-sign/list', params)
+        const res = await this.$http.post('/management/ios-company-sign/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -125,7 +125,7 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/config/ios-company-sign?ids=${selectIdsStr}`
+      const url = `/management/ios-company-sign?ids=${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
