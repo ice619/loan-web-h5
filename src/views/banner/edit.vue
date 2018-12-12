@@ -274,7 +274,7 @@ export default {
         if (valid) {
           try {
             this.bannerForm.bannerDetails = this.bannerDetails
-            const res = await this.$http.post('/config/banner', this.bannerForm)
+            const res = await this.$http.post('/management/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
@@ -289,7 +289,7 @@ export default {
     }),
     async initBannerDetails () {
       try {
-        const res = await this.$http.get('/config/banner/' + this.bannerForm.id)
+        const res = await this.$http.get('/management/banner/' + this.bannerForm.id)
         if (res.code === '200') {
           this.bannerDetails = res.data.bannerDetailsDTOS
         } else {

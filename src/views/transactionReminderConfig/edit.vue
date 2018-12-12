@@ -104,7 +104,7 @@ export default {
         // }
         if (valid) {
           try {
-            const res = await this.$http.post('/config/transaction/reminder/config', this.transactionReminderConfigForm)
+            const res = await this.$http.post('/management/transaction-reminder', this.transactionReminderConfigForm)
             if (res.code === '200') {
               this.$message.success('更新成功!')
               this.closeDialog()

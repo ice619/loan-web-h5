@@ -273,7 +273,7 @@ export default {
         if (valid) {
           try {
             this.bannerForm.bannerDetails = this.bannerDetails
-            const res = await this.$http.post('/config/banner', this.bannerForm)
+            const res = await this.$http.post('/management/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
