@@ -56,13 +56,6 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">
-            <el-form-item label="补丁说明" prop="remark">
-              <el-input v-model="ruleForm.remark" clearable placeholder="补丁说明" style="width: 675px;"/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="12">
             <el-form-item label="状态" prop="state">
               <el-select v-model="ruleForm.state" clearable placeholder="请选择">
@@ -81,6 +74,13 @@
                 <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
               </el-upload>
               <el-input type="hidden" v-model="ruleForm.patchEncryption" style="display: none;"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="补丁说明" prop="remark">
+              <el-input type="textarea" v-model="ruleForm.remark" clearable placeholder="补丁说明" style="min-width: 675px;"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -150,7 +150,7 @@ export default {
           {required: true, message: '请上传补丁包', trigger: 'blur'}
         ]
       },
-      uploadAppPatchUrl: `${process.env.API_ROOT}/management/app-patch-version/uploadAppPathFile`
+      uploadAppPatchUrl: `${process.env.API_ROOT}/management/app-patch-version/upload-app-path-file`
     }
   },
   methods: {

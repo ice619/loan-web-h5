@@ -1,8 +1,7 @@
 <template>
   <div class="border" style="width: 100%">
     <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
-      <el-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
-               class="demo-form-inline">
+      <el-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-form-inline">
         <el-row>
           <el-col :span="12">
             <el-form-item label="APP名称" prop="appName">
@@ -56,13 +55,6 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">
-            <el-form-item label="补丁说明" prop="remark">
-              <el-input v-model="ruleForm.remark" clearable placeholder="补丁说明" style="width: 675px;"/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="12">
             <el-form-item label="状态" prop="state">
               <el-select v-model="ruleForm.state" clearable placeholder="请选择">
@@ -81,6 +73,13 @@
                 <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
               </el-upload>
               <el-input type="hidden" v-model="ruleForm.patchEncryption" style="display: none;"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="补丁说明" prop="remark">
+              <el-input type="textarea" v-model="ruleForm.remark" clearable placeholder="补丁说明" style="min-width: 675px;"/>
             </el-form-item>
           </el-col>
         </el-row>
