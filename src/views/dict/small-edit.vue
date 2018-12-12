@@ -84,8 +84,8 @@ export default {
       this.$refs['dictSmallForm'].validate(async (valid) => {
         if (valid) {
           try {
-            let res = this.dictSmall ? (await this.$http.put('/config/dict-small', this.dictSmallForm))
-              : (await this.$http.post('/config/dict-small', this.dictSmallForm))
+            let res = this.dictSmall ? (await this.$http.put('/management/dict-small', this.dictSmallForm))
+              : (await this.$http.post('/management/dict-small', this.dictSmallForm))
             if (res.code === '200') {
               this.$message.success(`【${this.dictSmall ? '更新' : '新增'}】操作成功!`)
               this.closeDialog()
