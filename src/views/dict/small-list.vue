@@ -90,7 +90,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/dict-small/list', params)
+        const res = await this.$http.post('/management/dict-small/list', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
