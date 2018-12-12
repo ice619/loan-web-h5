@@ -1,16 +1,7 @@
 <template>
   <div class="border">
-    <el-dialog :title="systemDict ? '编辑' : '新增'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog :title="systemDict ? '编辑' : '新增'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" append-to-body>
       <el-form :inline="true" :model="systemDictForm" :rules="rules" ref="systemDictForm" label-width="100px" class="demo-form-inline">
-        <el-row type="flex" justify="center">
-          <el-col :span="40">
-            <el-form-item label="应用名称">
-              <el-select style="width: 372px;" v-model="systemDictForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="编码">
@@ -58,6 +49,7 @@ import {clone} from '@/utils/common'
 export default {
   props: {
     'ifshow': Boolean,
+    'parentSystemDict': Object,
     'systemDict': Object
   },
   data () {
@@ -78,6 +70,8 @@ export default {
   methods: {
     openDialog () {
       this.systemDictForm = clone(this.systemDict ? this.systemDict : this.systemDictInitForm)
+      this.systemDictForm.parent = this.parentSystemDict.dictionaryId
+      this.systemDictForm.appName = this.parentSystemDict.appName
     },
     closeDialog () {
       this.$refs['systemDictForm'].resetFields()

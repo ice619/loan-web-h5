@@ -10,8 +10,8 @@
       <el-form-item label="状态">
         <el-radio-group v-model="searchForm.state">
           <el-radio-button :label="null">ALL</el-radio-button>
-          <el-radio-button :label="true">正常</el-radio-button>
-          <el-radio-button :label="false">停用</el-radio-button>
+          <el-radio-button :label="1">正常</el-radio-button>
+          <el-radio-button :label="2">停用</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
@@ -36,8 +36,8 @@
       </el-table-column>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editDictBig(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button icon="el-icon-edit" @click="showSmallList(scope.row)" type="text" size="small">配置小类</el-button>
+          <el-button icon="el-icon-edit" @click="editSystemDict(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button icon="el-icon-edit" @click="showSmallList(scope.row)" type="text" size="small">节点数据</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -52,14 +52,17 @@
     </el-pagination>
     <!--子组件-->
     <edit :ifshow="showEditFlag" :systemDict="systemDict" @handleCloseDialog="showEditFlag=false;systemDict=null;list();"></edit>
+    <child-list :ifshow="showChildListFlag" :parentSystemDict="systemDict" @handleCloseDialog="showChildListFlag=false;systemDict=null;"></child-list>
   </div>
 </template>
 
 <script>
+import ChildEdit from './child-edit'
 export default {
   data () {
     return {
       searchForm: {
+        parent: 0,
         appName: null,
         state: null
       },
@@ -69,15 +72,8 @@ export default {
       pageSize: 10,
       total: 0,
       selectIds: [],
-      dicStatues: [{
-        value: '1',
-        label: '正常'
-      }, {
-        value: '2',
-        label: '停用'
-      }],
       showEditFlag: false,
-      showSmallListFlag: false
+      showChildListFlag: false
     }
   },
   created () {
@@ -113,20 +109,22 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(v => {
-        this.selectIds.push(v.id)
+        this.selectIds.push(v.dictionaryId)
       })
     },
-    editDictBig (row) {
+    editSystemDict (row) {
       this.showEditFlag = true
       this.systemDict = row
     },
     showSmallList (row) {
-      this.showSmallListFlag = true
+      this.showChildListFlag = true
       this.systemDict = row
     }
   },
   components: {
-    'edit': () => import('./edit')
+    ChildEdit,
+    'edit': () => import('./edit'),
+    'child-list': () => import('./child-list')
   }
 }
 </script>
