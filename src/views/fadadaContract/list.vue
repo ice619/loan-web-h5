@@ -31,25 +31,29 @@
       </el-form-item>
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <!--<el-table-column type="selection" width="55"/>-->
-      <el-table-column prop="id" label="序号" header-align="center" align="center" min-width="40px"/>
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="state" label="合同签署状态" header-align="center" align="center" min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="state" label="合同签署状态" header-align="center" align="center" min-width="80px"  show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('fddcontractState', scope.row.state)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="failureTimes" label="失败次数" header-align="center" align="center" min-width="60px"  show-overflow-tooltip/>
       <el-table-column prop="contractNo" label="合同编号" header-align="center" align="center" min-width="300px"  show-overflow-tooltip/>
       <el-table-column prop="applicationId" label="账务交易订单编号" header-align="center" align="center" min-width="210px"  show-overflow-tooltip/>
-      <el-table-column prop="downloadUrl" label="(法大大)合同下载地址" header-align="center" align="center" min-width="150px"  show-overflow-tooltip/>
-      <el-table-column prop="viewpdfUrl" label="(法大大)合同查看地址" header-align="center" align="center" min-width="150px"   show-overflow-tooltip/>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="300px"  show-overflow-tooltip/>
       <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="center" min-width="150px" show-overflow-tooltip/>
       <el-table-column prop="idCardNo" label="身份证号码" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
       <el-table-column prop="domicileAddress" label="户籍住址" header-align="center" align="center" min-width="250px" show-overflow-tooltip/>
+      <el-table-column prop="errorDescription" label="步骤处理异常描述" header-align="center" align="center" min-width="300px" show-overflow-tooltip/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
       <el-table-column prop="channel" label="资金渠道" header-align="center" align="center" min-width="120px" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
+          <span>{{$formatter.simpleFormatSelection('fddcontractChannel', scope.row.channel)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="loanDays" label="产品周期" header-align="center" align="center" min-width="60px" show-overflow-tooltip/>
@@ -63,10 +67,8 @@
       <el-table-column prop="customerCaId" label="(法大大)用户CA签章ID" header-align="center" align="center" min-width="300px" show-overflow-tooltip/>
       <el-table-column prop="companyId" label="(法大大)企业ID" header-align="center" align="center" min-width="300px" show-overflow-tooltip/>
       <el-table-column prop="templateId" label="(法大大)合同模板ID" header-align="center" align="center" min-width="300px" show-overflow-tooltip/>
-      <el-table-column prop="failureTimes" label="失败次数" header-align="center" align="center" min-width="60px"  show-overflow-tooltip/>
-      <el-table-column prop="errorDescription" label="步骤处理异常描述" header-align="center" align="center" min-width="300px" show-overflow-tooltip/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
+      <el-table-column prop="downloadUrl" label="(法大大)合同下载地址" header-align="center" align="center" min-width="150px"  show-overflow-tooltip/>
+      <el-table-column prop="viewpdfUrl" label="(法大大)合同查看地址" header-align="center" align="center" min-width="150px"   show-overflow-tooltip/>
       <el-table-column label="操作" header-align="center" align="center" min-width="120px" show-overflow-tooltip fixed="right">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="updataFailTime(scope.row)" type="text" size="small">失败次数清空</el-button>
