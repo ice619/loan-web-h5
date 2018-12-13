@@ -48,7 +48,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" min-width="160"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" min-width="160"/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="left" min-width="160"/>
       <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="left" min-width="180" show-overflow-tooltip/>
       <el-table-column prop="appLevel" label="客户标识" header-align="center" align="left" min-width="90">
         <template slot-scope="scope">
