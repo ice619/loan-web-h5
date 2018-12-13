@@ -82,8 +82,8 @@ export default {
       this.$refs['dictBigForm'].validate(async (valid) => {
         if (valid) {
           try {
-            let res = this.dictBig ? (await this.$http.put('/config/dict-big', this.dictBigForm))
-              : (await this.$http.post('/config/dict-big', this.dictBigForm))
+            let res = this.dictBig ? (await this.$http.put('/management/dict-big', this.dictBigForm))
+              : (await this.$http.post('/management/dict-big', this.dictBigForm))
             if (res.code === '200') {
               this.$message.success(`【${this.dictBig ? '更新' : '新增'}】操作成功!`)
               this.closeDialog()
