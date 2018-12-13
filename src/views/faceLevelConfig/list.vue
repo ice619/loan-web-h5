@@ -28,7 +28,7 @@
       <el-table-column prop="oppositeIdCardLevel" label="反面身份认证级别" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="state" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
+          <span :style="{color: scope.row.state === 1 ? '#13ce66' : '#ff4949'}">{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="90"/>
