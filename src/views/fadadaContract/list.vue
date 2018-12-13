@@ -53,7 +53,7 @@
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
       <el-table-column prop="channel" label="资金渠道" header-align="center" align="center" min-width="120px" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('fddcontractChannel', scope.row.channel)}}</span>
+          <span>{{$formatter.simpleFormatSelection('fddcontractChannel', parseInt(scope.row.channel))}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="loanDays" label="产品周期" header-align="center" align="center" min-width="60px" show-overflow-tooltip/>
@@ -114,6 +114,7 @@ export default {
   },
   methods: {
     async list () {
+      console.log(this.$formatter.simpleFormatSelection('fddcontractChannel', 1))
       let params = {
         ...this.searchForm,
         pageIndex: this.pageIndex,
