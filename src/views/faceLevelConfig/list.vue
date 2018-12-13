@@ -23,9 +23,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="faceRecognitionLevel" label="人脸识别级别" header-align="center" align="center"/>
-      <el-table-column prop="positiveIdCardLevel" label="身份证正面身份认证级别" header-align="center" align="center" min-width="120px"/>
-      <el-table-column prop="identifyResultLevel" label="身份综合验证级别" header-align="center" align="center" min-width="120px"/>
-      <el-table-column prop="oppositeIdCardLevel" label="反面身份认证级别" header-align="center" align="center" min-width="120px"/>
+      <el-table-column prop="positiveIdCardLevel" label="身份证正面身份认证级别" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="identifyResultLevel" label="身份综合验证级别" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="oppositeIdCardLevel" label="反面身份认证级别" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="state" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
