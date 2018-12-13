@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="编辑banner配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑banner配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog"  width="80%">
       <el-form :inline="true" :model="bannerForm" :rules="rules" ref="bannerForm" label-width="100px"
                class="demo-form-inline">
         <el-row>
