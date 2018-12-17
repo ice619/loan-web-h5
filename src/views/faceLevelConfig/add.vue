@@ -20,19 +20,21 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份证正面识别阀值" prop="positiveIdCardLevel">
-              <el-input v-model="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="身份证正面识别阀值"/>
+              <el-input v-model="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="0~100分值 越高通过率越低"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="身份证反面识别阀值" prop="oppositeIdCardLevel">
-              <el-input v-model="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="身份证反面识别阀值"/>
+              <el-input v-model="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="0~100分值 越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份综合验证阀值" prop="identifyResultLevel">
-              <el-input v-model="faceLevelConfigForm.identifyResultLevel" clearable placeholder="身份综合验证阀值"/>
+              <el-select v-model="faceLevelConfigForm.identifyResultLevel" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('identifyResultLevel')" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -117,7 +119,7 @@ export default {
       this.$refs['faceLevelConfigForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/management/face-level/save-or-update', this.faceLevelConfigForm)
+            const res = await this.$http.post('/management/face-level', this.faceLevelConfigForm)
             console.log(res)
             if (res.code === '200') {
               this.$message.success('保存成功!')
