@@ -13,7 +13,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="人脸识别阀值" prop="faceRecognitionLevel">
-              <el-input v-model="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="人脸识别阀值"/>
+              <el-input v-model="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="0~100分值 越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
