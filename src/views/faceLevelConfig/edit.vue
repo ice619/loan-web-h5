@@ -109,7 +109,7 @@ export default {
       this.$refs['faceLevelConfigForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/management/face-level/save-or-update', this.faceLevelConfigForm)
+            const res = await this.$http.post('/management/face-level', this.faceLevelConfigForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')
               this.closeDialog()
