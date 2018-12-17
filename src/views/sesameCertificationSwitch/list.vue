@@ -38,7 +38,7 @@
       <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button icon="el-icon-delete" @click="delete(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
+          <el-button icon="el-icon-delete" @click="removeCertification(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -117,7 +117,7 @@ export default {
       this.showEditFlag = true
       this.sesameCertificationSwitchWindow = row
     },
-    delete (row) {
+    removeCertification (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -131,12 +131,12 @@ export default {
           return
         }
       } else {
-        this.$refs.iosCompanySignTable.clearSelection()
+        this.$refs.sesameCertificationSwitchTable.clearSelection()
         idsLength = 1
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/sesame-certification-switch/${selectIdsStr}`
+      const url = `/management/sesame-certification-switch/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
