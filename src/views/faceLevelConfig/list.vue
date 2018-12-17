@@ -39,6 +39,7 @@
       <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button icon="el-icon-delete" @click="removeFaceLevel(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -110,12 +111,59 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(v => {
-        this.selectIds.push(v.id)
+        this.selectIds.push(v.faceLevelId)
       })
     },
     edit (row) {
       this.showEditFlag = true
       this.faceLevelConfigWindow = row
+    },
+    removeFaceLevel (row) {
+      let selectIdsStr = ''
+      let idsLength = this.selectIds.length
+      if (row instanceof Event) {
+        if (idsLength > 0) {
+          this.selectIds.forEach(v => {
+            selectIdsStr += `${v},`
+          })
+          selectIdsStr = selectIdsStr.substring(0, selectIdsStr.length - 1)
+        } else {
+          this.$message.warning('至少选择一条记录')
+          return
+        }
+      } else {
+        this.$refs.faceLevelConfigTable.clearSelection()
+        idsLength = 1
+        this.selectIds.push(row.faceLevelId)
+        selectIdsStr = row.faceLevelId
+      }
+      const url = `/management/face-level/${selectIdsStr}`
+      const tableLength = this.tableData.length
+      this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
+        try {
+          const res = await this.$http.delete(url)
+          if (res.code === '200') {
+            this.$message.success('删除成功!')
+            // this.list()
+            this.selectIds.forEach(v => {
+              let i = this.tableData.findIndex(s => s.faceLevelId === v)
+              this.tableData.splice(i, 1)
+            })
+            this.total -= idsLength
+            if (idsLength === tableLength) {
+              this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1
+              this.list()
+            }
+          } else {
+            this.$message.error(res.message)
+          }
+          this.selectIds = []
+        } catch (err) {
+          console.error(err)
+        }
+      }).catch(action => {
+        this.selectIds = []
+      })
     }
   },
   components: {
