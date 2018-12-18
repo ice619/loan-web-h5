@@ -77,7 +77,7 @@
       </el-row>
       <el-row>
         <el-col :span="6">
-          <el-form-item label="所属页面" prop="position" required>
+          <el-form-item label="所属页面" prop="position">
             <el-select v-model="bannerForm.position" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label"
                          :value="item.value"/>
@@ -85,7 +85,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="显示位置" prop="displayPosition" required>
+          <el-form-item label="显示位置" prop="displayPosition">
             <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
                          :value="item.value"/>
