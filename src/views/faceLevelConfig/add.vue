@@ -13,19 +13,19 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="人脸识别阀值" prop="faceRecognitionLevel">
-              <el-input v-model="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="0~100分值 越高通过率越低"/>
+              <el-input v-model.number="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份证正面识别阀值" prop="positiveIdCardLevel">
-              <el-input v-model="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="0~100分值 越高通过率越低"/>
+              <el-input v-model.number="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="身份证反面识别阀值" prop="oppositeIdCardLevel">
-              <el-input v-model="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="0~100分值 越高通过率越低"/>
+              <el-input v-model.number="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -77,9 +77,9 @@ export default {
     return {
       faceLevelConfigInitForm: {
         appName: 6,
-        faceRecognitionLevel: '',
-        positiveIdCardLevel: '',
-        oppositeIdCardLevel: '',
+        faceRecognitionLevel: 0,
+        positiveIdCardLevel: 0,
+        oppositeIdCardLevel: 0,
         identifyResultLevel: '',
         state: '',
         remark: ''
@@ -90,13 +90,16 @@ export default {
           {required: true, message: '请选择APP名称', trigger: 'blur'}
         ],
         faceRecognitionLevel: [
-          {required: true, message: '请输入人脸识别阀值', trigger: 'blur'}
+          {required: true, message: '请输入人脸识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         positiveIdCardLevel: [
-          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'}
+          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         oppositeIdCardLevel: [
-          {required: true, message: '请输入身份证反面识别阀值', trigger: 'blur'}
+          {required: true, message: '请输入身份证反面识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         identifyResultLevel: [
           {required: true, message: '请输入身份综合验证阀值', trigger: 'blur'}
