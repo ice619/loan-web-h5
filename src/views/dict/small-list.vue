@@ -3,7 +3,7 @@
     <el-dialog title="数据字典小类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="searchForm" class="demo-form-inline">
         <el-form-item>
-          <el-button type="primary" icon="el-icon-plus" @click="showEditFlag=true">新增</el-button>
+          <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showEditFlag=true">新增</el-button>
         </el-form-item>
       </el-form>
       <el-table ref="dictSmallTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">

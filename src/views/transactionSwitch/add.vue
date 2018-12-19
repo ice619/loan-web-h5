@@ -61,7 +61,7 @@
         <el-row type="flex" justify="left" style="padding-top: 20px;padding-left: 50px">
           <el-col :span="30">
             <el-form-item>
-              <el-button type="primary" @click="saveVariable">提交</el-button>
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="saveVariable">提交</el-button>
               <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>

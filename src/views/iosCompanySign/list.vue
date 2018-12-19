@@ -2,7 +2,7 @@
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item style="float: left">
-        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
         <el-button type="danger" icon="el-icon-delete" @click="removeIosCompanySign">删除</el-button>
       </el-form-item>
     </el-form>

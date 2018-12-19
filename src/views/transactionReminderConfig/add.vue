@@ -57,7 +57,7 @@
             <el-row type="flex" justify="center">
               <el-col :span="40">
                 <el-form-item>
-                  <el-button type="primary" @click="saveTransactionReminderConfig">提交</el-button>
+                  <el-button style="color: white;background-color: #009688;" type="primary" @click="saveTransactionReminderConfig">提交</el-button>
                   <el-button @click="closeDialog">取消</el-button>
                 </el-form-item>
               </el-col>

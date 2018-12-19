@@ -27,7 +27,7 @@
           <el-input v-model="searchForm.applicationId" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="list">查询</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">

@@ -19,8 +19,8 @@
           <el-input v-model="searchForm.marketName" clearable placeholder="请输入IOS标识"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
-        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="appVersionAuditTable" :data="tableData" border stripe highlight-current-row
