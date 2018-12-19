@@ -26,7 +26,7 @@
       </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
-      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"/>
 
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
