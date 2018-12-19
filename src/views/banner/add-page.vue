@@ -273,6 +273,10 @@ export default {
       return true
     },
     checkBannerDetails () {
+      if (!this.bannerDetails || this.bannerDetails.length === 0) {
+        this.$message.error(`bannerDetails信息未填写`)
+        return false
+      }
       for (let i in this.bannerDetails) {
         const bannerDetail = this.bannerDetails[i]
         for (let p in bannerDetail) {
