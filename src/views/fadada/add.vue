@@ -35,7 +35,7 @@
                 :show-file-list="false"
                 :on-success="successHandler"
                 :multiple="false">
-                <el-button size="small" type="primary">点击上传</el-button>
+                <el-button style="color: white;background-color: #009688;" size="small" type="primary">点击上传</el-button>
               </el-upload>
             </el-form-item>
           </el-col>
