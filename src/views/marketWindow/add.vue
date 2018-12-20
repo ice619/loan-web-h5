@@ -100,7 +100,7 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item>
-              <el-button type="primary" @click="saveMarketWindow">提交</el-button>
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="saveMarketWindow">提交</el-button>
               <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
@@ -186,7 +186,7 @@ export default {
         if (valid) {
           try {
             this.marketWindowForm.showFrequency = 0
-            const res = await this.$http.post('/config/market-window-web', this.marketWindowForm)
+            const res = await this.$http.post('/management/market-window', this.marketWindowForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()

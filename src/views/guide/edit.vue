@@ -15,7 +15,7 @@
           <el-col :span="30">
             <el-form-item label="生效终端:">
               <el-select v-model="guideForm.terminal" clearable >
-                <el-option v-for="item in terminals" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -95,8 +95,7 @@ import {clone} from '@/utils/common'
 export default {
   props: {
     'ifshow': Boolean,
-    'guidePage': Object,
-    'terminals': Array
+    'guidePage': Object
   },
   data () {
     return {

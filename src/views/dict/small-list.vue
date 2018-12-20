@@ -3,7 +3,7 @@
     <el-dialog title="数据字典小类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="searchForm" class="demo-form-inline">
         <el-form-item>
-          <el-button type="primary" icon="el-icon-plus" @click="showEditFlag=true">新增</el-button>
+          <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showEditFlag=true">新增</el-button>
         </el-form-item>
       </el-form>
       <el-table ref="dictSmallTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="sortNum" label="排序" header-align="center" align="center"/>
         <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
-        <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center"/>
+        <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"/>
 
         <el-table-column label="操作" header-align="center" align="center">
           <template slot-scope="scope">
@@ -90,7 +90,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/dict-small/list', params)
+        const res = await this.$http.post('/management/dict-small/list', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total

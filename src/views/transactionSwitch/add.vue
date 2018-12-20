@@ -61,7 +61,7 @@
         <el-row type="flex" justify="left" style="padding-top: 20px;padding-left: 50px">
           <el-col :span="30">
             <el-form-item>
-              <el-button type="primary" @click="saveVariable">提交</el-button>
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="saveVariable">提交</el-button>
               <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
@@ -76,9 +76,7 @@ import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
 export default {
   props: {
-    'ifshow': Boolean,
-    'userTypes': Array,
-    'switchTypes': Array
+    'ifshow': Boolean
   },
   data: function () {
     return {
@@ -109,18 +107,13 @@ export default {
     },
     saveVariable: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
-        // if (valid) {
-        //   this.$confirm('确认新增吗？', '提示', {type: 'warning'}).then(async () => {
-        //   }).catch(() => {
-        //   })
-        // }
         if (valid) {
           try {
             if (this.entryForm.versionLowerLimit > this.entryForm.versionUpperLimit) {
               this.$message.error('开始版本号不能大于结束版本号')
               return
             }
-            const res = await this.$http.post('/config/transaction-switch', this.entryForm)
+            const res = await this.$http.post('/management/transaction-switch', this.entryForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()

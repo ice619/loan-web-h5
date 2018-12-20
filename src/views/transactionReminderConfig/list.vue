@@ -12,8 +12,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="list">搜索</el-button>
-        <el-button type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">搜索</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="transactionReminderConfigTable" :data="tableData" border stripe highlight-current-row
@@ -96,7 +96,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/config/transaction/reminder/config/page', params)
+        const res = await this.$http.post('/management/transaction-reminder/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -144,7 +144,7 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/config/transaction/reminder/config/${selectIdsStr}`
+      const url = `/management/transaction-reminder/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {

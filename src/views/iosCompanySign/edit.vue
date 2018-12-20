@@ -22,7 +22,7 @@
           </el-col>
           <el-col :span="40">
             <el-form-item label="优先级">
-              <el-input-number v-model="iosCompanySignForm.priority" controls-position="right" :min="1" :max="999"></el-input-number>
+              <el-input-number v-model="iosCompanySignForm.priority" controls-position="right" :min="1" :max="2147483647"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -53,7 +53,7 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item>
-              <el-button type="primary" @click="saveIosCompanySign">提交</el-button>
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="saveIosCompanySign">提交</el-button>
               <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
@@ -96,7 +96,7 @@ export default {
       this.$refs['iosCompanySignForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.put('/config/ios-company-sign', this.iosCompanySignForm)
+            const res = await this.$http.put('/management/ios-company-sign', this.iosCompanySignForm)
             if (res.code === '200') {
               this.$message.success('更新成功!')
               this.closeDialog()
