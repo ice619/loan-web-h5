@@ -26,6 +26,23 @@ export default class Formatter {
   }
 
   /**
+   *
+   * @param prop
+   * @param values 以,分割的字符串
+   * @returns {*}
+   */
+  static multipleFormatSelection (prop, values) {
+    if (!values) {
+      return null
+    }
+    let label = ''
+    values.split(',').forEach(s => {
+      label += ` | ${Formatter.simpleFormatSelection(prop, parseInt(s))}`
+    })
+    return label.substring(3)
+  }
+
+  /**
    * 获取下拉选项的展示值
    * @param prop
    * @param val

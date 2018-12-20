@@ -13,26 +13,28 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="人脸识别阀值" prop="faceRecognitionLevel">
-              <el-input v-model="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="人脸识别阀值"/>
+              <el-input v-model.number="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份证正面识别阀值" prop="positiveIdCardLevel">
-              <el-input v-model="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="身份证正面识别阀值"/>
+              <el-input v-model.number="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="身份证反面识别阀值" prop="oppositeIdCardLevel">
-              <el-input v-model="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="身份证反面识别阀值"/>
+              <el-input v-model.number="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份综合验证阀值" prop="identifyResultLevel">
-              <el-input v-model="faceLevelConfigForm.identifyResultLevel" clearable placeholder="身份综合验证阀值"/>
+              <el-select v-model="faceLevelConfigForm.identifyResultLevel" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('identifyResultLevel')" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -53,7 +55,7 @@
         <el-row type="flex" justify="center" style="margin-top: 10px">
           <el-col :span="40">
             <el-form-item>
-              <el-button type="primary" @click="save">提交</el-button>
+              <el-button style="color: white;background-color: #009688;" @click="save">提交</el-button>
               <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
           </el-col>
@@ -65,7 +67,6 @@
 
 <script>
 import debounce from 'throttle-debounce/debounce'
-import {clone} from '@/utils/common'
 
 export default {
   props: {
@@ -80,13 +81,16 @@ export default {
           {required: true, message: '请选择APP名称', trigger: 'blur'}
         ],
         faceRecognitionLevel: [
-          {required: true, message: '请输入人脸识别阀值', trigger: 'blur'}
+          {required: true, message: '请输入人脸识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         positiveIdCardLevel: [
-          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'}
+          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         oppositeIdCardLevel: [
-          {required: true, message: '请输入身份证反面识别阀值', trigger: 'blur'}
+          {required: true, message: '请输入身份证反面识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         identifyResultLevel: [
           {required: true, message: '请输入身份综合验证阀值', trigger: 'blur'}
@@ -99,7 +103,16 @@ export default {
   },
   methods: {
     openDialog () {
-      this.faceLevelConfigForm = clone(this.faceLevelConfigWindow)
+      this.faceLevelConfigForm = {
+        faceLevelId: this.faceLevelConfigWindow.faceLevelId,
+        appName: this.faceLevelConfigWindow.appName,
+        faceRecognitionLevel: Number(this.faceLevelConfigWindow.faceRecognitionLevel),
+        positiveIdCardLevel: Number(this.faceLevelConfigWindow.positiveIdCardLevel),
+        oppositeIdCardLevel: Number(this.faceLevelConfigWindow.oppositeIdCardLevel),
+        identifyResultLevel: this.faceLevelConfigWindow.identifyResultLevel,
+        state: this.faceLevelConfigWindow.state,
+        remark: this.faceLevelConfigWindow.remark
+      }
     },
     closeDialog () {
       this.$refs['faceLevelConfigForm'].resetFields()
@@ -109,7 +122,7 @@ export default {
       this.$refs['faceLevelConfigForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/management/face-level/save-or-update', this.faceLevelConfigForm)
+            const res = await this.$http.post('/management/face-level', this.faceLevelConfigForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')
               this.closeDialog()

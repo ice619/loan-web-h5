@@ -8,11 +8,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="状态">
-        <el-radio-group v-model="searchForm.state">
-          <el-radio-button :label="null">ALL</el-radio-button>
-          <el-radio-button :label="1">正常</el-radio-button>
-          <el-radio-button :label="2">停用</el-radio-button>
-        </el-radio-group>
+        <el-select v-model="searchForm.state" clearable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('dictStates')" :key="item.value" :label="item.label"
+                     :value="item.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="pageIndex=1;list();">查询</el-button>

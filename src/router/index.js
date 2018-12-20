@@ -4,6 +4,8 @@ import fetch from '@/utils/fetch'
 import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
+import bannerAdd from '@/views/banner/add-page'
+import bannerEdit from '@/views/banner/edit-page'
 import marketWindow from '@/views/marketWindow/list'
 import transactionReminderConfig from '@/views/transactionReminderConfig/list'
 import guide from '@/views/guide/list'
@@ -38,6 +40,16 @@ const router = new Router({
       path: '/banner',
       name: 'banner',
       component: banner
+    },
+    {
+      path: '/banner-add',
+      name: 'bannerAdd',
+      component: bannerAdd
+    },
+    {
+      path: '/banner-edit/:bannerId',
+      name: 'bannerEdit',
+      component: bannerEdit
     },
     {
       path: '/market-window',

@@ -25,8 +25,10 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="状态" style="margin-left: -240px;">
-              <el-switch v-model="systemDictForm.state" :active-value="1" :inactive-value="2" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+            <el-form-item label="状态" style="margin-left: -155px;">
+              <el-select v-model="systemDictForm.state" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('dictStates')" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>

@@ -58,7 +58,7 @@
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editAppClosureSwitch(scope.row)" type="text" size="small">编辑</el-button>
-          <!--<el-button icon="el-icon-delete" @click="removeAppClosureSwitch(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>-->
+          <el-button icon="el-icon-delete" @click="removeAppClosureSwitch(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
