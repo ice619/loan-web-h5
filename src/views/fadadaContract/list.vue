@@ -46,6 +46,7 @@
       <el-table-column prop="applicationId" label="账务交易订单编号" header-align="center" align="center" min-width="210px"  show-overflow-tooltip/>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="300px"  show-overflow-tooltip/>
       <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="center" min-width="150px" show-overflow-tooltip/>
+      <el-table-column prop="name" label="客户姓名" header-align="center" align="center" min-width="120px" show-overflow-tooltip/>
       <el-table-column prop="idCardNo" label="身份证号码" header-align="center" align="center" min-width="210px" show-overflow-tooltip/>
       <el-table-column prop="domicileAddress" label="户籍住址" header-align="center" align="center" min-width="250px" show-overflow-tooltip/>
       <el-table-column prop="errorDescription" label="步骤处理异常描述" header-align="center" align="center" min-width="300px" show-overflow-tooltip/>
