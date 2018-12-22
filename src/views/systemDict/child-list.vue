@@ -7,7 +7,8 @@
         </el-form-item>
       </el-form>
       <el-table ref="systemDictTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-        <el-table-column prop="dictionaryId" label="序号" header-align="center" align="center"/>
+        <el-table-column type="index" label="序号" header-align="center" align="center" />
+        <!--<el-table-column prop="dictionaryId" label="序号" header-align="center" align="center"/>-->
         <el-table-column prop="appName" label="应用名称" header-align="center" align="center">
           <template slot-scope="scope">
             <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
@@ -18,7 +19,7 @@
         <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
         <el-table-column prop="state" label="状态" header-align="center" align="center">
           <template slot-scope="scope">
-            <span :style="{color: scope.row.state === 1 ? '#13ce66' : '#ff4949'}">{{scope.row.state === 1 ? '正常' : '停用'}}</span>
+            <span>{{scope.row.state === 1 ? '正常' : '停用'}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" header-align="center" align="center">

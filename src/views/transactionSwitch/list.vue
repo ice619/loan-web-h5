@@ -18,7 +18,8 @@
       </el-form-item>
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="id" label="序号" header-align="center" align="center" min-width="40"/>
+      <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
+      <!--<el-table-column prop="id" label="序号" header-align="center" align="center" min-width="40"/>-->
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
@@ -50,9 +51,23 @@
           <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" min-width="60"/>
+      <!--<el-table-column prop="modifyUser" label="修改人" header-align="center" align="center" min-width="60"/>-->
+      <el-table-column label="修改人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.modifyManId}}</span>
+          <span>{{scope.row.modifyManId === null || scope.row.modifyManId === '' || scope.row.modifyUser === null || scope.row.modifyUser === '' ? '' : '-'}}</span>
+          <span>{{scope.row.modifyUser}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="60"/>
+      <!--<el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="60"/>-->
+      <el-table-column label="创建人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.createManId}}</span>
+          <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createUser === null || scope.row.createUser === '' ? '' : '-'}}</span>
+          <span>{{scope.row.createUser}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="120"/>
       <el-table-column label="操作" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">

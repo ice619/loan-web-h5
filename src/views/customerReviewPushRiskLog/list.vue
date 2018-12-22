@@ -27,56 +27,56 @@
       </el-form-item>
     </el-form>
     <el-table ref="pushRiskLogTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="left" min-width="95">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="applicationType" label="申请单类型" header-align="center" align="left" min-width="100">
+      <el-table-column prop="applicationType" label="申请单类型" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('applicationType', scope.row.applicationType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="status" label="状态" header-align="center" align="left" min-width="75">
+      <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="75">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('pushStatus', scope.row.status)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="auditingState" label="审批状态" header-align="center" align="left" min-width="100">
+      <el-table-column prop="auditingState" label="审批状态" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.auditingState)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" min-width="160"/>
-      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="left" min-width="160"/>
-      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="left" min-width="180" show-overflow-tooltip/>
-      <el-table-column prop="appLevel" label="客户标识" header-align="center" align="left" min-width="90">
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="180" show-overflow-tooltip/>
+      <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="客户姓名" header-align="center" align="left" min-width="90"/>
-      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="left" min-width="130"/>
-      <el-table-column prop="customerId" label="客户编号" header-align="center" align="left" min-width="120" show-overflow-tooltip/>
-      <el-table-column prop="authMoney" label="授信额度" header-align="center" align="left" min-width="120"/>
-      <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="left" min-width="120"/>
-      <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="left" min-width="155"/>
-      <el-table-column prop="exceptionType" label="异常类型" header-align="center" align="left" min-width="120">
+      <el-table-column prop="name" label="客户姓名" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="center" min-width="130"/>
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="120" show-overflow-tooltip/>
+      <el-table-column prop="authMoney" label="授信额度" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="center" min-width="155"/>
+      <el-table-column prop="exceptionType" label="异常类型" header-align="center" align="center" min-width="120">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('exceptionType', scope.row.exceptionType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appVersion" label="App版本号" header-align="center" align="left" min-width="100"/>
-      <el-table-column prop="appChannel" label="app下载渠道" header-align="center" align="left" min-width="110"/>
-      <el-table-column prop="source" label="申请来源" header-align="center" align="left" min-width="100">
+      <el-table-column prop="appVersion" label="App版本号" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="appChannel" label="app下载渠道" header-align="center" align="center" min-width="110"/>
+      <el-table-column prop="source" label="申请来源" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('clientType', scope.row.source)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="jxlToken" label="聚信立运营商token" header-align="center" align="left" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="tdBlockBox" label="同盾black_box" header-align="center" align="left" min-width="135" show-overflow-tooltip/>
-      <el-table-column prop="sesameScope" label="芝麻分" header-align="center" align="left" min-width="90"/>
-      <el-table-column prop="loanIp" label="申请用户公网IP" header-align="center" align="left" min-width="140"/>
+      <el-table-column prop="jxlToken" label="聚信立运营商token" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <el-table-column prop="tdBlockBox" label="同盾black_box" header-align="center" align="center" min-width="135" show-overflow-tooltip/>
+      <el-table-column prop="sesameScope" label="芝麻分" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="loanIp" label="申请用户公网IP" header-align="center" align="center" min-width="140"/>
     </el-table>
     <el-pagination
       @current-change="handleCurrentChange"

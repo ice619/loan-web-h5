@@ -8,7 +8,8 @@
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
-      <el-table-column prop="id" label="ID" header-align="center" align="center"/>
+      <el-table-column type="index" label="序号" header-align="center" align="center" />
+      <!--<el-table-column prop="id" label="ID" header-align="center" align="center"/>-->
       <el-table-column prop="osType" label="手机系统" header-align="center" align="center"/>
       <el-table-column prop="urlKey" label="下载链接key" header-align="center" align="center"/>
       <el-table-column prop="url" label="下载链接" header-align="center" align="center" show-overflow-tooltip/>

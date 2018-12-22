@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
       <el-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-form-inline">
         <el-row>
           <el-col :span="12">
@@ -10,6 +10,8 @@
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="12">
             <el-form-item label="发布渠道" prop="channel">
               <el-input v-model="ruleForm.channel" clearable placeholder="发布渠道"/>
