@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
+    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-form-inline">
         <el-row>
           <el-col :span="12">
