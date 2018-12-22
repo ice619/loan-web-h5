@@ -12,7 +12,7 @@
         <el-table-column prop="dicSmallValue" label="小类中文名称" header-align="center" align="center"/>
         <el-table-column prop="dicSmallStaues" label="小类使用状态" header-align="center" align="center">
           <template slot-scope="scope">
-            <span :style="{color: scope.row.dicSmallStaues === '1' ? '#13ce66' : '#ff4949'}">{{scope.row.dicSmallStaues === '1' ? '正常' : '停用'}}</span>
+            <span>{{scope.row.dicSmallStaues === '1' ? '正常' : '停用'}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="sortNum" label="排序" header-align="center" align="center"/>

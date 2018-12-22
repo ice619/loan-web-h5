@@ -76,10 +76,10 @@ export default {
   data () {
     return {
       faceLevelConfigInitForm: {
-        appName: 6,
-        faceRecognitionLevel: 0,
-        positiveIdCardLevel: 0,
-        oppositeIdCardLevel: 0,
+        appName: null,
+        faceRecognitionLevel: null,
+        positiveIdCardLevel: null,
+        oppositeIdCardLevel: null,
         identifyResultLevel: '',
         state: '',
         remark: ''

@@ -18,34 +18,49 @@
     </el-form>
     <el-table ref="transactionReminderConfigTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column prop="id" label="ID" header-align="center" align="center"/>
-      <el-table-column prop="appName" label="APP平台" header-align="center" align="left">
+      <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
+      <!--<el-table-column prop="id" label="ID" header-align="center" align="center"/>-->
+      <el-table-column prop="appName" label="APP平台" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="configType" label="提示类型" header-align="center" align="left">
+      <el-table-column prop="configType" label="提示类型" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('configTypes', scope.row.configType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="configType" label="图片链接" header-align="center" align="left" show-overflow-tooltip>
+      <el-table-column prop="configType" label="图片链接" header-align="center" align="center" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('configTypeImages', scope.row.configType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="hint" label="提示语" header-align="center" align="left" show-overflow-tooltip/>
-      <el-table-column prop="remark" label="备注" header-align="center" align="left" show-overflow-tooltip/>
-      <el-table-column prop="status" label="状态" header-align="center" align="left">
+      <el-table-column prop="hint" label="提示语" header-align="center" align="center" show-overflow-tooltip/>
+      <el-table-column prop="remark" label="备注" header-align="center" align="center" show-overflow-tooltip/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="modifyUser" label="修改人" header-align="center" align="left"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="left" min-width="90"/>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="left"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="left" min-width="90"/>
-      <el-table-column label="操作" header-align="center" align="left">
+      <!--<el-table-column prop="modifyUser" label="修改人" header-align="center" align="center"/>-->
+      <el-table-column label="修改人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.modifyManId}}</span>
+          <span>{{scope.row.modifyManId === null || scope.row.modifyManId === '' || scope.row.modifyUser === null || scope.row.modifyUser === '' ? '' : '-'}}</span>
+          <span>{{scope.row.modifyUser}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="90"/>
+      <!--<el-table-column prop="createUser" label="创建人" header-align="center" align="center"/>-->
+      <el-table-column label="创建人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.createManId}}</span>
+          <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createUser === null || scope.row.createUser === '' ? '' : '-'}}</span>
+          <span>{{scope.row.createUser}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editTransactionReminderConfig(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeTransactionReminderConfig(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>

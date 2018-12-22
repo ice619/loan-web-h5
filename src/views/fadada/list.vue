@@ -24,7 +24,14 @@
       <el-table-column prop="fddHandlerCode" label="返回状态码" header-align="center" align="center" min-width="40" show-overflow-tooltip/>
       <el-table-column prop="traceId" label="请求流水号" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="80" show-overflow-tooltip/>
-      <el-table-column prop="createMan" label="创建人" header-align="center" align="center" min-width="40" show-overflow-tooltip/>
+      <!--<el-table-column prop="createMan" label="创建人" header-align="center" align="center" min-width="40" show-overflow-tooltip/>-->
+      <el-table-column label="创建人" header-align="center" align="center" min-width="40" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span>{{scope.row.createManId}}</span>
+          <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createMan === null || scope.row.createMan === '' ? '' : '-'}}</span>
+          <span>{{scope.row.createMan}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="100" show-overflow-tooltip/>
     </el-table>
     <el-pagination

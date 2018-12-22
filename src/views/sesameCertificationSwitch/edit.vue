@@ -10,6 +10,8 @@
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="12">
             <el-form-item label="发布渠道" prop="channel">
               <el-input v-model="ruleForm.channel" clearable placeholder="发布渠道"/>

@@ -24,13 +24,18 @@
         </el-select>
       </el-form-item>
       <el-form-item label="账务交易订单编号：">
-          <el-input v-model="searchForm.applicationId" />
+          <el-input v-model="searchForm.applicationId" clearable placeholder="请输入账务交易订单编号"/>
+      </el-form-item>
+      <el-form-item label="失败次数：">
+        <el-input v-model="searchForm.failureTimes" type="number" :min="0" clearable placeholder="请输入次数"/>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">查询</el-button>
+        <el-button type="danger" icon="el-icon-edit" @click="updataFailTime">失败次数批量清空</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" header-align="center" align="center"/>
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
@@ -98,7 +103,8 @@ export default {
         appName: null,
         state: null,
         channel: null,
-        applicationId: null
+        applicationId: null,
+        failureTimes: null
       },
       entry: {},
       tableData: [],
@@ -115,7 +121,7 @@ export default {
   },
   methods: {
     async list () {
-      console.log(this.$formatter.simpleFormatSelection('fddcontractChannel', 1))
+      // console.log(this.$formatter.simpleFormatSelection('fddcontractChannel', 1))
       let params = {
         ...this.searchForm,
         pageIndex: this.pageIndex,
@@ -144,20 +150,55 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(v => {
-        this.selectIds.push(v.id)
+        this.selectIds.push(v.contractNo)
       })
     },
     async updataFailTime (row) {
-      try {
-        const res = await this.$http.post('/management/fadada-contract/update-failure-times-zero', row.contractNo)
-        if (res.code === '200') {
-          this.$message.success('清空成功')
+      // try {
+      //   const res = await this.$http.post('/management/fadada-contract/update-failure-times-zero', row.contractNo)
+      //   if (res.code === '200') {
+      //     this.$message.success('清空成功')
+      //   } else {
+      //     this.$message.error(res.message)
+      //   }
+      // } catch (err) {
+      //   console.error(err)
+      // }
+      let selectIdsStr = ''
+      let idsLength = this.selectIds.length
+      if (row instanceof Event) {
+        if (idsLength > 0) {
+          this.selectIds.forEach(v => {
+            selectIdsStr += `${v},`
+          })
+          selectIdsStr = selectIdsStr.substring(0, selectIdsStr.length - 1)
         } else {
-          this.$message.error(res.message)
+          this.$message.warning('至少选择一条记录')
+          return
         }
-      } catch (err) {
-        console.error(err)
+      } else {
+        this.$refs.switchTable.clearSelection()
+        idsLength = 1
+        this.selectIds.push(row.contractNo)
+        selectIdsStr = row.contractNo
       }
+      const url = `/management/fadada-contract/batch-update-failure-times-zero?ids=${selectIdsStr}`
+      this.$confirm('确认要清空次数吗？', '提示', {type: 'warning'}).then(async () => {
+        try {
+          const res = await this.$http.post(url)
+          if (res.code === '200') {
+            this.$message.success('次数清空成功!')
+            this.list()
+          } else {
+            this.$message.error(res.message)
+          }
+          this.selectIds = []
+        } catch (err) {
+          console.error(err)
+        }
+      }).catch(action => {
+        this.selectIds = []
+      })
     }
   }
 }

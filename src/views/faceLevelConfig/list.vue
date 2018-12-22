@@ -28,14 +28,26 @@
       <el-table-column prop="oppositeIdCardLevel" label="反面身份认证级别" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="state" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
-          <span :style="{color: scope.row.state === 1 ? '#13ce66' : '#ff4949'}">{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
+          <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="130"/>
-      <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>
+      <el-table-column label="创建人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.createManId}}</span>
+          <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createMan === null || scope.row.createMan === '' ? '' : '-'}}</span>
+          <span>{{scope.row.createMan}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="130"/>
-      <el-table-column prop="modifyMan" label="修改人" header-align="center" align="center"/>
+      <el-table-column label="修改人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.modifyManId}}</span>
+          <span>{{scope.row.modifyManId === null || scope.row.modifyManId === '' || scope.row.modifyMan === null || scope.row.modifyMan === '' ? '' : '-'}}</span>
+          <span>{{scope.row.modifyMan}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" header-align="center" align="left">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="edit(scope.row)" type="text" size="small">编辑</el-button>
