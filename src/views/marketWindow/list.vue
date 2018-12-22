@@ -15,7 +15,7 @@
       </el-form-item>
     </el-form>
     <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row height="750" @selection-change="handleSelectionChange">
-      <el-table-column type="index" label="序号" header-align="center" align="center" />
+      <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
       <!--<el-table-column prop="id" label="ID" header-align="center" align="center"/>-->
       <el-table-column prop="appName" label="应用名称" header-align="center" align="center">
         <template slot-scope="scope">

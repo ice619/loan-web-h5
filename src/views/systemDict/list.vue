@@ -19,7 +19,7 @@
       </el-form-item>
     </el-form>
     <el-table ref="systemDictTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column type="index" label="序号" header-align="center" align="center"/>
+      <el-table-column type="index" label="序号" width="50" header-align="center" align="center"/>
       <!--<el-table-column prop="dictionaryId" label="序号" header-align="center" align="center"/>-->
       <el-table-column prop="appName" label="应用名称" header-align="center" align="center">
         <template slot-scope="scope">

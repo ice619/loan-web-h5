@@ -35,7 +35,7 @@
       </el-form-item>
     </el-form>
     <el-table ref="switchTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"/>
+      <el-table-column type="selection" width="55" header-align="center" align="center"/>
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center" min-width="80px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
