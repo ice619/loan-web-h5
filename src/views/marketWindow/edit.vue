@@ -79,11 +79,17 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="24">
-            <el-form-item label="状态">
+            <!--<el-form-item label="状态">
               <el-radio-group v-model="marketWindowForm.status">
                 <el-radio :label="true">有效</el-radio>
                 <el-radio :label="false">无效</el-radio>
               </el-radio-group>
+            </el-form-item>-->
+            <el-form-item label="状态">
+              <el-select v-model="marketWindowForm.status" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('statuses')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>

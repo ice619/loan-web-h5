@@ -18,8 +18,12 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="小类使用状态" style="margin-left: -156px;">
-              <el-switch v-model="dictSmallForm.dicSmallStaues" active-value="1" inactive-value="2" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+            <el-form-item label="小类使用状态">
+              <!--<el-switch v-model="dictSmallForm.dicSmallStaues" active-value="1" inactive-value="2" active-color="#13ce66" inactive-color="#ff4949"></el-switch>-->
+              <el-select v-model="dictSmallForm.dicSmallStaues" clearable placeholder="请选择" style="width: 202px;">
+                <el-option v-for="item in $formatter.getSelectionOptions('dictStates')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -57,7 +61,7 @@ export default {
       dictSmallInitForm: {
         dicSmallCode: '',
         dicSmallValue: '',
-        dicSmallStaues: '1',
+        dicSmallStaues: 1,
         sortNum: 1
       },
       dictSmallForm: {},
@@ -68,6 +72,10 @@ export default {
     openDialog () {
       this.dictSmallForm = clone(this.dictSmall ? this.dictSmall : this.dictSmallInitForm)
       this.dictSmallForm.dictBigId = this.dictBigId
+      try {
+        this.dictSmallForm.dicSmallStaues = parseInt(this.dictSmallForm.dicSmallStaues)
+      } catch (e) {
+      }
     },
     closeDialog () {
       this.$refs['dictSmallForm'].resetFields()
