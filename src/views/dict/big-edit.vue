@@ -18,8 +18,13 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="大类使用状态" style="margin-left: -156px;">
-              <el-switch v-model="dictBigForm.dicBigStaues" active-value="1" inactive-value="2" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+            <el-form-item label="大类使用状态">
+              <!--style="margin-left: -156px;"-->
+              <!--<el-switch v-model="dictBigForm.dicBigStaues" active-value="1" inactive-value="2" active-color="#13ce66" inactive-color="#ff4949"></el-switch>-->
+              <el-select v-model="dictBigForm.dicBigStaues" clearable placeholder="请选择" style="width: 202px;">
+                <el-option v-for="item in $formatter.getSelectionOptions('dictStates')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -56,7 +61,7 @@ export default {
       dictBigInitForm: {
         dicBigCode: '',
         dicBigValue: '',
-        dicBigStaues: '1',
+        dicBigStaues: 1,
         remark: ''
       },
       dictBigForm: {},
@@ -66,6 +71,10 @@ export default {
   methods: {
     openDialog () {
       this.dictBigForm = clone(this.dictBig ? this.dictBig : this.dictBigInitForm)
+      try {
+        this.dictBigForm.dicBigStaues = parseInt(this.dictBigForm.dicBigStaues)
+      } catch (e) {
+      }
     },
     closeDialog () {
       this.$refs['dictBigForm'].resetFields()
