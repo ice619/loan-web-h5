@@ -122,7 +122,7 @@
           </el-table>
         </el-col>
       </el-row>
-      <el-row type="flex" justify="center" style="margin: 10px 0 0 -50px">
+      <el-row type="flex" justify="center">
         <el-col :span="40">
           <el-form-item label="状态">
             <el-radio-group v-model="bannerForm.status">
