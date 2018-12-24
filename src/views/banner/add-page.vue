@@ -294,7 +294,7 @@ export default {
     setBannerDetailsSort () {
       for (let i in this.bannerDetails) {
         let bannerDetail = this.bannerDetails[i]
-        bannerDetail.sort = i + 1
+        bannerDetail.sort = parseInt(i) + 1
       }
     },
     back () {
