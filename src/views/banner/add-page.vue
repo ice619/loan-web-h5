@@ -24,6 +24,8 @@
             </el-select>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="6">
           <el-form-item label="用户标签">
             <el-select v-model="bannerForm.userTags" clearable multiple placeholder="请选择">
@@ -40,22 +42,6 @@
             </el-select>
             <el-select style="width: 110px;" v-model="bannerForm.versionUpperLimit" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6">
-          <!--<el-form-item label="状态">
-            <el-radio-group v-model="bannerForm.status">
-              <el-radio :label="true">有效</el-radio>
-              <el-radio :label="false">无效</el-radio>
-            </el-radio-group>
-          </el-form-item>-->
-          <el-form-item label="状态">
-            <el-select v-model="bannerForm.status" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions('statuses')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
@@ -134,6 +120,16 @@
               </template>
             </el-table-column>
           </el-table>
+        </el-col>
+      </el-row>
+      <el-row type="flex" justify="center" style="margin: 10px 0 0 -50px">
+        <el-col :span="40">
+          <el-form-item label="状态">
+            <el-radio-group v-model="bannerForm.status">
+              <el-radio :label="true">有效</el-radio>
+              <el-radio :label="false">无效</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" style="margin-top: 10px">
