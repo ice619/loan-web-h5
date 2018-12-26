@@ -95,7 +95,7 @@
             </el-table-column>
             <el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" min-width="80">
               <template slot-scope="scope">
-                <el-input v-model="scope.row.activityCode" clearable style="width: 100%"></el-input>
+                <el-input v-model="scope.row.activityCode" maxlength="16" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
             <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接">
