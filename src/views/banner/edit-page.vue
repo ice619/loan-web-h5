@@ -244,7 +244,6 @@ export default {
         if (res.code === '200') {
           this.bannerForm = this.copyToForm(res.data)
           this.bannerDetails = res.data.bannerDetailsDTOS
-          this.setSort()
         } else {
           this.$message.error(res.message)
         }
