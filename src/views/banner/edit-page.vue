@@ -115,7 +115,8 @@
             </el-table-column>
             <el-table-column align="center" label="操作" min-width="25">
               <template slot-scope="scope">
-                <i class="el-icon-sort drag-handler"></i>
+                <el-button class="el-icon-sort-up" type="text" :disabled="scope.$index===0" @click="moveUp(scope.$index,scope.row)"></el-button>
+                <el-button class="el-icon-sort-down" type="text" :disabled="scope.$index===(bannerDetails.length-1)" @click="moveDown(scope.$index,scope.row)"></el-button>
                 <i class="el-icon-delete drag-handler" @click="deleteRow(scope.$index, bannerDetails)"></i>
               </template>
             </el-table-column>
@@ -147,7 +148,6 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
-import Sortable from 'sortablejs'
 
 export default {
   data () {
@@ -191,6 +191,20 @@ export default {
       } else {
         this.$message.error('图片上传失败')
       }
+    },
+    // 向上移动
+    moveUp (index, row) {
+      let that = this
+      let upDate = that.bannerDetails[index - 1]
+      that.bannerDetails.splice(index - 1, 1)
+      that.bannerDetails.splice(index, 0, upDate)
+    },
+    // 向下移动
+    moveDown (index, row) {
+      let that = this
+      let downDate = that.bannerDetails[index + 1]
+      that.bannerDetails.splice(index + 1, 1)
+      that.bannerDetails.splice(index, 0, downDate)
     },
     deleteRow (index, rows) {
       rows.splice(index, 1)
@@ -256,24 +270,6 @@ export default {
         form.userTags.push(parseInt(s))
       })
       return form
-    },
-    setSort () {
-      let that = this
-      this.$nextTick(() => {
-        const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-        Sortable.create(el, {
-          ghostClass: 'sortable-ghost',
-          onEnd: evt => {
-            let targetList = clone(that.bannerDetails)
-            let targetRow = targetList.splice(evt.oldIndex, 1)[0]
-            targetList.splice(evt.newIndex, 0, targetRow)
-            that.bannerDetails = []
-            that.$nextTick(function () {
-              that.bannerDetails = targetList
-            })
-          }
-        })
-      })
     },
     orientateRowIndex (rowIndex) {
       this.detailRowIndex = rowIndex
