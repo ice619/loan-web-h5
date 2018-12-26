@@ -146,7 +146,4 @@ export default {
     margin: 0 8px 8px 0;
     display: inline-block;
   }
-  .el-form-item__label {
-    text-align: left;
-  }
 </style>

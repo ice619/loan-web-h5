@@ -197,7 +197,9 @@ export default {
           console.error(err)
         }
       }).catch(action => {
-        this.selectIds = []
+        if (action !== 'cancel') {
+          this.selectIds = []
+        }
       })
     }
   }

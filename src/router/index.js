@@ -21,6 +21,7 @@ import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
 import appClosureSwitch from '@/views/appClosureSwitch/list'
 import systemDict from '@/views/systemDict/list'
 import faceLevelConfig from '@/views/faceLevelConfig/list'
+import customerInfo from '@/views/customerInfo/base'
 
 Vue.use(Router)
 
@@ -125,6 +126,11 @@ const router = new Router({
       path: '/face-level-config',
       name: 'faceLevelConfig',
       component: faceLevelConfig
+    },
+    {
+      path: '/customer-info',
+      name: 'customerInfo',
+      component: customerInfo
     }
   ]
 })
