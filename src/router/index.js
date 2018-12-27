@@ -20,6 +20,7 @@ import appVersion from '@/views/appVersion/list'
 import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
 import appClosureSwitch from '@/views/appClosureSwitch/list'
 import systemDict from '@/views/systemDict/list'
+import systemDictChildList from '@/views/systemDict/child-list'
 import faceLevelConfig from '@/views/faceLevelConfig/list'
 import customerInfo from '@/views/customerInfo/base'
 
@@ -121,6 +122,11 @@ const router = new Router({
       path: '/system-dict',
       name: 'systemDict',
       component: systemDict
+    },
+    {
+      path: '/system-dict-child/:dictionaryId/:appName',
+      name: 'systemDictChildList',
+      component: systemDictChildList
     },
     {
       path: '/face-level-config',

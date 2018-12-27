@@ -48,7 +48,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="备注" prop="remark">
-              <el-input type="textarea" v-model="faceLevelConfigForm.remark" clearable placeholder="备注" style="width: 675px;"/>
+              <el-input type="textarea" v-model="faceLevelConfigForm.remark" maxlength="200" clearable placeholder="备注" cols="82"/>
             </el-form-item>
           </el-col>
         </el-row>
