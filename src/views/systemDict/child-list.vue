@@ -65,6 +65,8 @@ export default {
   methods: {
     async list () {
       this.searchForm.parent = this.$route.params.dictionaryId
+      this.searchForm.pageIndex = this.pageIndex
+      this.searchForm.pageSize = this.pageSize
       try {
         const res = await this.$http.post('/management/system-dict/list', this.searchForm)
         if (res.code === '200') {
