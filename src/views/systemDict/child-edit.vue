@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog :title="systemDict ? '编辑' : '新增'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" append-to-body>
+    <el-dialog :title="systemDict ? '编辑' : '新增'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
       <el-form :inline="true" :model="systemDictForm" :rules="rules" ref="systemDictForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">
@@ -51,7 +51,6 @@ import {clone} from '@/utils/common'
 export default {
   props: {
     'ifshow': Boolean,
-    'parentSystemDict': Object,
     'systemDict': Object
   },
   data () {
@@ -72,8 +71,8 @@ export default {
   methods: {
     openDialog () {
       this.systemDictForm = clone(this.systemDict ? this.systemDict : this.systemDictInitForm)
-      this.systemDictForm.parent = this.parentSystemDict.dictionaryId
-      this.systemDictForm.appName = this.parentSystemDict.appName
+      this.systemDictForm.parent = this.$route.params.dictionaryId
+      this.systemDictForm.appName = this.$route.params.appName
     },
     closeDialog () {
       this.$refs['systemDictForm'].resetFields()

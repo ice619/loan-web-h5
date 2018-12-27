@@ -52,12 +52,10 @@
     </el-pagination>
     <!--子组件-->
     <edit :ifshow="showEditFlag" :systemDict="systemDict" @handleCloseDialog="showEditFlag=false;systemDict=null;list();"></edit>
-    <child-list :ifshow="showChildListFlag" :parentSystemDict="systemDict" @handleCloseDialog="showChildListFlag=false;systemDict=null;"></child-list>
-  </div>
+    </div>
 </template>
 
 <script>
-import ChildEdit from './child-edit'
 export default {
   data () {
     return {
@@ -117,14 +115,11 @@ export default {
       this.systemDict = row
     },
     showSmallList (row) {
-      this.showChildListFlag = true
-      this.systemDict = row
+      this.$router.push({path: `system-dict-child/${row.dictionaryId}/${row.appName}`})
     }
   },
   components: {
-    ChildEdit,
-    'edit': () => import('./edit'),
-    'child-list': () => import('./child-list')
+    'edit': () => import('./edit')
   }
 }
 </script>

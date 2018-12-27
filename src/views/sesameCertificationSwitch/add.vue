@@ -1,9 +1,9 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="30%">
       <el-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-form-inline">
-        <el-row>
-          <el-col :span="12">
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
             <el-form-item label="APP名称" prop="appName">
               <el-select v-model="ruleForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -11,15 +11,15 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="12">
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
             <el-form-item label="发布渠道" prop="channel">
               <el-input v-model="ruleForm.channel" clearable placeholder="发布渠道"/>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="12">
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
             <el-form-item label="状态" prop="state">
               <el-select v-model="ruleForm.state" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions(`state`)" :key="item.value" :label="item.label" :value="item.value"/>

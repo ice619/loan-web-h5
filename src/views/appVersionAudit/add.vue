@@ -81,7 +81,7 @@ export default {
       appVersionAuditInitForm: {
         appName: '',
         appVersion: '',
-        marketName: 'IOS1',
+        marketName: '',
         isAudit: 0,
         remark: '',
         appPlatform: 1
