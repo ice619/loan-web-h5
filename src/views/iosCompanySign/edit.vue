@@ -22,7 +22,7 @@
           </el-col>
           <el-col :span="40">
             <el-form-item label="优先级">
-              <el-input-number v-model="iosCompanySignForm.priority" controls-position="right" :min="1" :max="2147483647"></el-input-number>
+              <el-input-number v-model="iosCompanySignForm.priority" style="width: 217px;" controls-position="right" :min="1" :max="2147483647"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
