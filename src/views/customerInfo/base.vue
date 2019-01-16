@@ -68,7 +68,7 @@
             <div class="grid-content bg-purple-light">{{baseInfo.limitedTimes}}</div>
           </el-col>
           <el-col :span="1">
-            <div class="grid-content bg-purple">学历编码</div>
+            <div class="grid-content bg-purple">学历</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('educationCode', parseInt(baseInfo.educationCode))}}</div>
@@ -80,10 +80,30 @@
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('ifMarriage', baseInfo.ifMarriage)}}</div>
           </el-col>
           <el-col :span="1">
+            <div class="grid-content bg-purple">民族</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{baseInfo.nation}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">手机号码</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
+          </el-col>
+          <el-col :span="1">
             <div class="grid-content bg-purple">户籍住址</div>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="7">
             <div class="grid-content bg-purple-light">{{baseInfo.domicileAddress}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">用户编号</div>
+          </el-col>
+          <el-col :span="7">
+            <div class="grid-content bg-purple-light">{{baseInfo.customerId}}</div>
           </el-col>
         </el-row>
       </el-card>
@@ -93,70 +113,92 @@
           <el-col :span="1">
             <div class="grid-content bg-purple">行业名称</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{companyInfo.companyIndustryName}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">公司名称</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{companyInfo.companyName}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">公司电话</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{companyInfo.companyTel}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">公司地址</div>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="7">
             <div class="grid-content bg-purple-light">{{companyInfo.companyAddress}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">职业编号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.professionId}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">工作照url</div>
+          </el-col>
+          <el-col :span="7">
+            <div class="grid-content bg-purple-light">{{companyInfo.workPhoto}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">街道地址</div>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="7">
             <div class="grid-content bg-purple-light">{{companyInfo.streetAddress}}</div>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="1">
-            <div class="grid-content bg-purple">职业编号</div>
+            <div class="grid-content bg-purple">所在省份</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.provinceName}}</div>
           </el-col>
           <el-col :span="1">
-            <div class="grid-content bg-purple-light">{{companyInfo.professionId}}</div>
+            <div class="grid-content bg-purple">所在城市</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.cityName}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">城市区域</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.cityAreaName}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">经度</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.lng}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">纬度</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.lat}}</div>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="1">
             <div class="grid-content bg-purple">工作时长</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{companyInfo.workingHours}}</div>
           </el-col>
           <el-col :span="1">
-            <div class="grid-content bg-purple">工作照url</div>
+            <div class="grid-content bg-purple">备注</div>
           </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple-light">{{companyInfo.workPhoto}}</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content bg-purple">所在省份</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content bg-purple-light">{{companyInfo.provinceName}}</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content bg-purple">所在城市</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content bg-purple-light">{{companyInfo.cityName}}</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content bg-purple">城市区域</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple-light">{{companyInfo.cityAreaName}}</div>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.remark}}</div>
           </el-col>
         </el-row>
       </el-card>
@@ -166,32 +208,46 @@
           <el-col :span="1">
             <div class="grid-content bg-purple">省份名称</div>
           </el-col>
-          <el-col :span="1">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{addressInfo.provinceName}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">城市名称</div>
           </el-col>
-          <el-col :span="1">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{addressInfo.cityName}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">区域名称</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{addressInfo.cityAreaName}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">地址</div>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="7">
             <div class="grid-content bg-purple-light">{{addressInfo.cityAreaName}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">居住地址</div>
+          </el-col>
+          <el-col :span="7">
+            <div class="grid-content bg-purple-light">{{addressInfo.liveAddress}}</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content bg-purple">居住时长</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('liveTime', parseInt(addressInfo.liveTime))}}{{addressInfo.liveTime}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content bg-purple">地图坐标</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{addressInfo.mapCoordinate}}</div>
           </el-col>
         </el-row>
       </el-card>
@@ -242,14 +298,14 @@
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{extInfo.ipAddress}}</div>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">邀请人客户编号</div>
+            <div class="grid-content bg-purple">活动编号</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.inviteId}}</div>
+            <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">邀请人手机号</div>
           </el-col>
@@ -257,11 +313,25 @@
             <div class="grid-content bg-purple-light">{{extInfo.invitePhone}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">活动编号</div>
+            <div class="grid-content bg-purple">邀请人客户编号</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="grid-content bg-purple-light">{{extInfo.inviteId}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">导流APP名称</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', parseInt(extInfo.diversionAppName))}}</div>
           </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">导流客户编号</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
+        </el-col>
         </el-row>
       </el-card>
     </el-card>
@@ -319,22 +389,25 @@ export default {
   h3 {
     margin: 15px 0 5px 0;
     font-weight: 400;
-    color: #1f2f3d;
+    color: #606266;
   }
   .bg-purple {
-    background: #d3dce6;
-    text-align: right;
+    text-align: center;
     vertical-align: middle;
-    padding-right: 4px;
+    border:1px solid #ebeef5;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
   }
   .bg-purple-light {
-    background: #e5e9f2;
-    text-align: center;
+    text-align: left;
+    border:1px solid #ebeef5;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
   }
   .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-    padding-top: 10px;
-    margin-bottom: 2px;
+    min-height: 40px;
+    padding: 5px;
   }
 </style>
