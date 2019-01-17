@@ -47,14 +47,14 @@
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{baseInfo.age}}</div>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">身份证</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{baseInfo.idCardNo}}</div>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">签发机关</div>
           </el-col>
@@ -73,6 +73,8 @@
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('educationCode', parseInt(baseInfo.educationCode))}}</div>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">婚姻状况</div>
           </el-col>
@@ -85,24 +87,24 @@
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{baseInfo.nation}}</div>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">手机号码</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">户籍住址</div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="grid-content bg-purple-light">{{baseInfo.domicileAddress}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">用户编号</div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="grid-content bg-purple-light">{{baseInfo.customerId}}</div>
           </el-col>
         </el-row>
@@ -145,7 +147,7 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">工作照url</div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="grid-content bg-purple-light">{{companyInfo.workPhoto}}</div>
           </el-col>
           <el-col :span="2">
@@ -156,6 +158,12 @@
           </el-col>
         </el-row>
         <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">工作时长</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{companyInfo.workingHours}}</div>
+          </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">所在省份</div>
           </el-col>
@@ -174,6 +182,8 @@
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{companyInfo.cityAreaName}}</div>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">经度</div>
           </el-col>
@@ -186,18 +196,10 @@
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{companyInfo.lat}}</div>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">工作时长</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{companyInfo.workingHours}}</div>
-          </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">备注</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="8">
             <div class="grid-content bg-purple-light">{{companyInfo.remark}}</div>
           </el-col>
         </el-row>
@@ -234,7 +236,7 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">居住地址</div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="grid-content bg-purple-light">{{addressInfo.liveAddress}}</div>
           </el-col>
           <el-col :span="2">
