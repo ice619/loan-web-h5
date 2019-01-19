@@ -20,6 +20,97 @@
       </el-form-item>
     </el-form>
     <el-card>
+      <h3>用户注册信息</h3>
+      <el-card>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">手机设备码</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.deviceId}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">手机操作系统</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(extInfo.osVersion))}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">操作系统版本号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.sdkVersion}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">用户注册来源</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('registerSource', extInfo.source)}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">APP版本号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.appVersion}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">App下载渠道</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.market}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">ip地址</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.ipAddress}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">活动编号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">邀请人手机号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.invitePhone}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">邀请人客户编号</div>
+          </el-col>
+          <el-col :span="5">
+            <div class="grid-content bg-purple-light">{{extInfo.inviteId}}</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple">用户编号</div>
+          </el-col>
+          <el-col :span="5">
+            <div class="grid-content bg-purple-light">{{extInfo.customerId}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">导流APP名称</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', parseInt(extInfo.diversionAppName))}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">导流客户编号</div>
+          </el-col>
+          <el-col :span="5">
+            <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+        </el-row>
+      </el-card>
       <h3>基本信息</h3>
       <el-card>
         <el-row>
@@ -98,16 +189,31 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">户籍住址</div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="13">
             <div class="grid-content bg-purple-light">{{baseInfo.domicileAddress}}</div>
           </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">用户编号</div>
-          </el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple-light">{{baseInfo.customerId}}</div>
-          </el-col>
         </el-row>
+      </el-card>
+      <h3>紧急联系人信息</h3>
+      <el-card>
+        <el-table ref="icePersionTable" :data="tableData" border stripe >
+          <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
+          <el-table-column prop="icePersonOrder" label="紧急联系人排序" header-align="center" align="center" min-width="110">
+            <template slot-scope="scope">
+              <span>{{$formatter.simpleFormatSelection('icePersonOrder', parseInt(scope.row.icePersonOrder))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="type" label="紧急联系人类型" header-align="center" align="center" min-width="110">
+            <template slot-scope="scope">
+              <span>{{$formatter.simpleFormatSelection('icePersonType', parseInt(scope.row.type))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="trueName" label="联系人姓名" header-align="center" align="center" min-width="120"/>
+          <el-table-column prop="phoneNum" label="联系人手机号码" header-align="center" align="center" min-width="120"/>
+          <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="130"/>
+          <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="130"/>
+          <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="100"/>
+        </el-table>
       </el-card>
       <h3>公司信息</h3>
       <el-card>
@@ -248,92 +354,9 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">地图坐标</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="7">
             <div class="grid-content bg-purple-light">{{addressInfo.mapCoordinate}}</div>
           </el-col>
-        </el-row>
-      </el-card>
-      <h3>其他信息</h3>
-      <el-card>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">手机设备码</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.deviceId}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">手机操作系统</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(extInfo.osVersion))}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">操作系统版本号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.sdkVersion}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">用户注册来源</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('registerSource', extInfo.source)}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">APP版本号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.appVersion}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">App应用下载渠道</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.market}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">ip地址</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.ipAddress}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">活动编号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">邀请人手机号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.invitePhone}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">邀请人客户编号</div>
-          </el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple-light">{{extInfo.inviteId}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">导流APP名称</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', parseInt(extInfo.diversionAppName))}}</div>
-          </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">导流客户编号</div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
-        </el-col>
         </el-row>
       </el-card>
     </el-card>
@@ -369,6 +392,7 @@ export default {
           this.companyInfo = costomer.customerCompanyVO
           this.addressInfo = costomer.customerAddressVO
           this.extInfo = costomer.customerExtVO
+          this.tableData = costomer.icePersonsVO
         } else {
           this.$message.error(res.message)
         }
