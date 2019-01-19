@@ -23,7 +23,9 @@ import systemDict from '@/views/systemDict/list'
 import systemDictChildList from '@/views/systemDict/child-list'
 import faceLevelConfig from '@/views/faceLevelConfig/list'
 import customerInfo from '@/views/customerInfo/base'
-
+import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
+import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
+import customerExt from '@/views/customerInfo/ext-list'
 Vue.use(Router)
 
 const router = new Router({
@@ -137,6 +139,21 @@ const router = new Router({
       path: '/customer-info',
       name: 'customerInfo',
       component: customerInfo
+    },
+    {
+      path: '/customer-latest-review-info',
+      name: 'customerLatestReviewInfo',
+      component: customerLatestReviewInfo
+    },
+    {
+      path: '/customer-third-party-certification',
+      name: 'customerThirdPartyCertification',
+      component: customerThirdPartyCertification
+    },
+    {
+      path: '/customer-ext',
+      name: 'customerExt',
+      component: customerExt
     }
   ]
 })
