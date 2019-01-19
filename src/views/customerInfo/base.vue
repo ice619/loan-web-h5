@@ -349,7 +349,7 @@
             <div class="grid-content bg-purple">居住时长</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('liveTime', parseInt(addressInfo.liveTime))}}{{addressInfo.liveTime}}</div>
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('liveTime', parseInt(addressInfo.liveTime))}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">地图坐标</div>
