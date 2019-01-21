@@ -15,36 +15,36 @@
     </el-form>
     <el-table ref="customerLatestReviewInfoTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
+      <el-table-column prop="businessType" label="业务类型" header-align="center" align="center" min-width="90">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('reviewBusinessType', scope.row.businessType)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="285">
       </el-table-column>
-      <el-table-column prop="businessType" label="业务类型" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('reviewBusinessType', scope.row.businessType)}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="285">
       </el-table-column>
-      <el-table-column prop="latestRiskIncomingStatus" label="风控进件交互状态" header-align="center" align="center" min-width="95">
+      <el-table-column prop="latestRiskIncomingStatus" label="进件状态" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('latestRiskIncomingStatus', scope.row.latestRiskIncomingStatus)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="latestRiskWithdrawalStatus" label="风控提现交互状态" header-align="center" align="center" min-width="95">
+      <el-table-column prop="latestRiskWithdrawalStatus" label="提现状态" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('latestRiskWithdrawalStatus', scope.row.latestRiskWithdrawalStatus)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="latestRiskInsuranceStatus" label="风控保险审核状态" header-align="center" align="center" min-width="95">
+      <el-table-column prop="latestRiskInsuranceStatus" label="保险状态" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('latestRiskInsuranceStatus', scope.row.latestRiskInsuranceStatus)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="latestRiskAuthMoney" label="风控授信额度" header-align="center" align="center">
+      <el-table-column prop="latestRiskAuthMoney" label="授信额度" header-align="center" align="center">
       </el-table-column>
       <el-table-column prop="latestMaxProductQuota" label="最大提现额度限制" header-align="center" align="center">
       </el-table-column>

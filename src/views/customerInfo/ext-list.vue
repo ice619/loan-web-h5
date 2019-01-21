@@ -40,11 +40,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center" min-width="200"/>
+      <el-table-column prop="ipAddress" label="ip地址" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="inviteId" label="邀请人客户编号" header-align="center" align="center" min-width="285"/>
       <el-table-column prop="invitePhone" label="邀请人手机号" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="activityCode" label="活动编号" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center" min-width="200"/>
-      <el-table-column prop="ipAddress" label="ip地址" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="diversionAppName" label="导流APP名称" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', parseInt(scope.row.diversionAppName))}}</span>
