@@ -19,38 +19,38 @@
       </el-form-item>
     </el-form>
     <el-table ref="customerExtTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column prop="createTime" label="注册时间" header-align="center" align="center" min-width="180"/>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="customerId" label="用户编号" header-align="center" align="center" min-width="285"/>
-      <el-table-column prop="phoneNum" label="手机号" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="inviteId" label="邀请人客户编号" header-align="center" align="center" min-width="285"/>
-      <el-table-column prop="invitePhone" label="邀请人手机号" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="activityCode" label="活动编号" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center" min-width="200"/>
-      <el-table-column prop="osVersion" label="手机操作系统" header-align="center" align="center" min-width="100">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(scope.row.osVersion))}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="sdkVersion" label="操作系统版本号" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="285"/>
+      <el-table-column prop="phoneNum" label="手机号码" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="appVersion" label="APP版本号" header-align="center" align="center" min-width="100"/>
-      <el-table-column prop="market" label="App应用下载渠道" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="ipAddress" label="ip地址" header-align="center" align="center" min-width="130"/>
-      <el-table-column prop="source" label="用户注册来源" header-align="center" align="center" min-width="100">
+      <el-table-column prop="market" label="下载渠道" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="source" label="注册来源" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('registerSource', scope.row.source)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="osVersion" label="操作系统" header-align="center" align="center" min-width="100">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(scope.row.osVersion))}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="inviteId" label="邀请人客户编号" header-align="center" align="center" min-width="285"/>
+      <el-table-column prop="invitePhone" label="邀请人手机号" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="activityCode" label="活动编号" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center" min-width="200"/>
+      <el-table-column prop="ipAddress" label="ip地址" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="diversionAppName" label="导流APP名称" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', parseInt(scope.row.diversionAppName))}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="diversionCustomerId" label="导流客户编号" header-align="center" align="center" min-width="285"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="180"/>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="180"/>
     </el-table>
     <el-pagination

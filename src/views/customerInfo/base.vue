@@ -24,12 +24,6 @@
       <el-card>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">手机设备码</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.deviceId}}</div>
-          </el-col>
-          <el-col :span="2">
             <div class="grid-content bg-purple">手机操作系统</div>
           </el-col>
           <el-col :span="3">
@@ -46,6 +40,12 @@
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('registerSource', extInfo.source)}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">手机设备码</div>
+          </el-col>
+          <el-col :span="4">
+            <div class="grid-content bg-purple-light">{{extInfo.deviceId}}</div>
           </el-col>
         </el-row>
         <el-row>
@@ -70,7 +70,7 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">活动编号</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
           </el-col>
         </el-row>
@@ -90,7 +90,7 @@
           <el-col :span="3">
             <div class="grid-content bg-purple">用户编号</div>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <div class="grid-content bg-purple-light">{{extInfo.customerId}}</div>
           </el-col>
         </el-row>
