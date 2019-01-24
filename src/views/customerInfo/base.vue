@@ -10,10 +10,10 @@
         <el-input v-model="searchForm.phoneNum" clearable placeholder="手机号"/>
       </el-form-item>
       <el-form-item label="过审记录创建时间">
-        <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+        <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+        <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="search">搜索</el-button>

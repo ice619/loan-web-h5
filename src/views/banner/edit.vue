@@ -67,13 +67,13 @@
           <el-col :span="12">
             <el-form-item label="开始时间">
               <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="选择开始时间"
-                              value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+                              value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="结束时间">
               <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="选择结束时间"
-                              value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+                              value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
