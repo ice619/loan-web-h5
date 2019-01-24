@@ -32,7 +32,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="生效时间" prop="validateFrom">
-              <el-date-picker v-model="ruleForm.validateFrom" type="datetime" placeholder="选择生效时间" value-format="yyyy-MM-dd hh:mm:ss"/>
+              <el-date-picker v-model="ruleForm.validateFrom" type="datetime" placeholder="选择生效时间" value-format="yyyy-MM-dd HH:mm:ss"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
