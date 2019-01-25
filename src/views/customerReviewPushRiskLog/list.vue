@@ -22,6 +22,11 @@
           <el-option v-for="item in $formatter.getSelectionOptions('pushStatus')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="审批状态">
+        <el-select v-model="searchForm.auditingState" clearable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('auditingState')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">搜索</el-button>
       </el-form-item>
@@ -101,7 +106,8 @@ export default {
         appName: null,
         startTime: null,
         endTime: null,
-        pushStatus: null
+        pushStatus: null,
+        auditingState: null
       },
       pushRiskLogWindow: {},
       tableData: [],
