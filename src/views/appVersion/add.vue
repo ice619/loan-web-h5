@@ -56,13 +56,13 @@
           <el-col :span="12">
             <el-form-item label="开始时间" prop="beginTime">
               <el-date-picker v-model="appVersionForm.beginTime" type="datetime" placeholder="请输入弹框开始时间"
-                              value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+                              value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="结束时间" prop="endTime">
               <el-date-picker v-model="appVersionForm.endTime" type="datetime" placeholder="请输入弹框结束时间"
-                              value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+                              value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>

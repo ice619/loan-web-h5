@@ -9,12 +9,12 @@
       <el-form-item label="手机号">
         <el-input v-model="searchForm.phoneNum" clearable placeholder="手机号"/>
       </el-form-item>
-      <el-form-item label="过审记录创建时间">
-        <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+      <!--<el-form-item label="过审记录创建时间">
+        <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
-      </el-form-item>
+        <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+      </el-form-item>-->
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
       </el-form-item>
@@ -368,10 +368,10 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
-        phoneNum: null,
-        startTime: null,
-        endTime: null
+        appName: 6,
+        phoneNum: null
+        // startTime: null,
+        // endTime: null
       },
       baseInfo: {},
       companyInfo: {},
@@ -380,7 +380,7 @@ export default {
     }
   },
   created () {
-    this.initSearchTime()
+    // this.initSearchTime()
   },
   methods: {
     async search () {
@@ -399,12 +399,12 @@ export default {
       } catch (err) {
         console.error(err)
       }
-    },
-    initSearchTime () {
-      let now = new Date()
-      this.searchForm.startTime = now.toJSON().substring(0, 10) + ' 00:00:00'
-      this.searchForm.endTime = now.toJSON().substring(0, 10) + '23:59:59'
     }
+    // initSearchTime () {
+    //   let now = new Date()
+    //   this.searchForm.startTime = now.toJSON().substring(0, 10) + ' 00:00:00'
+    //   this.searchForm.endTime = now.toJSON().substring(0, 10) + '23:59:59'
+    // }
   },
   components: {
   }

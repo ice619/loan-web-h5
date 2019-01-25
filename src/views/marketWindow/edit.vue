@@ -68,12 +68,12 @@
         <el-row type="flex" justify="center">
           <el-col :span="12">
             <el-form-item label="开始时间">
-              <el-date-picker style="width: 217px" v-model="marketWindowForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+              <el-date-picker style="width: 217px" v-model="marketWindowForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="结束时间">
-              <el-date-picker style="width: 217px" v-model="marketWindowForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+              <el-date-picker style="width: 217px" v-model="marketWindowForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
