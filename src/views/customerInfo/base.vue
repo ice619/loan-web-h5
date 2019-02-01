@@ -390,8 +390,18 @@ export default {
     }
   },
   created () {
+    this.initBack()
   },
   methods: {
+    async initBack () {
+      let appName = this.$route.params.appName
+      let phoneNum = this.$route.params.phone
+      if (appName && phoneNum) {
+        this.searchForm.appName = this.$route.params.appName
+        this.searchForm.phoneNum = this.$route.params.phone
+        this.search()
+      }
+    },
     async search () {
       try {
         const res = await this.$http.post('/management/customer/base-info', this.searchForm)
@@ -421,7 +431,8 @@ export default {
           this.$message.error('用户编号不能为空')
           return
         }
-        this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId}})
+        let phone = this.searchForm.phoneNum
+        this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
       } catch (err) {
         console.error(err)
       }
@@ -438,7 +449,8 @@ export default {
           this.$message.error('用户编号不能为空')
           return
         }
-        this.$router.push({name: 'customerThirdPartyCertification', params: {appName: appName, customerId: customerId}})
+        let phone = this.searchForm.phoneNum
+        this.$router.push({name: 'customerThirdPartyCertification', params: {appName: appName, customerId: customerId, phone: phone}})
       } catch (err) {
         console.error(err)
       }
