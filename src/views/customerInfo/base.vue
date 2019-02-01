@@ -107,6 +107,16 @@
           <el-col :span="5">
             <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
           </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toLatestReview">客户最新审核信息</el-button>
+            </div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toThirdPartyCertification">客户第三方认证信息</el-button>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
         </el-row>
@@ -396,6 +406,40 @@ export default {
         } else {
           this.$message.error(res.message)
         }
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async toLatestReview () {
+      try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.extInfo.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
+        this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId}})
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async toThirdPartyCertification () {
+      try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.extInfo.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
+        this.$router.push({name: 'customerThirdPartyCertification', params: {appName: appName, customerId: customerId}})
       } catch (err) {
         console.error(err)
       }

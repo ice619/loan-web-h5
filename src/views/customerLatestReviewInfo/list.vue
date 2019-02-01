@@ -70,7 +70,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
+        appName: 6,
         customerId: null
       },
       customerLatestReviewInfoWindow: {},
@@ -82,9 +82,16 @@ export default {
     }
   },
   created () {
-    // this.list()
+    this.initList()
   },
   methods: {
+    async initList () {
+      this.searchForm.appName = this.$route.params.appName
+      this.searchForm.customerId = this.$route.params.customerId
+      if (this.searchForm.appName && this.searchForm.customerId) {
+        this.list()
+      }
+    },
     async list () {
       let params = {
         ...this.searchForm,
