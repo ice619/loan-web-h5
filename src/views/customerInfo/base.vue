@@ -390,7 +390,6 @@ export default {
     }
   },
   created () {
-    // this.initSearchTime()
   },
   methods: {
     async search () {
