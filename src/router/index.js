@@ -26,6 +26,7 @@ import customerInfo from '@/views/customerInfo/base'
 import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
 import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
 import customerExt from '@/views/customerInfo/ext-list'
+import customerLoginLog from '@/views/customerLoginLog/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -154,6 +155,11 @@ const router = new Router({
       path: '/customer-ext',
       name: 'customerExt',
       component: customerExt
+    },
+    {
+      path: '/customer-login-log',
+      name: 'customerLoginLog',
+      component: customerLoginLog
     }
   ]
 })
