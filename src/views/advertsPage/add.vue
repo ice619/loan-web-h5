@@ -29,7 +29,9 @@
           <el-col :span="12">
             <el-form-item label="屏幕类型">
               <el-select v-model="advertsPageForm.screenType" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('screenTypes')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('screenTypes')" :key="item.value" :label="item.label" :value="item.value"
+                           :disabled="advertsPageForm.terminal === '' || (advertsPageForm.terminal === 0 && item.value === 4)
+                                      || (advertsPageForm.terminal === 1 && (item.value === 2 || item.value === 3))"/>
               </el-select>
             </el-form-item>
           </el-col>
