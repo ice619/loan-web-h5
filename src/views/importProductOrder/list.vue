@@ -31,7 +31,7 @@
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="80" show-overflow-tooltip/>
       <el-table-column prop="createMan" label="创建人" header-align="center" align="center" min-width="40" show-overflow-tooltip/>
       <el-table-column prop="modifyTime" label="完成时间" header-align="center" align="center" min-width="80" show-overflow-tooltip/>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column label="操作" header-align="center" align="center" min-width="60">
         <template slot-scope="scope">
           <el-button icon="el-icon-download" @click="downFile(scope.row.fileStorageAddress)" type="text" size="small">文件下载</el-button>
         </template>
