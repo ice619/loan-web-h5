@@ -108,6 +108,10 @@ export default {
         pageSize: this.pageSize
       }
       try {
+        if (params.createTime) {
+          params.startTime = params.createTime[0]
+          params.endTime = params.createTime[1]
+        }
         const res = await this.$http.post('/management/customer/customer-login-logs', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
