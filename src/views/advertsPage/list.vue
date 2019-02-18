@@ -6,6 +6,26 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="生效终端">
+        <el-select v-model="searchForm.terminal" clearable filterable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="生效用户">
+        <el-select v-model="searchForm.userTag" clearable filterable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="searchForm.status" clearable filterable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('statuses')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="屏幕类型">
+        <el-select v-model="searchForm.screenType" clearable filterable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('screenTypes')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list()">搜索</el-button>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
@@ -67,7 +87,11 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6
+        appName: null,
+        terminal: null,
+        userTag: null,
+        status: null,
+        screenType: null
       },
       advertsPage: {},
       tableData: [],
