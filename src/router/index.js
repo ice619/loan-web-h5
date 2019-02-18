@@ -27,6 +27,8 @@ import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
 import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
 import customerExt from '@/views/customerInfo/ext-list'
 import customerLoginLog from '@/views/customerLoginLog/list'
+import taobaoCertificationSwitch from '@/views/taobaoCertificationSwitch/list'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -160,6 +162,11 @@ const router = new Router({
       path: '/customer-login-log',
       name: 'customerLoginLog',
       component: customerLoginLog
+    },
+    {
+      path: '/taobao-certification-switch',
+      name: 'taobaoCertificationSwitch',
+      component: taobaoCertificationSwitch
     }
   ]
 })
