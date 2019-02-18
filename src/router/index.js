@@ -29,6 +29,7 @@ import customerExt from '@/views/customerInfo/ext-list'
 import customerLoginLog from '@/views/customerLoginLog/list'
 import taobaoCertificationSwitch from '@/views/taobaoCertificationSwitch/list'
 import advertsPage from '@/views/advertsPage/list'
+import noticeTemplate from '@/views/noticeTemplate/list'
 import importProductOrder from '@/views/importProductOrder/list'
 Vue.use(Router)
 
@@ -173,6 +174,11 @@ const router = new Router({
       path: '/adverts-page',
       name: 'advertsPage',
       component: advertsPage
+    },
+    {
+      path: '/notice-template',
+      name: 'noticeTemplate',
+      component: noticeTemplate
     },
     {
       path: '/import-product-order',

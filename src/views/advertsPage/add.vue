@@ -29,7 +29,9 @@
           <el-col :span="12">
             <el-form-item label="屏幕类型">
               <el-select v-model="advertsPageForm.screenType" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('screenTypes')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('screenTypes')" :key="item.value" :label="item.label" :value="item.value"
+                           :disabled="advertsPageForm.terminal === '' || (advertsPageForm.terminal === 0 && item.value === 4)
+                                      || (advertsPageForm.terminal === 1 && (item.value === 2 || item.value === 3))"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -66,7 +68,7 @@
         <el-row type="flex" justify="center">
           <el-col :span="24">
             <el-form-item label="配置时间">
-              <el-date-picker v-model="advertsPageForm.configTime" type="datetimerange" range-separator="至" start-placeholder="开始时间"
+              <el-date-picker v-model="configTime" type="datetimerange" range-separator="至" start-placeholder="开始时间"
                               end-placeholder="结束时间" :default-time="['00:00:00', '23:59:59']" value-format="yyyy-MM-dd HH:mm:ss"/>
             </el-form-item>
           </el-col>
@@ -103,6 +105,7 @@ export default {
   },
   data () {
     return {
+      configTime: [],
       advertsPageInitForm: {
         appName: 6,
         terminal: 0,
@@ -113,7 +116,6 @@ export default {
         versions: '',
         startTime: null,
         endTime: null,
-        configTime: [],
         stayTime: 1,
         forwardUrl: ''
       },
@@ -137,7 +139,7 @@ export default {
       const now = new Date()
       this.advertsPageForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
       this.advertsPageForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
-      this.advertsPageForm.configTime = [this.advertsPageForm.startTime, this.advertsPageForm.endTime]
+      this.configTime = [this.advertsPageForm.startTime, this.advertsPageForm.endTime]
     },
     closeDialog () {
       this.$refs['advertsPageForm'].resetFields()
@@ -167,9 +169,9 @@ export default {
         // }
         if (valid) {
           try {
-            if (this.advertsPageForm.configTime) {
-              this.advertsPageForm.startTime = this.advertsPageForm.configTime[0]
-              this.advertsPageForm.endTime = this.advertsPageForm.configTime[1]
+            if (this.configTime && this.configTime.length > 0) {
+              this.advertsPageForm.startTime = this.configTime[0]
+              this.advertsPageForm.endTime = this.configTime[1]
             }
             const res = await this.$http.post('/management/adverts-page', this.advertsPageForm)
             if (res.code === '200') {
