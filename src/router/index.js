@@ -30,6 +30,7 @@ import customerLoginLog from '@/views/customerLoginLog/list'
 import taobaoCertificationSwitch from '@/views/taobaoCertificationSwitch/list'
 import advertsPage from '@/views/advertsPage/list'
 import noticeTemplate from '@/views/noticeTemplate/list'
+import importProductOrder from '@/views/importProductOrder/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -178,6 +179,11 @@ const router = new Router({
       path: '/notice-template',
       name: 'noticeTemplate',
       component: noticeTemplate
+    },
+    {
+      path: '/import-product-order',
+      name: 'importProductOrder',
+      component: importProductOrder
     }
   ]
 })
