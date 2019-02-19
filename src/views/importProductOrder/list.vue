@@ -1,9 +1,14 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="APP平台：">
+      <el-form-item label="APP平台">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="完成状态">
+        <el-select v-model="searchForm.state" clearable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('importProductOrderState')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
