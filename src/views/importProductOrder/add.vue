@@ -28,7 +28,7 @@
         </el-row>
         <el-row type="flex" justify="left" style="margin-top: -20px">
           <el-col :span="30">
-            <el-form-item label="保单上传地址:" prop="fileStorageAddress" :rules="[{ required: true, message: '请先上传保单', trigger: 'blur' }]" >
+            <el-form-item label="保单地址:" prop="fileStorageAddress" :rules="[{ required: true, message: '请先上传保单', trigger: 'blur' }]" >
               <el-input v-model="entryForm.fileStorageAddress" readonly style="width: 400px;" />
             </el-form-item>
           </el-col>
