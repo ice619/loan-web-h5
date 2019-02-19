@@ -5,24 +5,24 @@
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="手机系统">
-              <el-input v-model="iosCompanySignForm.osType" placeholder="手机系统"></el-input>
+              <el-input v-model="iosCompanySignForm.osType" style="width: 217px;" clearable placeholder="手机系统"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="40">
             <el-form-item label="下载链接key">
-              <el-input v-model="iosCompanySignForm.urlKey" placeholder="下载链接key"></el-input>
+              <el-input v-model="iosCompanySignForm.urlKey" style="width: 217px;" clearable placeholder="下载链接key"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="40" style="margin-left: -22px">
+          <el-col :span="40">
             <el-form-item label="下载链接">
-              <el-input v-model="iosCompanySignForm.url" placeholder="下载链接"></el-input>
+              <el-input v-model="iosCompanySignForm.url" style="width: 217px;" clearable placeholder="下载链接"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="40">
             <el-form-item label="优先级">
-              <el-input-number v-model="iosCompanySignForm.priority" controls-position="right" :min="1" :max="2147483647"></el-input-number>
+              <el-input-number v-model="iosCompanySignForm.priority" style="width: 217px;" controls-position="right" :min="1" :max="2147483647"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -36,7 +36,7 @@
           </el-col>
           <el-col :span="40" justify="center">
             <el-form-item label="备注说明">
-              <el-input v-model="iosCompanySignForm.remark" placeholder="备注说明"></el-input>
+              <el-input v-model="iosCompanySignForm.remark" style="width: 217px;" clearable placeholder="备注说明"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
