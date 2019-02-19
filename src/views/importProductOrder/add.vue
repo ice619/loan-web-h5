@@ -17,7 +17,7 @@
               <el-upload
                 class="upload-demo"
                 :action="actionUrl"
-                accept="text/csv"
+                accept=".xlsx"
                 :show-file-list="false"
                 :on-success="successHandler"
                 :multiple="false">
@@ -84,8 +84,7 @@ export default {
           type: 'success',
           duration: 1000
         })
-        console.log(response.data.url)
-        this.entryForm.fileStorageAddress = response.data.url
+        this.entryForm.fileStorageAddress = response.data
       }
     },
     saveForm: debounce(300, function () {
