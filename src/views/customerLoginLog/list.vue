@@ -80,7 +80,7 @@ export default {
         endTime: null,
         createTime: [],
         phoneNum: null,
-        osVersion: 0,
+        osVersion: null,
         appVersion: null
       },
       tableData: [],
@@ -108,6 +108,8 @@ export default {
         pageSize: this.pageSize
       }
       try {
+        params.startTime = null
+        params.endTime = null
         if (params.createTime) {
           params.startTime = params.createTime[0]
           params.endTime = params.createTime[1]
