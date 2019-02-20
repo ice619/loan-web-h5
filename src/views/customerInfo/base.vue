@@ -119,6 +119,18 @@
           </el-col>
         </el-row>
         <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">创建时间</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.createTime}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">修改时间</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.modifyTime}}</div>
+          </el-col>
         </el-row>
       </el-card>
       <h3>基本信息</h3>
@@ -432,7 +444,10 @@ export default {
           return
         }
         let phone = this.searchForm.phoneNum
-        this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
+        // TODO test
+        // this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
+        const {href} = this.$router.resolve({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
+        window.open(href, '_blank')
       } catch (err) {
         console.error(err)
       }
