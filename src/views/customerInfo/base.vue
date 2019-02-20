@@ -444,10 +444,7 @@ export default {
           return
         }
         let phone = this.searchForm.phoneNum
-        // TODO test
-        // this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
-        const {href} = this.$router.resolve({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
-        window.open(href, '_blank')
+        this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
       } catch (err) {
         console.error(err)
       }
