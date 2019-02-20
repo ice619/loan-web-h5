@@ -398,7 +398,8 @@ export default {
       baseInfo: {},
       companyInfo: {},
       addressInfo: {},
-      extInfo: {}
+      extInfo: {},
+      tableData: []
     }
   },
   created () {
