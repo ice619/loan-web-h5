@@ -32,16 +32,16 @@
       <el-table-column prop="payTime" label="付款时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="insuranceHolder" label="投保人" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="customerId" label="客户ID" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="outTradeNo" label="外部交易单号" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="insuranceNo" label="保险单号" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="applicationId" label="主交易订单号" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="orderName" label="订单名称" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="applicationId" label="账务订单编号" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="orderState" label="订单状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('productOrderStates', scope.row.orderState)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="insuranceNo" label="保险公司保险单号" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="outTradeNo" label="外部交易单号" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="orderName" label="订单名称" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="orderAmount" label="订单金额" header-align="center" align="center"/>
       <el-table-column prop="fullPremium" label="未优惠前保费金额" header-align="center" align="center"/>
       <el-table-column prop="realMoney" label="本金" header-align="center" align="center"/>
