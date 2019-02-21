@@ -31,6 +31,7 @@ import taobaoCertificationSwitch from '@/views/taobaoCertificationSwitch/list'
 import advertsPage from '@/views/advertsPage/list'
 import noticeTemplate from '@/views/noticeTemplate/list'
 import importProductOrder from '@/views/importProductOrder/list'
+import productOrder from '@/views/productOrder/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -184,6 +185,11 @@ const router = new Router({
       path: '/import-product-order',
       name: 'importProductOrder',
       component: importProductOrder
+    },
+    {
+      path: '/product-order',
+      name: 'productOrder',
+      component: productOrder
     }
   ]
 })
