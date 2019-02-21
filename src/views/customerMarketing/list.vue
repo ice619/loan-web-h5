@@ -30,7 +30,7 @@
       <el-table-column prop="phoneNum" label="注册手机号" header-align="center" align="center"/>
       <el-table-column prop="source" label="注册来源" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('requestAgents', scope.row.source)}}</span>
+          <span>{{$formatter.simpleFormatSelection('registerSource', scope.row.source)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="market" label="应用下载渠道" header-align="center" align="center"/>
