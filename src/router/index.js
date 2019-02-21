@@ -32,6 +32,7 @@ import advertsPage from '@/views/advertsPage/list'
 import noticeTemplate from '@/views/noticeTemplate/list'
 import importProductOrder from '@/views/importProductOrder/list'
 import productOrder from '@/views/productOrder/list'
+import customerMarketing from '@/views/customerMarketing/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -190,6 +191,11 @@ const router = new Router({
       path: '/product-order',
       name: 'productOrder',
       component: productOrder
+    },
+    {
+      path: '/customer-marketing',
+      name: 'customerMarketing',
+      component: customerMarketing
     }
   ]
 })
