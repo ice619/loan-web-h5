@@ -14,43 +14,35 @@
       <el-form-item label="注册手机号">
         <el-input v-model="searchForm.phoneNum" clearable placeholder="注册手机号"></el-input>
       </el-form-item>
-      <el-form-item label="手机操作系统">
-        <el-select v-model="searchForm.osVersion" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('phoneOsVersion')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="APP版本号">
-        <el-input v-model="searchForm.appVersion" clearable placeholder="APP版本号"></el-input>
+      <el-form-item label="应用下载渠道">
+        <el-input v-model="searchForm.market" clearable placeholder="应用下载渠道"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" icon="el-icon-search" @click="list">查询</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="customerLoginLogTable" :data="tableData" border stripe highlight-current-row
-              @selection-change="handleSelectionChange">
-      <el-table-column prop="customerId" label="客户ID" header-align="center" align="center"/>
+    <el-table ref="customerMarketingTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="phoneNum" label="注册手机号" header-align="center" align="center"/>
-      <el-table-column prop="requestId" label="请求流水号" header-align="center" align="center"/>
-      <el-table-column prop="requestAgent" label="请求来源" header-align="center" align="center">
+      <el-table-column prop="source" label="注册来源" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('requestAgents', scope.row.requestAgent)}}</span>
+          <span>{{$formatter.simpleFormatSelection('requestAgents', scope.row.source)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="market" label="应用下载渠道" header-align="center" align="center"/>
+      <el-table-column prop="ipAddress" label="登录ip地址" header-align="center" align="center"/>
       <el-table-column prop="osVersion" label="手机操作系统" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('phoneOsVersion', Number(scope.row.osVersion))}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center"/>
-      <el-table-column prop="phoneModel" label="当前手机型号" header-align="center" align="center"/>
-      <el-table-column prop="market" label="应用下载渠道" header-align="center" align="center"/>
       <el-table-column prop="appVersion" label="APP版本号" header-align="center" align="center"/>
-      <el-table-column prop="ipAddress" label="登录ip地址" header-align="center" align="center"/>
+      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
     </el-table>
     <el-pagination
@@ -72,13 +64,11 @@ export default {
     return {
       createTime: [],
       searchForm: {
-        tableName: null,
-        appName: 6,
         startTime: null,
         endTime: null,
+        appName: 6,
         phoneNum: null,
-        osVersion: null,
-        appVersion: null
+        market: null
       },
       tableData: [],
       pageIndex: 1,
@@ -111,7 +101,7 @@ export default {
           params.startTime = this.createTime[0]
           params.endTime = this.createTime[1]
         }
-        const res = await this.$http.post('/management/customer/customer-login-logs', params)
+        const res = await this.$http.post('/management/customer-marketing/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
