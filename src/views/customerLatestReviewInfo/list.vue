@@ -89,13 +89,13 @@ export default {
   },
   methods: {
     back () {
-      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone}})
+      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId}})
     },
     async initList () {
       let appName = this.$route.params.appName
       let customerId = this.$route.params.customerId
       let phone = this.$route.params.phone
-      if (appName && customerId && phone) {
+      if (appName && customerId) {
         this.searchForm.appName = appName
         this.searchForm.customerId = customerId
         this.phone = phone

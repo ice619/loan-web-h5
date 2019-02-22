@@ -14,33 +14,42 @@
         <el-button @click="back" v-show="showBackFlag">返回</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="customerThirdPartyCertificationTable" :data="tableData" border stripe highlight-current-row
+    <el-table ref="customerAuthenticationExtTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="285">
       </el-table-column>
-      <el-table-column prop="businessType" label="业务类型" header-align="center" align="center">
+      <el-table-column prop="carrierCertificationType" label="运营商认证类型" header-align="center" align="center" min-width="120">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('businessType', scope.row.businessType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('carrierCertificationType', scope.row.carrierCertificationType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="certificationType" label="认证类型" header-align="center" align="center" min-width="95">
+      <el-table-column prop="carrierToken" label="运营商token" header-align="center" align="center" min-width="285">
+      </el-table-column>
+      <el-table-column prop="gxbCommerceToken" label="公信宝电商token" header-align="center" align="center" min-width="285">
+      </el-table-column>
+      <el-table-column prop="sesameOpenId" label="芝麻openId" header-align="center" align="center" min-width="285">
+      </el-table-column>
+      <el-table-column prop="sesameScope" label="芝麻分" header-align="center" align="center" min-width="90">
+      </el-table-column>
+      <el-table-column prop="faceToken" label="faceToken" header-align="center" align="center" min-width="285">
+      </el-table-column>
+      <el-table-column prop="contactsNum" label="通讯录数量" header-align="center" align="center" min-width="95">
+      </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('certificationType', scope.row.certificationType)}}</span>
+          <span>{{formatDate(new Date(scope.row.createTime), "yyyy-MM-dd hh:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="certificationStatus" label="认证状态" header-align="center" align="center" min-width="95">
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="160">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('certificationStatus', scope.row.certificationStatus)}}</span>
+          <span>{{formatDate(new Date(scope.row.modifyTime), "yyyy-MM-dd hh:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="certificationTime" label="认证时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="160"/>
     </el-table>
   </div>
 </template>
@@ -54,7 +63,7 @@ export default {
         appName: 6,
         customerId: null
       },
-      customerThirdPartyCertificationWindow: {},
+      customerAuthenticationExtWindow: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -75,7 +84,7 @@ export default {
       let appName = this.$route.params.appName
       let customerId = this.$route.params.customerId
       let phone = this.$route.params.phone
-      if (appName && customerId) {
+      if (appName && (customerId || phone)) {
         this.searchForm.appName = appName
         this.searchForm.customerId = customerId
         this.phone = phone
@@ -90,7 +99,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/customer/third-party-certification-info', params)
+        const res = await this.$http.post('/management/customer/customer-authentication-ext', params)
         if (res.code === '200') {
           this.tableData = res.data
         } else {
@@ -111,12 +120,12 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(v => {
-        this.selectIds.push(v.thirdPartyCertificationId)
+        this.selectIds.push(v.customerId)
       })
     }
   }
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 </style>

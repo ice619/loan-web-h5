@@ -33,6 +33,7 @@ import noticeTemplate from '@/views/noticeTemplate/list'
 import importProductOrder from '@/views/importProductOrder/list'
 import productOrder from '@/views/productOrder/list'
 import customerMarketing from '@/views/customerMarketing/list'
+import customerAuthenticationExt from '@/views/customerAuthenticationExt/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -196,6 +197,11 @@ const router = new Router({
       path: '/customer-marketing',
       name: 'customerMarketing',
       component: customerMarketing
+    },
+    {
+      path: '/customer-authentication-ext',
+      name: 'customerAuthenticationExt',
+      component: customerAuthenticationExt
     }
   ]
 })
