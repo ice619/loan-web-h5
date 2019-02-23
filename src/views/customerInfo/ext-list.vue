@@ -19,7 +19,8 @@
       </el-form-item>
     </el-form>
     <el-table ref="customerExtTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="createTime" label="注册时间" header-align="center" align="center" min-width="180"/>
+      <el-table-column prop="registerTime" label="注册时间" header-align="center" align="center" min-width="180"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="180"/>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
@@ -28,7 +29,8 @@
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="285"/>
       <el-table-column prop="phoneNum" label="手机号码" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="appVersion" label="APP版本号" header-align="center" align="center" min-width="100"/>
-      <el-table-column prop="market" label="下载渠道" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="market" label="注册渠道" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="downloadChannel" label="下载渠道" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="source" label="注册来源" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('registerSource', scope.row.source)}}</span>

@@ -59,7 +59,7 @@
             <div class="grid-content bg-purple-light">{{extInfo.appVersion}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">App下载渠道</div>
+            <div class="grid-content bg-purple">用户注册渠道</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{extInfo.market}}</div>
@@ -127,6 +127,18 @@
           </el-col>
         </el-row>
         <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">App下载渠道</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.downloadChannel}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">注册时间</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.registerTime}}</div>
+          </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">创建时间</div>
           </el-col>
