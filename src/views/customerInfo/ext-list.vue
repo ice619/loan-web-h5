@@ -85,9 +85,15 @@ export default {
     }
   },
   created () {
+    this.initSearchForm()
     this.list()
   },
   methods: {
+    initSearchForm () {
+      const now = new Date()
+      this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
+      this.searchForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
+    },
     async list () {
       let params = {
         ...this.searchForm,

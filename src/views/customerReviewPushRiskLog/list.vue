@@ -27,6 +27,11 @@
           <el-option v-for="item in $formatter.getSelectionOptions('auditingState')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="申请单类型">
+        <el-select v-model="searchForm.applicationType" clearable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('applicationType')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">搜索</el-button>
       </el-form-item>
@@ -107,7 +112,8 @@ export default {
         startTime: null,
         endTime: null,
         pushStatus: null,
-        auditingState: null
+        auditingState: null,
+        applicationType: null
       },
       pushRiskLogWindow: {},
       tableData: [],
@@ -120,9 +126,15 @@ export default {
     }
   },
   created () {
+    this.initSearchForm()
     this.list()
   },
   methods: {
+    initSearchForm () {
+      const now = new Date()
+      this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
+      this.searchForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
+    },
     async list () {
       let params = {
         ...this.searchForm,
