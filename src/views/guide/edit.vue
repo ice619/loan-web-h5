@@ -102,7 +102,7 @@ export default {
       guideForm: {},
       rules: {},
       picList: [],
-      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`
+      actionUrl: `${process.env.API_ROOT}/management/upload-image-file`
     }
   },
   methods: {

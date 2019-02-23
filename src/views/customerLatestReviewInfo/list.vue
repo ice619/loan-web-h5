@@ -11,6 +11,7 @@
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
+        <el-button @click="back" v-show="showBackFlag">返回</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="customerLatestReviewInfoTable" :data="tableData" border stripe highlight-current-row
@@ -70,7 +71,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
+        appName: 6,
         customerId: null
       },
       customerLatestReviewInfoWindow: {},
@@ -78,13 +79,30 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       total: 0,
-      selectIds: []
+      selectIds: [],
+      showBackFlag: false,
+      phone: null
     }
   },
   created () {
-    // this.list()
+    this.initList()
   },
   methods: {
+    back () {
+      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId}})
+    },
+    async initList () {
+      let appName = this.$route.params.appName
+      let customerId = this.$route.params.customerId
+      let phone = this.$route.params.phone
+      if (appName && customerId) {
+        this.searchForm.appName = appName
+        this.searchForm.customerId = customerId
+        this.phone = phone
+        this.showBackFlag = true
+        this.list()
+      }
+    },
     async list () {
       let params = {
         ...this.searchForm,

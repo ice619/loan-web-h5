@@ -26,6 +26,14 @@ import customerInfo from '@/views/customerInfo/base'
 import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
 import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
 import customerExt from '@/views/customerInfo/ext-list'
+import customerLoginLog from '@/views/customerLoginLog/list'
+import taobaoCertificationSwitch from '@/views/taobaoCertificationSwitch/list'
+import advertsPage from '@/views/advertsPage/list'
+import noticeTemplate from '@/views/noticeTemplate/list'
+import importProductOrder from '@/views/importProductOrder/list'
+import productOrder from '@/views/productOrder/list'
+import customerMarketing from '@/views/customerMarketing/list'
+import customerAuthenticationExt from '@/views/customerAuthenticationExt/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -154,6 +162,46 @@ const router = new Router({
       path: '/customer-ext',
       name: 'customerExt',
       component: customerExt
+    },
+    {
+      path: '/customer-login-log',
+      name: 'customerLoginLog',
+      component: customerLoginLog
+    },
+    {
+      path: '/taobao-certification-switch',
+      name: 'taobaoCertificationSwitch',
+      component: taobaoCertificationSwitch
+    },
+    {
+      path: '/adverts-page',
+      name: 'advertsPage',
+      component: advertsPage
+    },
+    {
+      path: '/notice-template',
+      name: 'noticeTemplate',
+      component: noticeTemplate
+    },
+    {
+      path: '/import-product-order',
+      name: 'importProductOrder',
+      component: importProductOrder
+    },
+    {
+      path: '/product-order',
+      name: 'productOrder',
+      component: productOrder
+    },
+    {
+      path: '/customer-marketing',
+      name: 'customerMarketing',
+      component: customerMarketing
+    },
+    {
+      path: '/customer-authentication-ext',
+      name: 'customerAuthenticationExt',
+      component: customerAuthenticationExt
     }
   ]
 })

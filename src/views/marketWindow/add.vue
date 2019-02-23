@@ -148,7 +148,7 @@ export default {
           { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' }
         ]
       },
-      actionUrl: `${process.env.API_ROOT}/config/upload-image-file`,
+      actionUrl: `${process.env.API_ROOT}/management/upload-image-file`,
       showFrequencies: [{
         value: 1,
         label: 'value1'

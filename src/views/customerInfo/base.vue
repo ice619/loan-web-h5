@@ -2,12 +2,15 @@
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="应用名称">
-        <el-select v-model="searchForm.appName" clearable placeholder="请选择">
+        <el-select v-model="searchForm.appName" placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="手机号">
         <el-input v-model="searchForm.phoneNum" clearable placeholder="手机号"/>
+      </el-form-item>
+      <el-form-item label="客户编号：">
+        <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 300px"></el-input>
       </el-form-item>
       <!--<el-form-item label="过审记录创建时间">
         <el-date-picker v-model="searchForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
@@ -107,8 +110,35 @@
           <el-col :span="5">
             <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
           </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toLatestReview">客户最新审核信息</el-button>
+            </div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toThirdPartyCertification">客户第三方认证信息</el-button>
+            </div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toCustomerAuthenticationExt">客户认证拓展信息</el-button>
+            </div>
+          </el-col>
         </el-row>
         <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">创建时间</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.createTime}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">修改时间</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.modifyTime}}</div>
+          </el-col>
         </el-row>
       </el-card>
       <h3>基本信息</h3>
@@ -369,22 +399,46 @@ export default {
     return {
       searchForm: {
         appName: 6,
-        phoneNum: null
+        phoneNum: null,
+        customerId: null
         // startTime: null,
         // endTime: null
       },
       baseInfo: {},
       companyInfo: {},
       addressInfo: {},
-      extInfo: {}
+      extInfo: {},
+      tableData: []
     }
   },
   created () {
-    // this.initSearchTime()
+    this.initBack()
   },
   methods: {
+    async initBack () {
+      let appName = this.$route.params.appName
+      let phoneNum = this.$route.params.phone
+      let customerId = this.$route.params.customerId
+      if (appName && (phoneNum || customerId)) {
+        this.searchForm.appName = this.$route.params.appName
+        this.searchForm.phoneNum = this.$route.params.phone
+        this.searchForm.customerId = this.$route.params.customerId
+        this.search()
+      }
+    },
     async search () {
       try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.searchForm.customerId
+        let phone = this.searchForm.phoneNum
+        if (!customerId && !phone) {
+          this.$message.error('手机号或用户编号不能为空')
+          return
+        }
         const res = await this.$http.post('/management/customer/base-info', this.searchForm)
         if (res.code === '200') {
           let costomer = res.data
@@ -396,6 +450,60 @@ export default {
         } else {
           this.$message.error(res.message)
         }
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async toLatestReview () {
+      try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.extInfo.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
+        let phone = this.searchForm.phoneNum
+        this.$router.push({name: 'customerLatestReviewInfo', params: {appName: appName, customerId: customerId, phone: phone}})
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async toThirdPartyCertification () {
+      try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.extInfo.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
+        let phone = this.searchForm.phoneNum
+        this.$router.push({name: 'customerThirdPartyCertification', params: {appName: appName, customerId: customerId, phone: phone}})
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async toCustomerAuthenticationExt () {
+      try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.extInfo.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
+        let phone = this.searchForm.phoneNum
+        this.$router.push({name: 'customerAuthenticationExt', params: {appName: appName, customerId: customerId, phone: phone}})
       } catch (err) {
         console.error(err)
       }
