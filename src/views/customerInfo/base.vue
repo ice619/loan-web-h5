@@ -27,36 +27,30 @@
       <el-card>
         <el-row>
           <el-col :span="2">
+            <div class="grid-content bg-purple">手机号码</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.phoneNum}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">用户编号</div>
+          </el-col>
+          <el-col :span="5">
+            <div class="grid-content bg-purple-light">{{extInfo.customerId}}</div>
+          </el-col>
+          <el-col :span="2">
             <div class="grid-content bg-purple">手机操作系统</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(extInfo.osVersion))}}</div>
           </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">操作系统版本号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.sdkVersion}}</div>
-          </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">用户注册来源</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('registerSource', extInfo.source)}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">手机设备码</div>
-          </el-col>
-          <el-col :span="4">
-            <div class="grid-content bg-purple-light">{{extInfo.deviceId}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">APP版本号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.appVersion}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">用户注册渠道</div>
@@ -65,74 +59,19 @@
             <div class="grid-content bg-purple-light">{{extInfo.market}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">ip地址</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.ipAddress}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">活动编号</div>
-          </el-col>
-          <el-col :span="4">
-            <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">邀请人手机号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{extInfo.invitePhone}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">邀请人客户编号</div>
-          </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple-light">{{extInfo.inviteId}}</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple">用户编号</div>
-          </el-col>
-          <el-col :span="6">
-            <div class="grid-content bg-purple-light">{{extInfo.customerId}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">导流APP名称</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', parseInt(extInfo.diversionAppName))}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">导流客户编号</div>
-          </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple">
-              <el-button style="color: white;background-color: #009688;" type="primary" @click="toLatestReview">客户最新审核信息</el-button>
-            </div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple">
-              <el-button style="color: white;background-color: #009688;" type="primary" @click="toThirdPartyCertification">客户第三方认证信息</el-button>
-            </div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple">
-              <el-button style="color: white;background-color: #009688;" type="primary" @click="toCustomerAuthenticationExt">客户认证拓展信息</el-button>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
             <div class="grid-content bg-purple">App下载渠道</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{extInfo.downloadChannel}}</div>
           </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">APP版本号</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple-light">{{extInfo.appVersion}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="2">
             <div class="grid-content bg-purple">注册时间</div>
           </el-col>
@@ -150,6 +89,75 @@
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{extInfo.modifyTime}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">操作系统版本号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.sdkVersion}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">手机设备码</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.deviceId}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">ip地址</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.ipAddress}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">活动编号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.activityCode}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">邀请人手机号</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{extInfo.invitePhone}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">邀请人客户编号</div>
+          </el-col>
+          <el-col :span="5">
+            <div class="grid-content bg-purple-light">{{extInfo.inviteId}}</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">导流APP名称</div>
+          </el-col>
+          <el-col :span="3">
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', parseInt(extInfo.diversionAppName))}}</div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">导流客户编号</div>
+          </el-col>
+          <el-col :span="5">
+            <div class="grid-content bg-purple-light">{{extInfo.diversionCustomerId}}</div>
+          </el-col>
+          <el-col :span="2.5">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toLatestReview">最新审核信息</el-button>
+            </div>
+          </el-col>
+          <el-col :span="2.5">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toThirdPartyCertification">第三方认证信息</el-button>
+            </div>
+          </el-col>
+          <el-col :span="2.5">
+            <div class="grid-content bg-purple">
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toCustomerAuthenticationExt">客户扩展信息</el-button>
+            </div>
           </el-col>
         </el-row>
       </el-card>
