@@ -22,13 +22,9 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="针对版本:">
-              <el-select v-model="entryForm.versionLowerLimit" clearable style="width: 120px">
-                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${entryForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-              <el-select v-model="entryForm.versionUpperLimit" clearable style="width: 120px">
-                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${entryForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
+            <el-form-item label="版本号" prop="title">
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.startVersion" placeholder="开始版本号"></el-input>
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersion" placeholder="结束版本号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

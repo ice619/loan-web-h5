@@ -49,7 +49,7 @@
           <el-col :span="24">
             <el-form-item label="生效版本" prop="title">
               <el-input style="width: 129.250px;" v-model="advertsPageForm.startVersion" placeholder="开始版本号"></el-input>-
-              <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersions" placeholder="结束版本号"></el-input>
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersion" placeholder="结束版本号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

@@ -30,20 +30,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="生效版本">
-              <el-select style="width: 110px;" v-model="bannerForm.versionLowerLimit" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-select style="width: 110px;" v-model="bannerForm.versionUpperLimit" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-col>
+          <el-form-item label="版本号" prop="title">
+            <el-input style="width: 129.250px;" v-model="advertsPageForm.startVersion" placeholder="开始版本号"></el-input>
+            <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersion" placeholder="结束版本号"></el-input>
+          </el-form-item>
         </el-row>
         <el-row>
           <el-col :span="12">

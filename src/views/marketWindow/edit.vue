@@ -48,13 +48,9 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="生效版本">
-              <el-select style="width: 107px;" v-model="marketWindowForm.versionLowerLimit" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${marketWindowForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-              <el-select style="width: 107px;" v-model="marketWindowForm.versionUpperLimit" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${marketWindowForm.appName}`)" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
+            <el-form-item label="版本号" prop="title">
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.startVersion" placeholder="开始版本号"></el-input>
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersion" placeholder="结束版本号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
