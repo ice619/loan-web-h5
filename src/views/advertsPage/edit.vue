@@ -36,7 +36,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
+        <el-row type="flex" justify="left">
           <el-col :span="12">
             <el-form-item label="图片类型">
               <el-select v-model="advertsPageForm.type" clearable placeholder="请选择">

@@ -101,7 +101,8 @@ export default {
         terminal: null,
         userTag: null,
         status: null,
-        screenType: null
+        screenType: null,
+        type: null
       },
       advertsPage: {},
       tableData: [],
