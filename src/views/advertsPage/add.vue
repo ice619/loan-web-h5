@@ -123,11 +123,13 @@ export default {
         status: true,
         screenType: 1,
         imageUrl: '',
-        versions: '',
+        startVersion: '',
+        endVersions: '',
         startTime: null,
         endTime: null,
         stayTime: 1,
-        forwardUrl: ''
+        forwardUrl: '',
+        type:2
       },
       advertsPageForm: {},
       rules: {
