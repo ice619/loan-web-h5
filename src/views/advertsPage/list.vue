@@ -21,6 +21,11 @@
           <el-option v-for="item in $formatter.getSelectionOptions('statuses')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="图片类型">
+        <el-select v-model="searchForm.type" clearable filterable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('type')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item label="屏幕类型">
         <el-select v-model="searchForm.screenType" clearable filterable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('screenTypes')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -52,6 +57,11 @@
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('statuses', scope.row.status)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="type" label="图片类型" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('type', scope.row.type)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="screenType" label="屏幕类型" header-align="center" align="center">

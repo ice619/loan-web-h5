@@ -37,9 +37,19 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item label="图片类型">
+              <el-select v-model="advertsPageForm.type" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('type')" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
           <el-col :span="24">
-            <el-form-item label="版本号" prop="title">
-              <el-input style="width: 672px;" v-model="advertsPageForm.versions" placeholder="版本号,多个以英文逗号分割"></el-input>
+            <el-form-item label="生效版本" prop="title">
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersions" placeholder="开始版本号"></el-input>-
+              <el-input style="width: 129.250px;" v-model="advertsPageForm.startVersion" placeholder="结束版本号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
