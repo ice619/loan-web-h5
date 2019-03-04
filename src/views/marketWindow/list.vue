@@ -46,7 +46,7 @@
       </el-table-column>
       <el-table-column prop="endVersion" label="版本上限" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.startVersion}}</span>
+          <span>{{scope.row.endVersion}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="imageUrl" label="图片" header-align="center" align="center">
