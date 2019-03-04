@@ -30,14 +30,14 @@
           <span>{{$formatter.simpleFormatSelection('switchTypes', scope.row.switchType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionLowerLimit" label="版本下限" header-align="center" align="center" min-width="80">
+      <el-table-column prop="startVersion" label="版本下限" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionLowerLimit)}}</span>
+          <span>{{scope.row.startVersion}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionUpperLimit" label="版本上限" header-align="center" align="center" min-width="80">
+      <el-table-column prop="endVersion" label="版本上限" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, scope.row.versionUpperLimit)}}</span>
+          <span>{{scope.row.endVersion}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="userType" label="用户类型" header-align="center" align="center" min-width="60">
