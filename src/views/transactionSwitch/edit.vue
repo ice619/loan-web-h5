@@ -101,7 +101,7 @@ export default {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
           try {
-            if (this.entryForm.versionLowerLimit > this.entryForm.versionUpperLimit) {
+            if (this.entryForm.startVersion > this.entryForm.endVersion) {
               this.$message.error('开始版本号不能大于结束版本号')
               return
             }

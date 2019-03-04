@@ -163,8 +163,8 @@ export default {
         appName: 6,
         terminal: '',
         userTags: [],
-        versionUpperLimit: '',
-        versionLowerLimit: '',
+        startVersion: '',
+        endVersion: '',
         position: '',
         displayPosition: '',
         startTime: null,
@@ -266,7 +266,7 @@ export default {
       this.detailRowIndex = rowIndex
     },
     checkBanner () {
-      if (this.bannerForm.versionLowerLimit > this.bannerForm.versionUpperLimit) {
+      if (this.bannerForm.startVersion > this.bannerForm.endVersion) {
         this.$message.error('开始版本要小于结束版本')
         return false
       }

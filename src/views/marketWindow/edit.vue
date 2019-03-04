@@ -159,7 +159,7 @@ export default {
       }
     },
     saveMarketWindow: debounce(300, function () {
-      if (this.marketWindowForm.versionLowerLimit > this.marketWindowForm.versionUpperLimit) {
+      if (this.marketWindowForm.startVersion > this.marketWindowForm.endVersion) {
         this.$message.error('开始版本要小于结束版本')
         return
       }

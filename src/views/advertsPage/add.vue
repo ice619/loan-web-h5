@@ -169,6 +169,10 @@ export default {
       }
     },
     saveAdvertsPage: debounce(300, function () {
+      if (this.advertsPageForm.startVersion > this.advertsPageForm.endVersion) {
+        this.$message.error('开始版本要小于结束版本')
+        return
+      }
       if (this.advertsPageForm.startTime > this.advertsPageForm.endTime) {
         this.$message.error('开始时间要小于结束时间')
         return

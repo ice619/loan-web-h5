@@ -128,8 +128,8 @@ export default {
         showFrequency: 1,
         title: '',
         priority: 1,
-        versionLowerLimit: null,
-        versionUpperLimit: null,
+        startVersion: '',
+        endVersion: '',
         popUrl: '',
         startTime: null,
         endTime: null,
@@ -171,7 +171,7 @@ export default {
       }
     },
     saveMarketWindow: debounce(300, function () {
-      if (this.marketWindowForm.versionLowerLimit > this.marketWindowForm.versionUpperLimit) {
+      if (this.marketWindowForm.startVersion > this.marketWindowForm.endVersion) {
         this.$message.error('开始版本要小于结束版本')
         return
       }
