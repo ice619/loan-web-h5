@@ -23,8 +23,8 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="版本号" prop="title">
-              <el-input style="width: 129.250px;" v-model="advertsPageForm.startVersion" placeholder="开始版本号"></el-input>
-              <el-input style="width: 129.250px;" v-model="advertsPageForm.endVersion" placeholder="结束版本号"></el-input>
+              <el-input style="width: 129.250px;" v-model="entryForm.startVersion" placeholder="开始版本号"></el-input>
+              <el-input style="width: 129.250px;" v-model="entryForm.endVersion" placeholder="结束版本号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
