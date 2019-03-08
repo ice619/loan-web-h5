@@ -129,7 +129,7 @@ export default {
         endTime: null,
         stayTime: 1,
         forwardUrl: '',
-        type:2
+        type: 2
       },
       advertsPageForm: {},
       rules: {
