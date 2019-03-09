@@ -43,7 +43,7 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">加密手机号</div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="grid-content bg-purple-light">{{info.encryptedPhone}}</div>
           </el-col>
         </el-row>
