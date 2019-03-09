@@ -40,9 +40,9 @@
           <span>{{$formatter.simpleFormatSelection('phoneOsVersion', Number(scope.row.osVersion))}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center"/>
-      <el-table-column prop="appVersion" label="APP版本号" header-align="center" align="center"/>
-      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center"/>
+      <!--<el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center"/>-->
+      <!--<el-table-column prop="appVersion" label="APP版本号" header-align="center" align="center"/>-->
+      <!--<el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center"/>-->
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
     </el-table>
     <el-pagination
@@ -83,7 +83,7 @@ export default {
   methods: {
     initSearchForm () {
       const now = new Date()
-      this.searchForm.tableName = `customer_login_log_${this.formatDate(now, 'yyyyMMdd')}`
+      // this.searchForm.tableName = `customer_login_log_${this.formatDate(now, 'yyyyMMdd')}`
       this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
       this.searchForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
       this.createTime = [this.searchForm.startTime, this.searchForm.endTime]
