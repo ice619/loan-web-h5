@@ -34,6 +34,8 @@ import importProductOrder from '@/views/importProductOrder/list'
 import productOrder from '@/views/productOrder/list'
 import customerMarketing from '@/views/customerMarketing/list'
 import customerAuthenticationExt from '@/views/customerAuthenticationExt/list'
+import customerLoginInfo from '@/views/customerLoginInfo/login-info'
+import encryptedPhone from '@/views/encryptedPhone/info'
 Vue.use(Router)
 
 const router = new Router({
@@ -202,6 +204,16 @@ const router = new Router({
       path: '/customer-authentication-ext',
       name: 'customerAuthenticationExt',
       component: customerAuthenticationExt
+    },
+    {
+      path: '/login-info',
+      name: 'customerLoginInfo',
+      component: customerLoginInfo
+    },
+    {
+      path: '/encrypted-phone',
+      name: 'encryptedPhone',
+      component: encryptedPhone
     }
   ]
 })

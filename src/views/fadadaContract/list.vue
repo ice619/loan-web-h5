@@ -29,6 +29,9 @@
       <el-form-item label="失败次数：">
         <el-input v-model="searchForm.failureTimes" type="number" :min="0" clearable placeholder="请输入次数"/>
       </el-form-item>
+      <el-form-item label="客户编号：">
+        <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 300px"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">查询</el-button>
         <el-button type="danger" icon="el-icon-edit" @click="updataFailTime">失败次数批量清空</el-button>
@@ -104,7 +107,8 @@ export default {
         state: null,
         channel: null,
         applicationId: null,
-        failureTimes: null
+        failureTimes: null,
+        customerId: null
       },
       entry: {},
       tableData: [],

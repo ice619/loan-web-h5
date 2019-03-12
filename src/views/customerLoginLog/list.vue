@@ -54,6 +54,8 @@
       <el-table-column prop="market" label="应用下载渠道" header-align="center" align="center"/>
       <el-table-column prop="appVersion" label="APP版本号" header-align="center" align="center"/>
       <el-table-column prop="ipAddress" label="登录ip地址" header-align="center" align="center"/>
+      <el-table-column prop="pushId" label="推送ID" header-align="center" align="center"/>
+      <el-table-column prop="deviceId" label="手机设备码" header-align="center" align="center"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
     </el-table>
     <el-pagination
