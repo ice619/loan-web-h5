@@ -36,6 +36,7 @@ import customerMarketing from '@/views/customerMarketing/list'
 import customerAuthenticationExt from '@/views/customerAuthenticationExt/list'
 import customerLoginInfo from '@/views/customerLoginInfo/login-info'
 import encryptedPhone from '@/views/encryptedPhone/info'
+import deleteData from '@/views/deleteData/base'
 Vue.use(Router)
 
 const router = new Router({
@@ -214,6 +215,11 @@ const router = new Router({
       path: '/encrypted-phone',
       name: 'encryptedPhone',
       component: encryptedPhone
+    },
+    {
+      path: '/delete-data',
+      name: 'deleteData',
+      component: deleteData
     }
   ]
 })
