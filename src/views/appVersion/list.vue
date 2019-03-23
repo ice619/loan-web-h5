@@ -31,7 +31,7 @@
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appType" label="终端类型" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
+      <el-table-column prop="appType" label="终端类型" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('clientType', parseInt(scope.row.appType))}}</span>
         </template>
@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column prop="isForcedUpdate" label="强制更新" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
+      <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appIsPopup', parseInt(scope.row.isPopup))}}</span>
         </template>
@@ -55,7 +55,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
-      <el-table-column label="创建人" header-align="center" align="center">
+      <el-table-column label="创建人" header-align="center" align="center"   min-width="60px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{scope.row.createManId}}</span>
           <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createMan === null || scope.row.createMan === '' ? '' : '-'}}</span>
@@ -63,7 +63,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
-      <el-table-column label="修改人" header-align="center" align="center">
+      <el-table-column label="修改人" header-align="center" align="center"   min-width="60px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{scope.row.modifyManId}}</span>
           <span>{{scope.row.modifyManId === null || scope.row.modifyManId === '' || scope.row.modifyMan === null || scope.row.modifyMan === '' ? '' : '-'}}</span>
