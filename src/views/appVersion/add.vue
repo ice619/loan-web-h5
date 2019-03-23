@@ -5,7 +5,7 @@
                class="demo-form-inline">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="APP名称" prop="appName">
+            <el-form-item label="应用名称" prop="appName">
               <el-select v-model="appVersionForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                            :value="item.value"/>
@@ -13,7 +13,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="APP类型" prop="appType">
+            <el-form-item label="终端类型" prop="appType">
               <el-select v-model="appVersionForm.appType" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('clientType')" :key="item.value" :label="item.label"
                            :value="item.value"/>
@@ -36,32 +36,35 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="下载地址" prop="downloadUrl" >
-              <el-input v-model="appVersionForm.downloadUrl" style="width: 580px;" clearable placeholder="请输入下载地址"></el-input>
+              <el-input v-model="appVersionForm.downloadUrl" style="width: 675px;" clearable placeholder="请输入下载地址"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="强更版本" prop="isForcedUpdate">
-              <el-input v-model="appVersionForm.isForcedUpdate" clearable placeholder="请输入需要强制更新的版本"></el-input>
+              <el-input v-model="appVersionForm.isForcedUpdate" clearable placeholder="采用;分割，非必填"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="非强更版本" prop="versionUpdate">
-              <el-input v-model="appVersionForm.versionUpdate" clearable placeholder="请输入需要更新的版本"></el-input>
+            <el-form-item label="是否弹窗" prop="isPopup">
+              <el-select v-model="appVersionForm.isPopup" clearable placeholder="请选择是否需要弹窗">
+                <el-option v-for="item in $formatter.getSelectionOptions('appIsPopup')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="开始时间" prop="beginTime">
-              <el-date-picker v-model="appVersionForm.beginTime" type="datetime" placeholder="请输入弹框开始时间"
+              <el-date-picker v-model="appVersionForm.beginTime" type="datetime" placeholder="请输入开始时间"
                               value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="结束时间" prop="endTime">
-              <el-date-picker v-model="appVersionForm.endTime" type="datetime" placeholder="请输入弹框结束时间"
+              <el-date-picker v-model="appVersionForm.endTime" type="datetime" placeholder="请输入结束时间"
                               value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
           </el-col>
@@ -69,14 +72,14 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="更新标题" prop="changeTitle">
-              <el-input v-model="appVersionForm.changeTitle" style="width: 580px;" clearable placeholder="请输入弹框标题"></el-input>
+              <el-input v-model="appVersionForm.changeTitle" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
             <el-form-item label="更新描述" prop="changeCopy">
-              <el-input type="textarea" cols="76" v-model="appVersionForm.changeCopy" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopy" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -115,14 +118,14 @@ export default {
     return {
       appVersionDetails: [],
       appVersionInitForm: {
-        appName: '',
+        appName: 6,
         appType: '',
-        remark: '',
+        remark: 'official',
         versionNumber: '',
         downloadUrl: '',
         isForcedUpdate: '',
         versionUpdate: '',
-        isPopup: '1',
+        isPopup: 1,
         beginTime: null,
         endTime: null,
         changeTitle: '',
@@ -133,10 +136,10 @@ export default {
       sort: 1,
       rules: {
         appName: [
-          {required: true, message: '请选择APP名称', trigger: 'blur'}
+          {required: true, message: '请选择应用类型', trigger: 'blur'}
         ],
         appType: [
-          {required: true, message: '请选择APP类型', trigger: 'blur'}
+          {required: true, message: '请选择终端类型', trigger: 'blur'}
         ],
         remark: [
           {required: true, message: '请输入渠道', trigger: 'blur'}
@@ -147,17 +150,14 @@ export default {
         downloadUrl: [
           {required: true, message: '请输入下载地址', trigger: 'blur'}
         ],
-        isForcedUpdate: [
-          {required: true, message: '请输入需要强制更新的版本', trigger: 'blur'}
-        ],
-        versionUpdate: [
-          {required: true, message: '请输入需要更新的版本', trigger: 'blur'}
+        isPopup: [
+          {required: true, message: '请选择是否需要弹窗', trigger: 'blur'}
         ],
         beginTime: [
-          {required: true, message: '请输入弹框开始时间', trigger: 'blur'}
+          {required: true, message: '请输入开始时间', trigger: 'blur'}
         ],
         endTime: [
-          {required: true, message: '请输入弹框结束时间', trigger: 'blur'}
+          {required: true, message: '请输入结束时间', trigger: 'blur'}
         ],
         changeTitle: [
           {required: true, message: '请输入弹框标题', trigger: 'blur'}

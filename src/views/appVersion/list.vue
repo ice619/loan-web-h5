@@ -1,8 +1,8 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="APP名称：">
-        <el-select v-model="searchForm.appName" clearable placeholder="请选择APP名称">
+      <el-form-item label="应用名称：">
+        <el-select v-model="searchForm.appName" clearable placeholder="请选择应用名称">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -12,6 +12,12 @@
                        :value="item.value"/>
           </el-select>
       </el-form-item>
+      <el-form-item label="终端：">
+        <el-select v-model="searchForm.appType" clearable placeholder="请选择终端类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('clientType')" :key="item.value" :label="item.label"
+                     :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
@@ -19,31 +25,29 @@
     </el-form>
     <el-table ref="appVersionTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <!--<el-table-column prop="appVersionId" label="appVersionId" header-align="center" align="center"/>-->
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
+      <el-table-column prop="changeTitle" label="更新标题" header-align="center" align="center"/>
+      <el-table-column prop="appName" label="应用名称" header-align="center" align="center" min-width="50">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appType" label="APP类型" header-align="center" align="center">
+      <el-table-column prop="appType" label="终端类型" header-align="center" align="center" min-width="40">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('clientType', parseInt(scope.row.appType))}}</span>
         </template>
       </el-table-column>
-      <!--<el-table-column prop="versionNumber" label="版本号" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection(`versions_${scope.row.appName}`, parseInt(scope.row.versionNumber))}}</span>
-        </template>
-      </el-table-column>-->
-      <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center">
+      <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center" min-width="50">
       </el-table-column>
       <el-table-column prop="remark" label="渠道" header-align="center" align="center">
       </el-table-column>
       <el-table-column prop="isForcedUpdate" label="强制更新" header-align="center" align="center">
       </el-table-column>
-      <el-table-column prop="versionUpdate" label="非强制更新" header-align="center" align="center">
+      <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center" min-width="30">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('appIsPopup', parseInt(scope.row.isPopup))}}</span>
+        </template>
       </el-table-column>
-      <el-table-column prop="state" label="状态" header-align="center" align="center">
+      <el-table-column prop="state" label="状态" header-align="center" align="center" min-width="40">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
@@ -64,7 +68,7 @@
           <span>{{scope.row.modifyMan}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column label="操作" header-align="center" align="center" min-width="40">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editAppVersion(scope.row)" type="text" size="small">编辑</el-button>
           <!--<el-button icon="el-icon-delete" @click="removeAppVersion(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>-->
@@ -92,8 +96,9 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
-        state: null
+        appName: 6,
+        state: null,
+        appType: null
       },
       appVersionWindow: {},
       tableData: [],
@@ -143,6 +148,7 @@ export default {
     },
     editAppVersion (row) {
       this.showEditFlag = true
+      row.isPopup = Number(row.isPopup)
       this.appVersionWindow = row
     },
     removeAppVersion (row) {
