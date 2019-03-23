@@ -25,34 +25,36 @@
     </el-form>
     <el-table ref="appVersionTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column prop="changeTitle" label="更新标题" header-align="center" align="center"/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center" min-width="50">
+      <el-table-column prop="changeTitle" label="更新标题" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="appName" label="应用名称" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appType" label="终端类型" header-align="center" align="center" min-width="40">
+      <el-table-column prop="appType" label="终端类型" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('clientType', parseInt(scope.row.appType))}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center" min-width="50">
+      <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="remark" label="渠道" header-align="center" align="center">
+      <el-table-column prop="remark" label="渠道" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="isForcedUpdate" label="强制更新" header-align="center" align="center">
+      <el-table-column prop="isForcedUpdate" label="强制更新" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center" min-width="30">
+      <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appIsPopup', parseInt(scope.row.isPopup))}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="state" label="状态" header-align="center" align="center" min-width="40">
+      <el-table-column prop="beginTime" label="开始时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="state" label="状态" header-align="center" align="center"  min-width="30px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column label="创建人" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.createManId}}</span>
@@ -60,7 +62,7 @@
           <span>{{scope.row.createMan}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column label="修改人" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.modifyManId}}</span>
@@ -68,7 +70,7 @@
           <span>{{scope.row.modifyMan}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" header-align="center" align="center" min-width="40">
+      <el-table-column label="操作" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editAppVersion(scope.row)" type="text" size="small">编辑</el-button>
           <!--<el-button icon="el-icon-delete" @click="removeAppVersion(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>-->
