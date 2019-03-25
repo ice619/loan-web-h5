@@ -59,10 +59,9 @@
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="left" min-width="500" show-overflow-tooltip>
+      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="300" show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button style="color: white;background-color: #009688;" type="primary" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">查询调用风控接口记录</el-button>
-          <span>{{scope.row.appSerialNumber}}</span>
+          <el-button type="text" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">{{scope.row.appSerialNumber}}</el-button>
         </template>
       </el-table-column>
       <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
