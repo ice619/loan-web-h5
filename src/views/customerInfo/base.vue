@@ -163,7 +163,7 @@
           </el-col>
           <el-col :span="2.5">
             <div class="grid-content bg-purple">
-              <el-button style="color: white;background-color: #009688;" type="primary" @click="toLoginInfo">登陆信息</el-button>
+              <el-button style="color: white;background-color: #009688;" type="primary" @click="toLoginInfo">登录信息</el-button>
             </div>
           </el-col>
         </el-row>

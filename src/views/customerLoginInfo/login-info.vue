@@ -39,7 +39,7 @@
         </el-row>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">登陆时间</div>
+            <div class="grid-content bg-purple">登录时间</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light" v-if="firstInfo.loginTime">{{formatDate(new Date(firstInfo.loginTime), "yyyy-MM-dd hh:mm:ss")}}</div>
@@ -98,7 +98,7 @@
         </el-row>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">登陆时间</div>
+            <div class="grid-content bg-purple">登录时间</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light" v-if="latestInfo.loginTime">{{formatDate(new Date(latestInfo.loginTime), "yyyy-MM-dd hh:mm:ss")}}</div>
