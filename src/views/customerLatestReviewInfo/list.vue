@@ -9,6 +9,11 @@
       <el-form-item label="客户编号：">
         <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 300px"></el-input>
       </el-form-item>
+      <!--<el-form-item label="业务类型">
+        <el-select v-model="searchForm.businessType" clearable placeholder="请选择业务类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('reviewBusinessType')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>-->
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button @click="back" v-show="showBackFlag">返回</el-button>
@@ -57,6 +62,11 @@
       <el-table-column prop="isDiversionLoanSupermarket" label="是否导流到贷款超市" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('isDiversionLoanSupermarket', scope.row.isDiversionLoanSupermarket)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="settleOrderStatus" label="订单结清状态" header-align="center" align="center" min-width="110">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('settleOrderStatus', scope.row.settleOrderStatus)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>

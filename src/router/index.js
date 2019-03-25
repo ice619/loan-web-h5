@@ -37,6 +37,9 @@ import customerAuthenticationExt from '@/views/customerAuthenticationExt/list'
 import customerLoginInfo from '@/views/customerLoginInfo/login-info'
 import encryptedPhone from '@/views/encryptedPhone/info'
 import deleteData from '@/views/deleteData/base'
+import riskInterfaceRecord from '@/views/customerReviewPushRiskLog/riskInterfaceRecord'
+import dockingRequestLog from '@/views/dockingRequestLog/list'
+import unionLoginRequestLog from '@/views/unionLoginRequestLog/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -220,6 +223,21 @@ const router = new Router({
       path: '/delete-data',
       name: 'deleteData',
       component: deleteData
+    },
+    {
+      path: '/risk-interface-record',
+      name: 'riskInterfaceRecord',
+      component: riskInterfaceRecord
+    },
+    {
+      path: '/docking-request-log',
+      name: 'dockingRequestLog',
+      component: dockingRequestLog
+    },
+    {
+      path: '/union-login-request-log',
+      name: 'unionLoginRequestLog',
+      component: unionLoginRequestLog
     }
   ]
 })

@@ -59,7 +59,12 @@
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="180" show-overflow-tooltip/>
+      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="left" min-width="500" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <el-button style="color: white;background-color: #009688;" type="primary" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">查询调用风控接口记录</el-button>
+          <span>{{scope.row.appSerialNumber}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
@@ -111,7 +116,7 @@ export default {
         appName: null,
         startTime: null,
         endTime: null,
-        pushStatus: null,
+        status: null,
         auditingState: null,
         applicationType: null
       },
@@ -131,9 +136,21 @@ export default {
   },
   methods: {
     initSearchForm () {
-      const now = new Date()
-      this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
-      this.searchForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
+      let applicationId = this.$route.params.applicationId
+      if (applicationId) {
+        this.searchForm.customerId = this.$route.params.customerId
+        this.searchForm.appSerialNumber = this.$route.params.appSerialNumber
+        this.searchForm.appName = this.$route.params.appName
+        this.searchForm.startTime = this.$route.params.startTime
+        this.searchForm.endTime = this.$route.params.endTime
+        this.searchForm.status = this.$route.params.status
+        this.searchForm.auditingState = this.$route.params.auditingState
+        this.searchForm.applicationType = this.$route.params.applicationType
+      } else {
+        const now = new Date()
+        this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
+        this.searchForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
+      }
     },
     async list () {
       let params = {
@@ -149,6 +166,22 @@ export default {
         } else {
           this.$message.error(res.message)
         }
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async callRiskInterfaceRecord (appSerialNumber) {
+      try {
+        let applicationId = appSerialNumber
+        if (!applicationId) {
+          this.$message.error('申请单编号不能为空')
+          return
+        }
+        let params = {
+          ...this.searchForm,
+          applicationId: applicationId
+        }
+        this.$router.push({name: 'riskInterfaceRecord', params: params})
       } catch (err) {
         console.error(err)
       }
