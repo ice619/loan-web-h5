@@ -7,7 +7,9 @@
         <el-date-picker v-model="searchForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd HH:mm:ss"/>
       </el-form-item>
       <el-form-item label="第三方标识">
-        <el-input v-model="searchForm.serviceCode" placeholder="请输入第三方标识" clearable/>
+        <el-select v-model="searchForm.serviceCode" clearable placeholder="请输入第三方标识">
+          <el-option v-for="item in $formatter.getSelectionOptions('apiErrorEnum')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>

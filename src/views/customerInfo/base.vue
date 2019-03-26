@@ -20,6 +20,7 @@
       </el-form-item>-->
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+        <el-button @click="backToCustomerReviewPushRiskLog" v-show="showBackCustomerReviewPushRiskLogFlag">返回客户进件流水</el-button>
       </el-form-item>
     </el-form>
     <el-card>
@@ -435,7 +436,18 @@ export default {
       companyInfo: {},
       addressInfo: {},
       extInfo: {},
-      tableData: []
+      tableData: [],
+      showBackCustomerReviewPushRiskLogFlag: false,
+      backToCustomerReviewPushRiskLogParams: {
+        customerId: null,
+        appSerialNumber: null,
+        appName: null,
+        startTime: null,
+        endTime: null,
+        status: null,
+        auditingState: null,
+        applicationType: null
+      }
     }
   },
   created () {
@@ -446,6 +458,18 @@ export default {
       let appName = this.$route.params.appName
       let phoneNum = this.$route.params.phone
       let customerId = this.$route.params.customerId
+      let customerReviewPushRiskLogFlag = this.$route.params.customerReviewPushRiskLogFlag
+      if (customerReviewPushRiskLogFlag) {
+        this.showBackCustomerReviewPushRiskLogFlag = true
+        this.backToCustomerReviewPushRiskLogParams.customerId = this.$route.params.customerId
+        this.backToCustomerReviewPushRiskLogParams.appSerialNumber = this.$route.params.appSerialNumber
+        this.backToCustomerReviewPushRiskLogParams.appName = this.$route.params.appName
+        this.backToCustomerReviewPushRiskLogParams.startTime = this.$route.params.startTime
+        this.backToCustomerReviewPushRiskLogParams.endTime = this.$route.params.endTime
+        this.backToCustomerReviewPushRiskLogParams.status = this.$route.params.status
+        this.backToCustomerReviewPushRiskLogParams.auditingState = this.$route.params.auditingState
+        this.backToCustomerReviewPushRiskLogParams.applicationType = this.$route.params.applicationType
+      }
       if (appName && (phoneNum || customerId)) {
         this.searchForm.appName = this.$route.params.appName
         this.searchForm.phoneNum = this.$route.params.phone
@@ -549,6 +573,13 @@ export default {
         }
         let phone = this.searchForm.phoneNum
         this.$router.push({name: 'customerLoginInfo', params: {appName: appName, customerId: customerId, phone: phone}})
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async backToCustomerReviewPushRiskLog () {
+      try {
+        this.$router.push({name: 'customerReviewPushRiskLog', params: this.backToCustomerReviewPushRiskLogParams})
       } catch (err) {
         console.error(err)
       }

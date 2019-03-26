@@ -71,7 +71,11 @@
       </el-table-column>
       <el-table-column prop="name" label="客户姓名" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="center" min-width="130"/>
-      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="120" show-overflow-tooltip/>
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="300" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <el-button type="text" @click="toCustomerInfo(scope.row)">{{scope.row.customerId}}</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="authMoney" label="授信额度" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="center" min-width="155"/>
@@ -127,6 +131,8 @@ export default {
       selectIds: [],
       showAddFlag: false,
       showEditFlag: false
+      // rowAppName: null,
+      // rowCustomerId: null
     }
   },
   created () {
@@ -136,7 +142,9 @@ export default {
   methods: {
     initSearchForm () {
       let applicationId = this.$route.params.applicationId
-      if (applicationId) {
+      let cId = this.$route.params.customerId
+      let aName = this.$route.params.appName
+      if (applicationId || (cId && aName)) {
         this.searchForm.customerId = this.$route.params.customerId
         this.searchForm.appSerialNumber = this.$route.params.appSerialNumber
         this.searchForm.appName = this.$route.params.appName
@@ -181,6 +189,29 @@ export default {
           applicationId: applicationId
         }
         this.$router.push({name: 'riskInterfaceRecord', params: params})
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async toCustomerInfo (row) {
+      try {
+        let rowAppName = row.appName
+        let rowCustomerId = row.customerId
+        if (!rowAppName) {
+          this.$message.error('APP名称不能为空')
+          return
+        }
+        if (!rowCustomerId) {
+          this.$message.error('客户编号不能为空')
+          return
+        }
+        let params = {
+          ...this.searchForm,
+          appName: rowAppName,
+          customerId: rowCustomerId,
+          customerReviewPushRiskLogFlag: true
+        }
+        this.$router.push({name: 'customerInfo', params: params})
       } catch (err) {
         console.error(err)
       }
