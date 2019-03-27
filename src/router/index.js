@@ -40,6 +40,7 @@ import deleteData from '@/views/deleteData/base'
 import riskInterfaceRecord from '@/views/customerReviewPushRiskLog/riskInterfaceRecord'
 import dockingRequestLog from '@/views/dockingRequestLog/list'
 import unionLoginRequestLog from '@/views/unionLoginRequestLog/list'
+import redisQuery from '@/views/redisQuery/base'
 Vue.use(Router)
 
 const router = new Router({
@@ -238,6 +239,11 @@ const router = new Router({
       path: '/union-login-request-log',
       name: 'unionLoginRequestLog',
       component: unionLoginRequestLog
+    },
+    {
+      path: '/redis-query',
+      name: 'redisQuery',
+      component: redisQuery
     }
   ]
 })
