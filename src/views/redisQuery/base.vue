@@ -1,106 +1,47 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="应用名称">
-        <el-select v-model="searchForm.appName" placeholder="请选择">
+      <el-form-item label="项目名称">
+        <el-select v-model="searchForm.indexDb" placeholder="请选择" style="width: 125px">
           <el-option v-for="item in $formatter.getSelectionOptions('projects')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="手机号">
-        <el-input v-model="searchForm.phoneNum" clearable placeholder="手机号"/>
+      <el-form-item label="key">
+        <el-input v-model="searchForm.key" clearable />
+      </el-form-item>
+      <el-form-item>
+        <div>
+          <el-radio-group v-model="searchForm.typeTemp"  fill="#009688" @change="changeType">
+            <el-radio-button label="string"></el-radio-button>
+            <el-radio-button label="list"></el-radio-button>
+            <el-radio-button label="hash"></el-radio-button>
+            <el-radio-button label="set"></el-radio-button>
+            <el-radio-button label="zset"></el-radio-button>
+          </el-radio-group>
+        </div>
+      </el-form-item>
+      <el-form-item label="values" v-show="valuesIfShow">
+        <el-input style="width: 180px" v-model="searchForm.hashFieldVal" clearable placeholder="values"/>
+      </el-form-item>
+      <el-form-item label="查询条数" v-show="countIfShow">
+        <el-input v-model="searchForm.start" clearable placeholder="开始索引" style="width: 103px"/>
+        <el-input v-model="searchForm.end" clearable placeholder="结束索引" style="width: 103px"/>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="search">查询</el-button>
       </el-form-item>
     </el-form>
-      <h3>基本信息</h3>
-      <el-card>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">姓名</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.name}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">性别</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.gender}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">出生日期</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.birthDate}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">年龄</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.age}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">身份证</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.idCardNo}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">签发机关</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.signingOffice}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">有效期限</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.limitedTimes}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">学历</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('educationCode', parseInt(baseInfo.educationCode))}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">婚姻状况</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('ifMarriage', baseInfo.ifMarriage)}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">民族</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.nation}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">手机号码</div>
-          </el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">户籍住址</div>
-          </el-col>
-          <el-col :span="13">
-            <div class="grid-content bg-purple-light">{{baseInfo.domicileAddress}}</div>
-          </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple">
-              <el-button :disabled="disableRemove" style="color: white;background-color: #96363e;" type="primary" icon="el-icon-delete" @click="deleteData">删除</el-button>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
+    <el-card class="box-card" style="height: auto">
+      <div slot="header" class="clearfix">
+        <span style="color: #9ea4a9">有效时间：{{this.displayData.expTime}} &emsp;&emsp;&emsp;&emsp; 数量：{{this.displayData.num}}</span>
+      </div>
+      <el-input
+        type="textarea"
+        autosize
+        style="height: auto"
+        v-model="displayData.value">
+      </el-input>
+    </el-card>
   </div>
 </template>
 
@@ -109,74 +50,89 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6,
-        phoneNum: null
+        indexDb: null,
+        key: null,
+        typeTemp: 'string',
+        hashFieldVal: null,
+        start: 0,
+        end: 100
       },
-      disableRemove: true,
-      baseInfo: {},
-      deleteForm: {
-        appName: null,
-        phoneNum: null
+      countIfShow: false,
+      valuesIfShow: false,
+      displayData: {
+        expTime: null,
+        num: null,
+        value: null
       }
     }
   },
   methods: {
+    changeType (type) {
+      if (type === 'string' || type === 'set') {
+        this.countIfShow = false
+        this.valuesIfShow = false
+      }
+      if (type === 'list' || type === 'zset') {
+        this.countIfShow = true
+        this.valuesIfShow = false
+      }
+      if (type === 'hash') {
+        this.countIfShow = false
+        this.valuesIfShow = true
+      }
+    },
     async search () {
       try {
-        let appName = this.searchForm.appName
-        if (!appName) {
-          this.$message.error('应用名称不能为空!')
+        let indexDb = this.searchForm.indexDb
+        if (!indexDb) {
+          this.$message.error('项目名称不能为空!')
           return
         }
-        let phone = this.searchForm.phoneNum
-        if (!phone) {
-          this.$message.error('手机号不能为空!')
+        let key = this.searchForm.key
+        if (!key) {
+          this.$message.error('key不能为空!')
           return
         }
-        const res = await this.$http.post('/management/customer/base-info', this.searchForm)
+        let typeTemp = this.searchForm.typeTemp
+        if (!typeTemp) {
+          this.$message.error('redis数据类型不能为空!')
+          return
+        }
+        if (typeTemp === 'zset' || typeTemp === 'list') {
+          if (this.searchForm.start == null || !this.searchForm.end == null) {
+            this.$message.error('该类型下标不能为空!')
+            return
+          }
+        }
+        const res = await this.$http.post('/management/redis/query/' + this.searchForm.indexDb, this.searchForm)
         if (res.code === '200') {
-          let costomer = res.data
-          this.baseInfo = costomer.customerInfoVO
-          this.disableRemove = false
-          this.deleteForm.appName = this.searchForm.appName
-          this.deleteForm.phoneNum = this.searchForm.phoneNum
+          if (res.data) {
+            this.displayData.expTime = res.data.expTime
+            this.displayData.num = res.data.num
+            if (typeof res.data.value === 'string') {
+              try {
+                this.displayData.value = JSON.stringify(JSON.parse(res.data.value), null, 2)
+              } catch (e) {
+                this.displayData.value = res.data.value
+              }
+            } else {
+              this.displayData.value = JSON.stringify(res.data.value, null, 2)
+            }
+          } else {
+            this.$message.error({
+              message: '没有数据',
+              duration: 600
+            })
+          }
         } else {
-          this.$message.error(res.message)
+          this.$message.error({
+            message: res.message,
+            duration: 1500
+          })
         }
       } catch (err) {
         console.error(err)
       }
-    },
-    deleteData () {
-      let appName = this.deleteForm.appName
-      if (!appName) {
-        this.$message.error('应用名称不能为空!')
-        return
-      }
-      let phone = this.deleteForm.phoneNum
-      if (!phone) {
-        this.$message.error('手机号不能为空!')
-        return
-      }
-      this.$confirm('此操作将永久删除该用户数据, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(async () => {
-        console.log(appName)
-        console.log(phone)
-        const res = await this.$http.delete('/management/delete-data/' + appName + '/' + phone)
-        console.log(res)
-        if (res.code === '200') {
-          this.$message.info('删除成功！')
-          this.baseInfo = {}
-          this.disableRemove = true
-        } else {
-          this.$message.error(res.message)
-        }
-      }).catch((err) => {
-        console.error(err)
-      })
     }
   }
 }
