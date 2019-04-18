@@ -9,11 +9,11 @@
       <el-form-item label="客户编号：">
         <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 300px"></el-input>
       </el-form-item>
-      <!--<el-form-item label="业务类型">
+      <el-form-item label="业务类型">
         <el-select v-model="searchForm.businessType" clearable placeholder="请选择业务类型">
           <el-option v-for="item in $formatter.getSelectionOptions('reviewBusinessType')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
-      </el-form-item>-->
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button @click="back" v-show="showBackFlag">返回</el-button>
@@ -82,7 +82,8 @@ export default {
     return {
       searchForm: {
         appName: 6,
-        customerId: null
+        customerId: null,
+        businessType: 1
       },
       customerLatestReviewInfoWindow: {},
       tableData: [],
@@ -99,15 +100,17 @@ export default {
   },
   methods: {
     back () {
-      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId}})
+      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId, businessType: this.$route.params.businessType}})
     },
     async initList () {
       let appName = this.$route.params.appName
       let customerId = this.$route.params.customerId
+      let businessType = this.$route.params.businessType
       let phone = this.$route.params.phone
       if (appName && customerId) {
         this.searchForm.appName = appName
         this.searchForm.customerId = customerId
+        this.searchForm.businessType = businessType
         this.phone = phone
         this.showBackFlag = true
         this.list()
