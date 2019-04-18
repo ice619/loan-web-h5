@@ -32,6 +32,11 @@
           <el-option v-for="item in $formatter.getSelectionOptions('applicationType')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="业务类型">
+        <el-select v-model="searchForm.businessType" clearable placeholder="请选择业务类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('reviewBusinessType')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">搜索</el-button>
       </el-form-item>
@@ -45,6 +50,11 @@
       <el-table-column prop="applicationType" label="申请单类型" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('applicationType', scope.row.applicationType)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="businessType" label="业务类型" header-align="center" align="center" min-width="90">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('reviewBusinessType', scope.row.businessType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="75">
@@ -64,7 +74,7 @@
           <el-button type="text" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">{{scope.row.appSerialNumber}}</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="riskApplicationId" label="风控申请单编号" header-align="center" align="center" min-width="300"/>
+      <el-table-column prop="riskApplicationId" label="流程ID" header-align="center" align="center" min-width="300"/>
       <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
@@ -122,7 +132,8 @@ export default {
         endTime: null,
         status: null,
         auditingState: null,
-        applicationType: null
+        applicationType: null,
+        businessType: null
       },
       pushRiskLogWindow: {},
       tableData: [],
@@ -154,6 +165,7 @@ export default {
         this.searchForm.status = this.$route.params.status
         this.searchForm.auditingState = this.$route.params.auditingState
         this.searchForm.applicationType = this.$route.params.applicationType
+        this.searchForm.businessType = this.$route.params.businessType
       } else {
         const now = new Date()
         this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
