@@ -41,6 +41,7 @@ import riskInterfaceRecord from '@/views/customerReviewPushRiskLog/riskInterface
 import dockingRequestLog from '@/views/dockingRequestLog/list'
 import unionLoginRequestLog from '@/views/unionLoginRequestLog/list'
 import redisQuery from '@/views/redisQuery/base'
+import goodsQuery from '@/views/goodsQuery/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -244,6 +245,11 @@ const router = new Router({
       path: '/redis-query',
       name: 'redisQuery',
       component: redisQuery
+    },
+    {
+      path: '/goods-query',
+      name: 'goodsQuery',
+      component: goodsQuery
     }
   ]
 })
