@@ -64,6 +64,7 @@
           <el-button type="text" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">{{scope.row.appSerialNumber}}</el-button>
         </template>
       </el-table-column>
+      <el-table-column prop="riskApplicationId" label="风控申请单编号" header-align="center" align="center" min-width="300"/>
       <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
