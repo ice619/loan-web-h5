@@ -83,7 +83,7 @@ export default {
       searchForm: {
         appName: 6,
         customerId: null,
-        businessType: 1
+        businessType: 3
       },
       customerLatestReviewInfoWindow: {},
       tableData: [],
