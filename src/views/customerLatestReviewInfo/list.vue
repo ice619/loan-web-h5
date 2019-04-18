@@ -107,7 +107,7 @@ export default {
       let customerId = this.$route.params.customerId
       let businessType = this.$route.params.businessType
       let phone = this.$route.params.phone
-      if (appName && customerId) {
+      if (appName && customerId && businessType) {
         this.searchForm.appName = appName
         this.searchForm.customerId = customerId
         this.searchForm.businessType = businessType
