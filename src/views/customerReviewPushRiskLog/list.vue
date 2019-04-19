@@ -127,7 +127,7 @@ export default {
       searchForm: {
         customerId: null,
         appSerialNumber: null,
-        appName: null,
+        appName: 7,
         startTime: null,
         endTime: null,
         status: null,

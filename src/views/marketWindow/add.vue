@@ -122,7 +122,7 @@ export default {
   data () {
     return {
       marketWindowInitForm: {
-        appName: 6,
+        appName: 7,
         terminal: 1,
         userTag: 1,
         showFrequency: 1,

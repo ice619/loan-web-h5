@@ -60,7 +60,7 @@ export default {
     return {
       searchForm: {
         title: null,
-        appName: null
+        appName: 7
       },
       guidePage: {},
       tableData: [],

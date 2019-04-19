@@ -70,7 +70,7 @@ export default {
     return {
       configTime: [],
       noticeTemplateInitForm: {
-        appName: 6,
+        appName: 7,
         businessName: null,
         businessId: null,
         type: null,

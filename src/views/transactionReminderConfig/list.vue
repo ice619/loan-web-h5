@@ -87,7 +87,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
+        appName: 7,
         status: null
       },
       transactionReminderConfigWindow: {},

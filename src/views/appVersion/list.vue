@@ -98,7 +98,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6,
+        appName: 7,
         state: null,
         appType: null
       },

@@ -83,7 +83,7 @@ export default {
         urlKey: '',
         url: '',
         priority: 1,
-        appName: 6,
+        appName: 7,
         remark: '',
         status: true
       },

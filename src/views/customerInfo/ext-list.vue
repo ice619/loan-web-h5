@@ -73,7 +73,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
+        appName: 7,
         startTime: null,
         endTime: null,
         market: null

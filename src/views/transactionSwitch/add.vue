@@ -85,7 +85,7 @@ export default {
       actionUrl: `${process.env.API_ROOT}/management/upload-image-file`,
       entryFormInitForm: {
         id: '',
-        appName: '',
+        appName: 7,
         switchType: '',
         startVersion: '',
         endVersion: '',

@@ -76,7 +76,7 @@ export default {
         startTime: null,
         endTime: null,
         createTime: [],
-        appName: 6,
+        appName: 7,
         customerId: null,
         applicationId: null
       },

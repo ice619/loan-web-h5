@@ -66,7 +66,7 @@ export default {
       searchForm: {
         startTime: null,
         endTime: null,
-        appName: 6,
+        appName: 7,
         phoneNum: null,
         market: null
       },

@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       ruleForm: {
-        appName: '',
+        appName: 7,
         channel: '',
         status: ''
       },

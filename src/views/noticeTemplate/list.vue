@@ -76,7 +76,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: null,
+        appName: 7,
         businessName: null,
         businessId: null,
         type: null,

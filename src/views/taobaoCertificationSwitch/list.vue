@@ -80,11 +80,11 @@ export default {
     return {
       searchForm: {
         userTag: null,
-        appName: null,
+        appName: 7,
         status: null
       },
       switchForm: {
-        appName: 6,
+        appName: 7,
         state: null,
         channel: 'ALL',
         id: 1

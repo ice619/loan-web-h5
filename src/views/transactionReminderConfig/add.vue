@@ -87,7 +87,7 @@ export default {
     return {
       transactionReminderConfigFormInitForm: {
         imageUrl: '',
-        appName: '',
+        appName: 7,
         configType: '',
         hint: '',
         remark: '',

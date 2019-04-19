@@ -426,7 +426,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6,
+        appName: 7,
         phoneNum: null,
         customerId: null
         // startTime: null,
@@ -498,6 +498,9 @@ export default {
           this.addressInfo = costomer.customerAddressVO
           this.extInfo = costomer.customerExtVO
           this.tableData = costomer.icePersonsVO
+          if (this.extInfo.customerId == null) {
+            this.$message.error('没有查询到对应的客户信息')
+          }
         } else {
           this.$message.error(res.message)
         }

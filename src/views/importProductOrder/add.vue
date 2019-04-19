@@ -57,7 +57,7 @@ export default {
     return {
       actionUrl: `${process.env.API_ROOT}/management/import-product-order/file-upload`,
       entryFormInitForm: {
-        appName: '',
+        appName: 7,
         fileStorageAddress: ''
       },
       entryForm: {},

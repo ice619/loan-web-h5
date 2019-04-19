@@ -78,7 +78,7 @@ export default {
     return {
       actionUrl: `${process.env.API_ROOT}/management/fadada/file-upload`,
       entryFormInitForm: {
-        appName: '',
+        appName: 7,
         fddVersion: '',
         templateNo: '',
         templateUrl: '',

@@ -177,7 +177,7 @@ export default {
     return {
       bannerDetails: [],
       bannerFormInitForm: {
-        appName: 6,
+        appName: 7,
         terminal: '',
         userTag: '',
         startVersion: '',

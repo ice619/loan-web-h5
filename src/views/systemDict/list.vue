@@ -61,7 +61,7 @@ export default {
     return {
       searchForm: {
         parent: 0,
-        appName: null,
+        appName: 7,
         state: null
       },
       systemDict: null,

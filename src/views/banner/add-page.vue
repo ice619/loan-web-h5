@@ -160,7 +160,7 @@ export default {
   data () {
     return {
       bannerFormInitForm: {
-        appName: 6,
+        appName: 7,
         terminal: '',
         userTags: [],
         startVersion: '',

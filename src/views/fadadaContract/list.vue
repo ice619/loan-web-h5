@@ -103,7 +103,7 @@ export default {
       searchForm: {
         startTime: null,
         endTime: null,
-        appName: null,
+        appName: 7,
         state: null,
         channel: null,
         applicationId: null,

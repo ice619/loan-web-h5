@@ -76,7 +76,7 @@ export default {
     return {
       searchForm: {
         userTag: null,
-        appName: null,
+        appName: 7,
         status: null
       },
       sesameCertificationSwitchWindow: {},

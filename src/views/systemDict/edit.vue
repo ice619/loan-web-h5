@@ -66,7 +66,7 @@ export default {
     return {
       systemDictInitForm: {
         parent: 0,
-        appName: 6,
+        appName: 7,
         code: '',
         value: '',
         state: 1,

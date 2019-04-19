@@ -81,7 +81,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6,
+        appName: 7,
         phoneNum: null,
         changeFlag: null,
         encryptType: 'md5',

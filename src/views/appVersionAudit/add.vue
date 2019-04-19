@@ -79,7 +79,7 @@ export default {
     return {
       appVersionAuditDetails: [],
       appVersionAuditInitForm: {
-        appName: '',
+        appName: 7,
         appVersion: '',
         marketName: '',
         isAudit: 0,

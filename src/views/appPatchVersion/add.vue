@@ -107,7 +107,7 @@ export default {
   data () {
     return {
       ruleForm: {
-        appName: '',
+        appName: 7,
         versionCode: '',
         versionName: '',
         channel: '',

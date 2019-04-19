@@ -77,7 +77,7 @@ export default {
     return {
       searchForm: {
         tableName: null,
-        appName: 6,
+        appName: 7,
         startTime: null,
         endTime: null,
         createTime: [],

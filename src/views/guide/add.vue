@@ -101,7 +101,7 @@ export default {
       actionUrl: `${process.env.API_ROOT}/management/upload-image-file`,
       guideFormInitForm: {
         id: '',
-        appName: '',
+        appName: 7,
         terminal: '',
         title: '',
         versionLowerLimit: '',

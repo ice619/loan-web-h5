@@ -117,7 +117,7 @@ export default {
     return {
       configTime: [],
       advertsPageInitForm: {
-        appName: 6,
+        appName: 7,
         terminal: 0,
         userTag: 1,
         status: true,

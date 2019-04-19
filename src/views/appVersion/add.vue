@@ -118,7 +118,7 @@ export default {
     return {
       appVersionDetails: [],
       appVersionInitForm: {
-        appName: 6,
+        appName: 7,
         appType: '',
         remark: 'official',
         versionNumber: '',

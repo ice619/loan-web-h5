@@ -119,7 +119,7 @@ export default {
     return {
       searchForm: {
         userTags: [],
-        appName: null,
+        appName: 7,
         status: null,
         position: null
       },

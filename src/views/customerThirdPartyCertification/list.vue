@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6,
+        appName: 7,
         customerId: null
       },
       customerThirdPartyCertificationWindow: {},

@@ -79,7 +79,7 @@ export default {
     return {
       appClosureSwitchDetails: [],
       appClosureSwitchInitForm: {
-        appName: '',
+        appName: 7,
         appVersion: '',
         channel: '',
         state: 1
