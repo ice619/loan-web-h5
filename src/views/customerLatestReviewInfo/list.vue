@@ -81,7 +81,7 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 6,
+        appName: 7,
         customerId: null,
         businessType: 3
       },
@@ -100,17 +100,15 @@ export default {
   },
   methods: {
     back () {
-      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId, businessType: this.$route.params.businessType}})
+      this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId}})
     },
     async initList () {
       let appName = this.$route.params.appName
       let customerId = this.$route.params.customerId
-      let businessType = this.$route.params.businessType
       let phone = this.$route.params.phone
-      if (appName && customerId && businessType) {
+      if (appName && customerId) {
         this.searchForm.appName = appName
         this.searchForm.customerId = customerId
-        this.searchForm.businessType = businessType
         this.phone = phone
         this.showBackFlag = true
         this.list()

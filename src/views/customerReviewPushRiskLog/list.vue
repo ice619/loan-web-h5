@@ -69,12 +69,12 @@
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="300" show-overflow-tooltip>
+      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="200" show-overflow-tooltip>
         <template slot-scope="scope">
           <el-button type="text" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">{{scope.row.appSerialNumber}}</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="riskApplicationId" label="流程ID" header-align="center" align="center" min-width="300"/>
+      <el-table-column prop="riskApplicationId" label="流程ID" header-align="center" align="center" min-width="200"/>
       <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
