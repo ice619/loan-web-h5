@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="编辑商品" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="编辑商品" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" :close-on-click-modal="false">
       <el-form :inline="true" :model="goodsForm" :rules="rules" ref="goodsForm" label-width="100px"
                class="demo-form-inline">
         <el-row>
@@ -87,37 +87,71 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col>
+          <el-col :span="40">
             <el-form-item label="封面大图" prop="coverBigImage">
-              <el-input type="textarea" autosize cols="100" v-model="goodsForm.coverBigImage" clearable placeholder="请输入封面大图"></el-input>
+              <el-input type="textarea" autosize cols="70" v-model="goodsForm.coverBigImage" clearable placeholder="请输入封面大图"></el-input>
             </el-form-item>
+          </el-col>
+          <el-col :span="40">
+            <template>
+              <el-popover placement="top-start" width="200" trigger="hover" title="封面大图" :content="goodsForm.coverBigImage ? goodsForm.coverBigImage : '无图片'">
+                <img v-if="goodsForm.coverBigImage" :src="goodsForm.coverBigImage" class="avatar">
+                <el-button slot="reference">预览</el-button>
+              </el-popover>
+            </template>
           </el-col>
         </el-row>
         <el-row>
-          <el-col>
+          <el-col :span="40">
             <el-form-item label="封面小图" prop="coverSmallImage">
-              <el-input type="textarea" autosize cols="100" v-model="goodsForm.coverSmallImage" clearable placeholder="请输入封面小图"></el-input>
+              <el-input type="textarea" autosize cols="70" v-model="goodsForm.coverSmallImage" clearable placeholder="请输入封面小图"></el-input>
             </el-form-item>
+          </el-col>
+          <el-col :span="40">
+            <template>
+              <el-popover placement="top-start" width="200" trigger="hover" title="封面小图" :content="goodsForm.coverSmallImage ? goodsForm.coverSmallImage : '无图片'">
+                <img v-if="goodsForm.coverSmallImage" :src="goodsForm.coverSmallImage" class="avatar">
+                <el-button slot="reference">预览</el-button>
+              </el-popover>
+            </template>
           </el-col>
         </el-row>
         <el-row>
-          <el-col>
+          <el-col :span="40">
             <el-form-item label="商品详情页滑动图片" prop="coverSlideImage">
-              <el-input type="textarea" autosize cols="100" v-model="goodsForm.coverSlideImage" clearable placeholder="请输入商品详情页滑动图片"></el-input>
+              <el-input type="textarea" autosize cols="70" v-model="goodsForm.coverSlideImage"
+                        clearable placeholder="请输入商品详情页滑动图片" @change="changeSlideImage"></el-input>
             </el-form-item>
+          </el-col>
+          <el-col :span="40">
+            <div v-for="a in coverSlideImageList" :key="a">
+              <el-popover placement="top-start" width="200" trigger="hover" title="商品详情页滑动图片">
+                <img :src="a" class="avatar"/>
+                <el-button slot="reference">预览</el-button>
+              </el-popover>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="40">
+            <el-form-item label="图文信息" prop="graphicInfo">
+              <el-input type="textarea" autosize cols="70" v-model="goodsForm.graphicInfo"
+                        clearable placeholder="请输入图文信息" @change="changeGraphicInfo"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="40">
+            <div v-for="b in graphicInfoList" :key="b">
+              <el-popover placement="top-start" width="200" trigger="hover" title="图文信息">
+                <img :src="b" class="avatar"/>
+                <el-button slot="reference">预览</el-button>
+              </el-popover>
+            </div>
           </el-col>
         </el-row>
         <el-row>
           <el-col>
             <el-form-item label="销售信息" prop="salesInfo">
               <el-input type="textarea" autosize cols="100" v-model="goodsForm.salesInfo" clearable placeholder="请输入销售信息"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col>
-            <el-form-item label="图文信息" prop="graphicInfo">
-              <el-input type="textarea" autosize cols="100" v-model="goodsForm.graphicInfo" clearable placeholder="请输入图文信息"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -152,18 +186,32 @@ export default {
   },
   data () {
     return {
-      goodsDetails: [],
       goodsForm: {},
       rules: {
         appName: [
           {required: true, message: '请选择APP名称', trigger: 'blur'}
         ]
-      }
+      },
+      coverSlideImageList: [],
+      graphicInfoList: []
     }
   },
+  // watch: {
+  //   'goodsForm.coverSlideImage': function (newVal, oldVal) {
+  //     this.coverSlideImageList = JSON.parse(this.goodsForm.coverSlideImage)
+  //   }
+  // },
   methods: {
+    changeSlideImage () {
+      this.coverSlideImageList = JSON.parse(this.goodsForm.coverSlideImage)
+    },
+    changeGraphicInfo () {
+      this.graphicInfoList = JSON.parse(this.goodsForm.graphicInfo)
+    },
     openDialog () {
       this.goodsForm = clone(this.goodsWindow)
+      this.coverSlideImageList = JSON.parse(this.goodsForm.coverSlideImage)
+      this.graphicInfoList = JSON.parse(this.goodsForm.graphicInfo)
     },
     closeDialog () {
       this.$refs['goodsForm'].resetFields()
@@ -176,7 +224,6 @@ export default {
       this.$refs['goodsForm'].validate(async (valid) => {
         if (valid) {
           try {
-            // this.goodsForm.goodsDetails = this.goodsDetails
             const res = await this.$http.post('/management/goods/update', this.goodsForm)
             if (res.code === '200') {
               this.$message.success('编辑成功!')
@@ -194,6 +241,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="stylus">
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>

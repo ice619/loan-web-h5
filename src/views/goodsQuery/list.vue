@@ -20,7 +20,7 @@
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="number" label="商品编号" header-align="center" align="center" />
+      <el-table-column prop="number" label="商品编号" header-align="center" align="center" min-width="125"/>
       <el-table-column prop="title" label="商品标题" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="subtitle" label="副标题" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="state" label="商品状态" header-align="center" align="center">
@@ -33,7 +33,7 @@
       <el-table-column prop="stagingPrice" label="分期价格" header-align="center" align="center"/>
       <el-table-column prop="installmentRate" label="分期利率" header-align="center" align="center"/>
       <el-table-column prop="instalmentPeriod" label="分期期限" header-align="center" align="center"/>
-      <el-table-column prop="goodsCategoryNumber" label="分类编号" header-align="center" align="center"/>
+      <el-table-column prop="goodsCategoryNumber" label="分类编号" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="coverBigImage" label="封面大图" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="coverSmallImage" label="封面小图" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="inventoryStatus" label="库存状态" header-align="center" align="center" show-overflow-tooltip>
@@ -41,23 +41,23 @@
           <span>{{$formatter.simpleFormatSelection('goodsInventoryStatus', scope.row.inventoryStatus)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="coverSlideImage" label="商品详情页滑动图片" header-align="center" align="center" show-overflow-tooltip/>
+      <el-table-column prop="coverSlideImage" label="商品详情页滑动图片" header-align="center" align="center" show-overflow-tooltip min-width="150"/>
       <el-table-column prop="salesInfo" label="销售信息" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="graphicInfo" label="图文信息" header-align="center" align="center" show-overflow-tooltip/>
       <el-table-column prop="specificationInfo" label="规格信息" header-align="center" align="center" show-overflow-tooltip/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center">
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160">
         <template slot-scope="scope">
           <span>{{formatDate(new Date(scope.row.createTime), "yyyy-MM-dd hh:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>
-      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center">
+      <el-table-column prop="createMan" label="创建人" header-align="center" align="center" min-width="120"/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160">
         <template slot-scope="scope">
           <span>{{formatDate(new Date(scope.row.updateTime), "yyyy-MM-dd hh:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updateMan" label="修改人" header-align="center" align="center"/>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column prop="updateMan" label="修改人" header-align="center" align="center" min-width="120"/>
+      <el-table-column label="操作" header-align="center" align="center" fixed="right">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editGoods(scope.row)" type="text" size="small">编辑</el-button>
         </template>
