@@ -33,12 +33,19 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="40">
+          <el-col>
             <el-form-item label="商品状态" prop="state">
               <el-select style="width: 217px;" v-model="goodsForm.state" clearable placeholder="请选择商品状态">
                 <el-option v-for="item in $formatter.getSelectionOptions('goodsState')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="40">
+            <el-form-item label="采购价格" prop="purchasePrice">
+              <el-input v-model="goodsForm.purchasePrice" style="width: 217px;" clearable placeholder="请输入采购价格"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="40">

@@ -28,6 +28,7 @@
           <span>{{$formatter.simpleFormatSelection('goodsState', scope.row.state)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="purchasePrice" label="采购价格" header-align="center" align="center"/>
       <el-table-column prop="price" label="商品价格" header-align="center" align="center"/>
       <el-table-column prop="discountPrice" label="折扣价格" header-align="center" align="center"/>
       <el-table-column prop="stagingPrice" label="分期价格" header-align="center" align="center"/>
