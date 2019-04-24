@@ -111,6 +111,11 @@ export default {
         this.searchForm.customerId = customerId
         this.phone = phone
         this.showBackFlag = true
+        if (appName === 6) {
+          this.searchForm.businessType = 1
+        } else if (appName === 7) {
+          this.searchForm.businessType = 3
+        }
         this.list()
       }
     },
