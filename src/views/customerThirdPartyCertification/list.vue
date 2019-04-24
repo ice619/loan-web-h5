@@ -90,6 +90,16 @@ export default {
         pageSize: this.pageSize
       }
       try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.searchForm.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
         const res = await this.$http.post('/management/customer/third-party-certification-info', params)
         if (res.code === '200') {
           this.tableData = res.data
