@@ -215,10 +215,17 @@ export default {
     changeGraphicInfo () {
       this.graphicInfoList = JSON.parse(this.goodsForm.graphicInfo)
     },
+    formatterMoney (value) {
+      return value.toFixed(2)
+    },
     openDialog () {
       this.goodsForm = clone(this.goodsWindow)
       this.coverSlideImageList = JSON.parse(this.goodsForm.coverSlideImage)
       this.graphicInfoList = JSON.parse(this.goodsForm.graphicInfo)
+      this.goodsForm.purchasePrice = this.formatterMoney(this.goodsForm.purchasePrice)
+      this.goodsForm.price = this.formatterMoney(this.goodsForm.price)
+      this.goodsForm.discountPrice = this.formatterMoney(this.goodsForm.discountPrice)
+      this.goodsForm.stagingPrice = this.formatterMoney(this.goodsForm.stagingPrice)
     },
     closeDialog () {
       this.$refs['goodsForm'].resetFields()
