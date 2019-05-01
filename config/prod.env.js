@@ -2,5 +2,5 @@
 module.exports = {
   NODE_ENV: '"production"',
   ENV_CONFIG: '"prod"',
-  API_ROOT:'"//fddweb.fdd188.com"'
+  API_ROOT:'"//fqtweb.fdd188.com"'
 }
