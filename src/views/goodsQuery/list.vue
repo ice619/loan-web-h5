@@ -28,9 +28,26 @@
           <span>{{$formatter.simpleFormatSelection('goodsState', scope.row.state)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="price" label="商品价格" header-align="center" align="center"/>
-      <el-table-column prop="discountPrice" label="折扣价格" header-align="center" align="center"/>
-      <el-table-column prop="stagingPrice" label="分期价格" header-align="center" align="center"/>
+      <el-table-column prop="purchasePrice" label="采购价格" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.purchasePrice| rounding}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="price" label="商品价格" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.price| rounding}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="discountPrice" label="折扣价格" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.discountPrice| rounding}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="stagingPrice" label="分期价格" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.stagingPrice| rounding}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="installmentRate" label="分期利率" header-align="center" align="center"/>
       <el-table-column prop="instalmentPeriod" label="分期期限" header-align="center" align="center"/>
       <el-table-column prop="goodsCategoryNumber" label="分类编号" header-align="center" align="center" min-width="90"/>
@@ -98,6 +115,11 @@ export default {
   },
   created () {
     this.list()
+  },
+  filters: {
+    rounding (value) {
+      return value.toFixed(2)
+    }
   },
   methods: {
     async list () {

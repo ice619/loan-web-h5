@@ -111,6 +111,11 @@ export default {
         this.searchForm.customerId = customerId
         this.phone = phone
         this.showBackFlag = true
+        if (appName === 6) {
+          this.searchForm.businessType = 1
+        } else if (appName === 7) {
+          this.searchForm.businessType = 3
+        }
         this.list()
       }
     },
@@ -121,6 +126,21 @@ export default {
         pageSize: this.pageSize
       }
       try {
+        let appName = this.searchForm.appName
+        if (!appName) {
+          this.$message.error('应用名称不能为空')
+          return
+        }
+        let customerId = this.searchForm.customerId
+        if (!customerId) {
+          this.$message.error('用户编号不能为空')
+          return
+        }
+        let businessType = this.searchForm.businessType
+        if (!businessType) {
+          this.$message.error('业务类型不能为空')
+          return
+        }
         const res = await this.$http.post('/management/customer/latest-review-infos', params)
         if (res.code === '200') {
           this.tableData = res.data
