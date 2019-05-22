@@ -139,9 +139,13 @@ export default {
           this.info = res.data
           if (this.info.requestParams) {
             this.requestParamsJson = JSON.parse(this.info.requestParams)
+          } else {
+            this.requestParamsJson = { '': '' }
           }
           if (this.info.responseParams) {
             this.responseParamsJson = JSON.parse(this.info.responseParams)
+          } else {
+            this.responseParamsJson = { '': '' }
           }
         } else {
           this.$message.error(res.message)
