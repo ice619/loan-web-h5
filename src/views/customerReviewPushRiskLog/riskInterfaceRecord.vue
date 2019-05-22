@@ -42,7 +42,7 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">创建时间</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="5">
             <div class="grid-content bg-purple-light" v-if="info.createTime">{{formatDate(new Date(info.createTime), "yyyy-MM-dd hh:mm:ss")}}</div>
             <div class="grid-content bg-purple-light" v-else></div>
           </el-col>
@@ -52,7 +52,7 @@
             <div class="grid-content bg-purple">请求参数</div>
           </el-col>
           <el-col :span="17">
-            <div class="grid-content">
+            <div class="grid-content bg-purple-light-json">
               <vue-json-pretty :data="this.requestParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
             </div>
           </el-col>
@@ -62,7 +62,7 @@
             <div class="grid-content bg-purple">响应参数</div>
           </el-col>
           <el-col :span="17">
-            <div class="grid-content">
+            <div class="grid-content bg-purple-light-json">
               <vue-json-pretty :data="this.responseParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
             </div>
           </el-col>
@@ -178,6 +178,11 @@ export default {
     font-size: 14px;
     color: #606266;
     line-height: 40px;
+  }
+  .bg-purple-light-json {
+    border:1px solid #ebeef5;
+    font-size: 14px;
+    color: #606266;
   }
   .grid-content {
     min-height: 50px;
