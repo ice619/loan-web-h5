@@ -137,8 +137,12 @@ export default {
             this.$message.warning('查询无数据')
           }
           this.info = res.data
-          this.requestParamsJson = JSON.parse(this.info.requestParams)
-          this.responseParamsJson = JSON.parse(this.info.responseParams)
+          if (this.info.requestParams) {
+            this.requestParamsJson = JSON.parse(this.info.requestParams)
+          }
+          if (this.info.responseParams) {
+            this.responseParamsJson = JSON.parse(this.info.responseParams)
+          }
         } else {
           this.$message.error(res.message)
         }
