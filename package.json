@@ -24,6 +24,7 @@
     "sortablejs": "^1.8.0-rc1",
     "vue": "^2.5.2",
     "vue-cookies": "^1.5.7",
+    "vue-json-pretty": "^1.6.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

@@ -32,21 +32,7 @@
             <div class="grid-content bg-purple-light">{{info.applicationId}}</div>
           </el-col>
         </el-row>
-        <el-row show-overflow-tooltip>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">请求参数</div>
-          </el-col>
-          <el-col :span="17">
-            <div class="grid-content bg-purple-light">{{info.requestParams}}</div>
-          </el-col>
-        </el-row>
         <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">响应参数</div>
-          </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple-light">{{info.responseParams}}</div>
-          </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">业务类型</div>
           </el-col>
@@ -56,9 +42,29 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">创建时间</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="5">
             <div class="grid-content bg-purple-light" v-if="info.createTime">{{formatDate(new Date(info.createTime), "yyyy-MM-dd hh:mm:ss")}}</div>
             <div class="grid-content bg-purple-light" v-else></div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content-json bg-purple">请求参数</div>
+          </el-col>
+          <el-col :span="17">
+            <div class="grid-content-json bg-purple-light-json">
+              <vue-json-pretty :data="this.requestParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content-json bg-purple">响应参数</div>
+          </el-col>
+          <el-col :span="17">
+            <div class="grid-content-json bg-purple-light-json">
+              <vue-json-pretty :data="this.responseParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
+            </div>
           </el-col>
         </el-row>
       </el-card>
@@ -67,8 +73,11 @@
 </template>
 
 <script>
-
+import VueJsonPretty from 'vue-json-pretty'
 export default {
+  components: {
+    VueJsonPretty
+  },
   data () {
     return {
       searchForm: {
@@ -86,7 +95,9 @@ export default {
         auditingState: null,
         applicationType: null,
         applicationId: null
-      }
+      },
+      requestParamsJson: { '': '' },
+      responseParamsJson: { '': '' }
     }
   },
   created () {
@@ -126,6 +137,16 @@ export default {
             this.$message.warning('查询无数据')
           }
           this.info = res.data
+          if (this.info.requestParams) {
+            this.requestParamsJson = JSON.parse(this.info.requestParams)
+          } else {
+            this.requestParamsJson = { '': '' }
+          }
+          if (this.info.responseParams) {
+            this.responseParamsJson = JSON.parse(this.info.responseParams)
+          } else {
+            this.responseParamsJson = { '': '' }
+          }
         } else {
           this.$message.error(res.message)
         }
@@ -158,8 +179,17 @@ export default {
     color: #606266;
     line-height: 40px;
   }
+  .bg-purple-light-json {
+    border:1px solid #ebeef5;
+    font-size: 14px;
+    color: #606266;
+  }
   .grid-content {
     min-height: 40px;
+    padding: 5px;
+  }
+  .grid-content-json {
+    min-height: 70px;
     padding: 5px;
   }
 </style>
