@@ -49,20 +49,20 @@
         </el-row>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">请求参数</div>
+            <div class="grid-content-json bg-purple">请求参数</div>
           </el-col>
           <el-col :span="17">
-            <div class="grid-content bg-purple-light-json">
+            <div class="grid-content-json bg-purple-light-json">
               <vue-json-pretty :data="this.requestParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
             </div>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">响应参数</div>
+            <div class="grid-content-json bg-purple">响应参数</div>
           </el-col>
           <el-col :span="17">
-            <div class="grid-content bg-purple-light-json">
+            <div class="grid-content-json bg-purple-light-json">
               <vue-json-pretty :data="this.responseParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
             </div>
           </el-col>
@@ -185,7 +185,11 @@ export default {
     color: #606266;
   }
   .grid-content {
-    min-height: 50px;
+    min-height: 40px;
+    padding: 5px;
+  }
+  .grid-content-json {
+    min-height: 60px;
     padding: 5px;
   }
 </style>
