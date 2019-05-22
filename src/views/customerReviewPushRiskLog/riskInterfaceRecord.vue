@@ -189,7 +189,7 @@ export default {
     padding: 5px;
   }
   .grid-content-json {
-    min-height: 60px;
+    min-height: 70px;
     padding: 5px;
   }
 </style>
