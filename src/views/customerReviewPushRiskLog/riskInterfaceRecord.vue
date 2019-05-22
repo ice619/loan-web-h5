@@ -32,21 +32,7 @@
             <div class="grid-content bg-purple-light">{{info.applicationId}}</div>
           </el-col>
         </el-row>
-        <el-row show-overflow-tooltip>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">请求参数</div>
-          </el-col>
-          <el-col :span="17">
-            <div class="grid-content bg-purple-light">{{info.requestParams}}</div>
-          </el-col>
-        </el-row>
         <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">响应参数</div>
-          </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple-light">{{info.responseParams}}</div>
-          </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">业务类型</div>
           </el-col>
@@ -61,14 +47,37 @@
             <div class="grid-content bg-purple-light" v-else></div>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">请求参数</div>
+          </el-col>
+          <el-col :span="17">
+            <div class="grid-content">
+              <vue-json-pretty :data="this.requestParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">响应参数</div>
+          </el-col>
+          <el-col :span="17">
+            <div class="grid-content">
+              <vue-json-pretty :data="this.responseParamsJson" :showLength="true" :highlightMouseoverNode="true" :deep="4"></vue-json-pretty>
+            </div>
+          </el-col>
+        </el-row>
       </el-card>
     </el-card>
   </div>
 </template>
 
 <script>
-
+import VueJsonPretty from 'vue-json-pretty'
 export default {
+  components: {
+    VueJsonPretty
+  },
   data () {
     return {
       searchForm: {
@@ -86,7 +95,9 @@ export default {
         auditingState: null,
         applicationType: null,
         applicationId: null
-      }
+      },
+      requestParamsJson: { '': '' },
+      responseParamsJson: { '': '' }
     }
   },
   created () {
@@ -126,6 +137,8 @@ export default {
             this.$message.warning('查询无数据')
           }
           this.info = res.data
+          this.requestParamsJson = JSON.parse(this.info.requestParams)
+          this.responseParamsJson = JSON.parse(this.info.responseParams)
         } else {
           this.$message.error(res.message)
         }
@@ -159,7 +172,7 @@ export default {
     line-height: 40px;
   }
   .grid-content {
-    min-height: 40px;
+    min-height: 50px;
     padding: 5px;
   }
 </style>
