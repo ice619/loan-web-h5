@@ -4,100 +4,103 @@
              class="demo-form-inline">
       <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
-          <span>配置受众</span>
+         <!-- <span>配置受众</span>-->
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="6">
-          <el-form-item label="应用名称">
-            <el-select v-model="bannerForm.appName" clearable placeholder="请选择">
+          <el-form-item :label="$t('common.appName')">
+            <el-select v-model="bannerForm.appName" clearable :placeholder="$t('action.select')">
               <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6">
+          <el-form-item :label="$t('operation.userTags')">
+            <el-select v-model="bannerForm.userTags" clearable multiple :placeholder="$t('action.select')">
+              <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label"
+                         :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <!--<el-col :span="6">
           <el-form-item label="生效终端">
             <el-select v-model="bannerForm.terminal" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col>-->
       </el-row>
       <el-row>
-        <el-col :span="6">
-          <el-form-item label="用户标签">
-            <el-select v-model="bannerForm.userTags" clearable multiple placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
+       <!-- <el-col :span="6">
           <el-form-item label="版本号" prop="title">
             <el-input style="width: 129.250px;" v-model="bannerForm.startVersion" placeholder="开始版本号"></el-input>
             <el-input style="width: 129.250px;" v-model="bannerForm.endVersion" placeholder="结束版本号"></el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="生效时间" prop="startTime">
-            <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="选择开始时间"
+        </el-col>-->
+          <el-col :span="6">
+            <el-form-item :label="$t('operation.bannerLocation')" prop="position">
+              <el-select v-model="bannerForm.position" clearable :placeholder="$t('action.select')">
+                <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-form-item :label="$t('common.effectiveTime')" prop="startTime">
+            <el-date-picker v-model="bannerForm.startTime" type="datetime" :placeholder="$t('action.select')"
                             value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
           <el-form-item prop="endTime">
-            <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="选择开始时间"
+            <el-date-picker v-model="bannerForm.endTime" type="datetime" :placeholder="$t('action.select')"
                             value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
-        </el-col>
       </el-row>
-      <el-row style="margin: 0 0 10px 10px">
+     <!-- <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
           <hr style="height:1px;border:none;border-top:1px solid #555555;" />
         </el-col>
-      </el-row>
+      </el-row>-->
       <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
-          <span style="margin-right: 10px">配置banner</span><el-button class="el-icon-plus" @click="addBannerDetailsTableRows" style="color: white;background-color: #009688;"></el-button>
+          <span style="margin-right: 10px">{{$t('action.add')}}</span><el-button class="el-icon-plus" @click="addBannerDetailsTableRows" style="color: white;background-color: #009688;"></el-button>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="6">
-          <el-form-item label="所属页面" prop="position">
-            <el-select v-model="bannerForm.position" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
+        <!--<el-col :span="6">
           <el-form-item label="显示位置" prop="displayPosition">
             <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col>-->
       </el-row>
       <el-row type="flex" justify="center" style="margin-top: 10px">
         <el-col :span="24">
           <el-table :data="bannerDetails" border style="width: 100%">
-            <el-table-column prop="title" header-align="center" align="left" label="标题">
+            <el-table-column prop="title" header-align="center" align="left" :label="$t('operation.defaultLanguage')">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" min-width="80">
+            <el-table-column prop="title" header-align="center" align="left" :label="$t('operation.otherLanguage')">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
+              </template>
+            </el-table-column>
+            <!--<el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" min-width="80">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.activityCode" maxlength="16" clearable style="width: 100%"></el-input>
               </template>
-            </el-table-column>
-            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接">
+            </el-table-column>-->
+            <el-table-column prop="activityUrl" header-align="center" align="left" :label="$t('operation.activityURL')">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="imageUrl" header-align="center" align="left" label="图片">
+            <el-table-column prop="imageUrl" header-align="center" align="left" :label="$t('operation.img')">
               <template slot-scope="scope">
                 <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
                   <el-popover placement="right" width="200" trigger="hover" :content="scope.row.imageUrl ? null : '图片未上传'">
@@ -107,7 +110,7 @@
                 </el-upload>
               </template>
             </el-table-column>
-            <el-table-column align="center" label="操作" min-width="25">
+            <el-table-column align="center" :label="$t('action.operate')" min-width="25">
               <template slot-scope="scope">
                 <el-button class="el-icon-sort-up" type="text" :disabled="scope.$index===0" @click="moveUp(scope.$index,scope.row)"></el-button>
                 <el-button class="el-icon-sort-down" type="text" :disabled="scope.$index===(bannerDetails.length-1)" @click="moveDown(scope.$index,scope.row)"></el-button>
@@ -119,10 +122,10 @@
       </el-row>
       <el-row type="flex" justify="center">
         <el-col :span="40">
-          <el-form-item label="状态">
+          <el-form-item :label="$t('common.status')">
             <el-radio-group v-model="bannerForm.status">
-              <el-radio :label="true">有效</el-radio>
-              <el-radio :label="false">无效</el-radio>
+              <el-radio :label="true">{{$t('common.enable')}}</el-radio>
+              <el-radio :label="false">{{$t('common.disable')}}</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -130,8 +133,8 @@
       <el-row type="flex" justify="center" style="margin-top: 10px">
         <el-col :span="40">
           <el-form-item>
-            <el-button style="color: white;background-color: #009688;" @click="saveBanner">提交</el-button>
-            <el-button @click="back">返回</el-button>
+            <el-button style="color: white;background-color: #009688;" @click="saveBanner">{{$t('action.submit')}}</el-button>
+            <el-button @click="back">{{$t('action.cancel')}}</el-button>
           </el-form-item>
         </el-col>
       </el-row>

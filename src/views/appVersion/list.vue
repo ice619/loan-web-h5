@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="应用名称：">
+      <el-form-item label="APP名称：">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择应用名称">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
@@ -12,12 +12,12 @@
                        :value="item.value"/>
           </el-select>
       </el-form-item>
-      <el-form-item label="终端：">
+      <!--<el-form-item label="终端：">
         <el-select v-model="searchForm.appType" clearable placeholder="请选择终端类型">
           <el-option v-for="item in $formatter.getSelectionOptions('clientType')" :key="item.value" :label="item.label"
                      :value="item.value"/>
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>

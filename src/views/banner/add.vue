@@ -197,7 +197,7 @@ export default {
   methods: {
     addBannerDetailsTableRows () {
       if (this.bannerForm.title == null) {
-        this.$message.error('标题不能为空')
+        this.$message.error(this.$t('operationValidator.activityTitleRequired'))
         return
       }
 

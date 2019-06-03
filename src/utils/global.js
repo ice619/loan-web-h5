@@ -28,7 +28,16 @@ const formatDate = function (date, format) {
   return format
 }
 /** 通用参数 */
-// const config = {
+const config = {
+  // 语言选项
+  langOptions: [{
+    value: 'zh_CN',
+    label: '简体中文'
+  }, {
+    value: 'en_US',
+    label: 'English'
+  }]
+}
 //   // 应用名
 //   appNames: [{value: 1, label: '闪贷'}, {value: 2, label: '速贷'}, {value: 3, label: '应急现金'}, {value: 4, label: '惠花花'}, {value: 5, label: '秒购'}, {value: 6, label: '分多多'}],
 //   status: [{value: true, label: '有效'}, {value: false, label: '失效'}],
@@ -136,7 +145,7 @@ const formatDate = function (date, format) {
 exports.install = function (Vue, options) {
   Vue.prototype.formatTimeStamp = formatTimeStamp
   Vue.prototype.formatDate = formatDate
-  // Vue.prototype.globalConfig = config
+  Vue.prototype.globalConfig = config
   // Vue.prototype.formatStatus = formatStatus
   // Vue.prototype.formatSkip = formatSkip
   // Vue.prototype.formatUserTags = formatUserTags
