@@ -56,7 +56,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" :label="$t('common.startTime')" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="createTime" :label="$t('common.endTime')" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="endTime" :label="$t('common.endTime')" header-align="center" align="center" min-width="90"/>
       <!--<el-table-column prop="terminal" label="生效终端" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('terminals', scope.row.terminal)}}</span>
@@ -179,7 +179,8 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/banner/page', params)
+        const res = await this.$http.post('/banner/page', params)
+        console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
