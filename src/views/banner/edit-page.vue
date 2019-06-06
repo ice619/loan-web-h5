@@ -90,11 +90,6 @@
                 <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <!--<el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" min-width="80">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.activityCode" maxlength="16" clearable style="width: 100%"></el-input>
-              </template>
-            </el-table-column>-->
             <el-table-column prop="activityUrl" header-align="center" align="left" :label="$t('operation.activityURL')">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
@@ -102,7 +97,7 @@
             </el-table-column>
             <el-table-column prop="imageUrl" header-align="center" align="left" :label="$t('operation.img')">
               <template slot-scope="scope">
-                <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
+                <el-upload class="avatar-uploader" :action="activityUrl" :show-file-list="false" :on-change="handleFilesChange">
                   <el-popover placement="right" width="200" trigger="hover" :content="scope.row.imageUrl ? null : '图片未上传'">
                     <img v-if="scope.row.imageUrl" :src="scope.row.imageUrl" class="avatar">
                     <el-button @click="orientateRowIndex(scope.$index)" slot="reference" :class="scope.row.imageUrl ? 'el-icon-edit' : 'el-icon-plus'">{{scope.row.imageUrl ? '更换图片' : '选择图片'}}</el-button>
@@ -124,8 +119,8 @@
         <el-col :span="40">
           <el-form-item :label="$t('common.status')">
             <el-radio-group v-model="bannerForm.status">
-              <el-radio :label="true">{{$t('common.enable')}}</el-radio>
-              <el-radio :label="false">{{$t('common.disable')}}</el-radio>
+              <el-radio :label="1">{{$t('common.enable')}}</el-radio>
+              <el-radio :label="2">{{$t('common.disable')}}</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -152,20 +147,18 @@ export default {
       bannerForm: {},
       bannerDetailDesc: {
         title: '标题',
-        activityCode: '活动编号',
         activityUrl: '活动链接',
         imageUrl: '图片链接'
       },
       bannerDetail: {
         title: null,
-        activityCode: null,
         activityUrl: null,
         imageUrl: null,
         sort: 0
       },
       bannerDetails: [],
       rules: {},
-      actionUrl: `${process.env.API_ROOT}/management/upload-image-file`
+      activityUrl: `${process.env.API_ROOT}/upload-image-file`
     }
   },
   created () {
@@ -223,7 +216,7 @@ export default {
           try {
             this.setBannerDetailsSort()
             this.bannerForm.bannerDetails = this.bannerDetails
-            const res = await this.$http.post('/management/banner', this.bannerForm)
+            const res = await this.$http.post('/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('修改成功!')
               this.back()
@@ -237,7 +230,7 @@ export default {
       })
     }),
     initBanner () {
-      this.$http.get(`/management/banner/${this.$route.params.bannerId}`).then(res => {
+      this.$http.get(`/banner/${this.$route.params.bannerId}`).then(res => {
         if (res.code === '200') {
           this.bannerForm = this.copyToForm(res.data)
           this.bannerDetails = res.data.bannerDetailsDTOS
@@ -256,7 +249,6 @@ export default {
         startVersion: data.startVersion,
         endVersion: data.endVersion,
         position: data.position,
-        displayPosition: data.displayPosition,
         startTime: data.startTime,
         endTime: data.endTime,
         status: data.status,

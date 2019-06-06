@@ -16,14 +16,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <!--<el-col :span="6">
-          <el-form-item label="生效终端">
-            <el-select v-model="bannerForm.terminal" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>-->
         <el-col :span="6">
           <el-form-item :label="$t('operation.userTags')">
             <el-select v-model="bannerForm.userTags" clearable multiple :placeholder="$t('action.select')">
@@ -46,12 +38,6 @@
             </el-select>
           </el-form-item>
         </el-col>-->
-          <!--<el-col :span="6">
-            <el-form-item label="版本号" prop="title">
-              <el-input style="width: 129.250px;" v-model="bannerForm.startVersion" placeholder="开始版本号"></el-input>
-              <el-input style="width: 129.250px;" v-model="bannerForm.endVersion" placeholder="结束版本号"></el-input>
-            </el-form-item>
-          </el-col>-->
         <el-col :span="6">
           <el-form-item :label="$t('operation.bannerLocation')" prop="position">
             <el-select v-model="bannerForm.position" clearable :placeholder="$t('action.select')">
@@ -69,11 +55,6 @@
                             value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
       </el-row>
-      <!--<el-row style="margin: 0 0 10px 10px">
-        <el-col :span="24">
-          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-        </el-col>
-      </el-row>-->
       <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
           <span style="margin-right: 10px">{{$t('action.add')}}</span><el-button class="el-icon-plus" style="color: white;background-color: #009688;" @click="addBannerDetailsTableRows"></el-button>
@@ -102,11 +83,6 @@
                 <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <!--<el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" min-width="80">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.activityCode" maxlength="16" clearable style="width: 100%"></el-input>
-              </template>
-            </el-table-column>-->
             <el-table-column prop="activityUrl" header-align="center" align="left" :label="$t('operation.activityURL')">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
@@ -114,7 +90,7 @@
             </el-table-column>
             <el-table-column prop="imageUrl" header-align="center" align="left" :label="$t('operation.img')">
               <template slot-scope="scope">
-                <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
+                <el-upload class="avatar-uploader" :action="activityUrl" :show-file-list="false" :on-change="handleFilesChange">
                   <el-popover placement="right" width="200" trigger="hover" :content="scope.row.imageUrl ? null : '图片未上传'">
                     <img v-if="scope.row.imageUrl" :src="scope.row.imageUrl" class="avatar">
                     <el-button @click="orientateRowIndex(scope.$index)" slot="reference" :class="scope.row.imageUrl ? 'el-icon-edit' : 'el-icon-plus'">{{scope.row.imageUrl ? '更换图片' : '选择图片'}}</el-button>
@@ -163,34 +139,28 @@ export default {
   data () {
     return {
       bannerFormInitForm: {
-        appName: 7,
-        terminal: '',
+        appName: 1,
         userTags: [],
-        startVersion: '',
-        endVersion: '',
-        position: '',
-        displayPosition: '',
+        position: '1',
         startTime: null,
         endTime: null,
-        status: true
+        status: 1
       },
       bannerForm: {},
       bannerDetailDesc: {
         title: '标题',
-        activityCode: '活动编号',
         activityUrl: '活动链接',
         imageUrl: '图片链接'
       },
       bannerDetail: {
         title: null,
-        activityCode: null,
         activityUrl: null,
         imageUrl: null,
         sort: 0
       },
       bannerDetails: [],
       rules: {},
-      actionUrl: `${process.env.API_ROOT}/management/upload-image-file`
+      activityUrl: `${process.env.API_ROOT}/upload-image-file`
     }
   },
   created () {
@@ -241,14 +211,14 @@ export default {
         if (!this.checkBanner()) {
           return
         }
-        if (!this.checkBannerDetails()) {
+        /* if (!this.checkBannerDetails()) {
           return
-        }
+        } */
         if (valid) {
           try {
             this.setBannerDetailsSort()
             this.bannerForm.bannerDetails = this.bannerDetails
-            const res = await this.$http.post('/management/banner', this.bannerForm)
+            const res = await this.$http.post('/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.back()
@@ -279,7 +249,7 @@ export default {
       }
       return true
     },
-    checkBannerDetails () {
+    /*  checkBannerDetails () {
       if (!this.bannerDetails || this.bannerDetails.length === 0) {
         this.$message.error(`bannerDetails信息未填写`)
         return false
@@ -295,7 +265,7 @@ export default {
         }
       }
       return true
-    },
+    }, */
     setBannerDetailsSort () {
       for (let i in this.bannerDetails) {
         let bannerDetail = this.bannerDetails[i]

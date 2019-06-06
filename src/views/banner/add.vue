@@ -60,14 +60,14 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <!--<el-col :span="12">
             <el-form-item label="显示位置">
               <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col>-->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -108,11 +108,6 @@
                   <el-input-number v-model="bannerForm.sort" style="width: 176px;" :min="1" :max="99" label="排序值"></el-input-number>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
-                <el-form-item label="活动编号">
-                  <el-input v-model="bannerForm.activityCode" style="width: 176px;" placeholder="活动编号"></el-input>
-                </el-form-item>
-              </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
@@ -122,7 +117,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="图片">
-                  <el-upload :action="actionUrl" :show-file-list="false" :on-change="handleFilesChange">
+                  <el-upload :action="activityUrl" :show-file-list="false" :on-change="handleFilesChange">
                     <i class="el-icon-plus"></i>
                     <el-input style="display: none" type="hidden" v-model="bannerForm.imageUrl"></el-input>
                   </el-upload>
@@ -137,7 +132,6 @@
             <el-table-column type="index" header-align="center" align="left" width="50"></el-table-column>
             <el-table-column prop="title" header-align="center" align="left" label="标题" width="150"></el-table-column>
             <el-table-column prop="sort" header-align="center" align="left" label="排序值"  width="80"></el-table-column>
-            <el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" width="150"></el-table-column>
             <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接" width="150"></el-table-column>
             <el-table-column prop="imageUrl" label="图片地址" width="750"></el-table-column>
             <el-table-column fixed="right" header-align="center" align="center" label="操作" width="60">
@@ -177,54 +171,44 @@ export default {
     return {
       bannerDetails: [],
       bannerFormInitForm: {
-        appName: 7,
-        terminal: '',
-        userTag: '',
-        startVersion: '',
-        endVersion: '',
-        position: '',
-        displayPosition: '',
+        appName: 1,
+        userTag: '1',
+        position: 1,
         startTime: null,
         endTime: null,
-        status: true
+        status: 1
       },
       sort: 1,
       bannerForm: {},
       rules: {},
-      actionUrl: `${process.env.API_ROOT}/management/upload-image-file`
+      activityUrl: `${process.env.API_ROOT}/upload-image-file`
     }
   },
   methods: {
     addBannerDetailsTableRows () {
-      if (this.bannerForm.title == null) {
+      /* if (this.bannerForm.title == null) {
         this.$message.error(this.$t('operationValidator.activityTitleRequired'))
         return
-      }
+      } */
 
       if (this.bannerForm.sort == null) {
         this.$message.error('排序值不能为空')
         return
       }
 
-      if (this.bannerForm.activityCode == null) {
-        this.$message.error('活动编号不能为空')
-        return
-      }
-
-      if (this.bannerForm.activityUrl == null) {
+      /* if (this.bannerForm.activityUrl == null) {
         this.$message.error('活动链接不能为空')
         return
-      }
+      } */
 
-      if (this.bannerForm.imageUrl == null) {
+      /* if (this.bannerForm.imageUrl == null) {
         this.$message.error('图片不能为空')
         return
-      }
+      } */
 
       this.bannerDetails.push({
         title: this.bannerForm.title,
         sort: this.bannerForm.sort,
-        activityCode: this.bannerForm.activityCode,
         activityUrl: this.bannerForm.activityUrl,
         imageUrl: this.bannerForm.imageUrl
       })
@@ -266,20 +250,19 @@ export default {
         //   }).catch(() => {
         //   })
         // }
-        if (this.bannerForm.startVersion > this.bannerForm.endVersion) {
-          this.$message.error('开始版本要小于结束版本')
-          return
-        }
 
         if (this.bannerForm.startTime > this.bannerForm.endTime) {
           this.$message.error('开始时间要小于结束时间')
           return
         }
 
+        console.log(this.bannerDetails)
+        console.log(this.bannerForm)
+
         if (valid) {
           try {
             this.bannerForm.bannerDetails = this.bannerDetails
-            const res = await this.$http.post('/management/banner', this.bannerForm)
+            const res = await this.$http.post('/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()

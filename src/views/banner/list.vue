@@ -11,7 +11,7 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-form-item :label="$t('operation.userTags')">
-          <el-select v-model="searchForm.status" clearable :placeholder="$t('action.select')">
+          <el-select v-model="searchForm.userTags" clearable :placeholder="$t('action.select')">
             <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label" :value="item.value"/>
           </el-select>
         </el-form-item>
@@ -57,46 +57,19 @@
       </el-table-column>
       <el-table-column prop="createTime" :label="$t('common.startTime')" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="endTime" :label="$t('common.endTime')" header-align="center" align="center" min-width="90"/>
-      <!--<el-table-column prop="terminal" label="生效终端" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('terminals', scope.row.terminal)}}</span>
-        </template>
-      </el-table-column>-->
       <el-table-column prop="position" :label="$t('operation.bannerLocation')" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('bannerPositions', scope.row.position)}}</span>
         </template>
       </el-table-column>
-     <!-- <el-table-column prop="displayPosition" label="显示位置" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('displayPositions', scope.row.displayPosition)}}</span>
-        </template>
-      </el-table-column>-->
-      <!--<el-table-column prop="startVersion" label="版本下限" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.startVersion}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="endVersion" label="版本上限" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.endVersion}}</span>
-        </template>
-      </el-table-column>-->
-      <!--<el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>-->
-      <!--<el-table-column prop="modifyUser" label="修改人" header-align="center" align="center"/>-->
       <el-table-column :label="$t('common.createMan')" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.createManId}}</span>
-          <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createUser === null || scope.row.createUser === '' ? '' : '-'}}</span>
           <span>{{scope.row.createUser}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" :label="$t('common.createTime')" header-align="center" align="center" min-width="90"/>
       <el-table-column :label="$t('common.updateMan')" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.modifyManId}}</span>
-          <span>{{scope.row.modifyManId === null || scope.row.modifyManId === '' || scope.row.modifyUser === null || scope.row.modifyUser === '' ? '' : '-'}}</span>
           <span>{{scope.row.modifyUser}}</span>
         </template>
       </el-table-column>
@@ -136,7 +109,7 @@ export default {
     return {
       searchForm: {
         userTags: [],
-        appName: 7,
+        appName: 1,
         status: null,
         position: null
       },
@@ -180,7 +153,7 @@ export default {
       }
       try {
         const res = await this.$http.post('/banner/page', params)
-        console.log(res)
+        // console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -229,7 +202,7 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/management/banner/${selectIdsStr}`
+      const url = `/banner/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {

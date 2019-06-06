@@ -44,14 +44,14 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <!--<el-col :span="12">
             <el-form-item label="显示位置">
               <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col>-->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -71,8 +71,8 @@
           <el-col :span="12">
             <el-form-item label="状态">
               <el-radio-group v-model="bannerForm.status">
-                <el-radio :label="true">有效</el-radio>
-                <el-radio :label="false">无效</el-radio>
+                <el-radio :label="1">有效</el-radio>
+                <el-radio :label="2">无效</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -92,11 +92,6 @@
                   <el-input-number v-model="bannerForm.sort" style="width: 176px;" :min="1" :max="99" label="排序值"></el-input-number>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
-                <el-form-item label="活动编号">
-                  <el-input v-model="bannerForm.activityCode" style="width: 176px;" placeholder="活动编号"></el-input>
-                </el-form-item>
-              </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
@@ -106,7 +101,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="图片">
-                  <el-upload :action="actionUrl" :show-file-list="false"
+                  <el-upload :action="activityUrl" :show-file-list="false"
                              :on-change="handleFilesChange">
                     <i class="el-icon-plus"></i>
                     <el-input style="display: none" type="hidden" v-model="bannerForm.imageUrl"></el-input>
@@ -122,7 +117,6 @@
             <el-table-column type="index" header-align="center" align="left" width="50"></el-table-column>
             <el-table-column prop="title" header-align="center" align="left" label="标题" width="150"></el-table-column>
             <el-table-column prop="sort" header-align="center" align="left" label="排序值"  width="80"></el-table-column>
-            <el-table-column prop="activityCode" header-align="center" align="left" label="活动编号" width="150"></el-table-column>
             <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接" width="150"></el-table-column>
             <el-table-column prop="imageUrl" label="图片地址" width="750"></el-table-column>
             <el-table-column fixed="right" label="操作" width="60">
@@ -164,19 +158,15 @@ export default {
       bannerDetails: [],
       bannerFormInitForm: {
         appName: '',
-        terminal: '',
         userTag: '',
-        startVersion: '',
-        endVersion: '',
         position: '',
-        displayPosition: '',
         startTime: null,
         endTime: null,
-        status: true
+        status: 1
       },
       bannerForm: {},
       rules: {},
-      actionUrl: `${process.env.API_ROOT}/management/upload-image-file`
+      activityUrl: `${process.env.API_ROOT}/upload-image-file`
     }
   },
   methods: {
@@ -188,11 +178,6 @@ export default {
 
       if (this.bannerForm.sort == null) {
         this.$message.error('排序值不能为空')
-        return
-      }
-
-      if (this.bannerForm.activityCode == null) {
-        this.$message.error('活动编号不能为空')
         return
       }
 
@@ -209,7 +194,6 @@ export default {
       this.bannerDetails.push({
         title: this.bannerForm.title,
         sort: this.bannerForm.sort,
-        activityCode: this.bannerForm.activityCode,
         activityUrl: this.bannerForm.activityUrl,
         imageUrl: this.bannerForm.imageUrl
       })
@@ -264,7 +248,7 @@ export default {
         if (valid) {
           try {
             this.bannerForm.bannerDetails = this.bannerDetails
-            const res = await this.$http.post('/management/banner', this.bannerForm)
+            const res = await this.$http.post('/banner', this.bannerForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
@@ -279,7 +263,7 @@ export default {
     }),
     async initBannerDetails () {
       try {
-        const res = await this.$http.get('/management/banner/' + this.bannerForm.id)
+        const res = await this.$http.get('/banner/' + this.bannerForm.id)
         if (res.code === '200') {
           this.bannerDetails = res.data.bannerDetailsDTOS
         } else {
