@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import fetch from '@/utils/fetch'
+import {getToken, setToken} from '@/utils/token'
 import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
@@ -251,10 +252,35 @@ const router = new Router({
       name: 'goodsQuery',
       component: goodsQuery
     }
-  ]
+  ],
+  mode: 'history'// 去除#号
 })
 
+const whiteList = []
 router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  // 集成系统传递过来的xxl_sso_sessionid
+  const xxlSsoSessionId = to.query.xxl_sso_sessionid
+  if (xxlSsoSessionId !== undefined && xxlSsoSessionId !== null && xxlSsoSessionId !== '') {
+    setToken(xxlSsoSessionId)
+  }
+  if (getToken()) {
+    // 已登录且要跳转的页面是登录页
+    if (to.path === '/login') {
+      next({ path: '/' })
+    } else {
+      next()
+    }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+      next()
+    } else {
+      window.location.href = 'http://192.168.87.211:81/login'
+    }
+  }
+  // 加载数据字典
   fetch.get('/management/dict-big/selections').then(res => {
     if (res && res.code === '200') {
       Formatter.selections = res.data
