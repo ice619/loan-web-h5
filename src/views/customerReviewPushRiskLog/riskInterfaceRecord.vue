@@ -14,7 +14,7 @@
       <el-card>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">应用名称</div>
+            <div class="grid-content bg-purple">APP名称</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', info.appName)}}</div>

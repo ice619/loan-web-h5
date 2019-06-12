@@ -9,7 +9,7 @@
                         end-placeholder="结束时间" :default-time="['00:00:00', '23:59:59']" value-format="yyyy-MM-dd HH:mm:ss">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="应用名称">
+      <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>

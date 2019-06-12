@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="应用名称">
+      <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
@@ -125,7 +125,7 @@ export default {
       try {
         let appName = this.searchForm.appName
         if (!appName) {
-          this.$message.error('应用名称不能为空!')
+          this.$message.error('APP名称不能为空!')
           return
         }
         let phone = this.searchForm.phoneNum
@@ -150,7 +150,7 @@ export default {
     deleteData () {
       let appName = this.deleteForm.appName
       if (!appName) {
-        this.$message.error('应用名称不能为空!')
+        this.$message.error('APP名称不能为空!')
         return
       }
       let phone = this.deleteForm.phoneNum

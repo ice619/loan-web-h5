@@ -4,7 +4,7 @@
       <el-form-item label="标题">
         <el-input v-model="searchForm.title" placeholder="模糊查询"/>
       </el-form-item>
-      <el-form-item label="应用名称">
+      <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable filterable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
@@ -17,7 +17,7 @@
     <el-table ref="marketWindowTable" :data="tableData" border stripe highlight-current-row height="750" @selection-change="handleSelectionChange">
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
       <!--<el-table-column prop="id" label="ID" header-align="center" align="center"/>-->
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>

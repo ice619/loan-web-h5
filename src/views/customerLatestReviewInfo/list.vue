@@ -128,7 +128,7 @@ export default {
       try {
         let appName = this.searchForm.appName
         if (!appName) {
-          this.$message.error('应用名称不能为空')
+          this.$message.error('APP名称不能为空')
           return
         }
         let customerId = this.searchForm.customerId

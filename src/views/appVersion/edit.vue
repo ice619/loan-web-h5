@@ -5,7 +5,7 @@
                class="demo-form-inline">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="应用名称" prop="appName">
+            <el-form-item label="APP名称" prop="appName">
               <el-select v-model="appVersionForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                            :value="item.value"/>

@@ -25,7 +25,7 @@
             <div class="grid-content bg-purple-light">{{firstInfo.phoneNum}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">应用名称</div>
+            <div class="grid-content bg-purple">APP名称</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', firstInfo.appName)}}</div>
@@ -84,7 +84,7 @@
             <div class="grid-content bg-purple-light">{{latestInfo.phoneNum}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">应用名称</div>
+            <div class="grid-content bg-purple">APP名称</div>
           </el-col>
           <el-col :span="3">
             <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appNames', latestInfo.appName)}}</div>
@@ -190,7 +190,7 @@ export default {
       try {
         let appName = this.searchForm.appName
         if (!appName) {
-          this.$message.error('应用名称不能为空')
+          this.$message.error('APP名称不能为空')
           return
         }
         let customerId = this.searchForm.customerId

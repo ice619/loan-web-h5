@@ -1,5 +1,4 @@
 import FetchDog from 'fetch-dog'
-import VueCookies from 'vue-cookies'
 
 FetchDog.prototype.put = function (url, data, options) {
   return this.create({
@@ -19,22 +18,30 @@ FetchDog.prototype.delete = function (url, data, options) {
   })
 }
 
+FetchDog.prototype.post = function (url, data, options) {
+  return this.create({
+    method: 'POST',
+    url: url,
+    data: data,
+    options: options
+  })
+}
+
 const fd = new FetchDog({fetch, Headers})
 
 fd.interceptors.request.push(req => {
-  const sessionIdKey = 'xxl_sso_user'
-  req.headers.set(sessionIdKey, VueCookies.get(sessionIdKey))
-  req.url = req.url.indexOf('http') >= 0 ? req.url : process.env.API_ROOT + req.url
+  req.url = req.url.indexOf('http') > 0 ? req.url : process.env.API_ROOT + req.url
   return req
 })
 fd.interceptors.response.push(async response => {
   await checkStatus(response)
-  let res = await parseJSON(response)
-  if (res.code === 501) {
-    parent.location.href = `${process.env.API_ROOT}/umanagement/login`
-    return
+  let res = parseJSON(await response.text())
+  switch (res.code) {
+    case '00001':
+      break
+    default:
+      return res
   }
-  return res
 })
 export default fd
 
@@ -48,8 +55,7 @@ function checkStatus (response) {
   }
 }
 
-function parseJSON (response) {
-  if (response.ok) {
-    return response[response.status === 204 ? 'text' : 'json']()
-  }
+function parseJSON (text) {
+  let res = text.replace(/("[^"]*"\s*:\s*)(\d{16,})/g, '$1"$2"')
+  return JSON.parse(res)
 }
