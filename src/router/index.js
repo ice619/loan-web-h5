@@ -256,7 +256,6 @@ const router = new Router({
   mode: 'history'// 去除#号
 })
 
-const whiteList = []
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
@@ -274,11 +273,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-      next()
-    } else {
-      window.location.href = 'http://192.168.87.211:81/login'
-    }
+    window.location.href = process.env.LOGIN_URL
   }
   // 加载数据字典
   fetch.get('/management/dict-big/selections').then(res => {
