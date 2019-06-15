@@ -114,34 +114,17 @@ export default {
     saveTipPage: debounce(300, function () {
       this.$refs['tipPageForm'].validate(async (valid) => {
         if (valid) {
-          const saveDataArray = [
-            {
-              appName: 21,
-              userType: 1,
-              status: 1,
-              rejectTip: this.tipPageForm.rejectTipLocal,
-              lockDays: this.tipPageForm.lockDays,
-              language: 'local'
-            },
-            {
-              appName: 21,
-              userType: 1,
-              status: 1,
-              rejectTip: this.tipPageForm.rejectTipEn,
-              lockDays: this.tipPageForm.lockDays,
-              language: 'en'
+          try {
+            const res = await this.$http.post('/app-config/customer-config-reject-loan-tip', this.tipPageForm)
+            if (res.code === '200') {
+              this.$message.success('新增成功!')
+              this.closeDialog()
+            } else {
+              this.$message.error(res.message)
             }
-          ]
-          saveDataArray.forEach(item => {
-            this.$http.post('/app-config/customer-config-reject-loan-tip', item).then((res) => {
-              if (res.code === '200') {
-                this.$message.success('新增成功!')
-                this.closeDialog()
-              } else {
-                this.$message.error(res.message)
-              }
-            })
-          })
+          } catch (err) {
+            console.error(err)
+          }
         }
       })
     })
