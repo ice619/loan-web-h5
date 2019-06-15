@@ -29,12 +29,13 @@ fd.interceptors.request.push(req => {
 })
 fd.interceptors.response.push(async response => {
   await checkStatus(response)
-  let res = await parseJSON(response)
-  if (res.code === 501) {
-    parent.location.href = `${process.env.API_ROOT}/umanagement/login`
-    return
+  let res = parseJSON(await response.text())
+  switch (res.code) {
+    case '00001':
+      break
+    default:
+      return res
   }
-  return res
 })
 export default fd
 
@@ -48,8 +49,7 @@ function checkStatus (response) {
   }
 }
 
-function parseJSON (response) {
-  if (response.ok) {
-    return response[response.status === 204 ? 'text' : 'json']()
-  }
+function parseJSON (text) {
+  let res = text.replace(/("[^"]*"\s*:\s*)(\d{16,})/g, '$1"$2"')
+  return JSON.parse(res)
 }
