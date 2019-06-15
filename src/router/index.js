@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import fetch from '@/utils/fetch'
-import {getToken, setToken} from '@/utils/token'
+import {getToken, setToken, setLanguage, getLanguage} from '@/utils/VueCookies'
 import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
@@ -42,6 +42,7 @@ import dockingRequestLog from '@/views/dockingRequestLog/list'
 import unionLoginRequestLog from '@/views/unionLoginRequestLog/list'
 import redisQuery from '@/views/redisQuery/base'
 import goodsQuery from '@/views/goodsQuery/list'
+import dict2 from '@/views/dict2/index'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 Vue.use(Router)
@@ -51,12 +52,17 @@ const router = new Router({
     {
       path: '/',
       name: 'index',
-      component: transactionSwitch
+      component: dict2
     },
     {
       path: '/ios-company-sign',
       name: 'iosCompanySign',
       component: iosCompanySign
+    },
+    {
+      path: '/dict2',
+      name: 'dict2',
+      component: dict2
     },
     {
       path: '/banner',
@@ -262,32 +268,28 @@ const router = new Router({
   mode: 'history'// 去除#号
 })
 
-const whiteList = []
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  // 集成系统传递过来的xxl_sso_sessionid
-  const xxlSsoSessionId = to.query.xxl_sso_sessionid
-  if (xxlSsoSessionId !== undefined && xxlSsoSessionId !== null && xxlSsoSessionId !== '') {
-    setToken(xxlSsoSessionId)
-  }
+  // 集成系统传递过来的 xxl_sso_sessionid 、 lang
+  setLanguage(to.query.lang)
+  setToken(to.query.xxl_sso_sessionid)
   if (getToken()) {
     // 已登录且要跳转的页面是登录页
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      next()
+      loadDict(next)
     }
   } else {
-    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-      next()
-    } else {
-      window.location.href = 'http://192.168.87.211:81/login'
-    }
+    window.location.href = process.env.LOGIN_URL
   }
-  // 加载数据字典
-  fetch.get('/management/dict-big/selections').then(res => {
+})
+
+// 加载数据字典
+function loadDict (next) {
+  fetch.get('/dict-big/selections/loan/' + getLanguage()).then(res => {
     if (res && res.code === '200') {
       Formatter.selections = res.data
     }
@@ -296,6 +298,6 @@ router.beforeEach((to, from, next) => {
     console.info(e)
     next()
   })
-})
+}
 
 export default router

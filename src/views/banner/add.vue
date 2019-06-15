@@ -5,17 +5,9 @@
                class="demo-form-inline">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="应用名称">
+            <el-form-item label="APP名称">
               <el-select v-model="bannerForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="生效终端">
-              <el-select v-model="bannerForm.terminal" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -24,50 +16,22 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户标签">
-              <el-select v-model="bannerForm.userTag" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
+              <el-select v-model="bannerForm.userTags" clearable placeholder="请选择">
+                  <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label"
+                             :value="item.value"/>
               </el-select>
             </el-form-item>
-          </el-col>
-         <!-- <el-col :span="6">
-            <el-form-item label="生效版本">
-              <el-select style="width: 110px;" v-model="bannerForm.versionLowerLimit" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>-->
-          <el-col :span="6">
-            <el-form-item label="版本号" prop="title">
-              <el-input style="width: 129.250px;" v-model="bannerForm.startVersion" placeholder="开始版本号"></el-input>
-              <el-input style="width: 129.250px;" v-model="bannerForm.endVersion" placeholder="结束版本号"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-select style="width: 110px;" v-model="bannerForm.versionUpperLimit" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions(`versions_${bannerForm.appName}`)" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="banner位置">
               <el-select v-model="bannerForm.position" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('position')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
-          <!--<el-col :span="12">
-            <el-form-item label="显示位置">
-              <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>-->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -87,8 +51,9 @@
           <el-col :span="12">
             <el-form-item label="状态">
               <el-radio-group v-model="bannerForm.status">
-                <el-radio :label="true">有效</el-radio>
-                <el-radio :label="false">无效</el-radio>
+                <!--<el-radio :label="1">有效</el-radio>-->
+                <!--<el-radio :label="0">无效</el-radio>-->
+                <span>{{$formatter.multipleFormatSelection('status', scope.row.status)}}</span>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -171,8 +136,8 @@ export default {
     return {
       bannerDetails: [],
       bannerFormInitForm: {
-        appName: 1,
-        userTag: '1',
+        appName: 21,
+        userTags: [1],
         position: 1,
         startTime: null,
         endTime: null,

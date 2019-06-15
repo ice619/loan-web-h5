@@ -5,17 +5,9 @@
                class="demo-form-inline">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="应用名称">
+            <el-form-item label="APP名称">
               <el-select v-model="bannerForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="生效终端">
-              <el-select v-model="bannerForm.terminal" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -25,7 +17,7 @@
           <el-col :span="12">
             <el-form-item label="用户标签">
               <el-select v-model="bannerForm.userTag" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label"
+                <el-option v-for="item in userTags" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -44,14 +36,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <!--<el-col :span="12">
-            <el-form-item label="显示位置">
-              <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>-->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -72,7 +56,7 @@
             <el-form-item label="状态">
               <el-radio-group v-model="bannerForm.status">
                 <el-radio :label="1">有效</el-radio>
-                <el-radio :label="2">无效</el-radio>
+                <el-radio :label="0">无效</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -158,13 +142,14 @@ export default {
       bannerDetails: [],
       bannerFormInitForm: {
         appName: '',
-        userTag: '',
         position: '',
         startTime: null,
         endTime: null,
         status: 1
       },
-      bannerForm: {},
+      bannerForm: {
+        userTags: [{'value': 1, 'label': '全部用户'}]
+      },
       rules: {},
       activityUrl: `${process.env.API_ROOT}/upload-image-file`
     }

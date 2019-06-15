@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <el-form-item label="应用名称">
+      <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
                      :value="item.value"/>
@@ -21,7 +21,7 @@
     <el-table ref="systemDictTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center"/>
       <!--<el-table-column prop="dictionaryId" label="序号" header-align="center" align="center"/>-->
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>

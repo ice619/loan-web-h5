@@ -33,7 +33,7 @@ export default class Formatter {
    */
   static multipleFormatSelection (prop, values) {
     if (!values) {
-      return null
+      return ''
     }
     let label = ''
     values.split(',').forEach(s => {

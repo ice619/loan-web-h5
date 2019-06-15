@@ -2,7 +2,7 @@
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="APP名称：">
-        <el-select v-model="searchForm.appName" clearable placeholder="请选择应用名称">
+        <el-select v-model="searchForm.appName" clearable placeholder="请选择APP名称">
           <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -26,7 +26,7 @@
     <el-table ref="appVersionTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
       <el-table-column prop="changeTitle" label="更新标题" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
-      <el-table-column prop="appName" label="应用名称" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
         </template>

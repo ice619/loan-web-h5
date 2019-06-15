@@ -17,7 +17,7 @@ const messages = {
 
 // 注册i18n实例并引入语言文件，文件格式等下解析
 const i18n = new VueI18n({
-  locale: Cookies.get('I18n-Lang'),
+  locale: Cookies.get('language'),
   fallbackLocale: 'zh_CN',
   messages
 })

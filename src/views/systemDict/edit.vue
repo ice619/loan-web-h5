@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="systemDictForm" :rules="rules" ref="systemDictForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="应用名称">
+            <el-form-item label="APP名称">
               <el-select style="width: 372px;" v-model="systemDictForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>

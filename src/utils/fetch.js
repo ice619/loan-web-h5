@@ -1,5 +1,5 @@
 import FetchDog from 'fetch-dog'
-import {getToken} from '@/utils/token'
+import {getToken, getLanguage} from '@/utils/VueCookies'
 
 FetchDog.prototype.put = function (url, data, options) {
   return this.create({
@@ -23,6 +23,7 @@ const fd = new FetchDog({fetch, Headers})
 
 fd.interceptors.request.push(req => {
   req.headers.set('xxl_sso_sessionid', getToken())
+  req.headers.set('language', getLanguage())
   req.url = req.url.indexOf('http') >= 0 ? req.url : process.env.API_ROOT + req.url
   return req
 })
