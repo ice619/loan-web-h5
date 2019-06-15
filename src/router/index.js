@@ -23,7 +23,6 @@ import appClosureSwitch from '@/views/appClosureSwitch/list'
 import systemDict from '@/views/systemDict/list'
 import systemDictChildList from '@/views/systemDict/child-list'
 import faceLevelConfig from '@/views/faceLevelConfig/list'
-import customerInfo from '@/views/customerInfo/base'
 import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
 import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
 import customerExt from '@/views/customerInfo/ext-list'
@@ -44,6 +43,8 @@ import unionLoginRequestLog from '@/views/unionLoginRequestLog/list'
 import redisQuery from '@/views/redisQuery/base'
 import goodsQuery from '@/views/goodsQuery/list'
 import dict2 from '@/views/dict2/index'
+import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
+import customerConfigQuota from '@/views/customerConfigQuota/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -159,11 +160,6 @@ const router = new Router({
       component: faceLevelConfig
     },
     {
-      path: '/customer-info',
-      name: 'customerInfo',
-      component: customerInfo
-    },
-    {
       path: '/customer-latest-review-info',
       name: 'customerLatestReviewInfo',
       component: customerLatestReviewInfo
@@ -257,6 +253,16 @@ const router = new Router({
       path: '/goods-query',
       name: 'goodsQuery',
       component: goodsQuery
+    },
+    {
+      path: '/reject-tip',
+      name: 'customerConfigRejectLoanTip',
+      component: customerConfigRejectLoanTip
+    },
+    {
+      path: '/default-quota',
+      name: 'customerConfigQuota',
+      component: customerConfigQuota
     }
   ],
   mode: 'history'// 去除#号
