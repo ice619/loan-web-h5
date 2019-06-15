@@ -1,22 +1,34 @@
 <template>
   <div class="border">
-    <el-dialog title="数据字典小类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="数据字典小类" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="80%" style="padding-top: 3px;">
       <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-        <el-form-item>
-          <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showEditFlag=true">新增</el-button>
-        </el-form-item>
+        <el-row type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item label="语言：" prop="language">
+              <el-select v-model="searchForm.language" placeholder="语言" style="width: 150px" @change="list">
+                <el-option v-for="item in $formatter.getSelectionOptions('language')" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" style="text-align: right">
+            <el-form-item>
+              <el-button type="primary" icon="el-icon-plus" @click="showEditFlag=true" style="color: white;background-color: #009688;">新增</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <el-table ref="dictSmallTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-        <el-table-column prop="id" label="序号" header-align="center" align="center"/>
         <el-table-column prop="dicSmallCode" label="小类编码" header-align="center" align="center"/>
         <el-table-column prop="dicSmallValue" label="小类中文名称" header-align="center" align="center"/>
+        <el-table-column prop="sortNum" label="排序" header-align="center" align="center"/>
         <el-table-column prop="dicSmallStaues" label="小类使用状态" header-align="center" align="center">
           <template slot-scope="scope">
-            <span>{{scope.row.dicSmallStaues === '1' ? '正常' : '停用'}}</span>
+            <span>{{scope.row.status === '1' ? '有效' : '无效'}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="sortNum" label="排序" header-align="center" align="center"/>
+        <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>
         <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
+        <el-table-column prop="updateMan" label="修改人" header-align="center" align="center"/>
         <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center"/>
 
         <el-table-column label="操作" header-align="center" align="center">
@@ -35,7 +47,7 @@
         :total="total">
       </el-pagination>
       <!--子组件-->
-      <small-edit :ifshow="showEditFlag" :dictBigId="searchForm.dictBigId" :dictSmall="dictSmall" @handleCloseDialog="showEditFlag=false;dictSmall=null;list();"></small-edit>
+      <small-edit :ifshow="showEditFlag" :dictBig="dictBig" :dictSmall="dictSmall" :language="searchForm.language" @handleCloseDialog="showEditFlag=false;dictSmall=null;list();"></small-edit>
     </el-dialog>
   </div>
 </template>
@@ -49,7 +61,8 @@ export default {
   data () {
     return {
       searchForm: {
-        dictBigId: null
+        dictBigId: null,
+        language: 'zh'
       },
       dictSmall: null,
       tableData: [],
@@ -57,13 +70,6 @@ export default {
       pageSize: 10,
       total: 0,
       selectIds: [],
-      dicStatues: [{
-        value: '1',
-        label: '正常'
-      }, {
-        value: '2',
-        label: '停用'
-      }],
       showEditFlag: false
     }
   },
@@ -90,7 +96,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/dict-small/list', params)
+        const res = await this.$http.post('/dict-small/list', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
