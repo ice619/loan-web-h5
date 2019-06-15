@@ -42,7 +42,6 @@ import dockingRequestLog from '@/views/dockingRequestLog/list'
 import unionLoginRequestLog from '@/views/unionLoginRequestLog/list'
 import redisQuery from '@/views/redisQuery/base'
 import goodsQuery from '@/views/goodsQuery/list'
-import dict2 from '@/views/dict2/index'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 Vue.use(Router)
@@ -52,17 +51,12 @@ const router = new Router({
     {
       path: '/',
       name: 'index',
-      component: dict2
+      component: banner
     },
     {
       path: '/ios-company-sign',
       name: 'iosCompanySign',
       component: iosCompanySign
-    },
-    {
-      path: '/dict2',
-      name: 'dict2',
-      component: dict2
     },
     {
       path: '/banner',
@@ -289,7 +283,7 @@ router.beforeEach((to, from, next) => {
 
 // 加载数据字典
 function loadDict (next) {
-  fetch.get('/dict-big/selections/loan/' + getLanguage()).then(res => {
+  fetch.get('/dict-big/selections/loan-operation/' + getLanguage()).then(res => {
     if (res && res.code === '200') {
       Formatter.selections = res.data
     }

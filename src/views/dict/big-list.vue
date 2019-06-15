@@ -16,16 +16,22 @@
       </el-form-item>
     </el-form>
     <el-table ref="dictBigTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="id" label="序号" header-align="center" align="center"/>
-      <el-table-column prop="dicBigCode" label="大类编码" header-align="center" align="center"/>
-      <el-table-column prop="dicBigValue" label="大类中文名称" header-align="center" align="center"/>
-      <el-table-column prop="dicBigStaues" label="大类使用状态" header-align="center" align="center">
+      <el-table-column prop="systemCode" label="系统编码" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
-          <span>{{scope.row.dicBigStaues === '1' ? '正常' : '停用'}}</span>
+          <span>{{$formatter.simpleFormatSelection('systemCode', scope.row.systemCode)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注" header-align="center" align="center"/>
+      <el-table-column prop="dicBigCode" label="大类编码" header-align="center" align="center"/>
+      <el-table-column prop="dicBigValue" label="大类中文名称" header-align="center" align="center"/>
+      <el-table-column prop="dicBigStaues" label="大类状态" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.status === 1 ? '有效' : '无效'}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="remark" label="备注" header-align="center" align="center" width="250" show-overflow-tooltip/>
+      <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"/>
+      <el-table-column prop="updateMan" label="修改人" header-align="center" align="center"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center"/>
 
       <el-table-column label="操作" header-align="center" align="center">
@@ -65,13 +71,6 @@ export default {
       pageSize: 10,
       total: 0,
       selectIds: [],
-      dicStatues: [{
-        value: '1',
-        label: '正常'
-      }, {
-        value: '2',
-        label: '停用'
-      }],
       showEditFlag: false,
       showSmallListFlag: false
     }
@@ -87,7 +86,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/dict-big/list', params)
+        const res = await this.$http.post('/dict-big/list', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
