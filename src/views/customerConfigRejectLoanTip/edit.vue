@@ -69,7 +69,8 @@ import {clone} from '@/utils/common'
 
 export default {
   props: {
-    'ifshow': Boolean
+    'ifshow': Boolean,
+    'tip': Object
   },
   data () {
     return {
@@ -80,7 +81,10 @@ export default {
         status: 1,
         rejectTipLocal: '',
         rejectTipEn: '',
-        lockDays: ''
+        lockDays: '',
+        createUserId: '',
+        createUser: '',
+        createTime: ''
       },
       tipPageForm: {},
       rules: {
@@ -104,8 +108,28 @@ export default {
     }
   },
   methods: {
+    async initFrom () {
+      try {
+        const res = await this.$http.get('/app-config/customer-config-quota/' + this.tip.id)
+        if (res.code === '200' && res.data && res.data.length > 0) {
+          this.tipPageForm = clone(this.tip)
+          let data = res.data
+          data.forEach(r => {
+            if (r.language === 'id') {
+              this.tipPageForm.rejectTipLocal = r.rejectTip
+            } else {
+              this.tipPageForm.rejectTipEn = r.rejectTip
+            }
+          })
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    },
     openDialog () {
-      this.tipPageForm = clone(this.tipPageInitForm)
+      this.initFrom()
     },
     closeDialog () {
       this.$refs['tipPageForm'].resetFields()
@@ -114,34 +138,17 @@ export default {
     updateTipPage: debounce(300, function () {
       this.$refs['tipPageForm'].validate(async (valid) => {
         if (valid) {
-          const saveDataArray = [
-            {
-              appName: 21,
-              userType: 1,
-              status: 1,
-              rejectTip: this.tipPageForm.rejectTipLocal,
-              lockDays: this.tipPageForm.lockDays,
-              language: 'local'
-            },
-            {
-              appName: 21,
-              userType: 1,
-              status: 1,
-              rejectTip: this.tipPageForm.rejectTipEn,
-              lockDays: this.tipPageForm.lockDays,
-              language: 'en'
+          try {
+            const res = await this.$http.put('/app-config/customer-config-reject-loan-tip', this.tipPageForm)
+            if (res.code === '200') {
+              this.$message.success('修改成功!')
+              this.closeDialog()
+            } else {
+              this.$message.error(res.message)
             }
-          ]
-          saveDataArray.forEach(item => {
-            this.$http.put('/app-config/customer-config-reject-loan-tip', item).then((res) => {
-              if (res.code === '200') {
-                this.$message.success('修改成功!')
-                this.closeDialog()
-              } else {
-                this.$message.error(res.message)
-              }
-            })
-          })
+          } catch (err) {
+            console.error(err)
+          }
         }
       })
     })
