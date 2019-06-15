@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-dialog :title="dictBig ? '编辑大类' : '新增大类'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="28%">
-      <el-form :inline="true" :model="dictBigForm" :rules="rules" ref="dictBigForm" label-width="150px" class="demo-form-inline">
+      <el-form :inline="true" :model="dictBigForm" :rules="rules" ref="dictBigForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="left">
           <el-col :span="40">
             <el-form-item label="所属系统：" prop="systemCode" :rules="[{ required: true, message: '请选择所属系统', trigger: 'blur' }]">
