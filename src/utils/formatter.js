@@ -61,21 +61,4 @@ export default class Formatter {
     return null
   }
 }
-Formatter.selections = {
-  appName: [
-    {'label': 'Aku Cepat', 'value': 21},
-    {'label': 'Aku Cepat2', 'value': 22}
-  ],
-  status: [
-    {'label': '有效', 'value': 1},
-    {'label': '无效', 'value': 0}
-  ],
-  userTag: [
-    {'label': '全部用户', 'value': 1},
-    {'label': '未还款用户', 'value': 2}
-  ],
-  position: [
-    {'label': '借款页', 'value': 1},
-    {'label': '信用页', 'value': 2}
-  ]
-}
+Formatter.selections = {}
