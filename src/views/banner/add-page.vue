@@ -68,7 +68,7 @@
             </el-table-column>
             <el-table-column prop="imageUrl" header-align="center" align="left" label="图片">
               <template slot-scope="scope">
-                <el-upload class="avatar-uploader" :action="activityUrl" :show-file-list="false" :on-change="handleFilesChange">
+                <el-upload class="avatar-uploader" :action="activityUrl" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
                   <el-popover placement="right" width="200" trigger="hover" :content="scope.row.imageUrl ? null : '图片未上传'">
                     <img v-if="scope.row.imageUrl" :src="scope.row.imageUrl" class="avatar">
                     <el-button @click="orientateRowIndex(scope.$index)" slot="reference" :class="scope.row.imageUrl ? 'el-icon-edit' : 'el-icon-plus'">{{scope.row.imageUrl ? '更换图片' : '选择图片'}}</el-button>
@@ -111,6 +111,7 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
+import {getToken, getLanguage} from '@/utils/VueCookies'
 // import Sortable from 'sortablejs'
 
 export default {
@@ -138,7 +139,11 @@ export default {
       },
       bannerDetails: [],
       rules: {},
-      activityUrl: `${process.env.API_ROOT}/upload-image-file`
+      activityUrl: `${process.env.API_ROOT}/upload-image-file`,
+      headers: {
+        'xxl_sso_sessionid': getToken(),
+        'language': getLanguage()
+      }
     }
   },
   created () {
