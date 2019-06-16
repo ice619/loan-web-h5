@@ -66,7 +66,7 @@ export default {
   data () {
     return {
       dictBigInitForm: {
-        systemCode: 'all',
+        systemCode: 'common',
         dicBigCode: '',
         dicBigValue: '',
         status: 1,
