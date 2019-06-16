@@ -1,6 +1,6 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="编辑APP更新配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增APP更新配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
       <el-form :inline="true" :model="appVersionForm" :rules="rules" ref="appVersionForm" label-width="100px"
                class="demo-form-inline">
         <el-row>
@@ -15,7 +15,7 @@
           <el-col :span="12">
             <el-form-item label="终端类型" prop="appType">
               <el-select v-model="appVersionForm.appType" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('clientType')" :key="item.value" :label="item.label"
+                <el-option v-for="item in clientTypes" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -23,8 +23,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="渠道" prop="remark">
-              <el-input v-model="appVersionForm.remark" clearable placeholder="请输入更新渠道"></el-input>
+            <el-form-item label="渠道" prop="market">
+              <el-input v-model="appVersionForm.market" clearable placeholder="请输入更新渠道"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -35,7 +35,7 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="下载地址" prop="downloadUrl">
+            <el-form-item label="下载地址" prop="downloadUrl" >
               <el-input v-model="appVersionForm.downloadUrl" style="width: 675px;" clearable placeholder="请输入下载地址"></el-input>
             </el-form-item>
           </el-col>
@@ -47,9 +47,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否弹窗" prop="isPopup">
+            <el-form-item label="非强更弹窗" prop="isPopup">
               <el-select v-model="appVersionForm.isPopup" clearable placeholder="请选择是否需要弹窗">
-                <el-option v-for="item in $formatter.getSelectionOptions('appIsPopup')" :key="item.value" :label="item.label"
+                <el-option v-for="item in isPopups" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -71,25 +71,35 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="更新标题" prop="changeTitle">
-              <el-input v-model="appVersionForm.changeTitle" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
+            <el-form-item label="更新标题" prop="changeTitleLocal">
+              <el-input v-model="appVersionForm.changeTitleLocal" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="更新标题(英)">
+              <el-input v-model="appVersionForm.changeTitleEn" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="更新描述" prop="changeCopy">
-              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopy" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+            <el-form-item label="更新描述" prop="changeCopyLocal">
+              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopyLocal" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="更新描述(英)">
+              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopyEn" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row type="flex" justify="center">
           <el-col :span="24">
             <el-form-item label="状态" prop="state">
-              <el-select v-model="appVersionForm.state" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label"
-                           :value="item.value"/>
-              </el-select>
+              <el-radio-group v-model="appVersionForm.state">
+                <el-radio :label="1">有效</el-radio>
+                <el-radio :label="0">失效</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
@@ -117,16 +127,32 @@ export default {
   },
   data () {
     return {
-      appVersionDetails: [],
+      appVersionInitForm: {
+        appName: 21,
+        appType: null,
+        market: 'official',
+        versionNumber: '',
+        downloadUrl: '',
+        isForcedUpdate: '',
+        isPopup: null,
+        beginTime: null,
+        endTime: null,
+        changeTitleLocal: '',
+        changeTitleEn: '',
+        changeCopyLocal: '',
+        changeCopyEn: '',
+        state: 1
+      },
       appVersionForm: {},
+      sort: 1,
       rules: {
         appName: [
-          {required: true, message: '请选择APP名称', trigger: 'blur'}
+          {required: true, message: '请选择应用类型', trigger: 'blur'}
         ],
         appType: [
-          {required: true, message: '请选择APP类型', trigger: 'blur'}
+          {required: true, message: '请选择终端类型', trigger: 'blur'}
         ],
-        remark: [
+        market: [
           {required: true, message: '请输入渠道', trigger: 'blur'}
         ],
         versionNumber: [
@@ -144,25 +170,46 @@ export default {
         endTime: [
           {required: true, message: '请输入结束时间', trigger: 'blur'}
         ],
-        changeTitle: [
+        changeTitleLocal: [
           {required: true, message: '请输入弹框标题', trigger: 'blur'}
         ],
-        changeCopy: [
+        changeCopyLocal: [
           {required: true, message: '请输入弹窗内显示的更新内容', trigger: 'blur'}
         ],
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}
         ]
-      }
+      },
+      clientTypes: [{value: 1, label: 'Android'}, {value: 2, label: 'IOS'}],
+      isPopups: [{value: '1', label: '是'}, {value: '0', label: '否'}]
     }
   },
   methods: {
-    openDialog () {
-      this.appVersionForm = clone(this.appVersionWindow)
+    async initFrom () {
       try {
-        this.appVersionForm.appType = parseInt(this.appVersionForm.appType)
-      } catch (e) {
+        const res = await this.$http.get('/app-version/expands/' + this.appVersionWindow.appVersionId)
+        if (res.code === '200' && res.data && res.data.length > 0) {
+          this.appVersionForm = clone(this.appVersionWindow)
+          this.appVersionForm.appType = parseInt(this.appVersionForm.appType)
+          let data = res.data
+          data.forEach(r => {
+            if (r.language === 'id') {
+              this.appVersionForm.changeTitleLocal = r.expand1
+              this.appVersionForm.changeCopyLocal = r.expand2
+            } else {
+              this.appVersionForm.changeTitleEn = r.expand1
+              this.appVersionForm.changeCopyEn = r.expand2
+            }
+          })
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
       }
+    },
+    openDialog () {
+      this.initFrom()
     },
     closeDialog () {
       this.$refs['appVersionForm'].resetFields()
@@ -180,7 +227,7 @@ export default {
         if (valid) {
           try {
             this.appVersionForm.appVersionDetails = this.appVersionDetails
-            const res = await this.$http.post('/management/app-version', this.appVersionForm)
+            const res = await this.$http.post('/app-version', this.appVersionForm)
             if (res.code === '200') {
               this.$message.success('编辑成功!')
               this.closeDialog()

@@ -23,11 +23,6 @@
     </el-form>
     <el-table ref="tipsPageTable" :data="tableData" border stripe highlight-current-row height="750" @selection-change="handleSelectionChange">
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
-      <el-table-column prop="id" label="用户被拒提示ID" header-align="center" align="center" v-show="false">
-        <template slot-scope="scope">
-          <span>{{scope.row.id}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.appName}}</span>
