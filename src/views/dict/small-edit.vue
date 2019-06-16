@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-dialog :title="dictSmall ? '编辑小类' : '新增小类'" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" append-to-body width="28%">
-      <el-form :inline="true" :model="dictSmallForm" :rules="rules" ref="dictSmallForm" label-width="150px" class="demo-form-inline">
+      <el-form :inline="true" :model="dictSmallForm" :rules="rules" ref="dictSmallForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="left">
           <el-col :span="40">
             <el-form-item label="小类编码">

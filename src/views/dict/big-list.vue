@@ -1,6 +1,11 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+      <el-form-item label="所属系统：" prop="systemCode">
+        <el-select v-model="searchForm.systemCode" placeholder="所属系统" style="width: 250px;">
+          <el-option v-for="item in $formatter.getSelectionOptions('systemCode')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item label="大类编号">
         <el-input v-model="searchForm.dicBigCode" placeholder="模糊查询"/>
       </el-form-item>
@@ -16,7 +21,7 @@
       </el-form-item>
     </el-form>
     <el-table ref="dictBigTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column prop="systemCode" label="系统编码" header-align="center" align="center" min-width="80">
+      <el-table-column prop="systemCode" label="所属系统" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('systemCode', scope.row.systemCode)}}</span>
         </template>
@@ -61,6 +66,7 @@ export default {
   data () {
     return {
       searchForm: {
+        systemCode: 'all',
         dicBigCode: null,
         dicBigValue: null,
         remark: null

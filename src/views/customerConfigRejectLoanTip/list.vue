@@ -8,12 +8,12 @@
       </el-form-item>
       <el-form-item label="生效用户">
         <el-select v-model="searchForm.userType" clearable filterable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('userTypes')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in userTypes" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="searchForm.status" clearable filterable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('statuses')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in statuses" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -23,6 +23,11 @@
     </el-form>
     <el-table ref="tipsPageTable" :data="tableData" border stripe highlight-current-row height="750" @selection-change="handleSelectionChange">
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
+      <el-table-column prop="id" label="用户被拒提示ID" header-align="center" align="center" v-show="false">
+        <template slot-scope="scope">
+          <span>{{scope.row.id}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.appName}}</span>
@@ -61,7 +66,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"/>
-    <edit :ifshow="showEditFlag" :tipsPage="tipsPage" @handleCloseDialog="showEditFlag=false;list();"/>
+    <edit :ifshow="showEditFlag" :tip="tip" @handleCloseDialog="showEditFlag=false;list();"/>
   </div>
 </template>
 
@@ -75,13 +80,16 @@ export default {
         status: null
       },
       tipsPage: {},
+      tip: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
       total: 0,
       selectIds: [],
       showAddFlag: false,
-      showEditFlag: false
+      showEditFlag: false,
+      statuses: [{value: '1', label: '生效'}, {value: '0', label: '失效'}],
+      userTypes: [{value: '0', label: '全部用户'}]
     }
   },
   created () {
@@ -122,7 +130,7 @@ export default {
     },
     editTipPage (row) {
       this.showEditFlag = true
-      this.tipsPage = row
+      this.tip = row
     }
   },
   components: {
