@@ -2,7 +2,7 @@
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="所属系统：" prop="systemCode">
-        <el-select v-model="searchForm.systemCode" placeholder="所属系统" style="width: 150px;">
+        <el-select v-model="searchForm.systemCode" clearable placeholder="所属系统" style="width: 150px;">
           <el-option v-for="item in $formatter.getSelectionOptions('systemCode')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
