@@ -66,7 +66,7 @@ export default {
   data () {
     return {
       searchForm: {
-        systemCode: 'all',
+        systemCode: 'common',
         dicBigCode: null,
         dicBigValue: null,
         remark: null
