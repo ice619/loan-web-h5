@@ -3,21 +3,24 @@
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="APP名称：">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择APP名称">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="版本号：">
+          <el-input v-model="searchForm.versionNumber" clearable placeholder="请输入版本号"></el-input>
+      </el-form-item>
+      <el-form-item label="系统：">
+        <el-select v-model="searchForm.appType" clearable placeholder="请选择系统类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('appType')" :key="item.value" :label="item.label"
+                     :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="状态：">
-          <el-select v-model="searchForm.state" clearable placeholder="请选择状态">
-            <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label"
-                       :value="item.value"/>
-          </el-select>
-      </el-form-item>
-      <!--<el-form-item label="终端：">
-        <el-select v-model="searchForm.appType" clearable placeholder="请选择终端类型">
-          <el-option v-for="item in $formatter.getSelectionOptions('clientType')" :key="item.value" :label="item.label"
+        <el-select v-model="searchForm.status" clearable placeholder="请选择状态">
+          <el-option v-for="item in $formatter.getSelectionOptions('status')" :key="item.value" :label="item.label"
                      :value="item.value"/>
         </el-select>
-      </el-form-item>-->
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
@@ -25,49 +28,48 @@
     </el-form>
     <el-table ref="appVersionTable" :data="tableData" border stripe highlight-current-row
               @selection-change="handleSelectionChange">
-      <el-table-column prop="changeTitle" label="更新标题" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
+          <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appType" label="终端类型" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+      <el-table-column prop="appType" label="系统" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('clientType', parseInt(scope.row.appType))}}</span>
+          <span>{{$formatter.simpleFormatSelection('appType', scope.row.appType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="remark" label="渠道" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
+      <el-table-column prop="market" label="渠道" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="isForcedUpdate" label="强制更新" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appIsPopup', parseInt(scope.row.isPopup))}}</span>
+          <span>{{$formatter.simpleFormatSelection('isPopup', scope.row.isPopup)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="beginTime" label="开始时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column prop="state" label="状态" header-align="center" align="center"  min-width="30px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
+          <span>{{$formatter.simpleFormatSelection('status', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column label="创建人" header-align="center" align="center"   min-width="60px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.createManId}}</span>
-          <span>{{scope.row.createManId === null || scope.row.createManId === ''|| scope.row.createMan === null || scope.row.createMan === '' ? '' : '-'}}</span>
-          <span>{{scope.row.createMan}}</span>
+          <span>{{scope.row.createUserId}}</span>
+          <span>{{scope.row.createUserId === null || scope.row.createUserId === ''|| scope.row.createUser === null || scope.row.createUser === '' ? '' : '-'}}</span>
+          <span>{{scope.row.createUser}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column label="修改人" header-align="center" align="center"   min-width="60px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.modifyManId}}</span>
-          <span>{{scope.row.modifyManId === null || scope.row.modifyManId === '' || scope.row.modifyMan === null || scope.row.modifyMan === '' ? '' : '-'}}</span>
-          <span>{{scope.row.modifyMan}}</span>
+          <span>{{scope.row.updateUserId}}</span>
+          <span>{{scope.row.updateUserId === null || scope.row.updateUserId === '' || scope.row.updateUser === null || scope.row.updateUser === '' ? '' : '-'}}</span>
+          <span>{{scope.row.updateUser}}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
@@ -98,9 +100,10 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 7,
+        appName: 21,
         state: null,
-        appType: null
+        appType: null,
+        versionNumber: ''
       },
       appVersionWindow: {},
       tableData: [],
@@ -123,7 +126,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/app-version/page', params)
+        const res = await this.$http.post('/app-version/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -172,7 +175,7 @@ export default {
         this.selectIds.push(row.appVersionId)
         selectIdsStr = row.appVersionId
       }
-      const url = `/management/app-version/${selectIdsStr}`
+      const url = `/Useragement/app-version/${selectIdsStr}`
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {

@@ -23,7 +23,7 @@
         <el-table-column prop="sortNum" label="排序" header-align="center" align="center"/>
         <el-table-column prop="dicSmallStaues" label="小类使用状态" header-align="center" align="center">
           <template slot-scope="scope">
-            <span>{{scope.row.status === '1' ? '有效' : '无效'}}</span>
+            <span>{{scope.row.status === 1 ? '有效' : '无效'}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="createMan" label="创建人" header-align="center" align="center"/>

@@ -6,7 +6,7 @@
           <el-col :span="12">
             <el-form-item label="APP名称:" prop="appName">
               <el-select v-model="tipPageForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -15,7 +15,7 @@
           <el-col :span="12">
             <el-form-item label="生效用户:" prop="userType">
               <el-select v-model="tipPageForm.userType" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('userTypes')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
