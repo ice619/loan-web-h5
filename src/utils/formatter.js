@@ -58,7 +58,7 @@ export default class Formatter {
         }
       }
     }
-    return null
+    return val
   }
 }
 Formatter.selections = {}

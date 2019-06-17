@@ -3,17 +3,17 @@
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable filterable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="生效用户">
         <el-select v-model="searchForm.userType" clearable filterable placeholder="请选择">
-          <el-option v-for="item in userTypes" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="searchForm.status" clearable filterable placeholder="请选择">
-          <el-option v-for="item in statuses" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('status')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -25,17 +25,17 @@
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.appName}}</span>
+          <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="userType" label="生效用户" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.userType }}</span>
+          <span>{{$formatter.simpleFormatSelection('userTag', scope.row.userType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.status}}</span>
+          <span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="lockDays" label="倒计时间(天)" header-align="center" align="center">
@@ -71,7 +71,7 @@ export default {
     return {
       searchForm: {
         appName: 21,
-        userType: 0,
+        userType: null,
         status: null
       },
       tipsPage: {},
@@ -82,9 +82,7 @@ export default {
       total: 0,
       selectIds: [],
       showAddFlag: false,
-      showEditFlag: false,
-      statuses: [{value: '1', label: '生效'}, {value: '0', label: '失效'}],
-      userTypes: [{value: '0', label: '全部用户'}]
+      showEditFlag: false
     }
   },
   created () {

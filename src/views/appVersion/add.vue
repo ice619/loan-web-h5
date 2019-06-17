@@ -7,15 +7,15 @@
           <el-col :span="12">
             <el-form-item label="APP名称" prop="appName">
               <el-select v-model="appVersionForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="终端类型" prop="appType">
+            <el-form-item label="系统" prop="appType">
               <el-select v-model="appVersionForm.appType" clearable placeholder="请选择">
-                <el-option v-for="item in clientTypes" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('appType')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -49,7 +49,7 @@
           <el-col :span="12">
             <el-form-item label="非强更弹窗" prop="isPopup">
               <el-select v-model="appVersionForm.isPopup" clearable placeholder="请选择是否需要弹窗">
-                <el-option v-for="item in isPopups" :key="item.value" :label="item.label"
+                <el-option v-for="item in $formatter.getSelectionOptions('isPopup')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -178,9 +178,7 @@ export default {
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}
         ]
-      },
-      clientTypes: [{value: 1, label: 'Android'}, {value: 2, label: 'IOS'}],
-      isPopups: [{value: '1', label: '是'}, {value: '0', label: '否'}]
+      }
     }
   },
   methods: {

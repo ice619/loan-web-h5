@@ -14,8 +14,9 @@
         <el-row type="flex" justify="center">
           <el-col :span="12">
             <el-form-item label="生效用户:" prop="userType">
-              <el-select v-model="quotaPageForm.userType" clearable placeholder="请选择">
-                <el-option v-for="item in userTypes" :key="item.value" :label="item.label" :value="item.value"/>
+              <el-select v-model="quotaPageForm.userType" clearable placeholder="请选择状态">
+                <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -77,8 +78,7 @@ export default {
           {required: true, message: '请输入默认额度', trigger: 'blur'},
           { min: 1, max: 150, message: '长度在 1 到 150 个字符', trigger: 'blur' }
         ]
-      },
-      userTypes: [{value: '0', label: '全部用户'}]
+      }
     }
   },
   methods: {
