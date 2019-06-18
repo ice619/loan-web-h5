@@ -33,15 +33,6 @@ fd.interceptors.response.push(
     await checkStatus(response)
     let res = parseJSON(await response.text())
     switch (res.code) {
-      case '501':
-        break
-      default:
-        return res
-    }
-  },
-  error => {
-    console.info(error)
-    switch (error.code) {
       case 501:
         MessageBox.confirm(
           '登录状态已过期，您可以继续留在该页面，或者重新登录',
@@ -55,11 +46,8 @@ fd.interceptors.response.push(
           window.parent.location.href = process.env.LOGIN_URL
         })
         break
-      case 403:
-        Notification.error({title: '访问权限受限', duration: 2500})
-        break
       default:
-        return error
+        return res
     }
   }
 )
@@ -69,6 +57,9 @@ function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
     return response
   } else {
+    if (response.status === 403) {
+      Notification.error({title: '访问权限受限', duration: 2500})
+    }
     let error = new Error(response.statusText)
     error.response = response
     throw error
