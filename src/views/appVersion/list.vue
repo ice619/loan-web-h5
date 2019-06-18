@@ -3,21 +3,24 @@
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="APP名称：">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择APP名称">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="版本号：">
+          <el-input v-model="searchForm.versionNumber" clearable placeholder="请输入版本号"></el-input>
+      </el-form-item>
+      <el-form-item label="系统：">
+        <el-select v-model="searchForm.appType" clearable placeholder="请选择系统类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('appType')" :key="item.value" :label="item.label"
+                     :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="状态：">
-          <el-select v-model="searchForm.state" clearable placeholder="请选择状态">
-            <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label"
-                       :value="item.value"/>
-          </el-select>
-      </el-form-item>
-      <!--<el-form-item label="终端：">
-        <el-select v-model="searchForm.appType" clearable placeholder="请选择终端类型">
-          <el-option v-for="item in $formatter.getSelectionOptions('clientType')" :key="item.value" :label="item.label"
+        <el-select v-model="searchForm.status" clearable placeholder="请选择状态">
+          <el-option v-for="item in $formatter.getSelectionOptions('status')" :key="item.value" :label="item.label"
                      :value="item.value"/>
         </el-select>
-      </el-form-item>-->
+      </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-plus" @click="showAddFlag = true">新增</el-button>
@@ -27,12 +30,12 @@
               @selection-change="handleSelectionChange">
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.appName}}</span>
+          <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appType" label="终端类型" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+      <el-table-column prop="appType" label="系统" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.appType}}</span>
+          <span>{{$formatter.simpleFormatSelection('appType', scope.row.appType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
@@ -43,14 +46,14 @@
       </el-table-column>
       <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.isPopup}}</span>
+          <span>{{$formatter.simpleFormatSelection('isPopup', scope.row.isPopup)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="beginTime" label="开始时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
       <el-table-column prop="state" label="状态" header-align="center" align="center"  min-width="30px"  show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.state}}</span>
+          <span>{{$formatter.simpleFormatSelection('status', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
@@ -99,7 +102,8 @@ export default {
       searchForm: {
         appName: 21,
         state: null,
-        appType: null
+        appType: null,
+        versionNumber: ''
       },
       appVersionWindow: {},
       tableData: [],
