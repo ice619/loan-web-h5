@@ -22,28 +22,14 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="渠道" prop="market">
-              <el-input v-model="appVersionForm.market" clearable placeholder="请输入更新渠道"></el-input>
-            </el-form-item>
-          </el-col>
+          <!--<el-col :span="12">-->
+          <!--<el-form-item label="渠道" prop="market">-->
+          <!--<el-input v-model="appVersionForm.market" clearable placeholder="请输入更新渠道"></el-input>-->
+          <!--</el-form-item>-->
+          <!--</el-col>-->
           <el-col :span="12">
             <el-form-item label="版本号" prop="versionNumber">
               <el-input v-model="appVersionForm.versionNumber" clearable placeholder="请输入本次更新版本号"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="下载地址" prop="downloadUrl" >
-              <el-input v-model="appVersionForm.downloadUrl" style="width: 675px;" clearable placeholder="请输入下载地址"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="强更版本" prop="isForcedUpdate">
-              <el-input v-model="appVersionForm.isForcedUpdate" clearable placeholder="采用;分割，非必填"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -66,6 +52,32 @@
             <el-form-item label="结束时间" prop="endTime">
               <el-date-picker v-model="appVersionForm.endTime" type="datetime" placeholder="请输入结束时间"
                               value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="强更版本">
+              <el-select v-model="appVersionForm.forcedUpdateType" clearable style="width: 80px;">
+                <el-option v-for="item in $formatter.getSelectionOptions('forcedUpdateType')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+              <el-input v-model="appVersionForm.isForcedUpdate"  placeholder="请输入强更版本" clearable style="width: 135px;"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" clearable>
+            <el-form-item label="强更用户">
+              <el-select v-model="appVersionForm.forcedUpdateUserType" clearable>
+                <el-option v-for="item in $formatter.getSelectionOptions('forcedUpdateUserType')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="下载地址" prop="downloadUrl" >
+              <el-input v-model="appVersionForm.downloadUrl" style="width: 675px;" clearable placeholder="请输入下载地址"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -130,7 +142,7 @@ export default {
       appVersionInitForm: {
         appName: 21,
         appType: null,
-        market: 'official',
+        market: '',
         versionNumber: '',
         downloadUrl: '',
         isForcedUpdate: '',
@@ -141,7 +153,9 @@ export default {
         changeTitleEn: '',
         changeCopyLocal: '',
         changeCopyEn: '',
-        state: 1
+        state: 1,
+        forcedUpdateUserType: 0,
+        forcedUpdateType: 1
       },
       appVersionForm: {},
       sort: 1,
@@ -152,9 +166,9 @@ export default {
         appType: [
           {required: true, message: '请选择终端类型', trigger: 'blur'}
         ],
-        market: [
-          {required: true, message: '请输入渠道', trigger: 'blur'}
-        ],
+        // market: [
+        //   {required: true, message: '请输入渠道', trigger: 'blur'}
+        // ],
         versionNumber: [
           {required: true, message: '请输入本次更新版本号', trigger: 'blur'}
         ],

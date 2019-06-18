@@ -155,6 +155,7 @@ export default {
       this.showEditFlag = true
       row.isPopup = Number(row.isPopup)
       this.appVersionWindow = row
+      console.log(this.appVersionWindow)
     },
     removeAppVersion (row) {
       let selectIdsStr = ''
