@@ -57,7 +57,7 @@
           <span>{{$formatter.multipleFormatSelection('userTag', scope.row.userTag)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="position" label="banner位置" header-align="center" align="center">
         <template slot-scope="scope">
