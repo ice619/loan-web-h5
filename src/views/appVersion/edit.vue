@@ -186,19 +186,15 @@ export default {
           {required: true, message: '请输入结束时间', trigger: 'blur'}
         ],
         changeTitleLocal: [
-          {required: false, message: '请输入弹框标题', trigger: 'blur'},
           { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
         ],
         changeCopyLocal: [
-          {required: false, message: '请输入弹窗内显示的更新内容', trigger: 'blur'},
           { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
         ],
         changeTitleEn: [
-          {required: false, message: '', trigger: 'blur'},
           { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
         ],
         changeCopyEn: [
-          {required: false, message: '', trigger: 'blur'},
           { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
         ],
         state: [
