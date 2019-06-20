@@ -204,9 +204,31 @@ export default {
     }
   },
   methods: {
+    async initFrom () {
+      try {
+        const res = await this.$http.get('/app-version/expands/' + this.appVersionWindow.appVersionId)
+        if (res.code === '200' && res.data && res.data.length > 0) {
+          this.appVersionForm = clone(this.appVersionWindow)
+          this.appVersionForm.appType = parseInt(this.appVersionForm.appType)
+          let data = res.data
+          data.forEach(r => {
+            if (r.language === 'id') {
+              this.appVersionForm.changeTitleLocal = r.expand1
+              this.appVersionForm.changeCopyLocal = r.expand2
+            } else {
+              this.appVersionForm.changeTitleEn = r.expand1
+              this.appVersionForm.changeCopyEn = r.expand2
+            }
+          })
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    },
     openDialog () {
-      this.appVersionForm = clone(this.appVersionInitForm)
-      console.log(this.appVersionForm)
+      this.initFrom()
     },
     closeDialog () {
       this.$refs['appVersionForm'].resetFields()
@@ -223,9 +245,10 @@ export default {
         }
         if (valid) {
           try {
-            const res = await this.$http.put('/app-version', this.appVersionForm)
+            this.appVersionForm.appVersionDetails = this.appVersionDetails
+            const res = await this.$http.post('/app-version', this.appVersionForm)
             if (res.code === '200') {
-              this.$message.success('修改成功!')
+              this.$message.success('编辑成功!')
               this.closeDialog()
             } else {
               this.$message.error(res.message)
