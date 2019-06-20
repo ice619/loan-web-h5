@@ -134,7 +134,8 @@ import {clone} from '@/utils/common'
 
 export default {
   props: {
-    'ifshow': Boolean
+    'ifshow': Boolean,
+    'appVersionWindow': Object
   },
   data () {
     return {
