@@ -40,17 +40,20 @@
       </el-table-column>
       <el-table-column prop="versionNumber" label="版本号" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="market" label="渠道" header-align="center" align="center"  min-width="40px"  show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column prop="isForcedUpdate" label="强制更新" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column prop="isPopup" label="是否弹窗" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+      <el-table-column prop="beginTime" label="开始时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="isPopup" label="非强更弹窗" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('isPopup', scope.row.isPopup)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="beginTime" label="开始时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center"  min-width="80px"  show-overflow-tooltip/>
+      <el-table-column prop="isForcedUpdate" label="强更版本" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column prop="forcedUpdateUserType" label="强更用户" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('forcedUpdateUserType', scope.row.forcedUpdateUserType)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="state" label="状态" header-align="center" align="center"  min-width="30px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('status', scope.row.state)}}</span>
