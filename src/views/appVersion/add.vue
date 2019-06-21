@@ -96,12 +96,12 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="更新描述">
-              <el-input style="width: 675px;" type="textarea" maxlength="10" cols="76" v-model="appVersionForm.changeCopyLocal" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopyLocal" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="更新描述2">
-              <el-input style="width: 675px;" type="textarea" maxlength="10" cols="76" v-model="appVersionForm.changeCopyEn" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopyEn" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
