@@ -84,24 +84,24 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="更新标题">
-              <el-input v-model="appVersionForm.changeTitleLocal" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
+              <el-input v-model="appVersionForm.changeTitleLocal" maxlength="10" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="更新标题2">
-              <el-input v-model="appVersionForm.changeTitleEn" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
+              <el-input v-model="appVersionForm.changeTitleEn" maxlength="10" style="width: 675px;" clearable placeholder="请输入弹框标题"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
             <el-form-item label="更新描述">
-              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopyLocal" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+              <el-input style="width: 675px;" type="textarea" cols="76" maxlength="10" v-model="appVersionForm.changeCopyLocal" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="更新描述2">
-              <el-input style="width: 675px;" type="textarea" cols="76" v-model="appVersionForm.changeCopyEn" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
+              <el-input style="width: 675px;" type="textarea" cols="76" maxlength="10" v-model="appVersionForm.changeCopyEn" clearable placeholder="请输入弹窗内显示的更新内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
