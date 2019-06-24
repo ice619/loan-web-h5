@@ -20,51 +20,39 @@
             <div class="grid-content bg-purple">姓名</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.name}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.name}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">性别</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.gender}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.gender}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">出生日期</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.birthDate}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">年龄</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.age}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.birthDay}}</div>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="2">
-            <div class="grid-content bg-purple">身份证</div>
+            <div class="grid-content bg-purple">Ktp号码</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.idCardNo}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.idcardNumber}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">签发机关</div>
+            <div class="grid-content bg-purple">发卡地</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.signingOffice}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.issuedArea}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">有效期限</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.limitedTimes}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">学历</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('educationCode', parseInt(baseInfo.educationCode))}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.validEndTime}}</div>
           </el-col>
         </el-row>
         <el-row>
@@ -72,18 +60,18 @@
             <div class="grid-content bg-purple">婚姻状况</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('ifMarriage', baseInfo.ifMarriage)}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.marriageType}}</div>
           </el-col>
           <el-col :span="2">
-            <div class="grid-content bg-purple">民族</div>
+            <div class="grid-content bg-purple">宗教信仰</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.nation}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.faith}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">手机号码</div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="3">
             <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
           </el-col>
         </el-row>
@@ -92,9 +80,11 @@
             <div class="grid-content bg-purple">户籍住址</div>
           </el-col>
           <el-col :span="13">
-            <div class="grid-content bg-purple-light">{{baseInfo.domicileAddress}}</div>
+            <div class="grid-content bg-purple-light">{{faceCustomerInfo.addressArea}}</div>
           </el-col>
-          <el-col :span="5">
+        </el-row>
+        <el-row  justify="center">
+          <el-col :span="15">
             <div class="grid-content bg-purple">
               <el-button :disabled="disableRemove" style="color: white;background-color: #96363e;" type="primary" icon="el-icon-delete" @click="deleteData">删除</el-button>
             </div>
@@ -109,10 +99,11 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 7,
+        appName: 21,
         phoneNum: null
       },
       disableRemove: true,
+      faceCustomerInfo: {},
       baseInfo: {},
       deleteForm: {
         appName: null,
@@ -122,6 +113,8 @@ export default {
   },
   methods: {
     async search () {
+      this.baseInfo = {}
+      this.faceCustomerInfo = {}
       try {
         let appName = this.searchForm.appName
         if (!appName) {
@@ -133,13 +126,15 @@ export default {
           this.$message.error('手机号不能为空!')
           return
         }
-        const res = await this.$http.post('/management/customer/base-info', this.searchForm)
+        const res = await this.$http.post('/customer/base-info', this.searchForm)
         if (res.code === '200') {
-          let costomer = res.data
-          this.baseInfo = costomer.customerInfoVO
-          this.disableRemove = false
-          this.deleteForm.appName = this.searchForm.appName
-          this.deleteForm.phoneNum = this.searchForm.phoneNum
+          if (res.data) {
+            this.baseInfo.phoneNum = res.data.phoneNum
+            this.faceCustomerInfo = res.data.faceCustomerInfoDto
+            this.disableRemove = false
+            this.deleteForm.appName = this.searchForm.appName
+            this.deleteForm.phoneNum = this.searchForm.phoneNum
+          }
         } else {
           this.$message.error(res.message)
         }
@@ -165,7 +160,7 @@ export default {
       }).then(async () => {
         console.log(appName)
         console.log(phone)
-        const res = await this.$http.delete('/management/delete-data/' + appName + '/' + phone)
+        const res = await this.$http.delete('/delete-data/' + appName + '/' + phone)
         console.log(res)
         if (res.code === '200') {
           this.$message.info('删除成功！')
