@@ -13,84 +13,68 @@
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="search">查询</el-button>
       </el-form-item>
     </el-form>
-      <h3>基本信息</h3>
-      <el-card>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">姓名</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.name}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">性别</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.gender}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">出生日期</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.birthDay}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">Ktp号码</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.idcardNumber}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">发卡地</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.issuedArea}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">有效期限</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.validEndTime}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">婚姻状况</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.marriageType}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">宗教信仰</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.faith}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">手机号码</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">户籍住址</div>
-          </el-col>
-          <el-col :span="13">
-            <div class="grid-content bg-purple-light">{{faceCustomerInfo.addressArea}}</div>
-          </el-col>
-        </el-row>
-        <el-row  justify="center">
-          <el-col :span="15">
-            <div class="grid-content bg-purple">
-              <el-button :disabled="disableRemove" style="color: white;background-color: #96363e;" type="primary" icon="el-icon-delete" @click="deleteData">删除</el-button>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
+    <h3>基本信息</h3>
+    <el-card>
+      <el-row>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">手机号码</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">IP地址</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.ipAddress}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">注册来源</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appType', baseInfo.source)}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">注册时间</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.registerTime}}</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">设备号</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.deviceId}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">下载渠道</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.downloadChannel}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">邀请人手机号</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.invitePhone}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">注册手机系统</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appType', baseInfo.osVersion)}}</div>
+        </el-col>
+      </el-row>
+      <el-row  justify="center">
+        <el-col :span="20">
+          <div class="grid-content bg-purple">
+            <el-button :disabled="disableRemove" style="color: white;background-color: #96363e;" type="primary" icon="el-icon-delete" @click="deleteData">删除</el-button>
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
@@ -103,7 +87,6 @@ export default {
         phoneNum: null
       },
       disableRemove: true,
-      faceCustomerInfo: {},
       baseInfo: {},
       deleteForm: {
         appName: null,
@@ -114,7 +97,6 @@ export default {
   methods: {
     async search () {
       this.baseInfo = {}
-      this.faceCustomerInfo = {}
       try {
         let appName = this.searchForm.appName
         if (!appName) {
@@ -129,8 +111,7 @@ export default {
         const res = await this.$http.post('/customer/base-info', this.searchForm)
         if (res.code === '200') {
           if (res.data) {
-            this.baseInfo.phoneNum = res.data.phoneNum
-            this.faceCustomerInfo = res.data.faceCustomerInfoDto
+            this.baseInfo = res.data
             this.disableRemove = false
             this.deleteForm.appName = this.searchForm.appName
             this.deleteForm.phoneNum = this.searchForm.phoneNum
