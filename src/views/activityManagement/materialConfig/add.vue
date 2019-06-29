@@ -16,9 +16,9 @@
               <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
             <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
-              <el-popover placement="right" width="200" trigger="hover" :content="entryForm.imageUrl ? null : '图片未上传'">
-                <img v-if="entryForm.imageUrl" :src="entryForm.imageUrl" class="avatar">
-                <el-button @click="orientateRowIndex(1)" slot="reference" class="el-icon-plus">{{entryForm.imageUrl ? '更换图片' : '选择图片'}}</el-button>
+              <el-popover placement="right" width="200" trigger="hover" :content="entryForm.imageUrl && entryForm.imageUrl !== '' ? null : '图片未上传'">
+                <img v-if="entryForm.imageUrl && entryForm.imageUrl !== ''" :src="entryForm.imageUrl" class="avatar">
+                <el-button slot="reference" class="el-icon-plus">{{entryForm.imageUrl ? '更换图片' : '选择图片'}}</el-button>
               </el-popover>
             </el-upload>
           </el-form-item>
@@ -38,27 +38,27 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="金额" prop="amount" :rules="[{ required: true, message: '请输入金额', trigger: 'blur' }]">
+          <el-form-item label="金额" prop="amount" :rules="[{ required: entryForm.materialType !== 'JP', message: '请输入金额', trigger: 'blur' }]">
             <el-input v-model="entryForm.amount" placeholder="请输入金额" :disabled="entryForm.materialType === 'JP'" clearable style="width: 350px"/>
             <span class="tip-info">请注意APP金额单位！</span>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="有效期(天)" prop="validDays" :rules="[{ required: true, message: '请输入有效期', trigger: 'blur' }]">
+          <el-form-item label="有效期(天)" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请输入有效期', trigger: 'blur' }]">
             <el-input v-model="entryForm.validDays" placeholder="请输入有效期" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="使用场景" prop="usageScene" :rules="[{ required: true, message: '请选择使用场景', trigger: 'blur' }]">
+          <el-form-item label="使用场景" prop="usageScene" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择使用场景', trigger: 'blur' }]">
             <el-select v-model="entryForm.usageScene" placeholder="请选择使用场景" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('usageScene')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="逾期可用" prop="validDays" :rules="[{ required: true, message: '请选择逾期可用', trigger: 'blur' }]">
+          <el-form-item label="逾期可用" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择逾期可用', trigger: 'blur' }]">
             <el-select v-model="entryForm.overdueCanUse" placeholder="请选择逾期可用" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('overdueCanUse')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
@@ -94,7 +94,7 @@
       <el-row type="flex" justify="center" style="margin-top: 50px">
         <el-col :span="40">
           <el-form-item>
-            <el-button style="color: white;background-color: #009688;" @click="saveBanner">提交</el-button>
+            <el-button style="color: white;background-color: #009688;" @click="save">提交</el-button>
             <el-button @click="closeDialog">取消</el-button>
           </el-form-item>
         </el-col>
@@ -118,23 +118,10 @@ export default {
       entryFormInitForm: {
         appName: 21,
         materialType: null,
-        startTime: null,
-        endTime: null,
+        imageUrl: null,
         status: 1
       },
       entryForm: {},
-      bannerDetailDesc: {
-        title: '标题',
-        activityUrl: '活动链接',
-        imageUrl: '图片链接'
-      },
-      bannerDetail: {
-        title: null,
-        activityUrl: null,
-        imageUrl: null,
-        sort: 0
-      },
-      bannerDetails: [],
       rules: {},
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
@@ -142,9 +129,6 @@ export default {
         'language': getLanguage()
       }
     }
-  },
-  created () {
-    this.initBanner()
   },
   methods: {
     openDialog () {
@@ -154,9 +138,6 @@ export default {
       this.$refs['entryForm'].resetFields()
       this.$emit('handleCloseDialog')
     },
-    addBannerDetailsTableRows () {
-      this.bannerDetails.push(clone(this.bannerDetail))
-    },
     handleFilesChange: function (file, fileList) {
       if (fileList.length > 1) {
         fileList.shift()
@@ -165,42 +146,20 @@ export default {
         return
       }
       if (file.status === 'success' && file.response.code === '200') {
-        this.bannerDetails[this.detailRowIndex].imageUrl = file.response.data
+        this.entryForm.imageUrl = file.response.data
         this.$message.success('图片上传成功')
       } else {
         this.$message.error('图片上传失败')
       }
     },
-    // 向上移动
-    moveUp (index, row) {
-      let that = this
-      let upDate = that.bannerDetails[index - 1]
-      that.bannerDetails.splice(index - 1, 1)
-      that.bannerDetails.splice(index, 0, upDate)
-    },
-    // 向下移动
-    moveDown (index, row) {
-      let that = this
-      let downDate = that.bannerDetails[index + 1]
-      that.bannerDetails.splice(index + 1, 1)
-      that.bannerDetails.splice(index, 0, downDate)
-    },
-    deleteRow (index, rows) {
-      rows.splice(index, 1)
-    },
-    saveBanner: debounce(300, function () {
+    save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
-        if (!this.checkBanner()) {
-          return
-        }
         if (valid) {
           try {
-            this.setBannerDetailsSort()
-            this.entryForm.bannerDetails = this.bannerDetails
             const res = await this.$http.post('/material-config', this.entryForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
-              this.back()
+              this.closeDialog()
             } else {
               this.$message.error(res.message)
             }
@@ -209,34 +168,7 @@ export default {
           }
         }
       })
-    }),
-    initBanner () {
-      this.entryForm = clone(this.entryFormInitForm)
-      this.addBannerDetailsTableRows()
-    },
-    orientateRowIndex (rowIndex) {
-      this.detailRowIndex = rowIndex
-    },
-    checkBanner () {
-      if (this.entryForm.startVersion > this.entryForm.endVersion) {
-        this.$message.error('开始版本要小于结束版本')
-        return false
-      }
-      if (this.entryForm.startTime > this.entryForm.endTime) {
-        this.$message.error('开始时间要小于结束时间')
-        return false
-      }
-      return true
-    },
-    setBannerDetailsSort () {
-      for (let i in this.bannerDetails) {
-        let bannerDetail = this.bannerDetails[i]
-        bannerDetail.sort = parseInt(i) + 1
-      }
-    },
-    back () {
-      this.$router.push({name: 'material-config'})
-    }
+    })
   }
 }
 </script>
