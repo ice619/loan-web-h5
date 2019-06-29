@@ -44,6 +44,9 @@ import redisQuery from '@/views/redisQuery/base'
 import goodsQuery from '@/views/goodsQuery/list'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
+import materialConfig from '@/views/activityManagement/materialConfig/list'
+import materialConfigAdd from '@/views/activityManagement/materialConfig/add'
+import materialConfigEdit from '@/views/activityManagement/materialConfig/edit'
 Vue.use(Router)
 
 const router = new Router({
@@ -257,6 +260,21 @@ const router = new Router({
       path: '/default-quota',
       name: 'customerConfigQuota',
       component: customerConfigQuota
+    },
+    {
+      path: '/material-config',
+      name: 'materialConfig',
+      component: materialConfig
+    },
+    {
+      path: '/material-config-add',
+      name: 'materialConfigAdd',
+      component: materialConfigAdd
+    },
+    {
+      path: '/material-config-edit/:materialConfigId',
+      name: 'materialConfigEdit',
+      component: materialConfigEdit
     }
   ],
   mode: 'history'// 去除#号
