@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增物料" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -100px">
+    <el-dialog title="新增物料" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -80px">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
       <el-row>
         <el-col :span="10">
@@ -73,13 +73,13 @@
         </el-col>
         <el-col :span="10">
           <el-form-item label="规则描述(切换)" prop="translateRuleDesc">
-            <el-input type="textarea" v-model="entryForm.ruleDesc" rows="4" placeholder="请输入切换语言规则描述" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
+            <el-input type="textarea" v-model="entryForm.translateRuleDesc" rows="4" placeholder="请输入切换语言规则描述" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="备注" prop="ruleDesc">
+          <el-form-item label="备注" prop="remark">
             <el-input type="textarea" v-model="entryForm.remark" rows="4" placeholder="请输入备注" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
@@ -119,6 +119,11 @@ export default {
         appName: 21,
         materialType: null,
         imageUrl: null,
+        validDays: null,
+        usageScene: null,
+        overdueCanUse: null,
+        ruleDesc: null,
+        translateRuleDesc: null,
         status: 1
       },
       entryForm: {},

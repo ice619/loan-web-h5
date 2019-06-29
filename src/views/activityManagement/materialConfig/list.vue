@@ -1,27 +1,18 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <!--<el-form-item label="用户标签">
-        <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
-      </el-form-item>-->
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
-        <el-form-item label="用户标签">
-          <el-select v-model="searchForm.userTags" clearable placeholder="请选择">
-            <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label" :value="item.value"/>
+        <el-form-item label="物料类型">
+          <el-select v-model="searchForm.materialType" clearable placeholder="请选择">
+            <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
           </el-select>
         </el-form-item>
       </el-form-item>
-      <el-form-item label="banner位置">
-        <el-select v-model="searchForm.position" clearable filterable placeholder="请选择">
-         <!-- <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label" :value="item.value"/>-->
-          <el-option :key="1" label="借款页" :value="1"/>
-          <el-option :key="2" label="授信页" :value="2"/>
-        </el-select>
+      <el-form-item label="物料编码">
+        <el-input v-model="searchForm.materialCode" maxlength="20" clearable placeholder="物料编码"/>
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="searchForm.status" clearable placeholder="请选择">
@@ -33,45 +24,40 @@
         <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus"  @click="showAddFlag = true">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
-              @selection-change="handleSelectionChange">
+    <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
-      <!--<el-table-column prop="id" label="ID" header-align="center" align="center"/>-->
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="userTag" label="用户标签" header-align="center" align="center">
+      <el-table-column prop="materialType" label="物料类型" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.multipleFormatSelection('userTag', scope.row.userTag)}}</span>
+          <span>{{$formatter.multipleFormatSelection('materialType', scope.row.materialType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="position" label="banner位置" header-align="center" align="center">
+      <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center"/>
+      <el-table-column prop="title" label="标题(默认)" header-align="center" align="center" width="100" show-overflow-tooltip/>
+      <el-table-column prop="translateTitle" label="标题(切换)" header-align="center" align="center" width="100" show-overflow-tooltip/>
+      <el-table-column prop="amount" label="金额" header-align="center" align="center"/>
+      <el-table-column prop="validDays" label="有效期(天)" header-align="center" align="center"/>
+      <el-table-column prop="overdueCanUse" label="逾期可用" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('position', scope.row.position)}}</span>
+          <span>{{$formatter.simpleFormatSelection('overdueCanUse', scope.row.overdueCanUse)}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建人" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.createUser}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column label="修改人" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.updateUser}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="90"/>
-      <!--<el-table-column prop="createUser" label="创建人" header-align="center" align="center"/>-->
+      <el-table-column prop="ruleDesc" label="规则描述(默认)" header-align="center" align="center" width="100" show-overflow-tooltip/>
+      <el-table-column prop="translateRuleDesc" label="规则描述(切换)" header-align="center" align="center" width="100" show-overflow-tooltip/>
+      <el-table-column prop="remark" label="备注" header-align="center" align="center" width="100" show-overflow-tooltip/>
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="100"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">编辑</el-button>
@@ -90,7 +76,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <!--<edit :ifshow="showEditFlag" :entry="entry" @handleCloseDialog="showEditFlag=false;list();"></edit>-->
+    <edit :ifshow="showEditFlag" :entry="entry" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -100,10 +86,10 @@ export default {
   data () {
     return {
       searchForm: {
-        userTags: [],
         appName: 21,
-        status: null,
-        position: null
+        materialType: null,
+        materialCode: null,
+        status: null
       },
       options: this.globalConfig.langOptions,
       i18nLanguage: null,
