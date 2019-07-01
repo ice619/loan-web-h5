@@ -33,7 +33,7 @@
       </el-table-column>
       <el-table-column prop="materialType" label="物料类型" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.multipleFormatSelection('materialType', scope.row.materialType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('materialType', scope.row.materialType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center"/>
@@ -60,7 +60,6 @@
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="100"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editBanner(scope.row)" type="text" size="small">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
@@ -76,12 +75,10 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :entry="entry" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 export default {
   data () {
     return {
@@ -91,8 +88,6 @@ export default {
         materialCode: null,
         status: null
       },
-      options: this.globalConfig.langOptions,
-      i18nLanguage: null,
       entry: {},
       tableData: [],
       pageIndex: 1,
@@ -104,23 +99,9 @@ export default {
     }
   },
   created () {
-    this.list()
-    // 从coolie获取上次语言
-    const cookieLang = Cookies.get('language')
-    if (cookieLang === null || cookieLang === undefined) {
-      // 如果没有，检测浏览器语言 判断除IE外其他浏览器使用语言
-      let browserLang = navigator.language
-      if (!browserLang) {
-        // 判断IE浏览器使用语言
-        browserLang = navigator.browserLanguage
-      }
-      // 如果浏览器语言在语言包中
-      Cookies.set('language', browserLang, { expires: 1 })
-      this.$i18n.locale = browserLang
+    if (this.$permission.hasPermission('MATERIAL_CONFIG_SELECT')) {
+      this.list()
     }
-    this.i18nLanguage = Cookies.get('language')
-    const option = this.options.find(option => option.value === this.i18nLanguage)
-    this.i18nLanguage = option ? option.value : 'zh_CN'
   },
   methods: {
     async list () {
@@ -159,7 +140,7 @@ export default {
     editBanner (row) {
       this.$router.push({path: `material-config-edit/${row.id}`})
     },
-    removeBanner (row) {
+    async removeBanner (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -178,11 +159,13 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      const url = `/material-config/${selectIdsStr}`
+      // 判断是否使用
+      const hasUsed = await this.$http.get(`/material-config/has-used/${row.materialCode}`)
+      let tipMsg = `${hasUsed.code !== '200' ? hasUsed.message : ''} 确认删除吗？`
       const tableLength = this.tableData.length
-      this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
+      this.$confirm(tipMsg, '提示', {type: 'warning'}).then(async () => {
         try {
-          const res = await this.$http.delete(url)
+          const res = await this.$http.delete(`/material-config/${selectIdsStr}`)
           if (res.code === '200') {
             this.$message.success('删除成功!')
             // this.list()
@@ -208,8 +191,7 @@ export default {
     }
   },
   components: {
-    'add': () => import('./add'),
-    'edit': () => import('./edit')
+    'add': () => import('./add')
   }
 }
 </script>

@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import fetch from '@/utils/fetch'
 import global from '@/utils/global'
 import formatter from '@/utils/formatter'
+import permission from '@/utils/permission'
 import i18n from './i18n'
 
 import App from './App'
@@ -16,6 +17,7 @@ Vue.use(global)
 
 Vue.prototype.$http = fetch
 Vue.prototype.$formatter = formatter
+Vue.prototype.$permission = permission
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
