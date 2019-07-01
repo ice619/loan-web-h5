@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增物料" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
+    <el-dialog title="新增行为奖励配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
       <el-row type="flex" justify="center">
         <el-col :span="30">
