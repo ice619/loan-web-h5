@@ -44,6 +44,7 @@ import redisQuery from '@/views/redisQuery/base'
 import goodsQuery from '@/views/goodsQuery/list'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
+import customerRegisterConfigWarning from '@/views/customerRegisterConfigWarning/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -257,6 +258,11 @@ const router = new Router({
       path: '/default-quota',
       name: 'customerConfigQuota',
       component: customerConfigQuota
+    },
+    {
+      path: '/register-warning',
+      name: 'customerRegisterConfigWarning',
+      component: customerRegisterConfigWarning
     }
   ],
   mode: 'history'// 去除#号

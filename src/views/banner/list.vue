@@ -31,16 +31,6 @@
       <el-form-item>
         <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list">查询</el-button>
         <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus" @click="$router.push({name: 'bannerAdd'})">新增</el-button>
-        <el-form-item style="float: right;padding-left: 30px" >
-          <el-select v-model="i18nLanguage" :change="changeLanguage()" v-if=false>
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row
@@ -105,7 +95,7 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
+
 export default {
   data () {
     return {
@@ -115,8 +105,6 @@ export default {
         status: null,
         position: null
       },
-      options: this.globalConfig.langOptions,
-      i18nLanguage: null,
       bannerWindow: {},
       tableData: [],
       pageIndex: 1,
@@ -129,22 +117,6 @@ export default {
   },
   created () {
     this.list()
-    // 从coolie获取上次语言
-    const cookieLang = Cookies.get('language')
-    if (cookieLang === null || cookieLang === undefined) {
-      // 如果没有，检测浏览器语言 判断除IE外其他浏览器使用语言
-      let browserLang = navigator.language
-      if (!browserLang) {
-        // 判断IE浏览器使用语言
-        browserLang = navigator.browserLanguage
-      }
-      // 如果浏览器语言在语言包中
-      Cookies.set('language', browserLang, { expires: 1 })
-      this.$i18n.locale = browserLang
-    }
-    this.i18nLanguage = Cookies.get('language')
-    const option = this.options.find(option => option.value === this.i18nLanguage)
-    this.i18nLanguage = option ? option.value : 'zh_CN'
   },
   methods: {
     async list () {
@@ -231,10 +203,6 @@ export default {
       }).catch(action => {
         this.selectIds = []
       })
-    },
-    changeLanguage () {
-      this.$i18n.locale = this.i18nLanguage
-      Cookies.set('language', this.i18nLanguage, { expires: 1 })
     }
   },
   components: {

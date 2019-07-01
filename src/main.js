@@ -6,7 +6,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import fetch from '@/utils/fetch'
 import global from '@/utils/global'
 import formatter from '@/utils/formatter'
-import i18n from './i18n'
 
 import App from './App'
 import router from './router'
@@ -23,6 +22,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: {App},
-  i18n
+  components: {App}
 })
