@@ -1,11 +1,11 @@
 <template>
   <div class="border">
-    <el-dialog title="新增物料" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
+    <el-dialog title="修改行为奖励配置" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="40%">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="30">
             <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
-              <el-select v-model="entryForm.appName" clearable placeholder="请选择App名称" style="width: 350px">
+              <el-select v-model="entryForm.appName" placeholder="请选择App名称" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -13,8 +13,17 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="30">
+            <el-form-item label="奖励行为" prop="customerState" :rules="[{ required: true, message: '请选择奖励行为', trigger: 'blur' }]">
+              <el-select v-model="entryForm.customerState" placeholder="请选择奖励行为" style="width: 350px">
+                <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="30">
             <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'blur' }]">
-              <el-select v-model="entryForm.materialType" clearable placeholder="请选择物料类型" style="width: 350px">
+              <el-select v-model="entryForm.materialType" placeholder="请选择物料类型" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -24,7 +33,7 @@
           <el-col :span="30">
             <el-form-item label="奖励物料" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'blur' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 350px">
-                <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in materialConfigArray" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -64,24 +73,19 @@ import {clone} from '@/utils/common'
 
 export default {
   props: {
-    'ifshow': Boolean
+    'ifshow': Boolean,
+    'entry': Object
   },
   data () {
     return {
-      entryFormInitForm: {
-        appName: 21,
-        materialType: null,
-        materialCode: null,
-        materialRemark: null,
-        status: 1
-      },
       entryForm: {},
+      materialConfigArray: [],
       rules: {}
     }
   },
   methods: {
     openDialog () {
-      this.entryForm = clone(this.entryFormInitForm)
+      this.entryForm = clone(this.entry)
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
@@ -91,9 +95,9 @@ export default {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/material-config', this.entryForm)
+            const res = await this.$http.put('/behavior-reward-config', this.entryForm)
             if (res.code === '200') {
-              this.$message.success('新增成功!')
+              this.$message.success('修改成功!')
               this.closeDialog()
             } else {
               this.$message.error(res.message)
@@ -104,45 +108,26 @@ export default {
         }
       })
     })
+  },
+  watch: {
+    'entryForm.materialType': function () {
+      if (this.entryForm.materialType) {
+        this.$http.get(`/material-config/list/${this.entryForm.appName}/${this.entryForm.materialType}`).then(res => {
+          if (res && res.code === '200') {
+            this.materialConfigArray = res.data
+          }
+        }).catch(e => {
+          this.$message.error('load app material config error')
+          console.info(e)
+        })
+      }
+    },
+    'entryForm.materialCode': function () {
+      let materialConfig = this.materialConfigArray.find(material => material.materialCode === this.entryForm.materialCode)
+      if (materialConfig) {
+        this.entryForm.materialRemark = materialConfig.remark
+      }
+    }
   }
 }
 </script>
-
-<style lang="stylus">
-  .tip-info{
-    margin-top: -20px;
-    font-size: 10px;
-    color: gray;
-    width 350px;
-  }
-  .sortable-ghost{
-    opacity: .8;
-    color: #fff!important;
-    background: #42b983!important;
-  }
-  .drag-handler{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  .avatar-uploader {
-    position: absolute;
-    top: 0px;
-    right: -123px;
-  }
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-</style>
