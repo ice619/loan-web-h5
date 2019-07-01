@@ -47,7 +47,7 @@ import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/lis
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 import materialConfig from '@/views/activityManagement/materialConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
-import appPopup from '@/views/activityManagement/appPopup/list'
+import appPopup from '@/views/appPopup/list'
 Vue.use(Router)
 
 const router = new Router({

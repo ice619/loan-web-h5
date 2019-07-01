@@ -30,40 +30,29 @@
       </el-table-column>
       <el-table-column prop="position" label="弹窗位置" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('popupPosition', scope.row.position)}}</span>
+          <span>{{$formatter.simpleFormatSelection('position', scope.row.position)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="userTage" label="生效用户" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('userTage', scope.row.userTage)}}</span>
+          <span>{{$formatter.simpleFormatSelection('userTag', scope.row.userTag)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>
-      <!--<el-table-column prop="materialCode" label="物料编码" header-align="center" align="center"/>-->
-      <!--<el-table-column prop="title" label="标题(默认)" header-align="center" align="center" width="100" show-overflow-tooltip/>-->
-      <!--<el-table-column prop="translateTitle" label="标题(切换)" header-align="center" align="center" width="100" show-overflow-tooltip/>-->
-      <!--<el-table-column prop="amount" label="金额" header-align="center" align="center"/>-->
-      <!--<el-table-column prop="validDays" label="有效期(天)" header-align="center" align="center"/>-->
-      <!--<el-table-column prop="overdueCanUse" label="逾期可用" header-align="center" align="center">-->
-        <!--<template slot-scope="scope">-->
-          <!--<span>{{$formatter.simpleFormatSelection('overdueCanUse', scope.row.overdueCanUse)}}</span>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-      <!--<el-table-column prop="ruleDesc" label="规则描述(默认)" header-align="center" align="center" width="100" show-overflow-tooltip/>-->
-      <!--<el-table-column prop="translateRuleDesc" label="规则描述(切换)" header-align="center" align="center" width="100" show-overflow-tooltip/>-->
       <el-table-column prop="remark" label="备注" header-align="center" align="center" width="100" show-overflow-tooltip/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center"/>
-        <!--<template slot-scope="scope">-->
-          <!--<span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
+      <el-table-column prop="status" label="状态" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="100"/>
       <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="100"/>
       <el-table-column label="操作" header-align="center" align="center">
         <template slot-scope="scope">
+          <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small" >编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
@@ -79,6 +68,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
+    <edit :ifshow="showEditFlag" :entry="entry" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -116,7 +106,6 @@ export default {
       }
       try {
         const res = await this.$http.post('/app-popup/page', params)
-        // console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -141,8 +130,10 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editBanner (row) {
-      this.$router.push({path: `app-aopup-edit/${row.id}`})
+    editVariable (row) {
+      // this.$router.push({path: `app-popup-edit/${row.id}`})
+      this.showEditFlag = true
+      this.entry = row
     },
     async removeBanner (row) {
       let selectIdsStr = ''
@@ -163,13 +154,10 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      // 判断是否使用
-      const hasUsed = await this.$http.get(`/material-config/has-used/${row.materialCode}`)
-      let tipMsg = `${hasUsed.code !== '200' ? hasUsed.message : ''} 确认删除吗？`
       const tableLength = this.tableData.length
-      this.$confirm(tipMsg, '提示', {type: 'warning'}).then(async () => {
+      this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
-          const res = await this.$http.delete(`/material-config/${selectIdsStr}`)
+          const res = await this.$http.delete(`/app-popup?id=${selectIdsStr}`)
           if (res.code === '200') {
             this.$message.success('删除成功!')
             // this.list()
@@ -195,7 +183,8 @@ export default {
     }
   },
   components: {
-    'add': () => import('./add')
+    'add': () => import('./add'),
+    'edit': () => import('./edit')
   }
 }
 </script>
