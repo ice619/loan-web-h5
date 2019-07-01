@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import fetch from '@/utils/fetch'
 import {getToken, setToken, setLanguage, getLanguage} from '@/utils/VueCookies'
+import { loanPermission } from '@/utils/permission'
 import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
@@ -45,6 +46,7 @@ import goodsQuery from '@/views/goodsQuery/list'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 import materialConfig from '@/views/activityManagement/materialConfig/list'
+import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -263,6 +265,11 @@ const router = new Router({
       path: '/material-config',
       name: 'materialConfig',
       component: materialConfig
+    },
+    {
+      path: '/behavior-reward-config',
+      name: 'behaviorRewardConfig',
+      component: behaviorRewardConfig
     }
   ],
   mode: 'history'// 去除#号
@@ -280,6 +287,7 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
+      loanPermission()
       loadDict(next)
     }
   } else {

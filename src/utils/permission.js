@@ -22,7 +22,7 @@ export function loanPermission () {
     return
   }
 
-  fetch.get(process.env.LOAN_WEB_URL + '/user-permission/list').then(res => {
+  fetch.get(process.env.API_ROOT + '/user-permission/list').then(res => {
     if (res && res.code === '200') {
       localStorage.setItem('sessionId', sessionId)
       localStorage.setItem('permission', res.data)

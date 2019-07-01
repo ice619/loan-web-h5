@@ -5,7 +5,7 @@
       <el-row>
         <el-col :span="10">
           <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
-            <el-select v-model="entryForm.appName" clearable placeholder="请选择App名称" style="width: 350px">
+            <el-select v-model="entryForm.appName" placeholder="请选择App名称" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
