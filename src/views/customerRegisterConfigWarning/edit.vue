@@ -124,9 +124,9 @@ export default {
               this.$message.success('修改成功!')
               this.closeDialog()
             } else {
-              if(res.data.message){
+              if (res.data.message) {
                 this.$message.error(res.data.message)
-              }else {
+              } else {
                 this.$message.error(res.message)
               }
             }
