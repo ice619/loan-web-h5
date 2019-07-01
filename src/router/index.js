@@ -47,6 +47,7 @@ import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/lis
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 import materialConfig from '@/views/activityManagement/materialConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
+import appPopup from '@/views/activityManagement/appPopup/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -270,6 +271,11 @@ const router = new Router({
       path: '/behavior-reward-config',
       name: 'behaviorRewardConfig',
       component: behaviorRewardConfig
+    },
+    {
+      path: '/app-popup',
+      name: 'appPopup',
+      component: appPopup
     }
   ],
   mode: 'history'// 去除#号
