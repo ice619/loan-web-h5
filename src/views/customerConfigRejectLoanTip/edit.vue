@@ -110,7 +110,7 @@ export default {
   methods: {
     async initFrom () {
       try {
-        const res = await this.$http.get('/app-config/customer-config-quota/' + this.tip.id)
+        const res = await this.$http.get('/app-config/customer-config-reject-loan-tip/' + this.tip.id)
         if (res.code === '200' && res.data && res.data.length > 0) {
           this.tipPageForm = clone(this.tip)
           let data = res.data
