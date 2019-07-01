@@ -47,6 +47,7 @@ import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/lis
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 import materialConfig from '@/views/activityManagement/materialConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
+import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
 import appPopup from '@/views/appPopup/list'
 Vue.use(Router)
 
@@ -271,6 +272,11 @@ const router = new Router({
       path: '/behavior-reward-config',
       name: 'behaviorRewardConfig',
       component: behaviorRewardConfig
+    },
+    {
+      path: '/customer-reward-record',
+      name: 'customerRewardRecord',
+      component: customerRewardRecord
     },
     {
       path: '/app-popup',
