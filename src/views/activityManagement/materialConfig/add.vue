@@ -31,7 +31,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="标题(切换)" prop="title">
+          <el-form-item label="标题(切换)" prop="translateTitle">
             <el-input v-model="entryForm.translateTitle" placeholder="切换语言" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
@@ -80,7 +80,7 @@
       <el-row>
         <el-col :span="10">
           <el-form-item label="备注" prop="remark">
-            <el-input type="textarea" v-model="entryForm.remark" rows="4" placeholder="请输入备注" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
+            <el-input type="textarea" v-model="entryForm.remark" rows="4" placeholder="请输入备注" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
         <el-col :span="10">
@@ -119,6 +119,8 @@ export default {
         appName: 21,
         materialType: null,
         imageUrl: null,
+        title: null,
+        translateTitle: null,
         validDays: null,
         usageScene: null,
         overdueCanUse: null,
@@ -178,7 +180,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .tip-info{
     position: absolute;
     margin-top: -10px;

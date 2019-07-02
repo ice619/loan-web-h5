@@ -47,6 +47,7 @@ import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/lis
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 import customerRegisterConfigWarning from '@/views/customerRegisterConfigWarning/list'
 import materialConfig from '@/views/activityManagement/materialConfig/list'
+import activityConfig from '@/views/activityManagement/activityConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
 import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
 import appPopup from '@/views/appPopup/list'
@@ -273,6 +274,11 @@ const router = new Router({
       path: '/material-config',
       name: 'materialConfig',
       component: materialConfig
+    },
+    {
+      path: '/activity-config',
+      name: 'activityConfig',
+      component: activityConfig
     },
     {
       path: '/behavior-reward-config',
