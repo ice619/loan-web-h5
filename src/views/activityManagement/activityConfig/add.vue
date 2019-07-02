@@ -58,28 +58,25 @@
       </el-row>
       <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
-          <el-button class="el-icon-plus" @click="addBannerDetailsTableRows" style="color: white;background-color: #009688;">新增奖品</el-button>
+          <el-button class="el-icon-plus" @click="addActivityReward" style="color: white;background-color: #009688;">新增奖品</el-button>
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" style="margin-top: 10px">
         <el-col :span="24">
-          <el-table :data="entryForm.activityRewardConfigList" border style="width: 100%">
-            <el-table-column prop="title" header-align="center" align="left" label="默认标题">
+          <el-table :data="entryForm.activityRewardConfigList" border style="width: 90%">
+            <el-table-column prop="customerState" header-align="center" align="left" label="好友行为" min-width="50" v-if="entryForm.materialType === 'YQ'">
               <template slot-scope="scope">
-                <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
+                <el-select v-model="scope.row.customerState" clearable placeholder="请选择">
+                  <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
+                </el-select>
               </template>
             </el-table-column>
-            <el-table-column prop="translateTitle" header-align="center" align="left" label="其他语言标题">
+            <el-table-column prop="materialCode" header-align="center" align="left" label="奖励编码" min-width="50">
               <template slot-scope="scope">
-                <el-input v-model="scope.row.translateTitle" clearable style="width: 100%"></el-input>
+                <el-input v-model="scope.row.materialCode" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动url">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="imageUrl" header-align="center" align="left" label="图片">
+            <el-table-column prop="imageUrl" header-align="center" align="left" label="图片" min-width="50" v-if="entryForm.materialType === 'CJ'">
               <template slot-scope="scope">
                 <el-upload class="avatar-uploader" :action="activityUrl" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
                   <el-popover placement="right" width="200" trigger="hover" :content="scope.row.imageUrl ? null : '图片未上传'">
@@ -89,11 +86,19 @@
                 </el-upload>
               </template>
             </el-table-column>
+            <el-table-column prop="limitNum" header-align="center" align="left" :label="entryForm.materialType === 'YQ' ? '好友限制': '中奖概率%'" min-width="50">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.limitNum" clearable style="width: 100%"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="limitDays" header-align="center" align="left" label="周期限制(天)" min-width="50" v-if="entryForm.materialType === 'YQ'">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.limitDays" clearable style="width: 100%"></el-input>
+              </template>
+            </el-table-column>
             <el-table-column align="center" label="操作" min-width="25">
               <template slot-scope="scope">
-                <el-button class="el-icon-sort-up" type="text" :disabled="scope.$index===0" @click="moveUp(scope.$index,scope.row)"></el-button>
-                <el-button class="el-icon-sort-down" type="text" :disabled="scope.$index===(bannerDetails.length-1)" @click="moveDown(scope.$index,scope.row)"></el-button>
-                <i class="el-icon-delete drag-handler" @click="deleteRow(scope.$index, bannerDetails)"></i>
+                <i class="el-icon-delete drag-handler" @click="deleteRow(scope.$index)"></i>
               </template>
             </el-table-column>
           </el-table>
@@ -152,6 +157,14 @@ export default {
         status: 1
       },
       entryForm: {},
+      activityRewardConfigTemp: {
+        customerState: null,
+        materialType: null,
+        materialCode: null,
+        imageUrl: null,
+        limitNum: null,
+        limitDays: null
+      },
       rules: {},
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
@@ -163,10 +176,17 @@ export default {
   methods: {
     openDialog () {
       this.entryForm = clone(this.entryFormInitForm)
+      this.addActivityReward()
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
       this.$emit('handleCloseDialog')
+    },
+    addActivityReward () {
+      this.entryForm.activityRewardConfigList.push(clone(this.activityRewardConfigTemp))
+    },
+    deleteRow (index) {
+      this.entryForm.activityRewardConfigList.splice(index, 1)
     },
     handleFilesChange: function (file, fileList) {
       if (fileList.length > 1) {
@@ -223,8 +243,7 @@ export default {
   }
   .avatar-uploader {
     position: absolute;
-    top: 0px;
-    right: -123px;
+    top: 13px;
   }
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
