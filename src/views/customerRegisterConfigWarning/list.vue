@@ -48,6 +48,11 @@
           <span>{{scope.row.createTime}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="updateUser" label="修改人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.updateUser}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.updateTime}}</span>
