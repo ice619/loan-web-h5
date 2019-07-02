@@ -30,7 +30,7 @@
       </el-table-column>
       <el-table-column prop="position" label="弹窗位置" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('position', scope.row.position)}}</span>
+          <span>{{$formatter.simpleFormatSelection('popupPosition', scope.row.position)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="userTage" label="生效用户" header-align="center" align="center">
