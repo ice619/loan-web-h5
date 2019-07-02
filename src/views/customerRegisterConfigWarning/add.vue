@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="registerPageForm" :rules="rules" ref="registerPageForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="APP平台:" prop="appName">
+            <el-form-item label="APP平台:" prop="appName" label-width="150px">
               <el-select v-model="registerPageForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -13,28 +13,28 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="单日注册上限:" prop="registerLimit">
-              <el-input type="text" v-model="registerPageForm.registerLimit"></el-input>
+            <el-form-item label="单日注册上限:" prop="registerLimit" label-width="150px">
+              <el-input type="number" v-model="registerPageForm.registerLimit"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="预警率值:" prop="warningRate">
-              <el-input type="text" v-model="registerPageForm.warningRate"></el-input>
+            <el-form-item label="预警率值(%):" prop="warningRate" label-width="150px">
+              <el-input type="number" v-model="registerPageForm.warningRate"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="接收手机号:" prop="receivedPhone">
-              <el-input type="text" v-model="registerPageForm.receivedPhone"></el-input>
+            <el-form-item label="接收手机号:" prop="receivedPhone" label-width="150px">
+              <el-input type="text" v-model="registerPageForm.receivedPhone" placeholder="多个手机号以逗号隔开"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="状态:" prop="currentState">
+            <el-form-item label="状态:" prop="currentState" label-width="150px">
               <el-radio-group v-model="registerPageForm.currentState">
                 <el-radio :label="1">有效</el-radio>
                 <el-radio :label="0">失效</el-radio>
@@ -57,6 +57,7 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
+import $formatter from '../../utils/formatter'
 
 export default {
   props: {
@@ -67,9 +68,10 @@ export default {
       configTime: [],
       tipPageInitForm: {
         appName: 21,
-        registerLimit: '',
+        appNameDesc: '',
+        registerLimit: null,
         currentState: 1,
-        warningRate: '',
+        warningRate: null,
         receivedPhone: ''
       },
       registerPageForm: {},
@@ -84,8 +86,7 @@ export default {
           {required: true, message: '请设置状态值', trigger: 'blur'}
         ],
         warningRate: [
-          {required: true, message: '请设置预警率值', trigger: 'blur'},
-          { min: 1, max: 100, message: '百分比范围在1-100的数字', trigger: 'blur' }
+          {required: true, message: '请设置预警率值', trigger: 'blur'}
         ],
         receivedPhone: [
           {required: true, message: '请设置手机号', trigger: 'blur'}
@@ -104,17 +105,18 @@ export default {
     saveTipPage: debounce(300, function () {
       this.$refs['registerPageForm'].validate(async (valid) => {
         if (valid) {
+          this.registerPageForm.appNameDesc = $formatter.simpleFormatSelection('appName', this.registerPageForm.appName)
           try {
             const res = await this.$http.post('/register-config/register-config-save', this.registerPageForm)
-            if (res.code === '200' && res.data.success === true) {
-              this.$message.success('新增成功!')
+            if (res.code === '200') {
+              if (!res.data.success) {
+                this.$message.success(res.data.message)
+              } else {
+                this.$message.success('新增成功')
+              }
               this.closeDialog()
             } else {
-              if (res.data.message) {
-                this.$message.error(res.data.message)
-              } else {
-                this.$message.error(res.message)
-              }
+              this.$message.error(res.message)
             }
           } catch (err) {
             console.error(err)
