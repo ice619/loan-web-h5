@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增活动" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -80px">
+    <el-dialog title="编辑活动" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -80px">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
       <el-row>
         <el-col :span="10">
@@ -12,7 +12,7 @@
         </el-col>
         <el-col :span="10">
           <el-form-item label="活动类型" prop="activityType" :rules="[{ required: true, message: '请选择活动类型', trigger: 'blur' }]">
-            <el-select v-model="entryForm.activityType" clearable placeholder="请选择活动类型" style="width: 350px">
+            <el-select v-model="entryForm.activityType" placeholder="请选择活动类型" disabled style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('activityType')" v-if="item.value !== 'XW'" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
@@ -46,8 +46,8 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="开始时间" prop="sendTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
-            <el-date-picker v-model="entryForm.sendTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 350px"/>
+          <el-form-item label="开始时间" prop="startTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
+            <el-date-picker v-model="entryForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 350px"/>
           </el-form-item>
         </el-col>
         <el-col :span="10">
@@ -58,7 +58,7 @@
       </el-row>
       <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
-          <el-button class="el-icon-plus" @click="addActivityReward" style="color: white;background-color: #009688;">新增奖品</el-button>
+          <el-button class="el-icon-plus" @click="addActivityReward" v-if="$permission.hasPermission('ACTIVITY_CONFIG_UPDATE')" style="color: white;background-color: #009688;">新增奖品</el-button>
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" style="margin-top: 10px; margin-bottom: 20px;">
@@ -149,7 +149,7 @@
       <el-row type="flex" justify="center" style="margin-top: 10px">
         <el-col :span="40">
           <el-form-item>
-            <el-button style="color: white;background-color: #009688;" @click="save">提交</el-button>
+            <el-button style="color: white;background-color: #009688;" @click="save" v-if="$permission.hasPermission('ACTIVITY_CONFIG_UPDATE')">提交</el-button>
             <el-button @click="closeDialog">取消</el-button>
           </el-form-item>
         </el-col>
@@ -166,24 +166,11 @@ import {getToken, getLanguage} from '@/utils/VueCookies'
 
 export default {
   props: {
-    'ifshow': Boolean
+    'ifshow': Boolean,
+    'entity': Object
   },
   data () {
     return {
-      entryFormInitForm: {
-        appName: 21,
-        activityType: 'YQ',
-        title: null,
-        translateTitle: null,
-        customerState: 0,
-        validDays: null,
-        usageScene: null,
-        overdueCanUse: null,
-        ruleDesc: null,
-        translateRuleDesc: null,
-        activityRewardConfigList: [],
-        status: 1
-      },
       entryForm: {},
       activityRewardConfigTemp: {
         customerState: null,
@@ -204,8 +191,14 @@ export default {
   },
   methods: {
     openDialog () {
-      this.entryForm = clone(this.entryFormInitForm)
-      this.addActivityReward()
+      this.$http.get(`/activity-config/detail/${this.entity.id}`).then(res => {
+        if (res && res.code === '200') {
+          this.entryForm = clone(res.data)
+        }
+      }).catch(e => {
+        this.$message.error('load activity detail error')
+        console.info(e)
+      })
       this.loadMaterialConfig()
     },
     closeDialog () {
@@ -233,7 +226,7 @@ export default {
       }
     },
     loadMaterialConfig () {
-      this.$http.get(`/material-config/list/${this.entryForm.appName}`).then(res => {
+      this.$http.get(`/material-config/list/${this.entity.appName}`).then(res => {
         if (res && res.code === '200') {
           res.data.forEach(config => {
             if (!this.materialConfig[config.materialType]) {
@@ -250,18 +243,8 @@ export default {
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
-          // 校验奖品配置
-          let activityRewardConfigList = this.entryForm.activityRewardConfigList
-          if (activityRewardConfigList.length === 0) {
-            this.$message.error('活动奖品配置不能为空')
-            return
-          }
-          let activityType = this.entryForm.activityType
-          if (activityType === 'YQ') {
-            // TODO 同一行为不能选择多次
-          }
           try {
-            const res = await this.$http.post('/activity-config', this.entryForm)
+            const res = await this.$http.put('/activity-config', this.entryForm)
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
