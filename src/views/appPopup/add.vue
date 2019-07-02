@@ -15,7 +15,7 @@
           <el-col :span="30">
             <el-form-item label="运营弹窗位置" prop="position" :rules="[{ required: true, message: '请选择运营弹窗位置', trigger: 'blur' }]">
               <el-select v-model="entryForm.position" clearable placeholder="请选择" style="width: 350px">
-                <el-option v-for="item in $formatter.getSelectionOptions('position')" :key="item.value" :label="item.label" :value="item.value"/>
+                <el-option v-for="item in $formatter.getSelectionOptions('popupPosition')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
