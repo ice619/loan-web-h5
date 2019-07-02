@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <el-dialog title="新增物料" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -80px">
+    <el-dialog title="新增活动" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -80px">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
       <el-row>
         <el-col :span="10">
@@ -11,16 +11,10 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'blur' }]">
-            <el-select v-model="entryForm.materialType" clearable placeholder="请选择物料类型" style="width: 350px">
-              <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-form-item label="活动类型" prop="activityType" :rules="[{ required: true, message: '请选择活动类型', trigger: 'blur' }]">
+            <el-select v-model="entryForm.materialType" clearable placeholder="请选择活动类型" style="width: 350px">
+              <el-option v-for="item in $formatter.getSelectionOptions('activityType')" v-if="item.value !== 'XW'" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
-            <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
-              <el-popover placement="right" width="200" trigger="hover" :content="entryForm.imageUrl && entryForm.imageUrl !== '' ? null : '图片未上传'">
-                <img v-if="entryForm.imageUrl && entryForm.imageUrl !== ''" :src="entryForm.imageUrl" class="avatar">
-                <el-button slot="reference" class="el-icon-plus">{{entryForm.imageUrl ? '更换图片' : '选择图片'}}</el-button>
-              </el-popover>
-            </el-upload>
           </el-form-item>
         </el-col>
       </el-row>
@@ -38,49 +32,77 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="金额" prop="amount" :rules="[{ required: entryForm.materialType !== 'JP', message: '请输入金额', trigger: 'blur' }]">
-            <el-input v-model="entryForm.amount" placeholder="请输入金额" :disabled="entryForm.materialType === 'JP'" clearable style="width: 350px"/>
-            <span class="tip-info">请注意APP金额单位！</span>
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item label="有效期(天)" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请输入有效期', trigger: 'blur' }]">
-            <el-input v-model="entryForm.validDays" placeholder="请输入有效期" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px"/>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="10">
-          <el-form-item label="使用场景" prop="usageScene" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择使用场景', trigger: 'blur' }]">
-            <el-select v-model="entryForm.usageScene" placeholder="请选择使用场景" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
-              <el-option v-for="item in $formatter.getSelectionOptions('usageScene')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-form-item label="生效用户" prop="customerState" :rules="[{ required: true, message: '请选择生效用户', trigger: 'blur' }]">
+            <el-select v-model="entryForm.customerState" clearable placeholder="请选择生效用户" style="width: 350px">
+              <el-option v-for="item in $formatter.getSelectionOptions('activityCustomerState')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="逾期可用" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择逾期可用', trigger: 'blur' }]">
-            <el-select v-model="entryForm.overdueCanUse" placeholder="请选择逾期可用" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
-              <el-option v-for="item in $formatter.getSelectionOptions('overdueCanUse')" :key="item.value" :label="item.label" :value="item.value"/>
-            </el-select>
+          <el-form-item label="抽奖次数" prop="drawTimes" :rules="[{ required: entryForm.materialType === 'DK', message: '请输入有效期', trigger: 'blur' }]">
+            <el-input v-model="entryForm.drawTimes" placeholder="请输入抽奖次数" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="规则描述(默认)" prop="ruleDesc">
-            <el-input type="textarea" v-model="entryForm.ruleDesc" rows="4" placeholder="请输入默认语言规则描述" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
+          <el-form-item label="开始时间" prop="sendTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
+            <el-date-picker v-model="entryForm.sendTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 350px"/>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="规则描述(切换)" prop="translateRuleDesc">
-            <el-input type="textarea" v-model="entryForm.translateRuleDesc" rows="4" placeholder="请输入切换语言规则描述" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
+          <el-form-item label="结束时间" prop="endTime" :rules="[{ required: true, message: '请选择结束时间', trigger: 'blur' }]">
+            <el-date-picker v-model="entryForm.endTime" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 350px"/>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row style="margin: 0 0 10px 10px">
+        <el-col :span="24">
+          <el-button class="el-icon-plus" @click="addBannerDetailsTableRows" style="color: white;background-color: #009688;">新增奖品</el-button>
+        </el-col>
+      </el-row>
+      <el-row type="flex" justify="center" style="margin-top: 10px">
+        <el-col :span="24">
+          <el-table :data="entryForm.activityRewardConfigList" border style="width: 100%">
+            <el-table-column prop="title" header-align="center" align="left" label="默认标题">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="translateTitle" header-align="center" align="left" label="其他语言标题">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.translateTitle" clearable style="width: 100%"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动url">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="imageUrl" header-align="center" align="left" label="图片">
+              <template slot-scope="scope">
+                <el-upload class="avatar-uploader" :action="activityUrl" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
+                  <el-popover placement="right" width="200" trigger="hover" :content="scope.row.imageUrl ? null : '图片未上传'">
+                    <img v-if="scope.row.imageUrl" :src="scope.row.imageUrl" class="avatar">
+                    <el-button @click="orientateRowIndex(scope.$index)" slot="reference" :class="scope.row.imageUrl ? 'el-icon-edit' : 'el-icon-plus'">{{scope.row.imageUrl ? '更换图片' : '选择图片'}}</el-button>
+                  </el-popover>
+                </el-upload>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" label="操作" min-width="25">
+              <template slot-scope="scope">
+                <el-button class="el-icon-sort-up" type="text" :disabled="scope.$index===0" @click="moveUp(scope.$index,scope.row)"></el-button>
+                <el-button class="el-icon-sort-down" type="text" :disabled="scope.$index===(bannerDetails.length-1)" @click="moveDown(scope.$index,scope.row)"></el-button>
+                <i class="el-icon-delete drag-handler" @click="deleteRow(scope.$index, bannerDetails)"></i>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 20px">
         <el-col :span="10">
           <el-form-item label="备注" prop="remark">
-            <el-input type="textarea" v-model="entryForm.remark" rows="4" placeholder="请输入备注" clearable style="width: 350px"/>
+            <el-input type="textarea" v-model="entryForm.remark" rows="4" placeholder="请输入备注" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
         <el-col :span="10">
@@ -117,15 +139,16 @@ export default {
     return {
       entryFormInitForm: {
         appName: 21,
-        materialType: null,
-        imageUrl: null,
+        activityType: null,
         title: null,
         translateTitle: null,
+        imageUrl: null,
         validDays: null,
         usageScene: null,
         overdueCanUse: null,
         ruleDesc: null,
         translateRuleDesc: null,
+        activityRewardConfigList: [],
         status: 1
       },
       entryForm: {},
