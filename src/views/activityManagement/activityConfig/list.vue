@@ -57,8 +57,10 @@
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="100"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column label="操作" header-align="center" align="center" fixed="right" v-if="$permission.hasPermission('ACTIVITY_CONFIG_DELETE')">
+      <el-table-column label="操作" header-align="center" align="center" fixed="right" min-width="130" v-if="$permission.hasPermission('ACTIVITY_CONFIG_SELECT','ACTIVITY_CONFIG_UPDATE','ACTIVITY_CONFIG_DELETE')">
         <template slot-scope="scope">
+          <el-button icon="el-icon-info" @click="editVariable(scope.row)" type="text" size="small" v-if="!$permission.hasPermission('ACTIVITY_CONFIG_UPDATE')">详情</el-button>
+          <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small" v-if="$permission.hasPermission('ACTIVITY_CONFIG_UPDATE')">编辑</el-button>
           <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" v-if="$permission.hasPermission('ACTIVITY_CONFIG_DELETE')" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
@@ -74,6 +76,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
+    <edit :ifshow="showEditFlag" :entity="entity" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -87,7 +90,7 @@ export default {
         materialCode: null,
         status: null
       },
-      entry: {},
+      entity: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -136,8 +139,9 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editBanner (row) {
-      this.$router.push({path: `activity-config-edit/${row.id}`})
+    editVariable (row) {
+      this.showEditFlag = true
+      this.entity = row
     },
     removeBanner (row) {
       let selectIdsStr = ''
@@ -158,7 +162,6 @@ export default {
         this.selectIds.push(row.id)
         selectIdsStr = row.id
       }
-      // 判断是否使用
       const tableLength = this.tableData.length
       this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
         try {
@@ -188,7 +191,8 @@ export default {
     }
   },
   components: {
-    'add': () => import('./add')
+    'add': () => import('./add'),
+    'edit': () => import('./edit')
   }
 }
 </script>
