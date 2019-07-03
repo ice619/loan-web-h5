@@ -9,33 +9,11 @@
       <el-form-item label="流水号">
         <el-input v-model="searchForm.serialNumber" maxlength="30" clearable placeholder="唯一流水号" style="width: 200px"/>
       </el-form-item>
-      <el-form-item label="奖励客户ID">
-        <el-input v-model="searchForm.customerId" maxlength="30" clearable placeholder="奖励人客户ID" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="奖励客户手机号">
+      <el-form-item label="客户手机号">
         <el-input v-model="searchForm.customerPhone" maxlength="30" clearable placeholder="奖励客户手机号" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="奖励客户阶段">
-        <el-select v-model="searchForm.customerState" clearable placeholder="请选择" style="width: 120px">
-          <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
-      </el-form-item>
-      <br/>
-      <el-form-item label="活动类型">
-        <el-select v-model="searchForm.activityType" clearable placeholder="请选择" style="width: 140px">
-          <el-option v-for="item in $formatter.getSelectionOptions('activityType')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
       </el-form-item>
       <el-form-item label="活动编码">
         <el-input v-model="searchForm.activityCode" maxlength="20" clearable placeholder="活动编码" style="width: 150px"/>
-      </el-form-item>
-      <el-form-item label="物料类型">
-        <el-select v-model="searchForm.materialType" clearable placeholder="请选择" style="width: 120px">
-          <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="物料编码">
-        <el-input v-model="searchForm.materialCode" maxlength="20" clearable placeholder="物料编码" style="width: 150px"/>
       </el-form-item>
       <el-form-item label="发送状态">
         <el-select v-model="searchForm.status" clearable placeholder="请选择" style="width: 100px">
@@ -47,17 +25,6 @@
           <el-date-picker v-model="searchForm.sendTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 195px"/> -
           <el-date-picker v-model="searchForm.sendTimeTo" type="datetime" placeholder="选择结束时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 195px"/>
         </el-col>
-      </el-form-item>
-      <el-form-item label="被邀请人客户ID">
-        <el-input v-model="searchForm.beInviterCustomerId" maxlength="20" clearable placeholder="被邀请人客户ID" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="被邀请人客户手机号">
-        <el-input v-model="searchForm.beInviterCustomerPhone" maxlength="20" clearable placeholder="被邀请人客户手机号" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="被邀请人客户状态">
-        <el-select v-model="searchForm.beInviterCustomerState" clearable placeholder="请选择" style="width: 120px">
-          <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_REWARD_RECORD_SELECT')">查询</el-button>
