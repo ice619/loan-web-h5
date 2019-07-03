@@ -40,9 +40,9 @@
   <!--</div>-->
 <!--</template>-->
 
-<!--<script>-->
-<!--import debounce from 'throttle-debounce/debounce'-->
-<!--import {clone} from '@/utils/common'-->
+<script>
+import debounce from 'throttle-debounce/debounce'
+import {clone} from '@/utils/common'
 
 <!--export default {-->
   <!--props: {-->
