@@ -27,6 +27,7 @@
       <el-table-column prop="channelName" label="投放名称" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="channelFullUrl" label="投放链接" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" width="150" show-overflow-tooltip/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="80"/>
