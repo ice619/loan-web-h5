@@ -51,6 +51,8 @@ import activityConfig from '@/views/activityManagement/activityConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
 import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
 import appPopup from '@/views/appPopup/list'
+import customerAgreementConfig from '@/views/customerAgreementConfig/list'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -294,6 +296,11 @@ const router = new Router({
       path: '/app-popup',
       name: 'appPopup',
       component: appPopup
+    },
+    {
+      path: '/agreement-config',
+      name: 'customerAgreementConfig',
+      component: customerAgreementConfig
     }
   ],
   mode: 'history'// 去除#号
