@@ -38,7 +38,7 @@
       </el-table-column>
       <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center" min-width="150"/>
       <el-table-column prop="title" label="标题(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="translateTitle" label="标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <!--<el-table-column prop="translateTitle" label="标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
       <el-table-column prop="amount" label="金额" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="validDays" label="有效期(天)" header-align="center" align="center" min-width="100"/>
       <el-table-column prop="overdueCanUse" label="逾期可用" header-align="center" align="center" min-width="100">
@@ -46,8 +46,8 @@
           <span>{{$formatter.simpleFormatSelection('overdueCanUse', scope.row.overdueCanUse)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="ruleDesc" label="规则描述(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="translateRuleDesc" label="规则描述(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <!--<el-table-column prop="ruleDesc" label="规则描述(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
+      <!--<el-table-column prop="translateRuleDesc" label="规则描述(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
       <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
