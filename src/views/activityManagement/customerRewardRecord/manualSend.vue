@@ -25,7 +25,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="物料编码" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'blur' }]">
+            <el-form-item label="物料编码" prop="materialCode" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'blur' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 300px">
                 <el-option v-for="item in materialConfigArray" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>
