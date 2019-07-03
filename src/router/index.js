@@ -23,7 +23,7 @@ import customerReviewPushRiskLog from '@/views/customerReviewPushRiskLog/list'
 import appClosureSwitch from '@/views/appClosureSwitch/list'
 import systemDict from '@/views/systemDict/list'
 import systemDictChildList from '@/views/systemDict/child-list'
-// import faceLevelConfig from '@/views/faceLevelConfig/list'
+import faceLevelConfig from '@/views/faceLevelConfig/list'
 import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
 import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
 import customerExt from '@/views/customerInfo/ext-list'
@@ -51,7 +51,10 @@ import activityConfig from '@/views/activityManagement/activityConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
 import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
 import appPopup from '@/views/appPopup/list'
-// import customerAgreementConfig from '@/views/customerAgreementConfig/list'
+import customerAgreementConfig from '@/views/customerAgreementConfig/list'
+import customerInviteRelationState from '@/views/activityManagement/customerInviteRelationState/list'
+import customerStateLog from '@/views/activityManagement/customerStateLog/list'
+import customerStatePushLog from '@/views/activityManagement/customerStatePushLog/list'
 
 import marketChannel from '@/views/market/channel/list'
 import marketChannelDetail from '@/views/market/detail/list'
@@ -159,11 +162,11 @@ const router = new Router({
       name: 'systemDictChildList',
       component: systemDictChildList
     },
-    // {
-    //   path: '/face-level-config',
-    //   name: 'faceLevelConfig',
-    //   component: faceLevelConfig
-    // },
+    {
+      path: '/face-level-config',
+      name: 'faceLevelConfig',
+      component: faceLevelConfig
+    },
     {
       path: '/customer-latest-review-info',
       name: 'customerLatestReviewInfo',
@@ -308,13 +311,27 @@ const router = new Router({
       path: '/market-channel-detail',
       name: 'marketChannelDetail',
       component: marketChannelDetail
+    },
+    {
+      path: '/invite-relation-state',
+      name: 'customerInviteRelationState',
+      component: customerInviteRelationState
+    },
+    {
+      path: '/customer-state-log',
+      name: 'customerStateLog',
+      component: customerStateLog
+    },
+    {
+      path: '/customer-state-push',
+      name: 'customerStatePushLog',
+      component: customerStatePushLog
+    },
+    {
+      path: '/agreement-config',
+      name: 'customerAgreementConfig',
+      component: customerAgreementConfig
     }
-    // ,
-    // {
-    //   path: '/agreement-config',
-    //   name: 'customerAgreementConfig',
-    //   component: customerAgreementConfig
-    // }
   ],
   mode: 'history'// 去除#号
 })
