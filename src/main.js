@@ -10,7 +10,13 @@ import permission from '@/utils/permission'
 
 import App from './App'
 import router from './router'
-
+import VueQuillEditor from 'vue-quill-editor'
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+// use
+Vue.use(VueQuillEditor)
 Vue.use(Element)
 Vue.use(global)
 

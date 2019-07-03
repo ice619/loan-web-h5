@@ -5,50 +5,25 @@
                class="demo-form-inline">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="APP名称" prop="appName">
-              <el-select v-model="faceLevelConfigForm.appName" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="人脸识别阀值" prop="faceRecognitionLevel">
-              <el-input v-model.number="faceLevelConfigForm.faceRecognitionLevel" clearable placeholder="0~100分值,越高通过率越低"/>
+            <el-form-item label="人脸质量分" prop="faceQualityValue">
+              <el-input v-model.number="faceLevelConfigForm.faceQualityValue" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="身份证正面识别阀值" prop="positiveIdCardLevel">
-              <el-input v-model.number="faceLevelConfigForm.positiveIdCardLevel" clearable placeholder="0~100分值,越高通过率越低"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="身份证反面识别阀值" prop="oppositeIdCardLevel">
-              <el-input v-model.number="faceLevelConfigForm.oppositeIdCardLevel" clearable placeholder="0~100分值,越高通过率越低"/>
+            <el-form-item label="人脸对比置信度级别" prop="faceConfidenceLevel">
+              <el-input v-model.number="faceLevelConfigForm.faceConfidenceLevel" clearable placeholder="1e-3~1e-6,级别越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="身份综合验证阀值" prop="identifyResultLevel">
-              <el-select v-model="faceLevelConfigForm.identifyResultLevel" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions('identifyResultLevel')" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <el-col :span="12">
             <el-form-item label="状态" prop="state">
-              <el-select v-model="faceLevelConfigForm.state" clearable placeholder="请选择">
-                <el-option v-for="item in $formatter.getSelectionOptions(`state`)" :key="item.value" :label="item.label" :value="item.value"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="备注" prop="remark">
-              <el-input type="textarea" v-model="faceLevelConfigForm.remark" maxlength="200" clearable placeholder="备注" cols="82"/>
+              <el-radio-group v-model="agreementForm.state">
+                <el-radio :label="1">有效</el-radio>
+                <el-radio :label="0">失效</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
@@ -67,6 +42,7 @@
 
 <script>
 import debounce from 'throttle-debounce/debounce'
+import {clone} from '@/utils/common'
 
 export default {
   props: {
@@ -77,23 +53,12 @@ export default {
     return {
       faceLevelConfigForm: {},
       rules: {
-        appName: [
-          {required: true, message: '请选择APP名称', trigger: 'blur'}
-        ],
-        faceRecognitionLevel: [
+        faceQualityValue: [
           {required: true, message: '请输入人脸识别阀值', trigger: 'blur'},
           {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
-        positiveIdCardLevel: [
-          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'},
-          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
-        ],
-        oppositeIdCardLevel: [
-          {required: true, message: '请输入身份证反面识别阀值', trigger: 'blur'},
-          {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
-        ],
-        identifyResultLevel: [
-          {required: true, message: '请输入身份综合验证阀值', trigger: 'blur'}
+        faceConfidenceLevel: [
+          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'}
         ],
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}
@@ -102,17 +67,20 @@ export default {
     }
   },
   methods: {
-    openDialog () {
-      this.faceLevelConfigForm = {
-        faceLevelId: this.faceLevelConfigWindow.faceLevelId,
-        appName: this.faceLevelConfigWindow.appName,
-        faceRecognitionLevel: Number(this.faceLevelConfigWindow.faceRecognitionLevel),
-        positiveIdCardLevel: Number(this.faceLevelConfigWindow.positiveIdCardLevel),
-        oppositeIdCardLevel: Number(this.faceLevelConfigWindow.oppositeIdCardLevel),
-        identifyResultLevel: this.faceLevelConfigWindow.identifyResultLevel,
-        state: this.faceLevelConfigWindow.state,
-        remark: this.faceLevelConfigWindow.remark
+    async initFrom () {
+      try {
+        const res = await this.$http.get('/face-level/face-single' + this.faceLevelConfigWindow.faceLevelId)
+        if (res.code === '200') {
+          this.faceLevelConfigForm = clone(this.faceLevelConfigWindow)
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
       }
+    },
+    openDialog () {
+      this.initFrom()
     },
     closeDialog () {
       this.$refs['faceLevelConfigForm'].resetFields()
@@ -122,7 +90,7 @@ export default {
       this.$refs['faceLevelConfigForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/management/face-level', this.faceLevelConfigForm)
+            const res = await this.$http.post('/face-level/face-update', this.faceLevelConfigForm)
             if (res.code === '200') {
               this.$message.success('保存成功!')
               this.closeDialog()
