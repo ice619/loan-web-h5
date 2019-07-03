@@ -79,7 +79,6 @@
 
 <script>
 
-import Review from "./review";
 export default {
   data () {
     return {
@@ -134,8 +133,8 @@ export default {
       })
     },
     lookAgreementConfig (row) {
-    this.showReviewFlag = true
-    this.agreementWindow = row
+      this.showReviewFlag = true
+      this.agreementWindow = row
     },
     editAgreementConfig (row) {
       this.showEditFlag = true

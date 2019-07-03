@@ -24,43 +24,42 @@
 </template>
 
 <script>
-  import {clone} from '@/utils/common'
-  import ElPager from "element-ui/packages/pagination/src/pager";
+import {clone} from '@/utils/common'
+
 export default {
-  components: {ElPager},
   props: {
-      'ifshow': Boolean,
-      'agreementWindow': Object
+    'ifshow': Boolean,
+    'agreementWindow': Object
+  },
+  data () {
+    return {
+      configDetails: [],
+      agreementForm: {}
+    }
+  },
+  methods: {
+    openDialog () {
+      this.initFrom()
     },
-    data () {
-      return {
-        configDetails: [],
-        agreementForm: {}
-      }
+    closeDialog () {
+      this.$refs['agreementForm'].resetFields()
+      this.$emit('handleCloseDialog')
     },
-    methods: {
-      async initFrom () {
-        try {
-          const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreementWindow.customerAgreementConfigId)
-          if (res.code === '200') {
-            this.agreementForm = clone(this.agreementWindow)
-            this.configDetails = res.data
-          } else {
-            this.$message.error(res.message)
-          }
-        } catch (err) {
-          console.error(err)
+    async initFrom () {
+      try {
+        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreementWindow.customerAgreementConfigId)
+        if (res.code === '200') {
+          this.agreementForm = clone(this.agreementWindow)
+          this.configDetails = res.data
+        } else {
+          this.$message.error(res.message)
         }
-      },
-      openDialog () {
-        this.initFrom()
-      },
-      closeDialog () {
-        this.$refs['agreementForm'].resetFields()
-        this.$emit('handleCloseDialog')
+      } catch (err) {
+        console.error(err)
       }
     }
   }
+}
 </script>
 
 <style lang="stylus">

@@ -88,11 +88,12 @@ export default {
               this.$message.success('保存成功!')
               this.closeDialog()
             } else {
-              if(res.code === '1014'){
-                this.$message.error('有效数据已存在')
-              }else {
-                this.$message.error(res.message)
-              }
+              // if(res.code === '1014'){
+              //   this.$message.error('有效数据已存在')
+              // }else {
+              //
+              // }
+              this.$message.error(res.message)
             }
           } catch (err) {
             console.error(err)
