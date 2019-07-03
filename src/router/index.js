@@ -53,6 +53,8 @@ import customerRewardRecord from '@/views/activityManagement/customerRewardRecor
 import appPopup from '@/views/appPopup/list'
 // import customerAgreementConfig from '@/views/customerAgreementConfig/list'
 
+import marketChannel from '@/views/market/channel/list'
+import marketChannelDetail from '@/views/market/detail/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -296,6 +298,16 @@ const router = new Router({
       path: '/app-popup',
       name: 'appPopup',
       component: appPopup
+    },
+    {
+      path: '/market-channel',
+      name: 'marketChannel',
+      component: marketChannel
+    },
+    {
+      path: '/market-channel-detail',
+      name: 'marketChannelDetail',
+      component: marketChannelDetail
     }
     // ,
     // {
