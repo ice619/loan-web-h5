@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import fetch from '@/utils/fetch'
 import {getToken, setToken, setLanguage, getLanguage} from '@/utils/VueCookies'
+import { loanPermission } from '@/utils/permission'
 import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
@@ -45,6 +46,13 @@ import goodsQuery from '@/views/goodsQuery/list'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
 import customerRegisterConfigWarning from '@/views/customerRegisterConfigWarning/list'
+import materialConfig from '@/views/activityManagement/materialConfig/list'
+import activityConfig from '@/views/activityManagement/activityConfig/list'
+import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
+import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
+import appPopup from '@/views/appPopup/list'
+import customerAgreementConfig from '@/views/customerAgreementConfig/list'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -263,6 +271,36 @@ const router = new Router({
       path: '/register-warning',
       name: 'customerRegisterConfigWarning',
       component: customerRegisterConfigWarning
+    },
+    {
+      path: '/material-config',
+      name: 'materialConfig',
+      component: materialConfig
+    },
+    {
+      path: '/activity-config',
+      name: 'activityConfig',
+      component: activityConfig
+    },
+    {
+      path: '/behavior-reward-config',
+      name: 'behaviorRewardConfig',
+      component: behaviorRewardConfig
+    },
+    {
+      path: '/customer-reward-record',
+      name: 'customerRewardRecord',
+      component: customerRewardRecord
+    },
+    {
+      path: '/app-popup',
+      name: 'appPopup',
+      component: appPopup
+    },
+    {
+      path: '/agreement-config',
+      name: 'customerAgreementConfig',
+      component: customerAgreementConfig
     }
   ],
   mode: 'history'// 去除#号
@@ -280,6 +318,7 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
+      loanPermission()
       loadDict(next)
     }
   } else {

@@ -19,7 +19,7 @@ export function removeToken () {
 
 export function setLanguage (lang) {
   if (lang === undefined || lang === null || lang === '') {
-    lang = 'zh'
+    lang = getLanguage() ? getLanguage() : 'zh'
   }
   return VueCookies.set(LanguageKey, lang)
 }

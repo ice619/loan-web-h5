@@ -45,7 +45,7 @@
           <el-col :span="2">
             <div class="grid-content bg-purple">设备号</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="5">
             <div class="grid-content bg-purple-light">{{baseInfo.deviceId}}</div>
           </el-col>
           <el-col :span="2">
