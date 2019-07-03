@@ -28,6 +28,8 @@
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_REWARD_RECORD_SELECT')">查询</el-button>
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus"  @click="showAddFlag = true">发送</el-button>
+        <!--v-if="$permission.hasPermission('CUSTOMER_REWARD_MANUAL_SEND')"-->
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
@@ -98,6 +100,8 @@
       layout="->,total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
+    <!--子组件-->
+    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
   </div>
 </template>
 
@@ -127,7 +131,8 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       total: 0,
-      selectIds: []
+      selectIds: [],
+      showAddFlag: false
     }
   },
   created () {
@@ -169,6 +174,9 @@ export default {
         this.selectIds.push(v.id)
       })
     }
+  },
+  components: {
+    'add': () => import('./manualSend')
   }
 }
 </script>

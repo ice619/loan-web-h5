@@ -41,7 +41,7 @@
       <el-row type="flex" justify="left">
         <el-col :span="30">
           <el-form-item label="物料备注" prop="materialRemark">
-            <el-input type="textarea" v-model="entryForm.materialRemark" rows="4" readonly style="width: 350px"/>
+            <el-input type="textarea" v-model="entryForm.materialRemark" rows="4" style="width: 350px"/>
           </el-form-item>
         </el-col>
       </el-row>
