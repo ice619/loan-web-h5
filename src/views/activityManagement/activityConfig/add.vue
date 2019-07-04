@@ -252,14 +252,16 @@ export default {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
           // 校验奖品配置
-          let activityRewardConfigList = this.entryForm.activityRewardConfigList
-          if (activityRewardConfigList.length === 0) {
+          let rewardConfigList = this.entryForm.activityRewardConfigList
+          if (rewardConfigList.length === 0) {
             this.$message.error('活动奖品配置不能为空')
             return
           }
-          let activityType = this.entryForm.activityType
-          if (activityType === 'YQ') {
-            // TODO 同一行为不能选择多次
+          if (this.entryForm.activityType === 'YQ') {
+            if (rewardConfigList.some(reward => rewardConfigList.filter(config => config.customerState === reward.customerState).length > 1)) {
+              this.$message.error('请勿重复选择好友行为')
+              return
+            }
           }
           try {
             const res = await this.$http.post('/activity-config', this.entryForm)
