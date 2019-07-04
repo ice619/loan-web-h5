@@ -48,11 +48,6 @@
           <span>{{scope.row.customerPhone}}</span>
         </template>
       </el-table-column>
-     <!-- <el-table-column prop="customerState" label="客户状态" header-align="center" align="center" min-width="120">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
-        </template>
-      </el-table-column>-->
       <el-table-column prop="source" label="来源" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('source', scope.row.source)}}</span>
@@ -124,7 +119,7 @@ export default {
   },
   created () {
     if (this.$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')) {
-      this.customerRegisterInfo()
+      this.list()
     }
   },
   methods: {
