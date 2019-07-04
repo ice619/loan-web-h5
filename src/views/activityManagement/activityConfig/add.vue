@@ -46,8 +46,8 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="开始时间" prop="sendTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
-            <el-date-picker v-model="entryForm.sendTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 350px"/>
+          <el-form-item label="开始时间" prop="startTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
+            <el-date-picker v-model="entryForm.startTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 350px"/>
           </el-form-item>
         </el-col>
         <el-col :span="10">
@@ -193,7 +193,7 @@ export default {
         limitNum: null,
         limitDays: null
       },
-      shareTypesValue: null,
+      shareTypesValue: [],
       materialConfig: {},
       rules: {},
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
@@ -278,7 +278,9 @@ export default {
   },
   watch: {
     'shareTypesValue': function () {
-      this.entryForm.shareTypes = this.shareTypesValue.join(',')
+      if (this.shareTypesValue && this.shareTypesValue.length > 0) {
+        this.entryForm.shareTypes = this.shareTypesValue.join(',')
+      }
     }
   }
 }
