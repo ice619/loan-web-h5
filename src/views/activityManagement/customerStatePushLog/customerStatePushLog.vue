@@ -22,7 +22,7 @@
         </el-col>
       </el-form-item>
       <el-form-item>
-        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_STATE_SELECT')">查询</el-button>
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
@@ -124,7 +124,7 @@ export default {
     }
   },
   created () {
-    if (this.$permission.hasPermission('CUSTOMER_STATE_SELECT')) {
+    if (this.$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')) {
       this.list()
     }
   },
