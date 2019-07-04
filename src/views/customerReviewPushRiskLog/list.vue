@@ -33,18 +33,36 @@
         </el-select>
       </el-form-item>
       <el-form-item label="业务类型">
-        <el-select v-model="searchForm.businessType" clearable placeholder="请选择业务类型">
-          <el-option v-for="item in $formatter.getSelectionOptions('reviewBusinessType')" :key="item.value" :label="item.label" :value="item.value"/>
+        <el-select v-model="searchForm.incomingType" clearable placeholder="请选择业务类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('reviewincomingType')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="流程类型">
+        <el-select v-model="searchForm.processType" clearable placeholder="请选择流程类型">
+          <el-option v-for="item in $formatter.getSelectionOptions('processType')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="推送开关">
+        <el-select v-model="searchForm.pushFlag" clearable placeholder="请选择推送开关">
+          <el-option v-for="item in $formatter.getSelectionOptions('pushFlag')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="list">搜索</el-button>
+        <el-button style="color: white;background-color: #009688;" type="primary" @click="rePush">重新推送</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="pushRiskLogTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" header-align="center" align="center"/>
+      <el-table-column v-if="false" prop="customerReviewPushRiskLogId" label="主键" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="95">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="pushFlag" label="推送开关" header-align="center" align="center" min-width="95">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('pushFlag', scope.row.pushFlag)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="applicationType" label="申请单类型" header-align="center" align="center" min-width="100">
@@ -52,9 +70,9 @@
           <span>{{$formatter.simpleFormatSelection('applicationType', scope.row.applicationType)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="businessType" label="业务类型" header-align="center" align="center" min-width="90">
+      <el-table-column prop="incomingType" label="业务类型" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('reviewBusinessType', scope.row.businessType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('reviewincomingType', scope.row.incomingType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="75">
@@ -67,45 +85,25 @@
           <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.auditingState)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="processType" label="流程类型" header-align="center" align="center" min-width="100">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('processType', scope.row.processType)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="200" show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button type="text" @click="callRiskInterfaceRecord(scope.row.appSerialNumber)">{{scope.row.appSerialNumber}}</el-button>
+          <el-button type="text">{{scope.row.appSerialNumber}}</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="riskApplicationId" label="流程ID" header-align="center" align="center" min-width="200"/>
-      <el-table-column prop="appLevel" label="客户标识" header-align="center" align="center" min-width="90">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appLevel', scope.row.appLevel)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="name" label="客户姓名" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="phoneNum" label="APP注册手机号" header-align="center" align="center" min-width="130"/>
+      <el-table-column prop="applicationId" label="风控申请单编号" header-align="center" align="center" min-width="200"/>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="300" show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button type="text" @click="toCustomerInfo(scope.row)">{{scope.row.customerId}}</el-button>
+          <el-button type="text">{{scope.row.customerId}}</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="authMoney" label="授信额度" header-align="center" align="center" min-width="120"/>
-      <el-table-column prop="maxProductQuota" label="最大提现额度" header-align="center" align="center" min-width="120"/>
       <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="center" min-width="155"/>
-      <el-table-column prop="exceptionType" label="异常类型" header-align="center" align="center" min-width="120">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('exceptionType', scope.row.exceptionType)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="appVersion" label="App版本号" header-align="center" align="center" min-width="100"/>
-      <el-table-column prop="appChannel" label="app下载渠道" header-align="center" align="center" min-width="110"/>
-      <el-table-column prop="source" label="申请来源" header-align="center" align="center" min-width="100">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('clientType', scope.row.source)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="jxlToken" label="聚信立运营商token" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="tdBlockBox" label="同盾black_box" header-align="center" align="center" min-width="135" show-overflow-tooltip/>
-      <el-table-column prop="sesameScope" label="芝麻分" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="loanIp" label="申请用户公网IP" header-align="center" align="center" min-width="140"/>
     </el-table>
     <el-pagination
       @current-change="handleCurrentChange"
@@ -127,13 +125,15 @@ export default {
       searchForm: {
         customerId: null,
         appSerialNumber: null,
-        appName: 7,
+        appName: 21,
         startTime: null,
         endTime: null,
         status: null,
         auditingState: null,
         applicationType: null,
-        businessType: null
+        incomingType: null,
+        pushFlag: null,
+        processType: null
       },
       pushRiskLogWindow: {},
       tableData: [],
@@ -143,8 +143,6 @@ export default {
       selectIds: [],
       showAddFlag: false,
       showEditFlag: false
-      // rowAppName: null,
-      // rowCustomerId: null
     }
   },
   created () {
@@ -165,7 +163,7 @@ export default {
         this.searchForm.status = this.$route.params.status
         this.searchForm.auditingState = this.$route.params.auditingState
         this.searchForm.applicationType = this.$route.params.applicationType
-        this.searchForm.businessType = this.$route.params.businessType
+        this.searchForm.incomingType = this.$route.params.incomingType
       } else {
         const now = new Date()
         this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
@@ -179,7 +177,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/management/push-risk-log/page', params)
+        const res = await this.$http.post('/customer/push-risk-log/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -190,44 +188,84 @@ export default {
         console.error(err)
       }
     },
-    async callRiskInterfaceRecord (appSerialNumber) {
-      try {
-        let applicationId = appSerialNumber
-        if (!applicationId) {
-          this.$message.error('申请单编号不能为空')
-          return
-        }
-        let params = {
-          ...this.searchForm,
-          applicationId: applicationId
-        }
-        this.$router.push({name: 'riskInterfaceRecord', params: params})
-      } catch (err) {
-        console.error(err)
+    // async callRiskInterfaceRecord (appSerialNumber) {
+    //   try {
+    //     let applicationId = appSerialNumber
+    //     if (!applicationId) {
+    //       this.$message.error('申请单编号不能为空')
+    //       return
+    //     }
+    //     let params = {
+    //       ...this.searchForm,
+    //       applicationId: applicationId
+    //     }
+    //     this.$router.push({name: 'riskInterfaceRecord', params: params})
+    //   } catch (err) {
+    //     console.error(err)
+    //   }
+    // },
+    // async toCustomerInfo (row) {
+    //   try {
+    //     let rowAppName = row.appName
+    //     let rowCustomerId = row.customerId
+    //     if (!rowAppName) {
+    //       this.$message.error('APP名称不能为空')
+    //       return
+    //     }
+    //     if (!rowCustomerId) {
+    //       this.$message.error('客户编号不能为空')
+    //       return
+    //     }
+    //     let params = {
+    //       ...this.searchForm,
+    //       appName: rowAppName,
+    //       customerId: rowCustomerId,
+    //       customerReviewPushRiskLogFlag: true
+    //     }
+    //     this.$router.push({name: 'customerInfo', params: params})
+    //   } catch (err) {
+    //     console.error(err)
+    //   }
+    // },
+    rePush () {
+      let selectIdsStr = ''
+      let idsLength = this.selectIds.length
+      if (idsLength > 0) {
+        this.selectIds.forEach(v => {
+          selectIdsStr += `${v},`
+        })
+        selectIdsStr = selectIdsStr.substring(0, selectIdsStr.length - 1)
+      } else {
+        this.$message.warning('至少选择一条记录')
+        return
       }
-    },
-    async toCustomerInfo (row) {
-      try {
-        let rowAppName = row.appName
-        let rowCustomerId = row.customerId
-        if (!rowAppName) {
-          this.$message.error('APP名称不能为空')
-          return
+      const url = `/customer/update-push-flag-allow/` + selectIdsStr
+      // const tableLength = this.tableData.length
+      this.$confirm('确认重新推送并清除失败次数吗？', '提示', {type: 'warning'}).then(async () => {
+        try {
+          const res = await this.$http.put(url)
+          if (res.code === '200') {
+            this.$message.success('推送成功!')
+            this.list()
+            // this.selectIds.forEach(v => {
+            //   let i = this.tableData.findIndex(s => s.id === v)
+            //   this.tableData.splice(i, 1)
+            // })
+            // this.total = idsLength
+            // if (idsLength === tableLength) {
+            //   this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1
+            //   this.list()
+            // }
+          } else {
+            this.$message.error(res.message)
+          }
+          this.selectIds = []
+        } catch (err) {
+          console.error(err)
         }
-        if (!rowCustomerId) {
-          this.$message.error('客户编号不能为空')
-          return
-        }
-        let params = {
-          ...this.searchForm,
-          appName: rowAppName,
-          customerId: rowCustomerId,
-          customerReviewPushRiskLogFlag: true
-        }
-        this.$router.push({name: 'customerInfo', params: params})
-      } catch (err) {
-        console.error(err)
-      }
+      }).catch(action => {
+        this.selectIds = []
+      })
     },
     handleCurrentChange (currentPage) {
       this.pageIndex = currentPage
@@ -240,7 +278,7 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(v => {
-        this.selectIds.push(v.id)
+        this.selectIds.push(v.customerReviewPushRiskLogId)
       })
     },
     edit (row) {

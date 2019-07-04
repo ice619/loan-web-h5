@@ -32,7 +32,7 @@
             <div class="grid-content bg-purple">注册来源</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appType', baseInfo.source)}}</div>
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('source', baseInfo.source)}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">注册时间</div>
