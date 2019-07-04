@@ -247,6 +247,18 @@ export default {
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
+          // 校验奖品配置
+          let rewardConfigList = this.entryForm.activityRewardConfigList
+          if (rewardConfigList.length === 0) {
+            this.$message.error('活动奖品配置不能为空')
+            return
+          }
+          if (this.entryForm.activityType === 'YQ') {
+            if (rewardConfigList.some(reward => rewardConfigList.filter(config => config.customerState === reward.customerState).length > 1)) {
+              this.$message.error('请勿重复选择好友行为')
+              return
+            }
+          }
           try {
             const res = await this.$http.put('/activity-config', this.entryForm)
             if (res.code === '200') {
