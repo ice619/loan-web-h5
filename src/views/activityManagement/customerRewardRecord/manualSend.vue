@@ -39,8 +39,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="发送时间" prop="sendTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
+            <el-form-item label="发送时间" prop="sendTime" :rules="[{ required: true, message: '请选择发送时间', trigger: 'blur' }]">
               <el-date-picker v-model="entryForm.sendTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 300px"/>
+              <span class="tip-info">五分钟之内即时发送</span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -52,11 +53,13 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="生效时间" prop="validStartTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
-              <el-date-picker v-model="entryForm.validStartTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 300px"/>
+            <el-form-item label="生效时间" prop="validStartTime" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择生效时间', trigger: 'blur' }]">
+              <el-date-picker v-model="entryForm.validStartTime" type="datetime" placeholder="选择生效时间" value-format="yyyy-MM-dd HH:mm:ss"
+                              :disabled="entryForm.materialType !== 'DK'"
+                              style="width: 300px"/>
             </el-form-item>
-            <el-form-item label="生效时间" prop="validEndTime" :rules="[{ required: true, message: '请选择开始时间', trigger: 'blur' }]">
-              <el-date-picker v-model="entryForm.validEndTime" type="datetime" placeholder="选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 300px"/>
+            <el-form-item label="失效时间" prop="validEndTime">
+              <el-input v-model="entryForm.validEndTime" readonly="" :disabled="entryForm.materialType !== 'DK'" style="width: 300px"/>
             </el-form-item>
             <el-form-item label="物料备注" prop="remark">
               <el-input type="textarea" v-model="entryForm.remark" rows="2" style="width: 300px"/>
@@ -94,7 +97,7 @@ export default {
         translateTitle: null,
         sendPhones: null,
         phoneList: [],
-        sendTime: null,
+        sendTime: this.formatDate(new Date()),
         validStartTime: null,
         validEndTime: null,
         remark: null
@@ -115,6 +118,14 @@ export default {
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
+          // 时间校验
+          let sendTime = this.entryForm.sendTime
+          let validStartTime = this.entryForm.validStartTime
+          if (sendTime > validStartTime) {
+            this.$message.warn('发送时间不能大于生效时间!')
+            return
+          }
+
           this.entryForm.phoneList = this.entryForm.sendPhones.split('\n')
           try {
             const res = await this.$http.post('/customer-reward-record/manual-send-reward', this.entryForm)
@@ -142,6 +153,20 @@ export default {
           this.$message.error('load app material config error')
           console.info(e)
         })
+      }
+    },
+    'entryForm.validStartTime': function () {
+      if (this.entryForm.materialType === 'DK' && this.entryForm.materialCode) {
+        let data = this.materialConfigArray.find(config => config.materialCode === this.entryForm.materialCode)
+        let validDays = data.validDays
+        this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
+      }
+    },
+    'entryForm.materialCode': function () {
+      if (this.entryForm.materialType === 'DK' && this.entryForm.validStartTime) {
+        let data = this.materialConfigArray.find(config => config.materialCode === this.entryForm.materialCode)
+        let validDays = data.validDays
+        this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
       }
     }
   }

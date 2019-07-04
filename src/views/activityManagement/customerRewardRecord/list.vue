@@ -47,13 +47,6 @@
           <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="beInviterCustomerId" label="被邀请人客户ID" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="beInviterCustomerPhone" label="被邀请人客户手机号" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="beInviterCustomerState" label="被邀请人客户状态" header-align="center" align="center" min-width="140">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="activityType" label="活动类型" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('activityType', scope.row.activityType)}}</span>
@@ -61,7 +54,7 @@
       </el-table-column>
       <el-table-column prop="activityCode" label="活动编码" header-align="center" align="center" min-width="150"/>
       <el-table-column prop="activityTitle" label="活动标题(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="activityTranslateTitle" label="活动标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <!--<el-table-column prop="activityTranslateTitle" label="活动标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
       <el-table-column prop="materialType" label="物料类型" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('materialType', scope.row.materialType)}}</span>
@@ -69,10 +62,10 @@
       </el-table-column>
       <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="materialTitle" label="物料标题(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="materialTranslateTitle" label="物料标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="materialRuleDesc" label="物料规则(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="materialTranslateRuleDesc" label="物料规则(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
       <el-table-column prop="materialAmount" label="物料金额" header-align="center" align="center" min-width="80"/>
+      <!--<el-table-column prop="materialTranslateTitle" label="物料标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
+      <!--<el-table-column prop="materialRuleDesc" label="物料规则(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
+      <!--<el-table-column prop="materialTranslateRuleDesc" label="物料规则(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
       <el-table-column prop="materialUsageScene" label="使用场景" header-align="center" align="center" min-width="80"/>
       <el-table-column prop="overdueCanUse" label="逾期可用" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
@@ -81,6 +74,13 @@
       </el-table-column>
       <el-table-column prop="validStartTime" label="有效开始时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="validEndTime" label="有效结束时间" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="beInviterCustomerId" label="被邀请人客户ID" header-align="center" align="center" min-width="150"/>
+      <el-table-column prop="beInviterCustomerPhone" label="被邀请人客户手机号" header-align="center" align="center" min-width="150"/>
+      <el-table-column prop="beInviterCustomerState" label="被邀请人客户状态" header-align="center" align="center" min-width="140">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
       <el-table-column prop="sendStatus" label="发送状态" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
