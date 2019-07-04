@@ -112,7 +112,9 @@ export default {
         if (res.code === '200') {
           if (res.data) {
             this.baseInfo = res.data
-            this.disableRemove = false
+            if (this.baseInfo) {
+              this.disableRemove = false
+            }
             this.deleteForm.appName = this.searchForm.appName
             this.deleteForm.phoneNum = this.searchForm.phoneNum
           }
