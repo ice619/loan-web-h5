@@ -52,9 +52,9 @@ import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfi
 import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
 import appPopup from '@/views/appPopup/list'
 import customerAgreementConfig from '@/views/customerAgreementConfig/list'
-import customerInviteRelationState from '@/views/activityManagement/customerInviteRelationState/list'
-import customerStateLog from '@/views/activityManagement/customerStateLog/list'
-import customerStatePushLog from '@/views/activityManagement/customerStatePushLog/list'
+import customerRegisterInfoLog from '@/views/activityManagement/customerStatePushLog/customerRegisterInfoLog'
+import customerStatePushLog from '@/views/activityManagement/customerStatePushLog/customerStatePushLog'
+import inviteRelationStateLog from '@/views/activityManagement/customerStatePushLog/inviteRelationStateLog'
 
 import marketChannel from '@/views/market/channel/list'
 import marketChannelDetail from '@/views/market/detail/list'
@@ -313,17 +313,17 @@ const router = new Router({
       component: marketChannelDetail
     },
     {
-      path: '/invite-relation-state',
-      name: 'customerInviteRelationState',
-      component: customerInviteRelationState
+      path: '/customer-register-info-log',
+      name: 'customerRegisterInfoLog',
+      component: customerRegisterInfoLog
     },
     {
-      path: '/customer-state-log',
-      name: 'customerStateLog',
-      component: customerStateLog
+      path: '/invite-relation-state-log',
+      name: 'inviteRelationStateLog',
+      component: inviteRelationStateLog
     },
     {
-      path: '/customer-state-push',
+      path: '/customer-state-push-log',
       name: 'customerStatePushLog',
       component: customerStatePushLog
     },

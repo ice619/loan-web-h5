@@ -136,7 +136,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/customer-query/find-push-state-list', params)
+        const res = await this.$http.post('/customer-state-push/find-push-state-list', params)
         console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
