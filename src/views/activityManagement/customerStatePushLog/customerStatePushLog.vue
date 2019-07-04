@@ -55,7 +55,7 @@
       </el-table-column>
       <el-table-column prop="source" label="来源" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('source', scope.row.source)}}</span>
+          <span>{{$formatter.simpleFormatSelection('registerSource', scope.row.source)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="registerTime" label="注册时间" header-align="center" align="center" min-width="160">
