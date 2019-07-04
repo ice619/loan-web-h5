@@ -27,6 +27,16 @@ const formatDate = function (date, format) {
   }
   return format
 }
+const dateAddDays = function (date, days, format) {
+  if (!date) return null
+  if (!format) format = 'yyyy-MM-dd hh:mm:ss'
+  date.setDate(date.getDate() + days)
+  return formatDate(date, format)
+}
+const parserDate = function (dateStr) {
+  return new Date(Date.parse(dateStr.replace(/-/g, '/')))
+}
+
 /** 通用参数 */
 const config = {
   // 语言选项
@@ -145,6 +155,8 @@ const config = {
 exports.install = function (Vue, options) {
   Vue.prototype.formatTimeStamp = formatTimeStamp
   Vue.prototype.formatDate = formatDate
+  Vue.prototype.dateAddDays = dateAddDays
+  Vue.prototype.parserDate = parserDate
   Vue.prototype.globalConfig = config
   // Vue.prototype.formatStatus = formatStatus
   // Vue.prototype.formatSkip = formatSkip

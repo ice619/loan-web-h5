@@ -58,8 +58,9 @@
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="100"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column label="操作" header-align="center" align="center" fixed="right" v-if="$permission.hasPermission('MATERIAL_CONFIG_DELETE')">
+      <el-table-column label="操作" header-align="center" align="center" fixed="right" min-width="125" v-if="$permission.hasPermission('MATERIAL_CONFIG_DELETE')">
         <template slot-scope="scope">
+          <el-button icon="el-icon-info" @click="editVariable(scope.row)" type="text" size="small" v-if="$permission.hasPermission('MATERIAL_CONFIG_SELECT')">详情</el-button>
           <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" v-if="$permission.hasPermission('MATERIAL_CONFIG_DELETE')" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
@@ -74,7 +75,8 @@
       :total="total">
     </el-pagination>
     <!--子组件-->
-    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
+    <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"/>
+    <edit :ifshow="showEditFlag" :entity="entity" @handleCloseDialog="showEditFlag=false;"/>
   </div>
 </template>
 
@@ -88,7 +90,7 @@ export default {
         materialCode: null,
         status: null
       },
-      entry: {},
+      entity: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -137,8 +139,9 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editBanner (row) {
-      this.$router.push({path: `material-config-edit/${row.id}`})
+    editVariable (row) {
+      this.showEditFlag = true
+      this.entity = row
     },
     async removeBanner (row) {
       let selectIdsStr = ''
@@ -191,7 +194,8 @@ export default {
     }
   },
   components: {
-    'add': () => import('./add')
+    'add': () => import('./add'),
+    'edit': () => import('./edit')
   }
 }
 </script>

@@ -158,7 +158,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   h3 {
     margin: 15px 0 5px 0;
     font-weight: 400;

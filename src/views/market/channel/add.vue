@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="投放渠道" prop="remark">
+            <el-form-item label="投放渠道" prop="channel" :rules="[{ required: true, message: '请输入投放渠道', trigger: 'blur' }]">
               <el-input v-model="entryForm.channel" clearable style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .tip-info{
     position: absolute;
     margin-top: -10px;

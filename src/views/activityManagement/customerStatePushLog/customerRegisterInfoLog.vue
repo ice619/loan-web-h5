@@ -22,7 +22,7 @@
         </el-col>
       </el-form-item>
       <el-form-item>
-        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_STATE_SELECT')">查询</el-button>
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
@@ -48,11 +48,11 @@
           <span>{{scope.row.customerPhone}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="customerState" label="客户状态" header-align="center" align="center" min-width="120">
+     <!-- <el-table-column prop="customerState" label="客户状态" header-align="center" align="center" min-width="120">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <el-table-column prop="source" label="来源" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('source', scope.row.source)}}</span>
@@ -105,7 +105,6 @@ export default {
         serialNumber: null,
         customerId: null,
         customerPhone: null,
-        customerState: null,
         source: null,
         registerTime: null,
         inviterCustomerId: null,
@@ -124,8 +123,8 @@ export default {
     }
   },
   created () {
-    if (this.$permission.hasPermission('CUSTOMER_STATE_SELECT')) {
-      this.list()
+    if (this.$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')) {
+      this.customerRegisterInfo()
     }
   },
   methods: {
@@ -136,7 +135,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/customer-query/find-push-state-list', params)
+        const res = await this.$http.post('/customer-state-push/find-customer-list', params)
         console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
@@ -150,11 +149,11 @@ export default {
     },
     handleCurrentChange (currentPage) {
       this.pageIndex = currentPage
-      this.list()
+      this.customerRegisterInfo()
     },
     handleSizeChange (size) {
       this.pageSize = size
-      this.list()
+      this.customerRegisterInfo()
     },
     handleSelectionChange (val) {
       this.selectIds = []

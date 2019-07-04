@@ -22,7 +22,7 @@
         </el-col>
       </el-form-item>
       <el-form-item>
-        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_STATE_SELECT')">查询</el-button>
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
@@ -53,6 +53,16 @@
           <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="source" label="来源" header-align="center" align="center" min-width="80">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('source', scope.row.source)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="registerTime" label="注册时间" header-align="center" align="center" min-width="160">
+        <template slot-scope="scope">
+          <span>{{formatTimeStamp(scope.row.registerTime,'yyyy-MM-dd hh:mm:ss')}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="inviterCustomerId" label="邀请人客户ID" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
           <span>{{scope.row.inviterCustomerId}}</span>
@@ -61,6 +71,11 @@
       <el-table-column prop="inviterCustomerPhone" label="被邀请人客户手机号" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
           <span>{{scope.row.inviterCustomerPhone}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="inviteActivityCode" label="邀请活动编码" header-align="center" align="center" min-width="150">
+        <template slot-scope="scope">
+          <span>{{scope.row.inviteActivityCode}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160">
@@ -91,8 +106,11 @@ export default {
         customerId: null,
         customerPhone: null,
         customerState: null,
+        source: null,
+        registerTime: null,
         inviterCustomerId: null,
         inviterCustomerPhone: null,
+        inviteActivityCode: null,
         createTime: null,
         sendTime: this.formatDate(new Date(), 'yyyy-MM-dd 00:00:00'),
         sendTimeTo: this.formatDate(new Date(), 'yyyy-MM-dd 23:59:59')
@@ -106,7 +124,7 @@ export default {
     }
   },
   created () {
-    if (this.$permission.hasPermission('CUSTOMER_STATE_SELECT')) {
+    if (this.$permission.hasPermission('CUSTOMER_STATE_PUSH_SELECT')) {
       this.list()
     }
   },
@@ -118,7 +136,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/customer-query/find-relation-state-list', params)
+        const res = await this.$http.post('/customer-state-push/find-push-state-list', params)
         console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows

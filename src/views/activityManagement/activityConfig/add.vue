@@ -115,9 +115,9 @@
       </el-row>
       <el-row v-if="entryForm.activityType === 'YQ'">
         <el-col :span="10">
-          <el-form-item label="分享方式" prop="customerState" :rules="[{ required: true, message: '请选择分享方式', trigger: 'blur' }]">
-            <el-select v-model="entryForm.customerState" clearable placeholder="请选择分享方式" :disabled="entryForm.activityType !== 'YQ'" style="width: 350px">
-              <el-option v-for="item in $formatter.getSelectionOptions('shareTypes')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-form-item label="分享方式" prop="shareTypes" :rules="[{ required: true, message: '请选择分享方式', trigger: 'blur' }]">
+            <el-select v-model="shareTypesValue" multiple placeholder="请选择分享方式" :disabled="entryForm.activityType !== 'YQ'" style="width: 350px">
+              <el-option v-for="item in $formatter.getSelectionOptions('activityShareType')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -193,6 +193,7 @@ export default {
         limitNum: null,
         limitDays: null
       },
+      shareTypesValue: null,
       materialConfig: {},
       rules: {},
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
@@ -274,6 +275,11 @@ export default {
         }
       })
     })
+  },
+  watch: {
+    'shareTypesValue': function () {
+      this.entryForm.shareTypes = this.shareTypesValue.join(',')
+    }
   }
 }
 </script>

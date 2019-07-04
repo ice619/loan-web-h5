@@ -192,7 +192,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
