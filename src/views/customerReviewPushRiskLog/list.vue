@@ -93,15 +93,15 @@
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="200" show-overflow-tooltip>
-        <template slot-scope="scope">
+        <!--<template slot-scope="scope">
           <el-button type="text">{{scope.row.appSerialNumber}}</el-button>
-        </template>
+        </template>-->
       </el-table-column>
       <el-table-column prop="applicationId" label="风控申请单编号" header-align="center" align="center" min-width="200"/>
       <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="300" show-overflow-tooltip>
-        <template slot-scope="scope">
+        <!--<template slot-scope="scope">
           <el-button type="text">{{scope.row.customerId}}</el-button>
-        </template>
+        </template>-->
       </el-table-column>
       <el-table-column prop="rejectedNode" label="风控最后审核步骤" header-align="center" align="center" min-width="155"/>
     </el-table>
