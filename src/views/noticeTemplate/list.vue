@@ -187,7 +187,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .el-tooltip__popper {
     border-bottom: 500px
   }

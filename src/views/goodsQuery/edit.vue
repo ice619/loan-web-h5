@@ -255,7 +255,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .avatar {
     width: 178px;
     height: 178px;

@@ -211,7 +211,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .ql-container .ql-editor {
     min-height: 20em;
     padding-bottom: 1em;
