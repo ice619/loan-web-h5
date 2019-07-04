@@ -34,7 +34,7 @@
       </el-form-item>
       <el-form-item label="业务类型">
         <el-select v-model="searchForm.incomingType" clearable placeholder="请选择业务类型">
-          <el-option v-for="item in $formatter.getSelectionOptions('reviewincomingType')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('incomingType')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="流程类型">
@@ -72,7 +72,7 @@
       </el-table-column>
       <el-table-column prop="incomingType" label="业务类型" header-align="center" align="center" min-width="90">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('reviewincomingType', scope.row.incomingType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('incomingType', scope.row.incomingType)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="75">
