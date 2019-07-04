@@ -40,8 +40,8 @@
         </el-row>
        <el-row type="flex" justify="left">
         <el-col :span="30">
-        <el-form-item label="图片" prop="imageUrl" :rules="[{ required: false, message: '请上传图片', trigger: 'blur' }]">
-        <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
+        <el-form-item label="图片" prop="imageUrl" :rules="[{ required: true, message: '请上传图片', trigger: 'blur' }]">
+        <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png,image/gif" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
         <el-popover placement="right" width="200" trigger="hover" :content="entryForm.imageUrl && entryForm.imageUrl !== '' ? null : '图片未上传'">
         <img v-if="entryForm.imageUrl && entryForm.imageUrl !== ''" :src="entryForm.imageUrl" class="avatar">
         <el-button slot="reference" class="el-icon-plus">{{entryForm.imageUrl ? '更换图片' : '选择图片'}}</el-button>
