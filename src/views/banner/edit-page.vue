@@ -309,7 +309,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .sortable-ghost{
     opacity: .8;
     color: #fff!important;

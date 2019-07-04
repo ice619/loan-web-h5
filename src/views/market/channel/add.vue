@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .tip-info{
     position: absolute;
     margin-top: -10px;

@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .el-upload-list--picture-card .el-upload-list__item {
     overflow: hidden;
     background-color: #fff;
