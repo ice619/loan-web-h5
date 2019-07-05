@@ -1,28 +1,29 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
       <el-form :inline="true" :model="faceLevelConfigForm" :rules="rules" ref="faceLevelConfigForm" label-width="150px"
                class="demo-form-inline">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="40">
             <el-form-item label="人脸质量分" prop="faceQualityValue">
               <el-input v-model.number="faceLevelConfigForm.faceQualityValue" clearable placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="40">
             <el-form-item label="人脸对比置信度级别" prop="faceConfidenceLevel">
-              <el-input v-model.number="faceLevelConfigForm.faceConfidenceLevel" clearable placeholder="1e-3~1e-6,级别越高通过率越低"/>
+              <el-input type="text" v-model="faceLevelConfigForm.faceConfidenceLevel" clearable placeholder="1e-3~1e-6,级别越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="40">
             <el-form-item label="状态:" prop="state">
               <el-radio-group v-model="faceLevelConfigForm.state">
-                <el-radio :label="1">有效</el-radio>
-                <el-radio :label="0">失效</el-radio>
+                <el-radio :label="1">待启用</el-radio>
+                <el-radio :label="2">启用</el-radio>
+                <el-radio :label="3">停用</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -88,11 +89,11 @@ export default {
               this.$message.success('保存成功!')
               this.closeDialog()
             } else {
-              // if(res.code === '1014'){
-              //   this.$message.error('有效数据已存在')
-              // }else {
-              //
-              // }
+              if (res.code === '1014') {
+                this.$message.error('有效记录已存在')
+              } else {
+                this.$message.error(res.message)
+              }
               this.$message.error(res.message)
             }
           } catch (err) {
