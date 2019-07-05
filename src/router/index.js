@@ -331,6 +331,16 @@ const router = new Router({
       path: '/agreement-config',
       name: 'customerAgreementConfig',
       component: customerAgreementConfig
+    },
+    {
+      path: '/market-channel',
+      name: 'marketChannel',
+      component: marketChannel
+    },
+    {
+      path: '/market-channel-detail',
+      name: 'marketChannelDetail',
+      component: marketChannelDetail
     }
   ],
   mode: 'history'// 去除#号
