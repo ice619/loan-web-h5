@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
+            <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
               <el-select v-model="entryForm.appName" placeholder="请选择App名称" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -13,7 +13,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="奖励行为" prop="customerState" :rules="[{ required: true, message: '请选择奖励行为', trigger: 'blur' }]">
+            <el-form-item label="奖励行为" prop="customerState" :rules="[{ required: true, message: '请选择奖励行为', trigger: 'change' }]">
               <el-select v-model="entryForm.customerState" placeholder="请选择奖励行为" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -22,7 +22,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'blur' }]">
+            <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'change' }]">
               <el-select v-model="entryForm.materialType" placeholder="请选择物料类型" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -31,7 +31,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="奖励物料" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'blur' }]">
+            <el-form-item label="奖励物料" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 350px">
                 <el-option v-for="item in materialConfigArray" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>

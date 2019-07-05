@@ -4,14 +4,14 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
       <el-row>
         <el-col :span="10">
-          <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
+          <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
             <el-select v-model="entryForm.appName" placeholder="请选择App名称" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'blur' }]">
+          <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'change' }]">
             <el-select v-model="entryForm.materialType" clearable placeholder="请选择物料类型" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
@@ -51,14 +51,14 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="使用场景" prop="usageScene" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择使用场景', trigger: 'blur' }]">
+          <el-form-item label="使用场景" prop="usageScene" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择使用场景', trigger: 'change' }]">
             <el-select v-model="entryForm.usageScene" placeholder="请选择使用场景" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('usageScene')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="逾期可用" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择逾期可用', trigger: 'blur' }]">
+          <el-form-item label="逾期可用" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择逾期可用', trigger: 'change' }]">
             <el-select v-model="entryForm.overdueCanUse" placeholder="请选择逾期可用" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('overdueCanUse')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>

@@ -4,14 +4,14 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
+            <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
               <el-select v-model="entryForm.appName" placeholder="请选择App名称" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="活动类型" prop="activityType" :rules="[{ required: true, message: '请选择活动类型', trigger: 'blur' }]">
+            <el-form-item label="活动类型" prop="activityType" :rules="[{ required: true, message: '请选择活动类型', trigger: 'change' }]">
               <el-select v-model="entryForm.activityType" clearable placeholder="请选择活动类型" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('activityType')" v-if="item.value !== 'XW'" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -32,7 +32,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="生效用户" prop="customerState" :rules="[{ required: true, message: '请选择生效用户', trigger: 'blur' }]">
+            <el-form-item label="生效用户" prop="customerState" :rules="[{ required: true, message: '请选择生效用户', trigger: 'change' }]">
               <el-select v-model="entryForm.customerState" clearable placeholder="请选择生效用户" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('activityCustomerState')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -115,7 +115,7 @@
         </el-row>
         <el-row v-if="entryForm.activityType === 'YQ'">
           <el-col :span="10">
-            <el-form-item label="分享方式" prop="shareTypes" :rules="[{ required: true, message: '请选择分享方式', trigger: 'blur' }]">
+            <el-form-item label="分享方式" prop="shareTypes" :rules="[{ required: true, message: '请选择分享方式', trigger: 'change' }]">
               <el-select v-model="shareTypesValue" multiple placeholder="请选择分享方式" :disabled="entryForm.activityType !== 'YQ'" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('activityShareType')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -247,6 +247,18 @@ export default {
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
+          // 校验奖品配置
+          let rewardConfigList = this.entryForm.activityRewardConfigList
+          if (rewardConfigList.length === 0) {
+            this.$message.error('活动奖品配置不能为空')
+            return
+          }
+          if (this.entryForm.activityType === 'YQ') {
+            if (rewardConfigList.some(reward => rewardConfigList.filter(config => config.customerState === reward.customerState).length > 1)) {
+              this.$message.error('请勿重复选择好友行为')
+              return
+            }
+          }
           try {
             const res = await this.$http.put('/activity-config', this.entryForm)
             if (res.code === '200') {
