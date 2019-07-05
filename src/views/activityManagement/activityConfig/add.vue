@@ -251,6 +251,10 @@ export default {
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
+          if (this.entryForm.startTime >= this.entryForm.endTime) {
+            this.$message.error('活动开始时间不能小于结束时间')
+            return
+          }
           // 校验奖品配置
           let rewardConfigList = this.entryForm.activityRewardConfigList
           if (rewardConfigList.length === 0) {
