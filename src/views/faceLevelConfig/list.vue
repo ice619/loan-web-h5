@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       searchForm: {
-        state: 2
+        state: null
       },
       faceObj: {},
       tableData: [],

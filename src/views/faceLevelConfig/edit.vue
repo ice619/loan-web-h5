@@ -52,7 +52,7 @@ export default {
     return {
       configDetails: [],
       tipPageInitForm: {
-        state: 1
+        state: null
       },
       registerPageForm: {},
       rules: {

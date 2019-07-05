@@ -55,7 +55,7 @@ export default {
         appName: 21,
         faceQualityValue: null,
         faceConfidenceLevel: null,
-        state: 2
+        state: null
       },
       faceLevelConfigForm: {},
       rules: {
