@@ -94,7 +94,6 @@ export default {
               } else {
                 this.$message.error(res.message)
               }
-              this.$message.error(res.message)
             }
           } catch (err) {
             console.error(err)
