@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
       <el-row type="flex" justify="left">
         <el-col :span="30">
-          <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
+          <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
             <el-select v-model="entryForm.appName" clearable placeholder="请选择App名称" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
@@ -13,7 +13,7 @@
       </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="运营弹窗位置" prop="position" :rules="[{ required: true, message: '请选择运营弹窗位置', trigger: 'blur' }]">
+            <el-form-item label="运营弹窗位置" prop="position" :rules="[{ required: true, message: '请选择运营弹窗位置', trigger: 'change' }]">
               <el-select v-model="entryForm.position" clearable placeholder="请选择" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('popupPosition')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -22,7 +22,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="生效用户" prop="userTag" :rules="[{ required: true, message: '请选择生效用户', trigger: 'blur' }]">
+            <el-form-item label="生效用户" prop="userTag" :rules="[{ required: true, message: '请选择生效用户', trigger: 'change' }]">
               <el-select v-model="entryForm.userTag" clearable placeholder="请选择" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
