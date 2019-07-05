@@ -60,9 +60,9 @@
                               style="width: 300px"/>
             </el-form-item>
             <el-form-item label="失效时间" prop="validEndTime">
-              <el-input v-model="entryForm.validEndTime" readonly="" :disabled="entryForm.materialType !== 'DK'" style="width: 300px"/>
+              <el-input v-model="entryForm.validEndTime" readonly :disabled="entryForm.materialType !== 'DK'" style="width: 300px"/>
             </el-form-item>
-            <el-form-item label="物料备注" prop="remark">
+            <el-form-item label="备注" prop="remark">
               <el-input type="textarea" v-model="entryForm.remark" rows="2" style="width: 300px"/>
             </el-form-item>
           </el-col>
