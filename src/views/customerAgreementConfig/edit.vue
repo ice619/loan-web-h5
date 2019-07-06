@@ -45,7 +45,7 @@
                             :config="editorOption"
                             @blur="onEditorBlur($event)"
                             @focus="onEditorFocus($event)"
-                            @ready="onEditorReady($event)">
+                            @ready="onEditorReady($event)" style="height: 200px;margin-bottom: 100px">
               </quill-editor>
             </el-form-item>
           </el-col>
@@ -76,13 +76,7 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
-// or use with component(ES6)
 import { quillEditor } from 'vue-quill-editor'
-// require styles
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-
 export default {
   components: {
     quillEditor
