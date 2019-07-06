@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="registerPageForm" :rules="rules" ref="registerPageForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="APP平台:" prop="appName" label-width="150px">
+            <el-form-item label="APP平台:" prop="appName">
               <el-select v-model="registerPageForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
