@@ -3,7 +3,7 @@
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="状态">
         <el-select v-model="searchForm.state" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('state')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('faceState')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -25,12 +25,12 @@
       </el-table-column>
       <el-table-column prop="state" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('state', scope.row.state)}}</span>
+          <span>{{$formatter.simpleFormatSelection('faceState', scope.row.state)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="130"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="130"/>
-      <el-table-column label="操作" header-align="center" align="left">
+      <el-table-column label="操作" header-align="center" align="center" min-width="50">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="edit(scope.row)" type="text" size="small">编辑</el-button>
         </template>
@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       searchForm: {
-        state: 2
+        state: null
       },
       faceObj: {},
       tableData: [],

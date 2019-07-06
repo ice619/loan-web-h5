@@ -42,7 +42,7 @@
               <quill-editor class="editer" ref="myTextEditor"
                             v-model="agreementAddForm.agreeContent"
                             :config="editorOption"
-                            @change="onEditorChange($event)">
+                            @change="onEditorChange($event)" style="height: 200px;margin-bottom: 100px">
               </quill-editor>
             </el-form-item>
           </el-col>
@@ -73,12 +73,7 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
-
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-// or use with component(ES6)
-import { quillEditor } from 'vue-quill-editor'
+import {quillEditor} from 'vue-quill-editor'
 export default {
   components: {
     quillEditor
@@ -175,27 +170,4 @@ export default {
 }
 </script>
 <style lang="stylus" scoped="scoped">
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
 </style>

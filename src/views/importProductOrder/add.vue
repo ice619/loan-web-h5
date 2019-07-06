@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="100px" class="demo-form-inline" style="padding-left: 40px">
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="APP平台:" prop="appName" :rules="[{ required: true, message: '请选择APP平台', trigger: 'blur' }]" align="left">
+            <el-form-item label="APP平台:" prop="appName" :rules="[{ required: true, message: '请选择APP平台', trigger: 'change' }]" align="left">
               <el-select v-model="entryForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>

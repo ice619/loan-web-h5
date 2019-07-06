@@ -1,27 +1,28 @@
 <template>
   <div class="border">
-    <el-dialog title="注册量更新页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog">
+    <el-dialog title="注册量更新页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
       <el-form :inline="true" :model="registerPageForm" :rules="rules" ref="registerPageForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
-          <el-col :span="12">
+          <el-col :span="40">
             <el-form-item label="人脸质量分:" prop="registerLimit" label-width="150px">
               <el-input type="number" v-model="registerPageForm.faceQualityValue"  placeholder="0~100分值,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="12">
+          <el-col :span="40">
             <el-form-item label="置信度级别:" prop="warningRate" label-width="150px">
-              <el-input type="number" v-model="registerPageForm.faceConfidenceLevel" placeholder="1e-3~1e-6,级别越高通过率越低"/>
+              <el-input type="text" v-model="registerPageForm.faceConfidenceLevel" placeholder="1e-3~1e-6,级别越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="12">
+          <el-col :span="40">
             <el-form-item label="状态:" prop="state" label-width="150px">
               <el-radio-group v-model="registerPageForm.state">
-                <el-radio :label="1">有效</el-radio>
-                <el-radio :label="0">失效</el-radio>
+                <el-radio :label="1">待启用</el-radio>
+                <el-radio :label="2">启用</el-radio>
+                <el-radio :label="3">停用</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -51,7 +52,7 @@ export default {
     return {
       configDetails: [],
       tipPageInitForm: {
-        state: 1
+        state: null
       },
       registerPageForm: {},
       rules: {
@@ -88,7 +89,11 @@ export default {
               this.$message.success('修改成功!')
               this.closeDialog()
             } else {
-              this.$message.error(res.message)
+              if (res.code === '1014') {
+                this.$message.error('有效记录已存在')
+              } else {
+                this.$message.error(res.message)
+              }
             }
           } catch (err) {
             console.error(err)

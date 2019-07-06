@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
       <el-row type="flex" justify="left">
         <el-col :span="30">
-          <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
+          <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
             <el-select v-model="entryForm.appName" clearable placeholder="请选择App名称" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
@@ -13,7 +13,7 @@
       </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="投放渠道" :rules="[{ required: true, message: '请选择投放渠道', trigger: 'blur' }]">
+            <el-form-item label="投放渠道" prop="channel" :rules="[{ required: true, message: '请选择投放渠道', trigger: 'change' }]">
               <el-select v-model="entryForm.channel" clearable placeholder="请选择">
                 <el-option v-for="item in channelOption" :key="item" :label="item" :value="item"/>
               </el-select>
@@ -23,7 +23,7 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="投放名称" prop="channelName" :rules="[{ required: true, message: '请输入投放名称', trigger: 'blur' }]">
-              <el-input v-model="entryForm.channelName" clearable style="width: 100%"></el-input>
+              <el-input v-model="entryForm.channelName" clearable style="width: 100%"/>
             </el-form-item>
           </el-col>
         </el-row>

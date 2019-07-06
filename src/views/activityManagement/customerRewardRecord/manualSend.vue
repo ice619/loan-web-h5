@@ -4,14 +4,14 @@
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
+            <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
               <el-select v-model="entryForm.appName" placeholder="请选择App名称" style="width: 300px">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'blur' }]">
+            <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'change' }]">
               <el-select v-model="entryForm.materialType" clearable placeholder="请选择物料类型" style="width: 300px">
                 <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -25,10 +25,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="物料编码" prop="materialCode" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'blur' }]">
+            <el-form-item label="物料编码" prop="materialCode" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 300px">
                 <el-option v-for="item in materialConfigArray" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>
+              <span class="tip-info" style="left: 0;color:gray">备注：{{materialRemark}}</span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -59,9 +60,9 @@
                               style="width: 300px"/>
             </el-form-item>
             <el-form-item label="失效时间" prop="validEndTime">
-              <el-input v-model="entryForm.validEndTime" readonly="" :disabled="entryForm.materialType !== 'DK'" style="width: 300px"/>
+              <el-input v-model="entryForm.validEndTime" readonly :disabled="entryForm.materialType !== 'DK'" style="width: 300px"/>
             </el-form-item>
-            <el-form-item label="物料备注" prop="remark">
+            <el-form-item label="备注" prop="remark">
               <el-input type="textarea" v-model="entryForm.remark" rows="2" style="width: 300px"/>
             </el-form-item>
           </el-col>
@@ -103,6 +104,7 @@ export default {
         remark: null
       },
       entryForm: {},
+      materialRemark: '',
       materialConfigArray: [],
       rules: {}
     }
@@ -118,12 +120,14 @@ export default {
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
-          // 时间校验
-          let sendTime = this.entryForm.sendTime
-          let validStartTime = this.entryForm.validStartTime
-          if (sendTime > validStartTime) {
-            this.$message.warn('发送时间不能大于生效时间!')
-            return
+          if (this.entryForm.materialType === 'DK') {
+            // 时间校验
+            let sendTime = this.entryForm.sendTime
+            let validStartTime = this.entryForm.validStartTime
+            if (sendTime > validStartTime) {
+              this.$message.warn('发送时间不能大于生效时间!')
+              return
+            }
           }
 
           this.entryForm.phoneList = this.entryForm.sendPhones.split('\n')
@@ -163,10 +167,14 @@ export default {
       }
     },
     'entryForm.materialCode': function () {
-      if (this.entryForm.materialType === 'DK' && this.entryForm.validStartTime) {
+      this.materialRemark = ''
+      if (this.entryForm.materialCode && this.materialConfigArray && this.materialConfigArray.length > 0) {
         let data = this.materialConfigArray.find(config => config.materialCode === this.entryForm.materialCode)
-        let validDays = data.validDays
-        this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
+        if (this.entryForm.materialType === 'DK' && this.entryForm.validStartTime) {
+          let validDays = data.validDays
+          this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
+        }
+        this.materialRemark = (data.remark ? data.remark.substring(0, 20) : '') + (data.remark.length > 20 ? '...' : '')
       }
     }
   }
