@@ -13,7 +13,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="投放渠道" :rules="[{ required: true, message: '请选择投放渠道', trigger: 'change' }]">
+            <el-form-item label="投放渠道" prop="channel" :rules="[{ required: true, message: '请选择投放渠道', trigger: 'change' }]">
               <el-select v-model="entryForm.channel" clearable placeholder="请选择">
                 <el-option v-for="item in channelOption" :key="item" :label="item" :value="item"/>
               </el-select>
