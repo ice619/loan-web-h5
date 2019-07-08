@@ -1,9 +1,9 @@
 <template xmlns:v-quill="http://www.w3.org/1999/xhtml">
   <div class="border" style="height: 800px">
     <el-dialog title="添加协议" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="70%">
-      <el-form :inline="true" :model="agreementAddForm" :rules="rules" ref="agreementAddForm" label-width="500px" class="demo-form-inline">
-        <el-row class="arrow-left" type="flex" justify="center">
-          <el-col class="arrow-left">
+      <el-form :inline="true" :model="agreementAddForm" :rules="rules" ref="agreementAddForm" label-width="100px" class="demo-form-inline">
+        <el-row  type="flex" justify="center">
+          <el-col >
             <el-form-item label="APP平台:" prop="appName">
               <el-select v-model="agreementAddForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -11,15 +11,15 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col class="arrow-left">
+        <el-row type="flex" justify="left">
+          <el-col >
             <el-form-item label="协议名称:" prop="agreementName">
-              <el-input type="text" v-model="agreementAddForm.agreementName"></el-input>
+              <el-input type="text" v-model="agreementAddForm.agreementName"/>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col class="arrow-left">
+        <el-row type="flex" justify="left">
+          <el-col>
             <el-form-item label="类型:" prop="agreeType">
               <el-select v-model="agreementAddForm.agreeType" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('agreeType')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -27,8 +27,8 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col class="arrow-left">
+        <el-row type="flex" justify="left">
+          <el-col>
             <el-form-item label="语言:" prop="language">
               <el-select v-model="agreementAddForm.language" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('language')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -36,19 +36,19 @@
             </el-form-item>
           </el-col>
         </el-row>
-       <el-row type="flex" justify="center">
-          <el-col class="arrow-left">
+       <el-row type="flex" justify="left">
+          <el-col>
             <el-form-item label="内容:" prop="agreeContent">
               <quill-editor class="editer" ref="myTextEditor"
                             v-model="agreementAddForm.agreeContent"
-                            :config="editorOption"
+                            :option="editorOption"
                             @change="onEditorChange($event)" style="height: 200px;margin-bottom: 100px">
               </quill-editor>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-row type="flex" justify="center">
+        <el-row type="flex" justify="left">
           <el-col>
             <el-form-item label="状态:" prop="currentState">
               <el-radio-group v-model="agreementAddForm.currentState">
@@ -73,7 +73,10 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
-import {quillEditor} from 'vue-quill-editor'
+import { quillEditor } from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 export default {
   components: {
     quillEditor
@@ -85,7 +88,6 @@ export default {
     return {
       content: '<h2>Please Input Content</h2>',
       editorOption: {
-        // something config
         height: 100,
         theme: 'snow'
       },
@@ -120,18 +122,6 @@ export default {
         ]
       }
     }
-  },
-  // if you need to get the current editor object, you can find the editor object like this, the $ref object is a ref attribute corresponding to the dom redefined
-  // 如果你需要得到当前的editor对象来做一些事情，你可以像下面这样定义一个方法属性来获取当前的editor对象，实际上这里的$refs对应的是当前组件内所有关联了ref属性的组件元素对象
-  computed: {
-    editor () {
-      return this.$refs.myTextEditor.quillEditor
-    }
-  },
-  mounted () {
-    // you can use current editor object to do something(editor methods)
-    console.log('this is my editor', this.editor)
-    // this.editor to do something...
   },
   methods: {
     onEditorChange ({ editor, html, text }) {
