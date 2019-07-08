@@ -1,10 +1,9 @@
 <template>
   <div class="border" style="width: 100%">
     <el-dialog title="修改协议" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="70%">
-      <el-form :inline="true" :model="agreementForm" :rules="rules" ref="agreementForm" label-width="500px"
-               class="demo-form-inline">
-        <el-row type="flex" justify="center">
-          <el-col>
+      <el-form :inline="true" :model="agreementForm" :rules="rules" ref="agreementForm" label-width="100px" class="demo-form-inline">
+        <el-row type="flex" justify="left">
+          <el-col :span="40">
             <el-form-item label="APP平台:" prop="appName">
               <el-select v-model="agreementForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -12,15 +11,15 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col >
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
             <el-form-item label="协议名称:" prop="agreementName">
-              <el-input type="text" v-model="agreementForm.agreementName"></el-input>
+              <el-input type="text" v-model="agreementForm.agreementName"/>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
             <el-form-item label="类型:" prop="agreeType">
               <el-select v-model="agreementForm.agreeType" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('agreeType')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -28,8 +27,8 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
             <el-form-item label="语言:" prop="language">
               <el-select v-model="agreementForm.language" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('language')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -37,21 +36,19 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
             <el-form-item label="内容:" prop="agreeContent">
-              <quill-editor class="editer" ref="myTextEditor"
+              <quill-editor ref="myTextEditor"
                             v-model="agreementForm.agreeContent"
                             :config="editorOption"
-                            @blur="onEditorBlur($event)"
-                            @focus="onEditorFocus($event)"
-                            @ready="onEditorReady($event)">
+                            @change="onEditorChange($event)" style="height: 200px;margin-bottom: 100px">
               </quill-editor>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
             <el-form-item label="状态:" prop="currentState">
               <el-radio-group v-model="agreementForm.currentState">
                 <el-radio :label="1">有效</el-radio>
@@ -76,24 +73,18 @@
 <script>
 import debounce from 'throttle-debounce/debounce'
 import {clone} from '@/utils/common'
-// or use with component(ES6)
 import { quillEditor } from 'vue-quill-editor'
-// require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-
 export default {
   components: {
     quillEditor
   },
   content: '<h2>Please Input Content</h2>',
-  editorOption: {
-    // something config
-  },
   props: {
     'ifshow': Boolean,
-    'agreementWindow': Object
+    'agreeTip': Object
   },
   data () {
     return {
@@ -107,6 +98,9 @@ export default {
         currentState: 1
       },
       agreementForm: {},
+      editorOption: {
+        width: '100%'
+      },
       sort: 1,
       rules: {
         appName: [
@@ -130,34 +124,15 @@ export default {
       }
     }
   },
-  computed: {
-    editor () {
-      return this.$refs.myTextEditor.quillEditor
-    }
-  },
-  mounted () {
-    // you can use current editor object to do something(editor methods)
-    console.log('this is my editor', this.editor)
-    // this.editor to do something...
-  },
   methods: {
-    onEditorBlur (editor) {
-      console.log('editor blur!', editor)
-    },
-    onEditorFocus (editor) {
-      console.log('editor focus!', editor)
-    },
-    onEditorReady (editor) {
-      console.log('editor ready!', editor)
-    },
     onEditorChange ({ editor, html, text }) {
       this.content = html
     },
     async initFrom () {
       try {
-        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreementWindow.customerAgreementConfigId)
+        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreeTip.customerAgreementConfigId)
         if (res.code === '200') {
-          this.agreementForm = clone(this.agreementWindow)
+          this.agreementForm = clone(this.agreeTip)
           this.configDetails = res.data
         } else {
           this.$message.error(res.message)

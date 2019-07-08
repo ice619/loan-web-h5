@@ -12,7 +12,7 @@
               <quill-editor class="editer" ref="myTextEditor"
                             v-model="agreementForm.agreeContent"
                             :config="editorOption"
-                            @change="onEditorChange($event)">
+                            style="height: 200px;margin-bottom: 100px">
               </quill-editor>
             </el-form-item>
           </el-col>
@@ -41,7 +41,10 @@ export default {
   data () {
     return {
       configDetails: [],
-      agreementForm: {}
+      agreementForm: {},
+      editorOption: {
+        width: '100%'
+      }
     }
   },
   methods: {
