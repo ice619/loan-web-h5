@@ -6,19 +6,16 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="流水号">
-        <el-input v-model="searchForm.serialNumber" maxlength="30" clearable placeholder="唯一流水号" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="客户ID">
-        <el-input v-model="searchForm.customerId" maxlength="30" clearable placeholder="奖励人客户ID" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="客户手机号">
-        <el-input v-model="searchForm.customerPhone" maxlength="30" clearable placeholder="奖励客户手机号" style="width: 200px"/>
+      <el-form-item label="邀请人客户ID">
+        <el-input v-model="searchForm.inviterCustomerId" maxlength="30" clearable placeholder="邀请人客户ID" style="width: 200px"/>
       </el-form-item>
       <el-form-item label="客户状态">
         <el-select v-model="searchForm.customerState" clearable placeholder="请选择" style="width: 150px">
           <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
+      </el-form-item>
+      <el-form-item label="客户ID">
+        <el-input v-model="searchForm.customerId" maxlength="30" clearable placeholder="奖励人客户ID" style="width: 200px"/>
       </el-form-item>
       <el-form-item label="发送时间：">
         <el-col>
@@ -124,7 +121,6 @@ export default {
       }
       try {
         const res = await this.$http.post('/customer-state-push/find-relation-state-list', params)
-        console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
