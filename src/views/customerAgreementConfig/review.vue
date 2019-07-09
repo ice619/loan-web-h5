@@ -1,31 +1,28 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="详情" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="70%">
+    <el-dialog title="详情" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
       <el-form :inline="true" :model="agreementForm" ref="agreementForm" label-width="100px"
                class="demo-form-inline">
-        <el-row type="flex" justify="center">
-          <el-col :span="12">
-            <el-form-item  prop="reviewUrl">
-              <!--
-              label="内容:"
-              <el-input  v-model="agreementForm.reviewUrl"></el-input>-->
-              <quill-editor class="editer" ref="myTextEditor"
-                            v-model="agreementForm.agreeContent"
-                            :config="editorOption"
-                            @change="onEditorChange($event)">
-              </quill-editor>
+        <el-row type="flex" justify="center" style="display: none">
+          <el-col :span="30">
+            <el-form-item label="协议内容:" prop="reviewUrl">
+              <el-input type="text" v-model="agreementForm.reviewUrl"/>
             </el-form-item>
           </el-col>
         </el-row>
-
+        <el-row type="flex" justify="center" style="overflow-x:hidden;overflow-y:auto">
+          <el-col :span="50">
+            <!--https://testh5.fqt188.com/protocol/21.2.id-->
+            <el-form-item>
+              <iframe id="iframeContet" width="600" height="600" :src="agreementForm.reviewUrl" frameborder="0" border="0"></iframe>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
     </el-dialog>
   </div>
 </template>
-
 <script>
-import {clone} from '@/utils/common'
-// or use with component(ES6)
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -40,8 +37,10 @@ export default {
   },
   data () {
     return {
-      configDetails: [],
-      agreementForm: {}
+      agreementForm: {},
+      editorOption: {
+        width: '100%'
+      }
     }
   },
   methods: {
@@ -56,8 +55,7 @@ export default {
       try {
         const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreementWindow.customerAgreementConfigId)
         if (res.code === '200') {
-          this.agreementForm = clone(this.agreementWindow)
-          this.configDetails = res.data
+          this.agreementForm = res.data
         } else {
           this.$message.error(res.message)
         }

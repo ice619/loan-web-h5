@@ -7,7 +7,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="生效用户">
-        <el-select v-model="searchForm.status" clearable placeholder="请选择">
+        <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>

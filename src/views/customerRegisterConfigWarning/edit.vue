@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="registerPageForm" :rules="rules" ref="registerPageForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="APP平台:" prop="appName" label-width="150px">
+            <el-form-item label="APP平台:" prop="appName">
               <el-select v-model="registerPageForm.appName" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -13,28 +13,28 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="单日注册上限:" prop="registerLimit" label-width="150px">
+            <el-form-item label="日注册上限:" prop="registerLimit">
               <el-input type="number" v-model="registerPageForm.registerLimit"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="预警率值(%):" prop="warningRate" label-width="150px">
+            <el-form-item label="预警率值(%):" prop="warningRate">
               <el-input type="number" v-model="registerPageForm.warningRate"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="接收手机号:" prop="receivedPhone" label-width="150px">
+            <el-form-item label="接收手机号:" prop="receivedPhone">
               <el-input type="text" v-model="registerPageForm.receivedPhone"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="状态:" prop="currentState" label-width="150px">
+            <el-form-item label="状态:" prop="currentState">
               <el-radio-group v-model="registerPageForm.currentState">
                 <el-radio :label="1">有效</el-radio>
                 <el-radio :label="0">失效</el-radio>

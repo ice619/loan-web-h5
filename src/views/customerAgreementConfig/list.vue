@@ -69,9 +69,7 @@
           <el-button icon="el-icon-review" @click="lookAgreementConfig(scope.row)" type="text" size="small">查看
           </el-button>
           <el-button icon="el-icon-edit" @click="editAgreementConfig(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button icon="el-icon-delete" @click="removeAgreement(scope.row)" type="text" size="small"
-                     style="color: #F56C6C">删除
-          </el-button>
+          <el-button icon="el-icon-delete" @click="removeAgreement(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -86,10 +84,8 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :agreementWindow="agreementWindow"
-          @handleCloseDialog="showEditFlag=false;list();"></edit>
-    <review :ifshow="showReviewFlag" :agreementWindow="agreementWindow"
-            @handleCloseDialog="showReviewFlag=false;list();"></review>
+    <edit :ifshow="showEditFlag" :agreeTip="agreeTip" @handleCloseDialog="showEditFlag=false;list();"></edit>
+    <review :ifshow="showReviewFlag" :agreementWindow="agreementWindow" @handleCloseDialog="showReviewFlag=false;list();"/>
   </div>
 </template>
 <script>
@@ -101,6 +97,7 @@ export default {
         appName: 21
       },
       agreementWindow: {},
+      agreeTip: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -147,12 +144,12 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    lookAgreementConfig (row) {
-      this.showReviewFlag = true
-      this.agreementWindow = row
-    },
     editAgreementConfig (row) {
       this.showEditFlag = true
+      this.agreeTip = row
+    },
+    lookAgreementConfig (row) {
+      this.showReviewFlag = true
       this.agreementWindow = row
     },
     removeAgreement (row) {
