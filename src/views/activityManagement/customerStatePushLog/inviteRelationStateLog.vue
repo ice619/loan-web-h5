@@ -58,7 +58,7 @@
           <span>{{scope.row.inviterCustomerId}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="inviterCustomerPhone" label="被邀请人客户手机号" header-align="center" align="center" min-width="150">
+      <el-table-column prop="inviterCustomerPhone" label="邀请人客户手机号" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
           <span>{{scope.row.inviterCustomerPhone}}</span>
         </template>
