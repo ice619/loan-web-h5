@@ -110,7 +110,7 @@ export default {
   methods: {
     async initFrom () {
       try {
-        const res = await this.$http.get('/app-config/customer-config-quota/' + this.tip.id)
+        const res = await this.$http.get('/app-config/customer-config-reject-loan-tip/' + this.tip.id)
         if (res.code === '200' && res.data && res.data.length > 0) {
           this.tipPageForm = clone(this.tip)
           let data = res.data
@@ -155,7 +155,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped="scoped">
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

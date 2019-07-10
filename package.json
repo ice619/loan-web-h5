@@ -22,11 +22,13 @@
     "js-md5": "^0.7.3",
     "js-sha256": "^0.9.0",
     "nice-try": "^2.0.0",
+    "quill-mention": "^2.1.1",
     "sortablejs": "^1.8.0-rc1",
     "vue": "^2.5.2",
     "vue-cookies": "^1.5.7",
     "vue-i18n": "^8.11.2",
     "vue-json-pretty": "^1.6.0",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

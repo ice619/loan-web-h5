@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import fetch from '@/utils/fetch'
 import {getToken, setToken, setLanguage, getLanguage} from '@/utils/VueCookies'
+import { loanPermission } from '@/utils/permission'
 import Formatter from '@/utils/formatter'
 import iosCompanySign from '@/views/iosCompanySign/list'
 import banner from '@/views/banner/list'
@@ -44,6 +45,19 @@ import redisQuery from '@/views/redisQuery/base'
 import goodsQuery from '@/views/goodsQuery/list'
 import customerConfigRejectLoanTip from '@/views/customerConfigRejectLoanTip/list'
 import customerConfigQuota from '@/views/customerConfigQuota/list'
+import customerRegisterConfigWarning from '@/views/customerRegisterConfigWarning/list'
+import materialConfig from '@/views/activityManagement/materialConfig/list'
+import activityConfig from '@/views/activityManagement/activityConfig/list'
+import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
+import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
+import appPopup from '@/views/appPopup/list'
+import customerAgreementConfig from '@/views/customerAgreementConfig/list'
+import customerRegisterInfoLog from '@/views/activityManagement/customerStatePushLog/customerRegisterInfoLog'
+import customerStatePushLog from '@/views/activityManagement/customerStatePushLog/customerStatePushLog'
+import inviteRelationStateLog from '@/views/activityManagement/customerStatePushLog/inviteRelationStateLog'
+
+import marketChannel from '@/views/market/channel/list'
+import marketChannelDetail from '@/views/market/detail/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -257,6 +271,66 @@ const router = new Router({
       path: '/default-quota',
       name: 'customerConfigQuota',
       component: customerConfigQuota
+    },
+    {
+      path: '/register-warning',
+      name: 'customerRegisterConfigWarning',
+      component: customerRegisterConfigWarning
+    },
+    {
+      path: '/material-config',
+      name: 'materialConfig',
+      component: materialConfig
+    },
+    {
+      path: '/activity-config',
+      name: 'activityConfig',
+      component: activityConfig
+    },
+    {
+      path: '/behavior-reward-config',
+      name: 'behaviorRewardConfig',
+      component: behaviorRewardConfig
+    },
+    {
+      path: '/customer-reward-record',
+      name: 'customerRewardRecord',
+      component: customerRewardRecord
+    },
+    {
+      path: '/app-popup',
+      name: 'appPopup',
+      component: appPopup
+    },
+    {
+      path: '/market-channel',
+      name: 'marketChannel',
+      component: marketChannel
+    },
+    {
+      path: '/market-channel-detail',
+      name: 'marketChannelDetail',
+      component: marketChannelDetail
+    },
+    {
+      path: '/customer-register-info-log',
+      name: 'customerRegisterInfoLog',
+      component: customerRegisterInfoLog
+    },
+    {
+      path: '/invite-relation-state-log',
+      name: 'inviteRelationStateLog',
+      component: inviteRelationStateLog
+    },
+    {
+      path: '/customer-state-push-log',
+      name: 'customerStatePushLog',
+      component: customerStatePushLog
+    },
+    {
+      path: '/agreement-config',
+      name: 'customerAgreementConfig',
+      component: customerAgreementConfig
     }
   ],
   mode: 'history'// 去除#号
@@ -274,6 +348,7 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
+      loanPermission()
       loadDict(next)
     }
   } else {

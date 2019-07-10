@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="dictBigForm" :rules="rules" ref="dictBigForm" label-width="100px" class="demo-form-inline">
         <el-row type="flex" justify="left">
           <el-col :span="40">
-            <el-form-item label="所属系统：" prop="systemCode" :rules="[{ required: true, message: '请选择所属系统', trigger: 'blur' }]">
+            <el-form-item label="所属系统：" prop="systemCode" :rules="[{ required: true, message: '请选择所属系统', trigger: 'change' }]">
               <el-select v-model="dictBigForm.systemCode" placeholder="所属系统" style="width: 250px;">
                 <el-option v-for="item in $formatter.getSelectionOptions('systemCode')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
@@ -105,6 +105,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-</style>
