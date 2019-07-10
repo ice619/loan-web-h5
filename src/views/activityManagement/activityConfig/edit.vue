@@ -203,6 +203,7 @@ export default {
         this.$message.error('load activity detail error')
         console.info(e)
       })
+      this.materialConfig = {}
       this.loadMaterialConfig()
     },
     closeDialog () {
@@ -262,7 +263,7 @@ export default {
           try {
             const res = await this.$http.put('/activity-config', this.entryForm)
             if (res.code === '200') {
-              this.$message.success('新增成功!')
+              this.$message.success('更新成功!')
               this.closeDialog()
             } else {
               this.$message.error(res.message)
