@@ -79,83 +79,83 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        searchForm: {
-          appName: 21,
-          phoneNum: null
-        },
-        disableRemove: true,
-        baseInfo: {},
-        deleteForm: {
-          appName: null,
-          phoneNum: null
-        }
-      }
-    },
-    methods: {
-      async search () {
-        this.baseInfo = {}
-        try {
-          let appName = this.searchForm.appName
-          if (!appName) {
-            this.$message.error('APP名称不能为空!')
-            return
-          }
-          let phone = this.searchForm.phoneNum
-          if (!phone) {
-            this.$message.error('手机号不能为空!')
-            return
-          }
-          const res = await this.$http.post('/customer/base-info', this.searchForm)
-          if (res.code === '200') {
-            if (res.data) {
-              this.baseInfo = res.data
-              this.disableRemove = false
-              this.deleteForm.appName = this.searchForm.appName
-              this.deleteForm.phoneNum = this.searchForm.phoneNum
-            }
-          } else {
-            this.$message.error(res.message)
-          }
-        } catch (err) {
-          console.error(err)
-        }
+export default {
+  data () {
+    return {
+      searchForm: {
+        appName: 21,
+        phoneNum: null
       },
-      deleteData () {
-        let appName = this.deleteForm.appName
+      disableRemove: true,
+      baseInfo: {},
+      deleteForm: {
+        appName: null,
+        phoneNum: null
+      }
+    }
+  },
+  methods: {
+    async search () {
+      this.baseInfo = {}
+      try {
+        let appName = this.searchForm.appName
         if (!appName) {
           this.$message.error('APP名称不能为空!')
           return
         }
-        let phone = this.deleteForm.phoneNum
+        let phone = this.searchForm.phoneNum
         if (!phone) {
           this.$message.error('手机号不能为空!')
           return
         }
-        this.$confirm('此操作将永久删除该用户数据, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          console.log(appName)
-          console.log(phone)
-          const res = await this.$http.delete('/delete-data/' + appName + '/' + phone)
-          console.log(res)
-          if (res.code === '200') {
-            this.$message.info('删除成功！')
-            this.baseInfo = {}
-            this.disableRemove = true
-          } else {
-            this.$message.error(res.message)
+        const res = await this.$http.post('/customer/base-info', this.searchForm)
+        if (res.code === '200') {
+          if (res.data) {
+            this.baseInfo = res.data
+            this.disableRemove = false
+            this.deleteForm.appName = this.searchForm.appName
+            this.deleteForm.phoneNum = this.searchForm.phoneNum
           }
-        }).catch((err) => {
-          console.error(err)
-        })
+        } else {
+          this.$message.error(res.message)
+        }
+      } catch (err) {
+        console.error(err)
       }
+    },
+    deleteData () {
+      let appName = this.deleteForm.appName
+      if (!appName) {
+        this.$message.error('APP名称不能为空!')
+        return
+      }
+      let phone = this.deleteForm.phoneNum
+      if (!phone) {
+        this.$message.error('手机号不能为空!')
+        return
+      }
+      this.$confirm('此操作将永久删除该用户数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        console.log(appName)
+        console.log(phone)
+        const res = await this.$http.delete('/delete-data/' + appName + '/' + phone)
+        console.log(res)
+        if (res.code === '200') {
+          this.$message.info('删除成功！')
+          this.baseInfo = {}
+          this.disableRemove = true
+        } else {
+          this.$message.error(res.message)
+        }
+      }).catch((err) => {
+        console.error(err)
+      })
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped="scoped">
