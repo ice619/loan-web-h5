@@ -9,7 +9,7 @@ export default class Permission {
       return false
     }
     let permissions = permission.split(',')
-    if (values.some(value => permissions.some(item => item === value))) {
+    if (values.some(value => permissions.some(item => item === value || item === 'ADMIN'))) {
       return true
     }
     return false
