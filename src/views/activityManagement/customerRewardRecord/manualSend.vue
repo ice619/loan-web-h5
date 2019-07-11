@@ -125,7 +125,7 @@ export default {
             let sendTime = this.entryForm.sendTime
             let validStartTime = this.entryForm.validStartTime
             if (sendTime > validStartTime) {
-              this.$message.warn('发送时间不能大于生效时间!')
+              this.$message.warning('发送时间不能大于生效时间!')
               return
             }
           }
@@ -174,7 +174,9 @@ export default {
           let validDays = data.validDays
           this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
         }
-        this.materialRemark = (data.remark ? data.remark.substring(0, 20) : '') + (data.remark.length > 20 ? '...' : '')
+        if (data.remark) {
+          this.materialRemark = (data.remark ? data.remark.substring(0, 20) : '') + (data.remark.length > 20 ? '...' : '')
+        }
       }
     }
   }
