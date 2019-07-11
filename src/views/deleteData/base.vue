@@ -13,68 +13,68 @@
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="search">查询</el-button>
       </el-form-item>
     </el-form>
-      <h3>基本信息</h3>
-      <el-card>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">手机号码</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">IP地址</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.ipAddress}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">注册来源</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('source', baseInfo.source)}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">注册时间</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.registerTime}}</div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">设备号</div>
-          </el-col>
-          <el-col :span="5">
-            <div class="grid-content bg-purple-light">{{baseInfo.deviceId}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">下载渠道</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.downloadChannel}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">邀请人手机号</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{baseInfo.invitePhone}}</div>
-          </el-col>
-          <el-col :span="2">
-            <div class="grid-content bg-purple">注册手机系统</div>
-          </el-col>
-          <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appType', baseInfo.osVersion)}}</div>
-          </el-col>
-        </el-row>
-        <el-row  justify="center">
-          <el-col :span="20">
-            <div class="grid-content bg-purple">
-              <el-button :disabled="disableRemove" style="color: white;background-color: #96363e;" type="primary" icon="el-icon-delete" @click="deleteData">删除</el-button>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
+    <h3>基本信息</h3>
+    <el-card>
+      <el-row>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">手机号码</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.phoneNum}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">IP地址</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.ipAddress}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">注册来源</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('source', baseInfo.source)}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">注册时间</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.registerTime}}</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">设备号</div>
+        </el-col>
+        <el-col :span="5">
+          <div class="grid-content bg-purple-light">{{baseInfo.deviceId}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">下载渠道</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.downloadChannel}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">邀请人手机号</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{baseInfo.invitePhone}}</div>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">注册手机系统</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('appType', baseInfo.osVersion)}}</div>
+        </el-col>
+      </el-row>
+      <el-row  justify="center">
+        <el-col :span="20">
+          <div class="grid-content bg-purple">
+            <el-button :disabled="disableRemove" style="color: white;background-color: #96363e;" type="primary" icon="el-icon-delete" @click="deleteData">删除</el-button>
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
