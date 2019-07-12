@@ -20,7 +20,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="来源(默认)" prop="title" :rules="[{ required: true, message: '请输入来源', trigger: 'blur' }]">
+            <el-form-item label="来源(默认)" prop="title">
               <el-input v-model="entryForm.title" placeholder="默认语言" clearable style="width: 300px"/>
             </el-form-item>
           </el-col>
