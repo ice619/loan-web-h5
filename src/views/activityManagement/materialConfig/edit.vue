@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-dialog title="新增物料" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="90%" style="margin-top: -80px">
-      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
+      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="90px" class="demo-form-inline" style="margin-left: 10%;">
       <el-row>
         <el-col :span="10">
           <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
@@ -58,7 +58,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="逾期可用" prop="validDays" :rules="[{ required: entryForm.materialType === 'DK', message: '请选择逾期可用', trigger: 'blur' }]">
+          <el-form-item label="逾期可用" prop="overdueCanUse">
             <el-select v-model="entryForm.overdueCanUse" placeholder="请选择逾期可用" :disabled="entryForm.materialType != 'DK'" clearable style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('overdueCanUse')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
@@ -92,7 +92,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" style="margin-top: 50px">
-        <el-col :span="40">
+        <el-col :span="25">
           <el-form-item>
             <el-button style="color: white;background-color: #009688;" @click="save" v-if="$permission.hasPermission('MATERIAL_CONFIG_UPDATE')">提交</el-button>
             <el-button @click="closeDialog">关闭</el-button>
