@@ -31,7 +31,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="标题(切换)" prop="translateTitle">
+          <el-form-item label="标题(切换)" prop="translateTitle" :rules="[{ required: entryForm.materialType !== 'XJ', message: '请输入标题', trigger: 'blur' }]">
             <el-input v-model="entryForm.translateTitle" placeholder="切换语言" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>

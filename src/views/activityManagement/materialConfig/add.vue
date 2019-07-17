@@ -31,7 +31,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="标题(切换)" prop="translateTitle">
+          <el-form-item label="标题(切换)" prop="translateTitle" :rules="[{ required: entryForm.materialType !== 'XJ', message: '请输入标题', trigger: 'blur' }]">
             <el-input v-model="entryForm.translateTitle" placeholder="切换语言" :disabled="entryForm.materialType === 'XJ'" clearable style="width: 350px"/>
           </el-form-item>
         </el-col>
@@ -106,7 +106,7 @@
 
 <script>
 import debounce from 'throttle-debounce/debounce'
-import {clone} from '@/utils/common'
+import {clone, deleteAttr} from '@/utils/common'
 import {getToken, getLanguage} from '@/utils/VueCookies'
 
 export default {
@@ -121,11 +121,12 @@ export default {
         imageUrl: null,
         title: null,
         translateTitle: null,
+        amount: null,
         validDays: null,
         usageScene: null,
         overdueCanUse: null,
-        ruleDesc: null,
-        translateRuleDesc: null,
+        ruleDesc: '1.kupon potongan pinjaman\n2.Pelunasan baru bisa memakai',
+        translateRuleDesc: '1.Loan coupon\n2.Available only when repayment',
         status: 1
       },
       entryForm: {},
@@ -159,11 +160,20 @@ export default {
         this.$message.error('图片上传失败')
       }
     },
+    filterEntryForm () {
+      let form = clone(this.entryForm)
+      if (form.materialType === 'XJ') {
+        deleteAttr(form, 'title', 'translateTitle', 'validDays', 'usageScene', 'overdueCanUse', 'ruleDesc', 'translateRuleDesc')
+      } else if (form.materialType === 'JP') {
+        deleteAttr(form, 'amount', 'validDays', 'usageScene', 'overdueCanUse')
+      }
+      return form
+    },
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/material-config', this.entryForm)
+            const res = await this.$http.post('/material-config', this.filterEntryForm())
             if (res.code === '200') {
               this.$message.success('新增成功!')
               this.closeDialog()
