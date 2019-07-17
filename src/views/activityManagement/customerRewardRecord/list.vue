@@ -6,10 +6,10 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="流水号">
-        <el-input v-model="searchForm.serialNumber" maxlength="30" clearable placeholder="唯一流水号" style="width: 200px"/>
-      </el-form-item>
-      <el-form-item label="客户手机号">
+      <!--<el-form-item label="流水号">-->
+        <!--<el-input v-model="searchForm.serialNumber" maxlength="30" clearable placeholder="唯一流水号" style="width: 200px"/>-->
+      <!--</el-form-item>-->
+      <el-form-item label="手机号">
         <el-input v-model="searchForm.customerPhone" maxlength="30" clearable placeholder="奖励客户手机号" style="width: 200px"/>
       </el-form-item>
       <el-form-item label="活动编码">
@@ -28,68 +28,27 @@
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('CUSTOMER_REWARD_RECORD_SELECT')">查询</el-button>
-        <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus"  @click="showAddFlag = true">发送</el-button>
-        <!--v-if="$permission.hasPermission('CUSTOMER_REWARD_MANUAL_SEND')"-->
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus"  @click="showAddFlag = true" v-if="$permission.hasPermission('CUSTOMER_REWARD_MANUAL_SEND')">发送</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
-      <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="serialNumber" label="流水号" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="customerId" label="奖励客户ID" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="customerPhone" label="奖励客户手机号" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="customerState" label="奖励客户状态" header-align="center" align="center" min-width="120">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="activityType" label="活动类型" header-align="center" align="center" min-width="100">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('activityType', scope.row.activityType)}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="activityCode" label="活动编码" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="activityTitle" label="活动标题(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <!--<el-table-column prop="activityTranslateTitle" label="活动标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
-      <el-table-column prop="materialType" label="物料类型" header-align="center" align="center" min-width="100">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('materialType', scope.row.materialType)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center" min-width="130"/>
-      <el-table-column prop="materialTitle" label="物料标题(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="materialAmount" label="物料金额" header-align="center" align="center" min-width="80"/>
-      <!--<el-table-column prop="materialTranslateTitle" label="物料标题(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
-      <!--<el-table-column prop="materialRuleDesc" label="物料规则(默认)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
-      <!--<el-table-column prop="materialTranslateRuleDesc" label="物料规则(切换)" header-align="center" align="center" min-width="150" show-overflow-tooltip/>-->
-      <el-table-column prop="materialUsageScene" label="使用场景" header-align="center" align="center" min-width="80"/>
-      <el-table-column prop="overdueCanUse" label="逾期可用" header-align="center" align="center" min-width="100">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('overdueCanUse', scope.row.overdueCanUse)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="validStartTime" label="有效开始时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="validEndTime" label="有效结束时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="beInviterCustomerId" label="被邀请人客户ID" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="beInviterCustomerPhone" label="被邀请人客户手机号" header-align="center" align="center" min-width="150"/>
-      <el-table-column prop="beInviterCustomerState" label="被邀请人客户状态" header-align="center" align="center" min-width="140">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('customerState', scope.row.customerState)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="remark" label="备注" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
+      <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center" min-width="150"/>
+      <el-table-column prop="customerPhone" label="手机号" header-align="center" align="center" min-width="150"/>
+      <el-table-column prop="sendUser" label="发送人" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="sendTime" label="发送时间" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="remark" label="发送备注" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
       <el-table-column prop="sendStatus" label="发送状态" header-align="center" align="center" min-width="80">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('rewardSendStatus', scope.row.sendStatus)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="errorMsg" label="失败原因" header-align="center" align="center" min-width="150" show-overflow-tooltip/>
-      <el-table-column prop="sendUser" label="发送人" header-align="center" align="center" min-width="100"/>
-      <el-table-column prop="sendTime" label="发送时间" header-align="center" align="center" min-width="160"/>
     </el-table>
     <el-pagination
       @current-change="handleCurrentChange"
