@@ -15,7 +15,8 @@
             <el-select v-model="entryForm.materialType" clearable placeholder="请选择物料类型" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
-            <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
+            <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png" :headers = "headers" :show-file-list="false" disabled="true"
+                       v-if="entryForm.materialType === 'JP'">
               <el-popover placement="right" width="200" trigger="hover" :content="entryForm.imageUrl && entryForm.imageUrl !== '' ? null : '图片未上传'">
                 <img v-if="entryForm.imageUrl && entryForm.imageUrl !== ''" :src="entryForm.imageUrl" class="avatar">
                 <el-button slot="reference" class="el-icon-info">查看图片</el-button>

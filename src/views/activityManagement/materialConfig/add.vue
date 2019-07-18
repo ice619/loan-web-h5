@@ -15,7 +15,9 @@
             <el-select v-model="entryForm.materialType" clearable placeholder="请选择物料类型" style="width: 350px">
               <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
-            <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png" :headers = "headers" :show-file-list="false" :on-change="handleFilesChange">
+            <el-upload class="avatar-uploader" :action="activityUrl" accept="image/jpg,image/jpeg,,image/png"
+                       :headers = "headers" :show-file-list="false" :on-change="handleFilesChange"
+                       v-if="entryForm.materialType === 'JP'">
               <el-popover placement="right" width="200" trigger="hover" :content="entryForm.imageUrl && entryForm.imageUrl !== '' ? null : '图片未上传'">
                 <img v-if="entryForm.imageUrl && entryForm.imageUrl !== ''" :src="entryForm.imageUrl" class="avatar">
                 <el-button slot="reference" class="el-icon-plus">{{entryForm.imageUrl ? '更换图片' : '选择图片'}}</el-button>
@@ -163,9 +165,11 @@ export default {
     filterEntryForm () {
       let form = clone(this.entryForm)
       if (form.materialType === 'XJ') {
-        deleteAttr(form, 'title', 'translateTitle', 'validDays', 'usageScene', 'overdueCanUse', 'ruleDesc', 'translateRuleDesc')
+        deleteAttr(form, 'title', 'translateTitle', 'validDays', 'usageScene', 'overdueCanUse', 'ruleDesc', 'translateRuleDesc', 'imageUrl')
       } else if (form.materialType === 'JP') {
         deleteAttr(form, 'amount', 'validDays', 'usageScene', 'overdueCanUse')
+      } else if (form.materialType === 'DK') {
+        deleteAttr(form, 'imageUrl')
       }
       return form
     },
