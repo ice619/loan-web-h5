@@ -25,7 +25,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="标题(切换)" prop="translateTitle">
+            <el-form-item label="标题(切换)" prop="translateTitle" :rules="[{ required: true, message: '请输入标题', trigger: 'blur' }]">
               <el-input v-model="entryForm.translateTitle" placeholder="切换语言" clearable style="width: 350px"/>
             </el-form-item>
           </el-col>
@@ -39,7 +39,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="抽奖次数" prop="drawTimes" :rules="[{ required: entryForm.activityType === 'CJ', message: '请输入有效期', trigger: 'blur' }]">
+            <el-form-item label="抽奖次数" prop="drawTimes" :rules="[{ required: entryForm.activityType === 'CJ', message: '请输入抽奖次数', trigger: 'blur' }]">
               <el-input v-model="entryForm.drawTimes" placeholder="请输入抽奖次数" :disabled="entryForm.activityType != 'CJ'" clearable style="width: 350px"/>
             </el-form-item>
           </el-col>
@@ -115,19 +115,19 @@
         </el-row>
         <el-row v-if="entryForm.activityType === 'YQ'">
           <el-col :span="10">
-            <el-form-item label="分享方式" prop="shareTypes" :rules="[{ required: true, message: '请选择分享方式', trigger: 'change' }]">
+            <el-form-item label="分享方式" prop="shareTypes">
               <el-select v-model="shareTypesValue" multiple placeholder="请选择分享方式" :disabled="entryForm.activityType !== 'YQ'" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('activityShareType')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="分享内容" prop="shareText" :rules="[{ required: true, message: '请输入分享内容', trigger: 'blur' }]">
+            <el-form-item label="分享内容" prop="shareText">
               <el-input v-model="entryForm.shareText" placeholder="请输入分享内容" clearable :disabled="entryForm.activityType !== 'YQ'" style="width: 350px"/>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="分享链接" prop="shareLink" :rules="[{ required: true, message: '请输入分享内容', trigger: 'blur' }]">
+            <el-form-item label="分享链接" prop="shareLink">
               <el-input v-model="entryForm.shareLink" placeholder="请输入分享链接" clearable :disabled="entryForm.activityType !== 'YQ'" style="width: 350px"/>
             </el-form-item>
           </el-col>
