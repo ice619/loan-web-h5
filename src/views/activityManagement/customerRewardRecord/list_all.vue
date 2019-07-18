@@ -9,6 +9,9 @@
       <el-form-item label="流水号">
         <el-input v-model="searchForm.serialNumber" maxlength="30" clearable placeholder="唯一流水号" style="width: 200px"/>
       </el-form-item>
+      <el-form-item label="客户ID">
+        <el-input v-model="searchForm.customerId" maxlength="30" clearable placeholder="奖励客户ID" style="width: 200px"/>
+      </el-form-item>
       <el-form-item label="客户手机号">
         <el-input v-model="searchForm.customerPhone" maxlength="30" clearable placeholder="奖励客户手机号" style="width: 200px"/>
       </el-form-item>
