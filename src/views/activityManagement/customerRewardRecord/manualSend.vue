@@ -134,7 +134,7 @@ export default {
           try {
             const res = await this.$http.post('/customer-reward-record/manual-send-reward', this.entryForm)
             if (res.code === '200') {
-              this.$message.success('保存成功!')
+              this.$message.success('发送成功')
               this.closeDialog()
             } else {
               this.$message.error(res.message)
