@@ -10,13 +10,8 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center" style="overflow-x:hidden;overflow-y:auto">
-          <el-col :span="50">
-            <!--https://testh5.fqt188.com/protocol/21.2.id-->
-            <el-form-item>
-              <iframe id="iframeContet" width="600" height="600" :src="agreementForm.reviewUrl" frameborder="0" border="0"></iframe>
-            </el-form-item>
-          </el-col>
+        <el-row type="flex" justify="center" style="margin:auto 10px auto 10px">
+            <iframe id="iframeContet" width="700" height="600" :src="agreementForm.reviewUrl" frameborder="0" border="0"></iframe>
         </el-row>
       </el-form>
     </el-dialog>
