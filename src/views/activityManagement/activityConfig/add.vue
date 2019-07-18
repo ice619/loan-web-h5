@@ -73,7 +73,7 @@
             </el-table-column>
             <el-table-column prop="materialType" header-align="center" align="left" label="物料类型" min-width="50">
               <template slot-scope="scope">
-                <el-select v-model="scope.row.materialType" clearable placeholder="请选择物料类型" style="width: 100%">
+                <el-select v-model="scope.row.materialType" clearable placeholder="请选择物料类型" style="width: 100%" :onchange="materialCodeFn(scope.row)">
                   <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
                 </el-select>
               </template>
@@ -280,7 +280,12 @@ export default {
           }
         }
       })
-    })
+    }),
+    materialCodeFn: function (row) {
+      if (row.materialCode && row.materialCode.indexOf(row.materialType) === -1) {
+        row.materialCode = null
+      }
+    }
   },
   watch: {
     'shareTypesValue': function () {
