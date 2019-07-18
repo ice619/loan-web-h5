@@ -110,7 +110,10 @@ export default {
     })
   },
   watch: {
-    'entryForm.materialType': function () {
+    'entryForm.materialType': function (newValue, oldValue) {
+      if (oldValue && oldValue !== newValue) {
+        this.entryForm.materialCode = null
+      }
       if (this.entryForm.materialType) {
         this.$http.get(`/material-config/list/${this.entryForm.appName}/${this.entryForm.materialType}`).then(res => {
           if (res && res.code === '200') {

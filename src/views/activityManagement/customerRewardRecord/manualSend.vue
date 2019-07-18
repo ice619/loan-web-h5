@@ -134,7 +134,7 @@ export default {
           try {
             const res = await this.$http.post('/customer-reward-record/manual-send-reward', this.entryForm)
             if (res.code === '200') {
-              this.$message.success('保存成功!')
+              this.$message.success('发送成功')
               this.closeDialog()
             } else {
               this.$message.error(res.message)
@@ -147,7 +147,10 @@ export default {
     })
   },
   watch: {
-    'entryForm.materialType': function () {
+    'entryForm.materialType': function (newValue, oldValue) {
+      if (oldValue && oldValue !== newValue) {
+        this.entryForm.materialCode = null
+      }
       if (this.entryForm.materialType) {
         this.$http.get(`/material-config/list/${this.entryForm.appName}/${this.entryForm.materialType}`).then(res => {
           if (res && res.code === '200') {
