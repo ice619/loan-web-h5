@@ -50,6 +50,7 @@ import materialConfig from '@/views/activityManagement/materialConfig/list'
 import activityConfig from '@/views/activityManagement/activityConfig/list'
 import behaviorRewardConfig from '@/views/activityManagement/behaviorRewardConfig/list'
 import customerRewardRecord from '@/views/activityManagement/customerRewardRecord/list'
+import customerRewardRecordAll from '@/views/activityManagement/customerRewardRecord/list_all'
 import appPopup from '@/views/appPopup/list'
 import customerAgreementConfig from '@/views/customerAgreementConfig/list'
 import customerRegisterInfoLog from '@/views/activityManagement/customerStatePushLog/customerRegisterInfoLog'
@@ -296,6 +297,11 @@ const router = new Router({
       path: '/customer-reward-record',
       name: 'customerRewardRecord',
       component: customerRewardRecord
+    },
+    {
+      path: '/customer-reward-record-all',
+      name: 'customerRewardRecordAll',
+      component: customerRewardRecordAll
     },
     {
       path: '/app-popup',
