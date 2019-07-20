@@ -20,7 +20,7 @@
       </el-form-item>
       <el-form-item label="发送状态">
         <el-select v-model="searchForm.status" clearable placeholder="请选择" style="width: 100px">
-          <el-option v-for="item in $formatter.getSelectionOptions('status')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('rewardSendStatus')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="发送时间：">
