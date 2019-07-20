@@ -11,7 +11,7 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center" style="margin:auto 10px auto 10px">
-            <iframe id="iframeContet" width="700" height="600" :src="agreementForm.reviewUrl" frameborder="0" border="0"></iframe>
+          <iframe class="ql-editor" style="height: 600px;width: 1000px;" id="iframeContet"  :src="agreementForm.reviewUrl" frameborder="0" border="0"></iframe>
         </el-row>
       </el-form>
     </el-dialog>
