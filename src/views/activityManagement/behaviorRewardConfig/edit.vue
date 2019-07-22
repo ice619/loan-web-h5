@@ -33,7 +33,7 @@
           <el-col :span="30">
             <el-form-item label="奖励物料" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 350px">
-                <el-option v-for="item in materialConfigArray" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
+                <el-option v-for="item in materialConfig[this.entryForm.materialType]" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -78,18 +78,39 @@ export default {
   },
   data () {
     return {
-      entryForm: {},
-      materialConfigArray: [],
+      entryForm: {
+        appName: 21,
+        materialType: null,
+        materialCode: ''
+      },
+      materialConfig: {},
       rules: {}
     }
   },
   methods: {
     openDialog () {
       this.entryForm = clone(this.entry)
+      this.loadMaterialConfig()
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
       this.$emit('handleCloseDialog')
+    },
+    loadMaterialConfig () {
+      this.materialConfig = {}
+      this.$http.get(`/material-config/list/${this.entryForm.appName}`).then(res => {
+        if (res && res.code === '200') {
+          res.data.forEach(config => {
+            if (!this.materialConfig[config.materialType]) {
+              this.materialConfig[config.materialType] = []
+            }
+            this.materialConfig[config.materialType].push(config)
+          })
+        }
+      }).catch(e => {
+        this.$message.error('load app material config error')
+        console.info(e)
+      })
     },
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
@@ -114,21 +135,16 @@ export default {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
       }
-      if (this.entryForm.materialType) {
-        this.$http.get(`/material-config/list/${this.entryForm.appName}/${this.entryForm.materialType}`).then(res => {
-          if (res && res.code === '200') {
-            this.materialConfigArray = res.data
-          }
-        }).catch(e => {
-          this.$message.error('load app material config error')
-          console.info(e)
-        })
-      }
     },
     'entryForm.materialCode': function () {
-      let materialConfig = this.materialConfigArray.find(material => material.materialCode === this.entryForm.materialCode)
-      if (materialConfig) {
-        this.entryForm.materialRemark = materialConfig.remark
+      if (this.entryForm.materialCode && this.entryForm.materialType) {
+        let materialConfigElement = this.materialConfig[this.entryForm.materialType]
+        if (materialConfigElement && materialConfigElement.length > 0) {
+          let materialConfig = materialConfigElement.find(material => material.materialCode === this.entryForm.materialCode)
+          if (materialConfig) {
+            this.entryForm.materialRemark = materialConfig.remark
+          }
+        }
       }
     }
   }
