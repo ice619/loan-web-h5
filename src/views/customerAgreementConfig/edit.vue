@@ -71,100 +71,100 @@
 </template>
 
 <script>
-  import debounce from 'throttle-debounce/debounce'
-  import {clone} from '@/utils/common'
-  import { quillEditor } from 'vue-quill-editor'
-  import 'quill/dist/quill.core.css'
-  import 'quill/dist/quill.snow.css'
-  import 'quill/dist/quill.bubble.css'
-  export default {
-    components: {
-      quillEditor
+import debounce from 'throttle-debounce/debounce'
+import {clone} from '@/utils/common'
+import { quillEditor } from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+export default {
+  components: {
+    quillEditor
+  },
+  content: '<h2>Please Input Content</h2>',
+  props: {
+    'ifshow': Boolean,
+    'agreeTip': Object
+  },
+  data () {
+    return {
+      configDetails: [],
+      pageInitForm: {
+        appName: this.GLOBAL.appName,
+        language: '',
+        agreementName: '',
+        agreeType: '',
+        agreeContent: '',
+        currentState: 1
+      },
+      agreementForm: {},
+      editorOption: {
+        width: '100%'
+      },
+      sort: 1,
+      rules: {
+        appName: [
+          {required: true, message: '请选择应用类型', trigger: 'blur'}
+        ],
+        agreeType: [
+          {required: true, message: '请选择类型', trigger: 'blur'}
+        ],
+        language: [
+          {required: true, message: '请选择语言', trigger: 'blur'}
+        ],
+        agreementName: [
+          {required: true, message: '请输入协议名称', trigger: 'blur'}
+        ],
+        agreeContent: [
+          {required: true, message: '请输入协议内容', trigger: 'blur'}
+        ],
+        currentState: [
+          {required: true, message: '请选择状态', trigger: 'blur'}
+        ]
+      }
+    }
+  },
+  methods: {
+    onEditorChange ({ editor, html, text }) {
+      this.content = html
     },
-    content: '<h2>Please Input Content</h2>',
-    props: {
-      'ifshow': Boolean,
-      'agreeTip': Object
-    },
-    data () {
-      return {
-        configDetails: [],
-        pageInitForm: {
-          appName: this.GLOBAL.appName,
-          language: '',
-          agreementName: '',
-          agreeType: '',
-          agreeContent: '',
-          currentState: 1
-        },
-        agreementForm: {},
-        editorOption: {
-          width: '100%'
-        },
-        sort: 1,
-        rules: {
-          appName: [
-            {required: true, message: '请选择应用类型', trigger: 'blur'}
-          ],
-          agreeType: [
-            {required: true, message: '请选择类型', trigger: 'blur'}
-          ],
-          language: [
-            {required: true, message: '请选择语言', trigger: 'blur'}
-          ],
-          agreementName: [
-            {required: true, message: '请输入协议名称', trigger: 'blur'}
-          ],
-          agreeContent: [
-            {required: true, message: '请输入协议内容', trigger: 'blur'}
-          ],
-          currentState: [
-            {required: true, message: '请选择状态', trigger: 'blur'}
-          ]
+    async initFrom () {
+      try {
+        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreeTip.customerAgreementConfigId)
+        if (res.code === '200') {
+          this.agreementForm = clone(this.agreeTip)
+          this.configDetails = res.data
+        } else {
+          this.$message.error(res.message)
         }
+      } catch (err) {
+        console.error(err)
       }
     },
-    methods: {
-      onEditorChange ({ editor, html, text }) {
-        this.content = html
-      },
-      async initFrom () {
-        try {
-          const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreeTip.customerAgreementConfigId)
-          if (res.code === '200') {
-            this.agreementForm = clone(this.agreeTip)
-            this.configDetails = res.data
-          } else {
-            this.$message.error(res.message)
-          }
-        } catch (err) {
-          console.error(err)
-        }
-      },
-      openDialog () {
-        this.initFrom()
-      },
-      closeDialog () {
-        this.$refs['agreementForm'].resetFields()
-        this.$emit('handleCloseDialog')
-      },
-      updateTipPage: debounce(300, function () {
-        this.$refs['agreementForm'].validate(async (valid) => {
-          if (valid) {
-            try {
-              const res = await this.$http.post('/agreement-config/agreement-update', this.agreementForm)
-              if (res.code === '200') {
-                this.$message.success('修改成功!')
-                this.closeDialog()
-              } else {
-                this.$message.error(res.message)
-              }
-            } catch (err) {
-              console.error(err)
+    openDialog () {
+      this.initFrom()
+    },
+    closeDialog () {
+      this.$refs['agreementForm'].resetFields()
+      this.$emit('handleCloseDialog')
+    },
+    updateTipPage: debounce(300, function () {
+      this.$refs['agreementForm'].validate(async (valid) => {
+        if (valid) {
+          try {
+            const res = await this.$http.post('/agreement-config/agreement-update', this.agreementForm)
+            if (res.code === '200') {
+              this.$message.success('修改成功!')
+              this.closeDialog()
+            } else {
+              this.$message.error(res.message)
             }
+          } catch (err) {
+            console.error(err)
           }
-        })
+        }
       })
-    }
+    })
   }
+}
 </script>
