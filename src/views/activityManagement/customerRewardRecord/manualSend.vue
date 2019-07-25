@@ -70,7 +70,7 @@
         <el-row type="flex" justify="center" style="margin-top: 20px">
           <el-col :span="30">
             <el-form-item>
-              <el-button style="color: white;background-color: #009688;" @click="save">确认发送</el-button>
+              <el-button type="primary" :disabled="sendBtnDisabled" @click="save">确认发送</el-button>
               <el-button @click="closeDialog">取消</el-button>
             </el-form-item>
           </el-col>
@@ -106,6 +106,7 @@ export default {
       entryForm: {},
       materialRemark: '',
       materialConfigArray: [],
+      sendBtnDisabled: false,
       rules: {}
     }
   },
@@ -119,6 +120,7 @@ export default {
     },
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
+        this.sendBtnDisabled = true
         if (valid) {
           if (this.entryForm.materialType === 'DK') {
             // 时间校验
@@ -143,6 +145,7 @@ export default {
             console.error(err)
           }
         }
+        this.sendBtnDisabled = false
       })
     })
   },
