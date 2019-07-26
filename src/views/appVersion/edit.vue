@@ -28,10 +28,21 @@
           <!--</el-form-item>-->
           <!--</el-col>-->
           <el-col :span="12">
+            <el-form-item label="马甲包" prop="waistcoat">
+              <el-select v-model="appVersionForm.waistcoat" :disabled="appVersionForm.appType == 2" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('waistcoat')" :key="item.value"
+                           :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="版本号" prop="versionNumber">
               <el-input v-model="appVersionForm.versionNumber" clearable placeholder="请输入本次更新版本号"></el-input>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col :span="12">
             <el-form-item label="非强更弹窗" prop="isPopup">
               <el-select v-model="appVersionForm.isPopup" clearable placeholder="请选择是否需要弹窗">
@@ -155,7 +166,8 @@ export default {
         changeCopyEn: '',
         state: 1,
         forcedUpdateUserType: 0,
-        forcedUpdateType: 1
+        forcedUpdateType: 1,
+        waistcoat: ''
       },
       appVersionForm: {},
       sort: 1,
