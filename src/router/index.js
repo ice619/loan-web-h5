@@ -59,6 +59,7 @@ import inviteRelationStateLog from '@/views/activityManagement/customerStatePush
 
 import marketChannel from '@/views/market/channel/list'
 import marketChannelDetail from '@/views/market/detail/list'
+import customerPage from '@/views/customerInfo/base'
 Vue.use(Router)
 
 const router = new Router({
@@ -337,6 +338,16 @@ const router = new Router({
       path: '/agreement-config',
       name: 'customerAgreementConfig',
       component: customerAgreementConfig
+    },
+    {
+      path: '/customer-page',
+      name: 'customerPage',
+      component: customerPage
+    },
+    {
+      path: '/customer-ext',
+      name: 'customerExt',
+      component: customerExt
     }
   ],
   mode: 'history'// 去除#号
