@@ -6,6 +6,11 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="马甲包：">
+        <el-select v-model="searchForm.waistcoat" clearable placeholder="请选择马甲包名称">
+          <el-option v-for="item in $formatter.getSelectionOptions('waistcoat')" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
       <el-form-item label="版本号：">
           <el-input v-model="searchForm.versionNumber" clearable placeholder="请输入版本号"></el-input>
       </el-form-item>
@@ -31,6 +36,11 @@
       <el-table-column prop="appName" label="APP名称" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="waistcoat" label="马甲包" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('waistcoat', scope.row.waistcoat)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="appType" label="系统" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
@@ -106,7 +116,8 @@ export default {
         appName: 21,
         state: null,
         appType: null,
-        versionNumber: ''
+        versionNumber: '',
+        waistcoat: ''
       },
       appVersionWindow: {},
       tableData: [],
