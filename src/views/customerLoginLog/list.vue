@@ -101,9 +101,6 @@ export default {
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }
-      if (params.loginDateStr === this.timesArray[0]) {
-        params.loginDateStr = null
-      }
       try {
         console.log(params)
         const res = await this.$http.post('/customer/customer-login-logs', params)
