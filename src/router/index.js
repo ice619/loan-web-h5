@@ -343,11 +343,6 @@ const router = new Router({
       path: '/customer-page',
       name: 'customerPage',
       component: customerPage
-    },
-    {
-      path: '/customer-ext',
-      name: 'customerExt',
-      component: customerExt
     }
   ],
   mode: 'history'// 去除#号
