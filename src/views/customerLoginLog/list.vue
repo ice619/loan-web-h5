@@ -1,29 +1,21 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" ref="searchForm" class="demo-form-inline">
-      <el-form-item label="查询表名">
-        <el-input v-model="searchForm.tableName"></el-input>
-      </el-form-item>
-      <el-form-item label="登录时间">
-        <el-date-picker v-model="searchForm.createTime" type="datetimerange" range-separator="至" start-placeholder="开始时间"
-                        end-placeholder="结束时间" :default-time="['00:00:00', '23:59:59']" value-format="yyyy-MM-dd HH:mm:ss">
-        </el-date-picker>
-      </el-form-item>
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
+      </el-form-item>
+      <el-form-item label="客户ID">
+        <el-input v-model="searchForm.customerId" clearable placeholder="客户ID"></el-input>
       </el-form-item>
       <el-form-item label="注册手机号">
         <el-input v-model="searchForm.phoneNum" clearable placeholder="注册手机号"></el-input>
       </el-form-item>
-      <el-form-item label="手机操作系统">
-        <el-select v-model="searchForm.osVersion" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('phoneOsVersion')" :key="item.value" :label="item.label" :value="item.value"/>
+      <el-form-item label="查询时间">
+        <el-select v-model="searchForm.times"  placeholder="查询时间" style="width: 250px;">
+          <el-option v-for="item in timesArray" :key="item" :label="item" :value="item"/>
         </el-select>
-      </el-form-item>
-      <el-form-item label="APP版本号">
-        <el-input v-model="searchForm.appVersion" clearable placeholder="APP版本号"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" icon="el-icon-search" @click="list">查询</el-button>
@@ -34,9 +26,10 @@
       <el-table-column prop="customerId" label="客户ID" header-align="center" align="center"/>
       <el-table-column prop="appName" label="APP平台" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
+          <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="waistcoat" label="马甲包名称" header-align="center" align="center"/>
       <el-table-column prop="phoneNum" label="注册手机号" header-align="center" align="center"/>
       <el-table-column prop="requestId" label="请求流水号" header-align="center" align="center"/>
       <el-table-column prop="requestAgent" label="请求来源" header-align="center" align="center">
@@ -76,15 +69,12 @@ export default {
   data () {
     return {
       searchForm: {
-        tableName: null,
-        appName: 7,
-        startTime: null,
-        endTime: null,
-        createTime: [],
+        times: null,
+        appName: 21,
         phoneNum: null,
-        osVersion: null,
-        appVersion: null
+        customerId: null
       },
+      timesArray: [],
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -97,11 +87,14 @@ export default {
   },
   methods: {
     initSearchForm () {
-      const now = new Date()
-      this.searchForm.tableName = `customer_login_log_${this.formatDate(now, 'yyyyMMdd')}`
-      this.searchForm.startTime = `${this.formatDate(now, 'yyyy-MM-dd')} 00:00:00`
-      this.searchForm.endTime = `${this.formatDate(now, 'yyyy-MM-dd')} 23:59:59`
-      this.searchForm.createTime = [this.searchForm.startTime, this.searchForm.endTime]
+      this.$http.get('/customer/select-times').then(res => {
+        if (res && res.code === '200') {
+          this.timesArray = res.data
+        }
+      }).catch(e => {
+        this.$message.error('load customer times error')
+        console.info(e)
+      })
     },
     async list () {
       let params = {
@@ -110,13 +103,12 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        params.startTime = null
-        params.endTime = null
-        if (params.createTime) {
-          params.startTime = params.createTime[0]
-          params.endTime = params.createTime[1]
+        if (this.searchForm.times === null) {
+          const now = new Date()
+          this.searchForm.times = this.formatDate(now, 'yyyyMMdd') + ''
         }
-        const res = await this.$http.post('/management/customer/customer-login-logs', params)
+        console.log(params)
+        const res = await this.$http.post('/customer/select-login-log-info', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -140,6 +132,12 @@ export default {
       val.forEach(v => {
         this.selectIds.push(v.id)
       })
+    }
+  },
+  watch: {
+    'times': function () {
+      this.searchForm.times = this.times.join(',')
+      alert(this.searchForm.times)
     }
   }
 }
