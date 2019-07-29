@@ -2,76 +2,46 @@
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
       <el-form-item label="APP名称：">
-        <el-select v-model="searchForm.appName" clearable placeholder="请选择APP名称">
-          <el-option v-for="item in $formatter.getSelectionOptions('appNames')" :key="item.value" :label="item.label" :value="item.value"/>
+        <el-select v-model="searchForm.appName" placeholder="请选择APP名称" style="width: 150px">
+          <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="客户编号：">
-        <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 300px"></el-input>
-      </el-form-item>
-      <el-form-item label="业务类型">
-        <el-select v-model="searchForm.businessType" clearable placeholder="请选择业务类型">
-          <el-option v-for="item in $formatter.getSelectionOptions('reviewBusinessType')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
+        <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 200px"/>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
         <el-button @click="back" v-show="showBackFlag">返回</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="customerLatestReviewInfoTable" :data="tableData" border stripe highlight-current-row
-              @selection-change="handleSelectionChange">
-      <el-table-column prop="businessType" label="业务类型" header-align="center" align="center" min-width="90">
+    <el-table ref="customerLatestReviewInfoTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="110">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('reviewBusinessType', scope.row.businessType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="90">
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="180"/>
+      <el-table-column prop="appSerialNumber" label="(最新)申请单编号" header-align="center" align="center" min-width="180"/>
+      <el-table-column prop="latestRiskIncomingStatus" label="进件状态" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('appNames', scope.row.appName)}}</span>
+          <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.latestRiskIncomingStatus)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="285">
-      </el-table-column>
-      <el-table-column prop="appSerialNumber" label="申请单编号" header-align="center" align="center" min-width="285">
-      </el-table-column>
-      <el-table-column prop="latestRiskIncomingStatus" label="进件状态" header-align="center" align="center" min-width="95">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('latestRiskIncomingStatus', scope.row.latestRiskIncomingStatus)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="latestRiskWithdrawalStatus" label="提现状态" header-align="center" align="center" min-width="95">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('latestRiskWithdrawalStatus', scope.row.latestRiskWithdrawalStatus)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="latestRiskInsuranceStatus" label="保险状态" header-align="center" align="center" min-width="95">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('latestRiskInsuranceStatus', scope.row.latestRiskInsuranceStatus)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="latestRiskAuthMoney" label="授信额度" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="latestMaxProductQuota" label="最大提现额度限制" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="totalIncreaseQuota" label="总提额额度" header-align="center" align="center">
-      </el-table-column>
-      <el-table-column prop="totalCreditQuota" label="总授信额度" header-align="center" align="center">
-      </el-table-column>
+      <el-table-column prop="lastReviewTime" label="最新申请时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="againsubmitAuditTime" label="可再次提交审核时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="isDiversionLoanSupermarket" label="是否导流到贷款超市" header-align="center" align="center" min-width="100">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('isDiversionLoanSupermarket', scope.row.isDiversionLoanSupermarket)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="settleOrderStatus" label="订单结清状态" header-align="center" align="center" min-width="110">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('settleOrderStatus', scope.row.settleOrderStatus)}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="repeatReviewData" label="需补充资料类型" header-align="center" align="center" min-width="160" show-overflow-tooltip/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="160"/>
     </el-table>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
+      :current-page="pageIndex"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="pageSize"
+      layout="->,total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
   </div>
 </template>
 
@@ -81,9 +51,8 @@ export default {
   data () {
     return {
       searchForm: {
-        appName: 7,
-        customerId: null,
-        businessType: 3
+        appName: 21,
+        customerId: null
       },
       customerLatestReviewInfoWindow: {},
       tableData: [],
@@ -96,28 +65,11 @@ export default {
     }
   },
   created () {
-    this.initList()
+    this.list()
   },
   methods: {
     back () {
       this.$router.push({name: 'customerInfo', params: {appName: this.$route.params.appName, phone: this.phone, customerId: this.$route.params.customerId}})
-    },
-    async initList () {
-      let appName = this.$route.params.appName
-      let customerId = this.$route.params.customerId
-      let phone = this.$route.params.phone
-      if (appName && customerId) {
-        this.searchForm.appName = appName
-        this.searchForm.customerId = customerId
-        this.phone = phone
-        this.showBackFlag = true
-        if (appName === 6) {
-          this.searchForm.businessType = 1
-        } else if (appName === 7) {
-          this.searchForm.businessType = 3
-        }
-        this.list()
-      }
     },
     async list () {
       let params = {
@@ -126,24 +78,10 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        let appName = this.searchForm.appName
-        if (!appName) {
-          this.$message.error('APP名称不能为空')
-          return
-        }
-        let customerId = this.searchForm.customerId
-        if (!customerId) {
-          this.$message.error('用户编号不能为空')
-          return
-        }
-        let businessType = this.searchForm.businessType
-        if (!businessType) {
-          this.$message.error('业务类型不能为空')
-          return
-        }
-        const res = await this.$http.post('/management/customer/latest-review-infos', params)
+        const res = await this.$http.post('/customer/latest-review-infos', params)
         if (res.code === '200') {
-          this.tableData = res.data
+          this.tableData = res.data.rows
+          this.total = res.data.total
         } else {
           this.$message.error(res.message)
         }
