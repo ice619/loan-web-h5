@@ -105,10 +105,6 @@ export default {
         params.loginDateStr = null
       }
       try {
-        if (this.searchForm.times === null) {
-          const now = new Date()
-          this.searchForm.times = this.formatDate(now, 'yyyyMMdd')
-        }
         console.log(params)
         const res = await this.$http.post('/customer/customer-login-logs', params)
         if (res.code === '200') {
@@ -134,12 +130,6 @@ export default {
       val.forEach(v => {
         this.selectIds.push(v.id)
       })
-    }
-  },
-  watch: {
-    'times': function () {
-      this.searchForm.times = this.times.join(',')
-      alert(this.searchForm.times)
     }
   }
 }
