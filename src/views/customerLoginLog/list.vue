@@ -2,7 +2,7 @@
   <div class="border">
     <el-form :inline="true" :model="searchForm" ref="searchForm" class="demo-form-inline">
       <el-form-item label="APP名称">
-        <el-select v-model="searchForm.appName" clearable placeholder="请选择">
+        <el-select v-model="searchForm.appName" clearable placeholder="请选择" style="width: 150px;">
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -13,12 +13,12 @@
         <el-input v-model="searchForm.phoneNum" clearable placeholder="注册手机号"></el-input>
       </el-form-item>
       <el-form-item label="查询时间">
-        <el-select v-model="searchForm.times"  placeholder="查询时间" style="width: 250px;">
+        <el-select v-model="searchForm.loginDateStr"  placeholder="查询时间" style="width: 120px;">
           <el-option v-for="item in timesArray" :key="item" :label="item" :value="item"/>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button style="color: white;background-color: #009688;" icon="el-icon-search" @click="list">查询</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="list">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="customerLoginLogTable" :data="tableData" border stripe highlight-current-row
@@ -34,7 +34,7 @@
       <el-table-column prop="requestId" label="请求流水号" header-align="center" align="center"/>
       <el-table-column prop="requestAgent" label="请求来源" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('requestAgents', scope.row.requestAgent)}}</span>
+          <span>{{$formatter.simpleFormatSelection('source', scope.row.requestAgent)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="osVersion" label="手机操作系统" header-align="center" align="center">
@@ -69,7 +69,7 @@ export default {
   data () {
     return {
       searchForm: {
-        times: null,
+        loginDateStr: null,
         appName: 21,
         phoneNum: null,
         customerId: null
@@ -82,43 +82,41 @@ export default {
     }
   },
   created () {
-    this.initSearchForm()
-    this.list()
+    // 查询登录日志表名
+    this.$http.get('/customer/customer-login-log-tables').then(res => {
+      if (res && res.code === '200') {
+        this.timesArray = res.data
+        this.searchForm.loginDateStr = this.timesArray[0]
+        this.list()
+      }
+    }).catch(e => {
+      this.$message.error('load customer login tables error')
+      console.info(e)
+    })
   },
   methods: {
-    initSearchForm () {
-      const now = new Date()
-      this.searchForm.times = this.formatDate(now, 'yyyyMMdd')
-    },
     async list () {
       let params = {
         ...this.searchForm,
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }
+      if (params.loginDateStr === this.timesArray[0]) {
+        params.loginDateStr = null
+      }
       try {
         if (this.searchForm.times === null) {
           const now = new Date()
           this.searchForm.times = this.formatDate(now, 'yyyyMMdd')
         }
-          alert(this.searchForm.times)
         console.log(params)
-        const res = await this.$http.post('/customer/select-login-log-info', params)
+        const res = await this.$http.post('/customer/customer-login-logs', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
         } else {
           this.$message.error(res.message)
         }
-
-        this.$http.get('/customer/select-times').then(res => {
-          if (res && res.code === '200') {
-            this.timesArray = res.data
-          }
-        }).catch(e => {
-          this.$message.error('load customer times error')
-          console.info(e)
-        })
       } catch (err) {
         console.error(err)
       }
