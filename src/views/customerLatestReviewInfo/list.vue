@@ -7,7 +7,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="客户编号：">
-        <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 300px"></el-input>
+        <el-input v-model="searchForm.customerId" clearable placeholder="请输入客户编号" style="width: 200px"/>
       </el-form-item>
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
