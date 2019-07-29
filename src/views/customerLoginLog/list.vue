@@ -87,14 +87,8 @@ export default {
   },
   methods: {
     initSearchForm () {
-      this.$http.get('/customer/select-times').then(res => {
-        if (res && res.code === '200') {
-          this.timesArray = res.data
-        }
-      }).catch(e => {
-        this.$message.error('load customer times error')
-        console.info(e)
-      })
+      const now = new Date()
+      this.searchForm.times = this.formatDate(now, 'yyyyMMdd')
     },
     async list () {
       let params = {
@@ -105,8 +99,9 @@ export default {
       try {
         if (this.searchForm.times === null) {
           const now = new Date()
-          this.searchForm.times = this.formatDate(now, 'yyyyMMdd') + ''
+          this.searchForm.times = this.formatDate(now, 'yyyyMMdd')
         }
+          alert(this.searchForm.times)
         console.log(params)
         const res = await this.$http.post('/customer/select-login-log-info', params)
         if (res.code === '200') {
@@ -115,6 +110,15 @@ export default {
         } else {
           this.$message.error(res.message)
         }
+
+        this.$http.get('/customer/select-times').then(res => {
+          if (res && res.code === '200') {
+            this.timesArray = res.data
+          }
+        }).catch(e => {
+          this.$message.error('load customer times error')
+          console.info(e)
+        })
       } catch (err) {
         console.error(err)
       }
