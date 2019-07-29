@@ -14,18 +14,15 @@
         <el-button @click="back" v-show="showBackFlag">返回</el-button>
       </el-form-item>
     </el-form>
-    <el-table ref="customerLatestReviewInfoTable" :data="tableData" border stripe highlight-current-row
-              @selection-change="handleSelectionChange">
-      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="90">
+    <el-table ref="customerLatestReviewInfoTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
+      <el-table-column prop="appName" label="APP名称" header-align="center" align="center" min-width="110">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="285">
-      </el-table-column>
-      <el-table-column prop="appSerialNumber" label="(最新)申请单编号" header-align="center" align="center" min-width="285">
-      </el-table-column>
-      <el-table-column prop="latestRiskIncomingStatus" label="进件状态" header-align="center" align="center" min-width="95">
+      <el-table-column prop="customerId" label="客户编号" header-align="center" align="center" min-width="180"/>
+      <el-table-column prop="appSerialNumber" label="(最新)申请单编号" header-align="center" align="center" min-width="180"/>
+      <el-table-column prop="latestRiskIncomingStatus" label="进件状态" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.latestRiskIncomingStatus)}}</span>
         </template>
