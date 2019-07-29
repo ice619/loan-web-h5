@@ -29,7 +29,7 @@
           <!--</el-col>-->
           <el-col :span="12">
             <el-form-item label="马甲包" prop="waistcoat">
-              <el-select v-model="appVersionForm.waistcoat" :disabled="appVersionForm.appType == 2" clearable placeholder="请选择">
+              <el-select v-model="appVersionForm.waistcoat" :disabled="appVersionForm.appType == 1" clearable placeholder="请选择">
                 <el-option v-for="item in $formatter.getSelectionOptions('waistcoat')" :key="item.value"
                            :label="item.label"
                            :value="item.value"/>
