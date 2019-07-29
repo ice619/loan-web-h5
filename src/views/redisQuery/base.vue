@@ -104,7 +104,7 @@ export default {
             return
           }
         }
-        const res = await this.$http.post('/management/redis/query/' + this.searchForm.indexDb, this.searchForm)
+        const res = await this.$http.post('/redis/query/' + this.searchForm.indexDb, this.searchForm)
         if (res.code === '200') {
           if (res.data) {
             this.displayData.expTime = res.data.expTime
