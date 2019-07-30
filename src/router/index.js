@@ -60,6 +60,7 @@ import inviteRelationStateLog from '@/views/activityManagement/customerStatePush
 import marketChannel from '@/views/market/channel/list'
 import marketChannelDetail from '@/views/market/detail/list'
 import customerPage from '@/views/customerInfo/base'
+import twoDimensionalCode from '@/views/twoDimensionalCodeConfig/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -343,6 +344,11 @@ const router = new Router({
       path: '/customer-page',
       name: 'customerPage',
       component: customerPage
+    },
+    {
+      path: '/two-dimensional-code',
+      name: 'twoDimensionalCode',
+      component: twoDimensionalCode
     }
   ],
   mode: 'history'// 去除#号
