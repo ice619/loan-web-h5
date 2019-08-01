@@ -34,12 +34,14 @@
         </el-col>-->
       </el-row>
       <el-row>
-       <!-- <el-col :span="6">
-          <el-form-item label="版本号" prop="title">
-            <el-input style="width: 129.250px;" v-model="bannerForm.startVersion" placeholder="开始版本号"></el-input>
-            <el-input style="width: 129.250px;" v-model="bannerForm.endVersion" placeholder="结束版本号"></el-input>
+        <el-col :span="12">
+          <el-form-item label="生效版本号" prop="startAppVersion">
+            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号"></el-input>
           </el-form-item>
-        </el-col>-->
+          <el-form-item prop="endAppVersion">
+            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号"></el-input>
+          </el-form-item>
+        </el-col>
           <el-col :span="6">
             <el-form-item label="banner位置" prop="position">
               <el-select v-model="bannerForm.position" clearable placeholder="请选择">
@@ -143,6 +145,27 @@ import {clone} from '@/utils/common'
 import {getToken, getLanguage} from '@/utils/VueCookies'
 export default {
   data () {
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        return
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        return
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
       bannerForm: {},
       bannerDetailDesc: {
@@ -158,7 +181,14 @@ export default {
         userTags: [{'value': 1, 'label': '全部用户'}]
       },
       bannerDetails: [],
-      rules: {},
+      rules: {
+        startAppVersion: [
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        checkEndAppVersion: [
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      },
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
         'xxl_sso_sessionid': getToken(),

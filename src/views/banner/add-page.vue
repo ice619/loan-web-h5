@@ -24,6 +24,14 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="生效版本号" prop="startAppVersion">
+            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号"></el-input>
+          </el-form-item>
+          <el-form-item prop="endAppVersion">
+            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号"></el-input>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row>
         <el-col :span="6">
@@ -116,6 +124,27 @@ import {getToken, getLanguage} from '@/utils/VueCookies'
 
 export default {
   data () {
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
       bannerFormInitForm: {
         appName: 21,
@@ -138,7 +167,14 @@ export default {
         sort: 0
       },
       bannerDetails: [],
-      rules: {},
+      rules: {
+        startAppVersion: [
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        endAppVersion: [
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      },
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
         'xxl_sso_sessionid': getToken(),
@@ -222,7 +258,7 @@ export default {
       this.detailRowIndex = rowIndex
     },
     checkBanner () {
-      if (this.bannerForm.startVersion > this.bannerForm.endVersion) {
+      if (this.bannerForm.startAppVersion > this.bannerForm.endAppVersion) {
         this.$message.error('开始版本要小于结束版本')
         return false
       }

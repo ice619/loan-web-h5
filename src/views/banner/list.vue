@@ -42,6 +42,8 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="startAppVersion" label="生效版本号" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="endAppVersion" label="结束版本号" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="userTag" label="用户标签" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.multipleFormatSelection('userTag', scope.row.userTag)}}</span>
@@ -204,10 +206,6 @@ export default {
         this.selectIds = []
       })
     }
-  },
-  components: {
-    'add': () => import('./add'),
-    'edit': () => import('./edit')
   }
 }
 </script>
