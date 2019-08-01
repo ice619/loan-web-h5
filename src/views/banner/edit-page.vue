@@ -2,15 +2,10 @@
   <div class="border" style="width: 100%">
     <el-form :inline="true" :model="bannerForm" :rules="rules" ref="bannerForm" label-width="100px"
              class="demo-form-inline">
-      <el-row style="margin: 0 0 10px 10px">
-        <el-col :span="24">
-         <!-- <span>配置受众</span>-->
-        </el-col>
-      </el-row>
       <el-row>
         <el-col :span="6">
           <el-form-item label="APP名称">
-            <el-select v-model="bannerForm.appName" clearable placeholder="请选择">
+            <el-select v-model="bannerForm.appName" clearable placeholder="请输入">
               <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
@@ -18,30 +13,22 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="用户标签">
-            <el-select v-model="bannerForm.userTags" clearable multiple placeholder="请选择">
+            <el-select v-model="bannerForm.userTags" clearable multiple placeholder="请输入">
               <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
-        <!--<el-col :span="6">
-          <el-form-item label="生效终端">
-            <el-select v-model="bannerForm.terminal" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions('terminals')" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>-->
-      </el-row>
-      <el-row>
         <el-col :span="12">
           <el-form-item label="生效版本号" prop="startAppVersion">
-            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号"></el-input>
+            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 100px"/>
           </el-form-item>
           <el-form-item prop="endAppVersion">
-            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号"></el-input>
+            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 100px"/>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
           <el-col :span="6">
             <el-form-item label="banner位置" prop="position">
               <el-select v-model="bannerForm.position" clearable placeholder="请选择">
@@ -59,30 +46,15 @@
                             value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
       </el-row>
-     <!-- <el-row style="margin: 0 0 10px 10px">
-        <el-col :span="24">
-          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-        </el-col>
-      </el-row>-->
       <el-row style="margin: 0 0 10px 10px">
         <el-col :span="24">
           <span style="margin-right: 10px">新增</span><el-button class="el-icon-plus" @click="addBannerDetailsTableRows" style="color: white;background-color: #009688;"></el-button>
         </el-col>
       </el-row>
-      <el-row>
-        <!--<el-col :span="6">
-          <el-form-item label="显示位置" prop="displayPosition">
-            <el-select v-model="bannerForm.displayPosition" clearable placeholder="请选择">
-              <el-option v-for="item in $formatter.getSelectionOptions('displayPositions')" :key="item.value" :label="item.label"
-                         :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>-->
-      </el-row>
       <el-row type="flex" justify="center" style="margin-top: 10px">
         <el-col :span="24">
           <el-table :data="bannerDetails" border style="width: 100%">
-            <el-table-column prop="title" header-align="center" align="left" label="默认语言">
+            <el-table-column prop="title" header-align="center" align="left" label="默认标题">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
               </template>

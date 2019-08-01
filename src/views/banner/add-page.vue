@@ -2,11 +2,6 @@
   <div class="border" style="width: 100%">
     <el-form :inline="true" :model="bannerForm" :rules="rules" ref="bannerForm" label-width="100px"
              class="demo-form-inline">
-      <el-row style="margin: 0 0 10px 10px">
-        <el-col :span="24">
-         <!-- <span>配置受众</span>-->
-        </el-col>
-      </el-row>
       <el-row>
         <el-col :span="6">
           <el-form-item label="APP名称">
@@ -36,18 +31,18 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="banner位置" prop="position">
-            <el-select v-model="bannerForm.position" clearable placeholder="请输入">
+            <el-select v-model="bannerForm.position" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('position')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
           <el-form-item label="生效时间" prop="startTime">
-            <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="请输入"
+            <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="请选择"
                             value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
           <el-form-item prop="endTime">
-            <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="请输入"
+            <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="请选择"
                             value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
       </el-row>
@@ -64,12 +59,12 @@
                 <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="translateTitle" header-align="center" align="left" label="其他语言标题">
+            <el-table-column prop="translateTitle" header-align="center" align="left" label="活动标题(其他语言)">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.translateTitle" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动url">
+            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
               </template>
