@@ -254,7 +254,7 @@ export default {
     },
     checkBanner () {
       if (this.bannerForm.startAppVersion > this.bannerForm.endAppVersion) {
-        this.$message.error('开始版本要小于结束版本')
+        this.$message.error('开始版本号要小于结束版本号')
         return false
       }
       if (this.bannerForm.startTime > this.bannerForm.endTime) {

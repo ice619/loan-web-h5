@@ -21,10 +21,10 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="生效版本号" prop="startAppVersion">
-            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 100px"/>
+            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 150px"/>
           </el-form-item>
           <el-form-item prop="endAppVersion">
-            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 100px"/>
+            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 150px"/>
           </el-form-item>
         </el-col>
       </el-row>
@@ -272,7 +272,7 @@ export default {
     },
     checkBanner () {
       if (this.bannerForm.startAppVersion > this.bannerForm.endAppVersion) {
-        this.$message.error('开始版本要小于结束版本')
+        this.$message.error('开始版本号要小于结束版本号')
         return false
       }
       if (this.bannerForm.startTime > this.bannerForm.endTime) {
