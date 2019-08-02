@@ -41,6 +41,11 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="生效版本号" header-align="center" align="center" min-width="90">
+        <template slot-scope="scope">
+          <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="osVersion" label="系统类型" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('osVersion', scope.row.osVersion)}}</span>
