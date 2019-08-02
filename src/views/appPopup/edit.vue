@@ -79,6 +79,16 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="left">
+          <el-col :span="6">
+            <el-form-item label="系统类型" prop="osVersion">
+              <el-select v-model="entryForm.osVersion" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="生效版本号" prop="startAppVersion">
               <el-input v-model="entryForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 195px"/>
@@ -142,20 +152,20 @@ export default {
     const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
     const checkStartAppVersion = (rule, value, callback) => {
       if (value == null) {
-        callback(new Error('版本号不能为空'))
+        callback(new Error('开始版本号不能为空'))
       }
       if (!value.match(versionReg)) {
-        callback(new Error('请输入正确的版本号'))
+        callback(new Error('请输入正确的开始版本号'))
       } else {
         callback()
       }
     }
     const checkEndAppVersion = (rule, value, callback) => {
       if (value == null) {
-        callback(new Error('版本号不能为空'))
+        callback(new Error('结束版本号不能为空'))
       }
       if (!value.match(versionReg)) {
-        callback(new Error('请输入正确的版本号'))
+        callback(new Error('请输入正确的结束版本号'))
       } else {
         callback()
       }

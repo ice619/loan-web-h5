@@ -42,6 +42,11 @@
       </el-table-column>
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>
+      <el-table-column label="生效版本号" header-align="center" align="center" min-width="90">
+        <template slot-scope="scope">
+          <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" width="100" show-overflow-tooltip/>
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
@@ -80,9 +85,8 @@ export default {
     return {
       searchForm: {
         appName: 21,
-        materialType: null,
-        materialCode: null,
-        status: null
+        status: null,
+        userTag: null
       },
       entry: {},
       tableData: [],
