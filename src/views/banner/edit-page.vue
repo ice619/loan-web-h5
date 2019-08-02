@@ -21,10 +21,10 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="生效版本号" prop="startAppVersion">
-            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 150px"/>
+            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 200px"/>
           </el-form-item>
           <el-form-item prop="endAppVersion">
-            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 150px"/>
+            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 200px"/>
           </el-form-item>
         </el-col>
       </el-row>
@@ -47,11 +47,11 @@
           </el-col>
           <el-form-item label="生效时间" prop="startTime">
             <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="请选择"
-                            value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+                            value-format="yyyy-MM-dd HH:mm:ss" style="width: 200px"></el-date-picker>
           </el-form-item>
           <el-form-item prop="endTime">
             <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="请选择"
-                            value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+                            value-format="yyyy-MM-dd HH:mm:ss" style="width: 200px"></el-date-picker>
           </el-form-item>
       </el-row>
       <el-row style="margin: 0 0 10px 10px">
@@ -128,20 +128,20 @@ export default {
     const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
     const checkStartAppVersion = (rule, value, callback) => {
       if (value == null) {
-        return
+        callback(new Error('开始版本号不能为空'))
       }
       if (!value.match(versionReg)) {
-        callback(new Error('请输入正确的版本号'))
+        callback(new Error('请输入正确的开始版本号'))
       } else {
         callback()
       }
     }
     const checkEndAppVersion = (rule, value, callback) => {
       if (value == null) {
-        return
+        callback(new Error('结束版本号不能为空'))
       }
       if (!value.match(versionReg)) {
-        callback(new Error('请输入正确的版本号'))
+        callback(new Error('请输入正确的结束版本号'))
       } else {
         callback()
       }
