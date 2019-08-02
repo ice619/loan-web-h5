@@ -61,6 +61,8 @@ import marketChannel from '@/views/market/channel/list'
 import marketChannelDetail from '@/views/market/detail/list'
 import customerPage from '@/views/customerInfo/base'
 import twoDimensionalCode from '@/views/twoDimensionalCodeConfig/list'
+import appDownUrl from '@/views/appDownUrl/list'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -349,6 +351,11 @@ const router = new Router({
       path: '/two-dimensional-code',
       name: 'twoDimensionalCode',
       component: twoDimensionalCode
+    },
+    {
+      path: '/app-down-url',
+      name: 'appDownUrl',
+      component: appDownUrl
     }
   ],
   mode: 'history'// 去除#号
