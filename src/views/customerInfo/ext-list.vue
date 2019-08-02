@@ -66,7 +66,7 @@
       </el-table-column>
       <el-table-column prop="osVersion" label="操作系统" header-align="center" align="center" min-width="100">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(scope.row.osVersion))}}</span>
+          <span>{{$formatter.simpleFormatSelection('osVersion', parseInt(scope.row.osVersion))}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center" min-width="100"/>
