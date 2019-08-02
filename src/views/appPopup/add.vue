@@ -13,10 +13,31 @@
       </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
+            <el-form-item label="默认标题" prop="title" >
+              <el-input v-model="entryForm.title" clearable style="width: 100%"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="其他语言标题" prop="translateTitle">
+              <el-input v-model="entryForm.translateTitle" clearable style="width: 100%"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
             <el-form-item label="运营弹窗位置" prop="position" :rules="[{ required: true, message: '请选择运营弹窗位置', trigger: 'change' }]">
               <el-select v-model="entryForm.position" clearable placeholder="请选择" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('popupPosition')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="每日弹窗次数" prop="popupTimes">
+              <el-input v-model="entryForm.popupTimes" clearable style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -54,6 +75,16 @@
           <el-col :span="30">
             <el-form-item label="跳转url" prop="popupUrl">
               <el-input v-model="entryForm.popupUrl" clearable style="width: 100%"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="生效版本号" prop="startAppVersion">
+              <el-input v-model="entryForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 195px"/>
+            </el-form-item>
+            <el-form-item prop="endAppVersion">
+              <el-input v-model="entryForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 195px"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -96,6 +127,38 @@ export default {
     'ifshow': Boolean
   },
   data () {
+    const popupTimesReg = /^([1-9][0-9]*){1,3}$/
+    const checkPopupTimes = (rule, value, callback) => {
+      if (value == null) {
+        return
+      }
+      if (!value.match(popupTimesReg)) {
+        callback(new Error('请输入非0正整数'))
+      } else {
+        callback()
+      }
+    }
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
       entryFormInitForm: {
         appName: 21,
@@ -105,7 +168,27 @@ export default {
         endTime: null
       },
       entryForm: {},
-      rules: {},
+      rules: {
+        title: [
+          {required: true, message: '默认标题不能为空', trigger: 'blur'},
+          {min: 1, max: 100, message: '默认标题0-100个字符', trigger: 'blur'}
+        ],
+        translateTitle: [
+          {required: true, message: '其他语言标题不能为空', trigger: 'blur'},
+          {min: 1, max: 100, message: '其他语言标题0-100个字符', trigger: 'blur'}
+        ],
+        popupTimes: [
+          {validator: checkPopupTimes, trigger: 'blur'}
+        ],
+        startAppVersion: [
+          {required: true, message: '不能为空', trigger: 'blur'},
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        endAppVersion: [
+          {required: true, message: '其他语言标题不能为空', trigger: 'blur'},
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      },
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
         'xxl_sso_sessionid': getToken(),

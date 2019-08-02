@@ -28,6 +28,8 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="title" label="默认标题" header-align="center" align="center" min-width="90"/>
+      <el-table-column prop="translateTitle" label="其他语言标题" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="position" label="弹窗位置" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('popupPosition', scope.row.position)}}</span>

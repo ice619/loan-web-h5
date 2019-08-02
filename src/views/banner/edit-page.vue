@@ -29,6 +29,14 @@
         </el-col>
       </el-row>
       <el-row>
+        <el-col :span="6">
+          <el-form-item label="系统类型" prop="position">
+            <el-select v-model="bannerForm.osVersion" clearable placeholder="请选择">
+              <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
+                         :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
           <el-col :span="6">
             <el-form-item label="banner位置" prop="position">
               <el-select v-model="bannerForm.position" clearable placeholder="请选择">
@@ -260,7 +268,8 @@ export default {
         startTime: data.startTime,
         endTime: data.endTime,
         status: data.status,
-        userTags: []
+        userTags: [],
+        osVersion: data.osVersion
       }
       data.userTag.split(',').forEach(s => {
         form.userTags.push(parseInt(s))

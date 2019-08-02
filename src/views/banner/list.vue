@@ -1,11 +1,6 @@
 <template>
   <div class="border">
     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-      <!--<el-form-item label="用户标签">
-        <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('userTags')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
-      </el-form-item>-->
       <el-form-item label="APP名称">
         <el-select v-model="searchForm.appName" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
@@ -18,9 +13,13 @@
       </el-form-item>
       <el-form-item label="banner位置">
         <el-select v-model="searchForm.position" clearable filterable placeholder="请选择">
-         <!-- <el-option v-for="item in $formatter.getSelectionOptions('bannerPositions')" :key="item.value" :label="item.label" :value="item.value"/>-->
           <el-option :key="1" label="借款页" :value="1"/>
           <el-option :key="2" label="授信页" :value="2"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="系统类型">
+        <el-select v-model="searchForm.osVersion" clearable placeholder="请选择">
+          <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="状态">
@@ -42,8 +41,11 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <!--<el-table-column prop="startAppVersion" label="开始版本号" header-align="center" align="center" min-width="90"/>-->
-      <!--<el-table-column prop="endAppVersion" label="结束版本号" header-align="center" align="center" min-width="90"/>-->
+      <el-table-column prop="osVersion" label="系统类型" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('osVersion', scope.row.osVersion)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="userTag" label="用户标签" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.multipleFormatSelection('userTag', scope.row.userTag)}}</span>
@@ -68,7 +70,6 @@
         </template>
       </el-table-column>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="90"/>
-      <!--<el-table-column prop="createUser" label="创建人" header-align="center" align="center"/>-->
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>
@@ -105,7 +106,8 @@ export default {
         userTags: [],
         appName: 21,
         status: null,
-        position: null
+        position: null,
+        osVersion: null
       },
       bannerWindow: {},
       tableData: [],
