@@ -165,7 +165,7 @@ export default {
         startAppVersion: [
           {validator: checkStartAppVersion, trigger: 'blur'}
         ],
-        EndAppVersion: [
+        endAppVersion: [
           {validator: checkEndAppVersion, trigger: 'blur'}
         ]
       },
