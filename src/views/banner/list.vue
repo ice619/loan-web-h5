@@ -13,8 +13,11 @@
       </el-form-item>
       <el-form-item label="banner位置">
         <el-select v-model="searchForm.position" clearable filterable placeholder="请选择">
-          <el-option :key="1" label="借款页" :value="1"/>
-          <el-option :key="2" label="授信页" :value="2"/>
+          <!--<el-option :key="1" label="借款页" :value="1"/>-->
+          <!--<el-option :key="2" label="授信页" :value="2"/>-->
+          <template slot-scope="scope">
+            <span>{{$formatter.simpleFormatSelection('position', scope.row.position)}}</span>
+          </template>
         </el-select>
       </el-form-item>
      <!-- <el-form-item label="系统类型">
