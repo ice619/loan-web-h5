@@ -57,6 +57,11 @@
           <span>{{$formatter.simpleFormatSelection('isPopup', scope.row.isPopup)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="popUpThreshold" label="每日弹窗限制" header-align="center" align="center"  min-width="60px"  show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span>{{scope.row.popUpThreshold}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="isForcedUpdate" label="强更版本" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="forcedUpdateUserType" label="强更用户" header-align="center" align="center"  min-width="50px"  show-overflow-tooltip>
