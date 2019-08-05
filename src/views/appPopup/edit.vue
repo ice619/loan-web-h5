@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-dialog title="修改运营弹窗" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="45%">
-      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
+      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
        <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">
@@ -11,12 +11,31 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="弹窗标题" prop="title" >
+              <el-input v-model="entryForm.title" clearable placeholder="请输入默认标题" style="width: 170px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="30">
+            <el-form-item prop="translateTitle">
+              <el-input v-model="entryForm.translateTitle" clearable placeholder="请输入其他语言标题" style="width: 170px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
        <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="运营弹窗位置" prop="position" :rules="[{ required: true, message: '请选择运营弹窗位置', trigger: 'blur' }]">
               <el-select v-model="entryForm.position" clearable placeholder="请选择" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('popupPosition')" :key="item.value" :label="item.label" :value="item.value"></el-option>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="每日弹窗次数" prop="popupTimes">
+              <el-input v-model="entryForm.popupTimes" clearable style="width: 350px"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -31,11 +50,11 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-form-item label="生效时间" prop="startTime" :rules="[{ required: true, message: '请选择生效时间', trigger: 'blur' }]">
-            <el-date-picker v-model="entryForm.startTime" type="datetime" placeholder="请选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 195px"/>
+            <el-date-picker v-model="entryForm.startTime" type="datetime" placeholder="请选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 192px"/>
           </el-form-item>
           ~
           <el-form-item prop="endTime">
-            <el-date-picker v-model="entryForm.endTime" type="datetime" placeholder="请选择结束时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 195px"/>
+            <el-date-picker v-model="entryForm.endTime" type="datetime" placeholder="请选择结束时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 192px"/>
           </el-form-item>
         </el-row>
        <el-row type="flex" justify="left">
@@ -53,7 +72,27 @@
        <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="跳转url" prop="popupUrl">
-              <el-input v-model="entryForm.popupUrl" clearable style="width: 100%"></el-input>
+              <el-input v-model="entryForm.popupUrl" clearable style="width: 350px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="系统类型" prop="osVersion" :rules="[{ required: true, message: '请系统类型', trigger: 'blur' }]">
+              <el-select v-model="entryForm.osVersion" clearable placeholder="请选择" style="width: 350px">
+                <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
+                           :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="left">
+          <el-col :span="30">
+            <el-form-item label="生效版本号" prop="startAppVersion">
+              <el-input v-model="entryForm.startAppVersion" clearable placeholder="请输入开始版本号"  style="width: 170px"/>
+            </el-form-item>
+            <el-form-item prop="endAppVersion">
+              <el-input v-model="entryForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 170px"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -97,9 +136,62 @@ export default {
     'entry': Object
   },
   data () {
+    const popupTimesReg = /^([1-9][0-9]*){1,3}$/
+    const checkPopupTimes = (rule, value, callback) => {
+      console.info('===>' + value)
+      if (value == null) {
+        callback()
+        return
+      }
+      if (!value.match(popupTimesReg)) {
+        callback(new Error('请输入非0正整数'))
+      } else {
+        callback()
+      }
+    }
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('开始版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的开始版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('结束版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的结束版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
-      entryForm: {},
-      rules: {},
+      entryForm: {
+      },
+      rules: {
+        title: [
+          {required: true, message: '默认标题不能为空', trigger: 'blur'},
+          {min: 1, max: 100, message: '默认标题0-100个字符', trigger: 'blur'}
+        ],
+        translateTitle: [
+          {required: true, message: '其他语言标题不能为空', trigger: 'blur'},
+          {min: 1, max: 100, message: '其他语言标题0-100个字符', trigger: 'blur'}
+        ],
+        popupTimes: [
+          {validator: checkPopupTimes, trigger: 'blur'}
+        ],
+        startAppVersion: [
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        endAppVersion: [
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      },
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
         'xxl_sso_sessionid': getToken(),

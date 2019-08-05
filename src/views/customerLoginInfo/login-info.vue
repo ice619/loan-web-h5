@@ -49,7 +49,7 @@
             <div class="grid-content bg-purple">手机操作系统</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(firstInfo.osVersion))}}</div>
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('osVersion', parseInt(firstInfo.osVersion))}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">APP版本号</div>
@@ -122,7 +122,7 @@
             <div class="grid-content bg-purple">手机操作系统</div>
           </el-col>
           <el-col :span="3">
-            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('phoneOsVersion', parseInt(latestInfo.osVersion))}}</div>
+            <div class="grid-content bg-purple-light">{{$formatter.simpleFormatSelection('osVersion', parseInt(latestInfo.osVersion))}}</div>
           </el-col>
           <el-col :span="2">
             <div class="grid-content bg-purple">APP版本号</div>

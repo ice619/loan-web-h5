@@ -2,11 +2,6 @@
   <div class="border" style="width: 100%">
     <el-form :inline="true" :model="bannerForm" :rules="rules" ref="bannerForm" label-width="100px"
              class="demo-form-inline">
-      <el-row style="margin: 0 0 10px 10px">
-        <el-col :span="24">
-         <!-- <span>配置受众</span>-->
-        </el-col>
-      </el-row>
       <el-row>
         <el-col :span="6">
           <el-form-item label="APP名称">
@@ -24,23 +19,39 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="生效版本号" prop="startAppVersion">
+            <el-input v-model="bannerForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 200px"></el-input>
+          </el-form-item>
+          <el-form-item prop="endAppVersion">
+            <el-input v-model="bannerForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 200px"></el-input>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row>
         <el-col :span="6">
+          <el-form-item label="系统类型" prop="osVersion" :rules="[{ required: true, message: '请选择系统类型', trigger: 'blur' }]">
+            <el-select v-model="bannerForm.osVersion" clearable placeholder="请选择">
+              <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
+                         :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
           <el-form-item label="banner位置" prop="position">
-            <el-select v-model="bannerForm.position" clearable placeholder="请输入">
+            <el-select v-model="bannerForm.position" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('position')" :key="item.value" :label="item.label"
                          :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
           <el-form-item label="生效时间" prop="startTime">
-            <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="请输入"
-                            value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+            <el-date-picker v-model="bannerForm.startTime" type="datetime" placeholder="请选择"
+                            value-format="yyyy-MM-dd HH:mm:ss" style="width: 200px"></el-date-picker>
           </el-form-item>
           <el-form-item prop="endTime">
-            <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="请输入"
-                            value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+            <el-date-picker v-model="bannerForm.endTime" type="datetime" placeholder="请选择"
+                            value-format="yyyy-MM-dd HH:mm:ss" style="width: 200px"></el-date-picker>
           </el-form-item>
       </el-row>
       <el-row style="margin: 0 0 10px 10px">
@@ -56,12 +67,12 @@
                 <el-input v-model="scope.row.title" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="translateTitle" header-align="center" align="left" label="其他语言标题">
+            <el-table-column prop="translateTitle" header-align="center" align="left" label="活动标题(其他语言)">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.translateTitle" clearable style="width: 100%"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动url">
+            <el-table-column prop="activityUrl" header-align="center" align="left" label="活动链接">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.activityUrl" clearable style="width: 100%"></el-input>
               </template>
@@ -116,6 +127,27 @@ import {getToken, getLanguage} from '@/utils/VueCookies'
 
 export default {
   data () {
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('开始版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的开始版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('结束版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的结束版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
       bannerFormInitForm: {
         appName: 21,
@@ -123,7 +155,9 @@ export default {
         // position: '1',
         startTime: null,
         endTime: null,
-        status: 1
+        status: 1,
+        startAppVersion: '1.0.0',
+        endAppVersion: '99.99.99'
       },
       bannerForm: {},
       bannerDetailDesc: {
@@ -138,7 +172,14 @@ export default {
         sort: 0
       },
       bannerDetails: [],
-      rules: {},
+      rules: {
+        startAppVersion: [
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        endAppVersion: [
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      },
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
       headers: {
         'xxl_sso_sessionid': getToken(),
@@ -222,8 +263,8 @@ export default {
       this.detailRowIndex = rowIndex
     },
     checkBanner () {
-      if (this.bannerForm.startVersion > this.bannerForm.endVersion) {
-        this.$message.error('开始版本要小于结束版本')
+      if (this.bannerForm.startAppVersion > this.bannerForm.endAppVersion) {
+        this.$message.error('开始版本号要小于结束版本号')
         return false
       }
       if (this.bannerForm.startTime > this.bannerForm.endTime) {

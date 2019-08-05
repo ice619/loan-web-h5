@@ -37,7 +37,7 @@
       <el-table-column prop="ipAddress" label="登录ip地址" header-align="center" align="center"/>
       <el-table-column prop="osVersion" label="手机操作系统" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('phoneOsVersion', Number(scope.row.osVersion))}}</span>
+          <span>{{$formatter.simpleFormatSelection('osVersion', Number(scope.row.osVersion))}}</span>
         </template>
       </el-table-column>
       <!--<el-table-column prop="sdkVersion" label="手机操作系统版本号" header-align="center" align="center"/>-->

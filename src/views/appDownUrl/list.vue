@@ -6,19 +6,17 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="生效用户">
-        <el-select v-model="searchForm.userTag" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('userTag')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
+      <!--<el-form-item label="马甲包名称" if-show="false">
+        <el-input v-model="searchForm.waistcoat" maxlength="50" clearable placeholder="马甲包名称" style="width: 200px"/>
       </el-form-item>
-      <el-form-item label="状态">
+      <el-form-item label="状态" if-show="false">
         <el-select v-model="searchForm.status" clearable placeholder="请选择">
           <el-option v-for="item in $formatter.getSelectionOptions('status')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item>
-        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list">查询</el-button>
-        <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus"  @click="showAddFlag = true">新增</el-button>
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-search" @click="list" v-if="$permission.hasPermission('APP_DOWN_URL_SELECT')">查询</el-button>
+        <el-button style="color: white;background-color: #409eff;" icon="el-icon-plus"  @click="showAddFlag = true" v-if="$permission.hasPermission('APP_DOWN_URL_CREATE')">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table ref="iosCompanySignTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
@@ -28,39 +26,21 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="默认标题" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="translateTitle" label="其他语言标题" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="position" label="弹窗位置" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('popupPosition', scope.row.position)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="userTage" label="生效用户" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('userTag', scope.row.userTag)}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column label="生效版本号" header-align="center" align="center" min-width="90">
-        <template slot-scope="scope">
-          <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="remark" label="备注" header-align="center" align="center" width="100" show-overflow-tooltip/>
-      <el-table-column prop="status" label="状态" header-align="center" align="center">
+      <el-table-column prop="waistcoat" label="马甲包名称" header-align="center" align="center" min-width="100"/>
+      <el-table-column prop="downUrl" label="下载链接" header-align="center" align="center" width="250" show-overflow-tooltip/>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="105"/>
+      <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="80"/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="105"/>
+      <el-table-column prop="status" label="状态" header-align="center" align="center" min-width="50">
         <template slot-scope="scope">
           <span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createUser" label="创建人" header-align="center" align="center" min-width="80"/>
-      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="100"/>
-      <el-table-column prop="updateUser" label="修改人" header-align="center" align="center" min-width="80"/>
-      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="100"/>
-      <el-table-column label="操作" header-align="center" align="center">
+      <el-table-column label="操作" header-align="center" align="center" min-width="140" fixed="right" v-if="$permission.hasPermission('APP_DOWN_URL_UPDATE', 'APP_DOWN_URL_DELETE')">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small" >编辑</el-button>
-          <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" style="color: #F56C6C">删除</el-button>
+          <el-button icon="el-icon-edit" @click="editVariable(scope.row)" type="text" size="small" v-if="$permission.hasPermission('APP_DOWN_URL_UPDATE')">编辑</el-button>
+          <el-button icon="el-icon-delete" @click="deleteData(scope.row)" type="text" size="small" v-if="$permission.hasPermission('APP_DOWN_URL_DELETE')" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -85,8 +65,8 @@ export default {
     return {
       searchForm: {
         appName: 21,
-        status: null,
-        userTag: null
+        waistcoat: null,
+        status: null
       },
       entry: {},
       tableData: [],
@@ -99,9 +79,9 @@ export default {
     }
   },
   created () {
-    // if (this.$permission.hasPermission('MATERIAL_CONFIG_SELECT')) {
-    this.list()
-    // }
+    if (this.$permission.hasPermission('APP_DOWN_URL_SELECT')) {
+      this.list()
+    }
   },
   methods: {
     async list () {
@@ -111,7 +91,8 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/app-popup/page', params)
+        const res = await this.$http.post('/app-down-url/page', params)
+        // console.log(res)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -137,11 +118,10 @@ export default {
       })
     },
     editVariable (row) {
-      // this.$router.push({path: `app-popup-edit/${row.id}`})
       this.showEditFlag = true
       this.entry = row
     },
-    async removeBanner (row) {
+    deleteData (row) {
       let selectIdsStr = ''
       let idsLength = this.selectIds.length
       if (row instanceof Event) {
@@ -161,9 +141,9 @@ export default {
         selectIdsStr = row.id
       }
       const tableLength = this.tableData.length
-      this.$confirm('确认删除吗？', '提示', {type: 'warning'}).then(async () => {
+      this.$confirm('确认删除吗', '提示', {type: 'warning'}).then(async () => {
         try {
-          const res = await this.$http.delete(`/app-popup?id=${selectIdsStr}`)
+          const res = await this.$http.delete(`/app-down-url/${selectIdsStr}`)
           if (res.code === '200') {
             this.$message.success('删除成功!')
             // this.list()

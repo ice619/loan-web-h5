@@ -68,6 +68,12 @@
           <span>{{formatTimeStamp(scope.row.registerTime,'yyyy-MM-dd hh:mm:ss')}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="osVersion" label="操作系统" header-align="center" align="center" min-width="80">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('osVersion', scope.row.osVersion)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="appVersion" label="客户最新版本号" header-align="center" align="center" min-width="150"/>
       <el-table-column prop="inviterCustomerId" label="邀请人客户ID" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
           <span>{{scope.row.inviterCustomerId}}</span>

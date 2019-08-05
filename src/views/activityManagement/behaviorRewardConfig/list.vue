@@ -39,6 +39,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="materialCode" label="物料编码" header-align="center" align="center" min-width="100"/>
+      <el-table-column label="生效版本号" header-align="center" align="center" min-width="90">
+        <template slot-scope="scope">
+          <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="materialRemark" label="物料备注" header-align="center" align="center" width="150" show-overflow-tooltip/>
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">

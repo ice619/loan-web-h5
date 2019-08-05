@@ -2,6 +2,7 @@
   <div class="border">
     <el-dialog title="发送" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="75%">
       <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
+        <span style="display: block;text-align: center;margin-top: -50px;margin-bottom: 20px;color: red;">提示：如果希望即时收到红包，发送/生效时间需在系统现在时间减1小时</span>
         <el-row>
           <el-col :span="10">
             <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'change' }]">
