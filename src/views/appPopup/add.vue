@@ -137,6 +137,7 @@ export default {
   data () {
     const popupTimesReg = /^([1-9][0-9]*){1,3}$/
     const checkPopupTimes = (rule, value, callback) => {
+      console.info('===>' + value)
       if (value == null) {
         return null
       }
@@ -173,7 +174,8 @@ export default {
         imageUrl: null,
         status: 1,
         startTime: null,
-        endTime: null
+        endTime: null,
+        popupTimes: null
       },
       entryForm: {},
       rules: {

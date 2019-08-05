@@ -138,6 +138,7 @@ export default {
   data () {
     const popupTimesReg = /^([1-9][0-9]*){1,3}$/
     const checkPopupTimes = (rule, value, callback) => {
+      console.info('===>' + value)
       if (value == null) {
         return null
       }
@@ -169,7 +170,9 @@ export default {
       }
     }
     return {
-      entryForm: {},
+      entryForm: {
+        popupTimes: null
+      },
       rules: {
         title: [
           {required: true, message: '默认标题不能为空', trigger: 'blur'},
