@@ -45,10 +45,15 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="非强更弹窗" prop="isPopup">
-              <el-select v-model="appVersionForm.isPopup" clearable placeholder="请选择是否需要弹窗">
+              <el-select v-model="appVersionForm.isPopup" clearable placeholder="请选择是否需要弹窗" @change="changeIsPop">
                 <el-option v-for="item in $formatter.getSelectionOptions('isPopup')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" v-show="popUpThresholdIsShow">
+            <el-form-item label="每日弹出次数">
+              <el-input type="number" v-model="appVersionForm.popUpThreshold" placeholder="每日弹出次数"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -167,7 +172,8 @@ export default {
         state: 1,
         forcedUpdateUserType: 0,
         forcedUpdateType: 1,
-        waistcoat: ''
+        waistcoat: '',
+        popUpThreshold: null
       },
       appVersionForm: {},
       sort: 1,
@@ -212,7 +218,8 @@ export default {
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}
         ]
-      }
+      },
+      popUpThresholdIsShow: false
     }
   },
   methods: {
@@ -221,6 +228,11 @@ export default {
         const res = await this.$http.get('/app-version/expands/' + this.appVersionWindow.appVersionId)
         if (res.code === '200' && res.data && res.data.length > 0) {
           this.appVersionForm = clone(this.appVersionWindow)
+          if (this.appVersionForm.isPopup === 0) {
+            this.popUpThresholdIsShow = false
+          } else {
+            this.popUpThresholdIsShow = true
+          }
           this.appVersionForm.appType = parseInt(this.appVersionForm.appType)
           let data = res.data
           data.forEach(r => {
@@ -248,6 +260,14 @@ export default {
     },
     deleteRow (index, rows) {
       rows.splice(index, 1)
+    },
+    changeIsPop () {
+      if (this.appVersionForm.isPopup === 0) {
+        this.popUpThresholdIsShow = false
+        this.appVersionForm.popUpThreshold = null
+      } else {
+        this.popUpThresholdIsShow = true
+      }
     },
     saveAppVersion: debounce(300, function () {
       this.$refs['appVersionForm'].validate(async (valid) => {
