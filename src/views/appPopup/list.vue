@@ -28,6 +28,16 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="osVersion" label="系统类型" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('osVersion', scope.row.osVersion)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="生效版本号" header-align="center" align="center" min-width="90">
+        <template slot-scope="scope">
+          <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="title" label="默认标题" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="translateTitle" label="其他语言标题" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="position" label="弹窗位置" header-align="center" align="center">
@@ -42,11 +52,6 @@
       </el-table-column>
       <el-table-column prop="startTime" label="开始时间" header-align="center" align="center" min-width="90"/>
       <el-table-column prop="endTime" label="结束时间" header-align="center" align="center" min-width="90"/>
-      <el-table-column label="生效版本号" header-align="center" align="center" min-width="90">
-        <template slot-scope="scope">
-          <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center" width="100" show-overflow-tooltip/>
       <el-table-column prop="status" label="状态" header-align="center" align="center">
         <template slot-scope="scope">
