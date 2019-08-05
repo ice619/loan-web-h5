@@ -78,8 +78,8 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="6">
-            <el-form-item label="系统类型" prop="osVersion">
-              <el-select v-model="entryForm.osVersion" clearable placeholder="请选择" style="width: 300px">
+            <el-form-item label="系统类型" prop="osVersion" :rules="[{ required: true, message: '请系统类型', trigger: 'blur' }]">
+              <el-select v-model="entryForm.osVersion" clearable placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
@@ -140,7 +140,8 @@ export default {
     const checkPopupTimes = (rule, value, callback) => {
       console.info('===>' + value)
       if (value == null) {
-        return true
+        callback()
+        return
       }
       if (!value.match(popupTimesReg)) {
         callback(new Error('请输入非0正整数'))
