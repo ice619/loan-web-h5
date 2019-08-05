@@ -140,7 +140,7 @@ export default {
     const checkPopupTimes = (rule, value, callback) => {
       console.info('===>' + value)
       if (value == null) {
-        return null
+        return true
       }
       if (!value.match(popupTimesReg)) {
         callback(new Error('请输入非0正整数'))
@@ -171,7 +171,6 @@ export default {
     }
     return {
       entryForm: {
-        popupTimes: null
       },
       rules: {
         title: [
