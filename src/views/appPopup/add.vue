@@ -13,15 +13,13 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="默认标题" prop="title" >
-              <el-input v-model="entryForm.title" clearable style="width: 100%"></el-input>
+            <el-form-item label="弹窗标题" prop="title" >
+              <el-input v-model="entryForm.title" clearable placeholder="请输入默认标题" style="width: 170px"></el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="其他语言标题" prop="translateTitle">
-              <el-input v-model="entryForm.translateTitle" clearable style="width: 100%"></el-input>
+            <el-form-item prop="translateTitle">
+              <el-input v-model="entryForm.translateTitle" clearable placeholder="请输入其他语言标题" style="width: 170px"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -37,7 +35,7 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="每日弹窗次数" prop="popupTimes">
-              <el-input v-model="entryForm.popupTimes" clearable style="width: 100%"></el-input>
+              <el-input v-model="entryForm.popupTimes" clearable style="width: 350px"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -52,11 +50,11 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-form-item label="生效时间" prop="startTime" :rules="[{ required: true, message: '请选择生效时间', trigger: 'blur' }]">
-            <el-date-picker v-model="entryForm.startTime" type="datetime" placeholder="请选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 195px"/>
+            <el-date-picker v-model="entryForm.startTime" type="datetime" placeholder="请选择开始时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 192px"/>
           </el-form-item>
           ~
           <el-form-item prop="endTime">
-            <el-date-picker v-model="entryForm.endTime" type="datetime" placeholder="请选择结束时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 195px"/>
+            <el-date-picker v-model="entryForm.endTime" type="datetime" placeholder="请选择结束时间" value-format="yyyy-MM-dd HH:mm:ss" style="width: 192px"/>
           </el-form-item>
         </el-row>
         <el-row type="flex" justify="left">
@@ -74,14 +72,14 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="跳转url" prop="popupUrl">
-              <el-input v-model="entryForm.popupUrl" clearable style="width: 100%"></el-input>
+              <el-input v-model="entryForm.popupUrl" clearable style="width: 350px"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="系统类型" prop="osVersion">
-              <el-select v-model="entryForm.osVersion" clearable placeholder="请选择">
+              <el-select v-model="entryForm.osVersion" clearable placeholder="请选择" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
                            :value="item.value"/>
               </el-select>
@@ -91,10 +89,10 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="生效版本号" prop="startAppVersion">
-              <el-input v-model="entryForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 195px"/>
+              <el-input v-model="entryForm.startAppVersion" clearable placeholder="请输入开始版本号" style="width: 170px"/>
             </el-form-item>
             <el-form-item prop="endAppVersion">
-              <el-input v-model="entryForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 195px"/>
+              <el-input v-model="entryForm.endAppVersion" clearable placeholder="请输入结束版本号" style="width: 170px"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -139,7 +137,7 @@ export default {
   data () {
     const popupTimesReg = /^([1-9][0-9]*){1,3}$/
     const checkPopupTimes = (rule, value, callback) => {
-      if (value == null) {
+      if (value === null) {
         return
       }
       if (!value.match(popupTimesReg)) {
@@ -150,7 +148,7 @@ export default {
     }
     const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
     const checkStartAppVersion = (rule, value, callback) => {
-      if (value == null) {
+      if (value === null) {
         callback(new Error('开始版本号不能为空'))
       }
       if (!value.match(versionReg)) {
@@ -160,7 +158,7 @@ export default {
       }
     }
     const checkEndAppVersion = (rule, value, callback) => {
-      if (value == null) {
+      if (value === null) {
         callback(new Error('结束版本号不能为空'))
       }
       if (!value.match(versionReg)) {
