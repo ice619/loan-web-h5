@@ -52,11 +52,6 @@
           <span>{{ scope.row.startAppVersion}} ~ {{ scope.row.endAppVersion}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="osVersion" label="系统类型" header-align="center" align="center">
-        <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('osVersion', scope.row.osVersion)}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="userTag" label="用户标签" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{$formatter.multipleFormatSelection('userTag', scope.row.userTag)}}</span>
