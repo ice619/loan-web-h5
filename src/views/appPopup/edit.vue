@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <el-dialog title="修改运营弹窗" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="45%">
-      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline" style="margin-left: 10%;">
+      <el-form :inline="true" :model="entryForm" :rules="rules" ref="entryForm" label-width="150px" class="demo-form-inline">
        <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="APP名称" prop="appName" :rules="[{ required: true, message: '请选择平台', trigger: 'blur' }]">

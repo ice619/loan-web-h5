@@ -155,7 +155,9 @@ export default {
         // position: '1',
         startTime: null,
         endTime: null,
-        status: 1
+        status: 1,
+        startAppVersion: '1.0.0',
+        endAppVersion: '99.99.99'
       },
       bannerForm: {},
       bannerDetailDesc: {

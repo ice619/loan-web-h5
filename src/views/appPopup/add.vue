@@ -176,7 +176,9 @@ export default {
         status: 1,
         startTime: null,
         endTime: null,
-        popupTimes: null
+        popupTimes: null,
+        startAppVersion: '1.0.0',
+        endAppVersion: '99.99.99'
       },
       entryForm: {},
       rules: {
