@@ -137,8 +137,8 @@ export default {
   data () {
     const popupTimesReg = /^([1-9][0-9]*){1,3}$/
     const checkPopupTimes = (rule, value, callback) => {
-      if (value === null) {
-        return
+      if (value == null) {
+        return null
       }
       if (!value.match(popupTimesReg)) {
         callback(new Error('请输入非0正整数'))
@@ -148,7 +148,7 @@ export default {
     }
     const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
     const checkStartAppVersion = (rule, value, callback) => {
-      if (value === null) {
+      if (value == null) {
         callback(new Error('开始版本号不能为空'))
       }
       if (!value.match(versionReg)) {
@@ -158,7 +158,7 @@ export default {
       }
     }
     const checkEndAppVersion = (rule, value, callback) => {
-      if (value === null) {
+      if (value == null) {
         callback(new Error('结束版本号不能为空'))
       }
       if (!value.match(versionReg)) {

@@ -15,9 +15,7 @@
         <el-select v-model="searchForm.position" clearable filterable placeholder="请选择">
           <!--<el-option :key="1" label="借款页" :value="1"/>-->
           <!--<el-option :key="2" label="授信页" :value="2"/>-->
-          <template slot-scope="scope">
             <el-option v-for="item in $formatter.getSelectionOptions('position')" :key="item.value" :label="item.label" :value="item.value"/>
-          </template>
         </el-select>
       </el-form-item>
      <!-- <el-form-item label="系统类型">
