@@ -30,7 +30,7 @@
       </el-row>
       <el-row>
         <el-col :span="6">
-          <el-form-item label="系统类型" prop="position">
+          <el-form-item label="系统类型" prop="osVersion" :rules="[{ required: true, message: '请选择系统类型', trigger: 'blur' }]">
             <el-select v-model="bannerForm.osVersion" clearable placeholder="请选择">
               <el-option v-for="item in $formatter.getSelectionOptions('osVersion')" :key="item.value" :label="item.label"
                          :value="item.value"/>
