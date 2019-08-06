@@ -143,7 +143,7 @@ export default {
         callback()
         return
       }
-      if (!value.match(popupTimesReg)) {
+      if (!value.toString().match(popupTimesReg)) {
         callback(new Error('请输入非0正整数'))
       } else {
         callback()
