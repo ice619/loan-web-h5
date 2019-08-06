@@ -62,7 +62,7 @@ import marketChannelDetail from '@/views/market/detail/list'
 import customerPage from '@/views/customerInfo/base'
 import twoDimensionalCode from '@/views/twoDimensionalCodeConfig/list'
 import appDownUrl from '@/views/appDownUrl/list'
-
+import tabConfig from '@/views/tabConfig/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -356,6 +356,11 @@ const router = new Router({
       path: '/app-down-url',
       name: 'appDownUrl',
       component: appDownUrl
+    },
+    {
+      path: '/tab-config',
+      name: 'tabConfig',
+      component: tabConfig
     }
   ],
   mode: 'history'// 去除#号
