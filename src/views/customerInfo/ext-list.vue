@@ -16,23 +16,29 @@
           <el-option v-for="item in $formatter.getSelectionOptions('appName')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="请求来源">
-        <el-select v-model="searchForm.source" clearable placeholder="请选择">
-          <el-option v-for="item in $formatter.getSelectionOptions('source')" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
+      <el-form-item label="客户编号">
+        <el-input v-model="searchForm.customerId" placeholder="客户编号"/>
       </el-form-item>
-      <el-form-item label="注册渠道">
-        <el-input v-model="searchForm.market" clearable placeholder="请输入渠道"/>
+      <el-form-item label="手机号">
+        <el-input v-model="searchForm.phoneNum" placeholder="手机号"/>
       </el-form-item>
-      <el-form-item label="下载渠道">
-        <el-input v-model="searchForm.downloadChannel" clearable placeholder="请输入下载渠道"/>
-      </el-form-item>
-      <el-form-item label="马甲包名称">
-        <el-input v-model="searchForm.waistcoat" clearable placeholder="请输入马甲包名称"/>
-      </el-form-item>
-      <el-form-item label="app版本号">
-        <el-input v-model="searchForm.appVersion" clearable placeholder="请输入app版本号"/>
-      </el-form-item>
+      <!--<el-form-item label="请求来源">-->
+        <!--<el-select v-model="searchForm.source" clearable placeholder="请选择">-->
+          <!--<el-option v-for="item in $formatter.getSelectionOptions('source')" :key="item.value" :label="item.label" :value="item.value"/>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item label="注册渠道">-->
+        <!--<el-input v-model="searchForm.market" clearable placeholder="请输入渠道"/>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item label="下载渠道">-->
+        <!--<el-input v-model="searchForm.downloadChannel" clearable placeholder="请输入下载渠道"/>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item label="马甲包名称">-->
+        <!--<el-input v-model="searchForm.waistcoat" clearable placeholder="请输入马甲包名称"/>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item label="app版本号">-->
+        <!--<el-input v-model="searchForm.appVersion" clearable placeholder="请输入app版本号"/>-->
+      <!--</el-form-item>-->
       <el-form-item>
         <el-button style="color: white;background-color: #009688;" type="primary" icon="el-icon-search" @click="pageIndex=1;list();">搜索</el-button>
       </el-form-item>
