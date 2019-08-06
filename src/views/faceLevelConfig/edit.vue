@@ -1,25 +1,50 @@
 <template>
   <div class="border">
-    <el-dialog title="注册量更新页" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
-      <el-form :inline="true" :model="registerPageForm" :rules="rules" ref="registerPageForm" label-width="100px" class="demo-form-inline">
+    <el-dialog title="face级别配置修改" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
+      <el-form :inline="true" :model="faceLevelConfigForm" :rules="rules" ref="faceLevelConfigForm" label-width="150px" class="demo-form-inline">
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="人脸质量分:" prop="registerLimit" label-width="150px">
-              <el-input type="number" v-model="registerPageForm.faceQualityValue"  placeholder="0~100分值,越高通过率越低"/>
+            <el-form-item label="人脸识别阈值" prop="faceQualityValue">
+              <el-input v-model.number="faceLevelConfigForm.faceQualityValue" clearable placeholder="仅限输入正数,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="置信度级别:" prop="warningRate" label-width="150px">
-              <el-input type="text" v-model="registerPageForm.faceConfidenceLevel" placeholder="1e-3~1e-6,级别越高通过率越低"/>
+            <el-form-item label="人脸对比级别" prop="faceConfidenceLevel">
+              <el-select v-model="faceLevelConfigForm.faceConfidenceLevel" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('faceLevel')" :key="item.value"
+                           :label="item.label"
+                           :value="item.label"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
+            <el-form-item label="证件号识别阈值" prop="idCardConfidence">
+              <el-input v-model.number="faceLevelConfigForm.idCardConfidence" clearable placeholder="仅限输入正数,越高通过率越低"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
+            <el-form-item label="出生日期识别阈值" prop="birthdayConfidence">
+              <el-input v-model.number="faceLevelConfigForm.birthdayConfidence" clearable placeholder="仅限输入正数,越高通过率越低"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
+            <el-form-item label="姓名识别阈值" prop="nameConfidence">
+              <el-input v-model.number="faceLevelConfigForm.nameConfidence" clearable placeholder="仅限输入正数,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="状态:" prop="state" label-width="150px">
-              <el-radio-group v-model="registerPageForm.state">
+              <el-radio-group v-model="faceLevelConfigForm.state">
                 <el-radio :label="1">待启用</el-radio>
                 <el-radio :label="2">启用</el-radio>
                 <el-radio :label="3">停用</el-radio>
@@ -54,14 +79,26 @@ export default {
       tipPageInitForm: {
         state: null
       },
-      registerPageForm: {},
+      faceLevelConfigForm: {},
       rules: {
         faceQualityValue: [
           {required: true, message: '请输入人脸识别阀值', trigger: 'blur'},
           {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         faceConfidenceLevel: [
-          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'}
+          {required: true, message: '请选择人脸对比级别', trigger: 'blur'}
+        ],
+        idCardConfidence: [
+          {required: true, message: '请输入证件号识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, message: '请输入正确的数值', trigger: 'blur'}
+        ],
+        birthdayConfidence: [
+          {required: true, message: '请输入出生日期识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, message: '请输入正确的数值', trigger: 'blur'}
+        ],
+        nameConfidence: [
+          {required: true, message: '请输入姓名识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, message: '请输入正确的数值', trigger: 'blur'}
         ],
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}
@@ -71,20 +108,24 @@ export default {
   },
   methods: {
     async initFrom () {
-      this.registerPageForm = clone(this.faceObj)
+      this.faceLevelConfigForm = clone(this.faceObj)
+      this.faceLevelConfigForm.faceQualityValue = Number(this.faceLevelConfigForm.faceQualityValue)
+      this.faceLevelConfigForm.idCardConfidence = Number(this.faceLevelConfigForm.idCardConfidence)
+      this.faceLevelConfigForm.birthdayConfidence = Number(this.faceLevelConfigForm.birthdayConfidence)
+      this.faceLevelConfigForm.nameConfidence = Number(this.faceLevelConfigForm.nameConfidence)
     },
     openDialog () {
       this.initFrom()
     },
     closeDialog () {
-      this.$refs['registerPageForm'].resetFields()
+      this.$refs['faceLevelConfigForm'].resetFields()
       this.$emit('handleCloseDialog')
     },
     updateTipPage: debounce(300, function () {
-      this.$refs['registerPageForm'].validate(async (valid) => {
+      this.$refs['faceLevelConfigForm'].validate(async (valid) => {
         if (valid) {
           try {
-            const res = await this.$http.post('/face-level/face-update', this.registerPageForm)
+            const res = await this.$http.post('/face-level/face-update', this.faceLevelConfigForm)
             if (res.code === '200') {
               this.$message.success('修改成功!')
               this.closeDialog()

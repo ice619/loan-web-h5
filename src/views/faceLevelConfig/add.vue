@@ -1,23 +1,48 @@
 <template>
   <div class="border" style="width: 100%">
-    <el-dialog title="新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
+    <el-dialog title="face级别配置修改新增" :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="35%">
       <el-form :inline="true" :model="faceLevelConfigForm" :rules="rules" ref="faceLevelConfigForm" label-width="150px"
                class="demo-form-inline">
-        <el-row>
+        <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="人脸质量分" prop="faceQualityValue">
-              <el-input v-model.number="faceLevelConfigForm.faceQualityValue" clearable placeholder="0~100分值,越高通过率越低"/>
+            <el-form-item label="人脸识别阈值" prop="faceQualityValue">
+              <el-input v-model.number="faceLevelConfigForm.faceQualityValue" clearable placeholder="仅限输入正数,越高通过率越低"/>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row type="flex" justify="center">
           <el-col :span="40">
-            <el-form-item label="人脸对比置信度级别" prop="faceConfidenceLevel">
-              <el-input type="text" v-model="faceLevelConfigForm.faceConfidenceLevel" clearable placeholder="1e-3~1e-6,级别越高通过率越低"/>
+            <el-form-item label="人脸对比级别" prop="faceConfidenceLevel">
+              <el-select v-model="faceLevelConfigForm.faceConfidenceLevel" clearable placeholder="请选择">
+                <el-option v-for="item in $formatter.getSelectionOptions('faceLevel')" :key="item.value"
+                           :label="item.label"
+                           :value="item.label"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
+            <el-form-item label="证件号识别阈值" prop="idCardConfidence">
+              <el-input v-model.number="faceLevelConfigForm.idCardConfidence" clearable placeholder="仅限输入正数,越高通过率越低"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
+            <el-form-item label="出生日期识别阈值" prop="birthdayConfidence">
+              <el-input v-model.number="faceLevelConfigForm.birthdayConfidence" clearable placeholder="仅限输入正数,越高通过率越低"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="40">
+            <el-form-item label="姓名识别阈值" prop="nameConfidence">
+              <el-input v-model.number="faceLevelConfigForm.nameConfidence" clearable placeholder="仅限输入正数,越高通过率越低"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
           <el-col :span="40">
             <el-form-item label="状态:" prop="state">
               <el-radio-group v-model="faceLevelConfigForm.state">
@@ -55,7 +80,10 @@ export default {
         appName: 21,
         faceQualityValue: null,
         faceConfidenceLevel: null,
-        state: null
+        state: null,
+        idCardConfidence: null,
+        birthdayConfidence: null,
+        nameConfidence: null
       },
       faceLevelConfigForm: {},
       rules: {
@@ -64,7 +92,19 @@ export default {
           {type: 'number', min: 0, max: 100, message: '请输入正确的数值', trigger: 'blur'}
         ],
         faceConfidenceLevel: [
-          {required: true, message: '请输入身份证正面识别阀值', trigger: 'blur'}
+          {required: true, message: '请选择人脸对比级别', trigger: 'blur'}
+        ],
+        idCardConfidence: [
+          {required: true, message: '请输入证件号识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, message: '请输入正确的数值', trigger: 'blur'}
+        ],
+        birthdayConfidence: [
+          {required: true, message: '请输入出生日期识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, message: '请输入正确的数值', trigger: 'blur'}
+        ],
+        nameConfidence: [
+          {required: true, message: '请输入姓名识别阀值', trigger: 'blur'},
+          {type: 'number', min: 0, message: '请输入正确的数值', trigger: 'blur'}
         ],
         state: [
           {required: true, message: '请选择状态', trigger: 'blur'}

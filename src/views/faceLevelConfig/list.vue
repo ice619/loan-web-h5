@@ -13,14 +13,29 @@
     </el-form>
     <el-table ref="faceLevelConfigTable" :data="tableData" border stripe highlight-current-row @selection-change="handleSelectionChange">
       <el-table-column type="index" label="序号" width="50" header-align="center" align="center" />
-      <el-table-column prop="faceQualityValue" label="人脸质量分" header-align="center" align="center">
+      <el-table-column prop="faceQualityValue" label="人脸识别阈值" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.faceQualityValue}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="faceConfidenceLevel" label="人脸对比置信度级别" header-align="center" align="center">
+      <el-table-column prop="faceConfidenceLevel" label="人脸对比级别" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.faceConfidenceLevel}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="idCardConfidence" label="证件号识别阈值" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.idCardConfidence}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="birthdayConfidence" label="出生日期识别阈值" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.birthdayConfidence}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="nameConfidence" label="姓名识别阈值" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.nameConfidence}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="state" label="状态" header-align="center" align="center">
