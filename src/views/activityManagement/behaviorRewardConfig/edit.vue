@@ -184,13 +184,17 @@ export default {
   watch: {
     'entryForm.appName': function (newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
-        this.entryForm.materialCode = null
         this.loadMaterialConfig()
+      }
+      if (oldValue && oldValue !== newValue) {
+        this.entryForm.materialCode = null
+        this.entryForm.materialRemark = ''
       }
     },
     'entryForm.materialType': function (newValue, oldValue) {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
+        this.entryForm.materialRemark = ''
       }
     },
     'entryForm.materialCode': function () {

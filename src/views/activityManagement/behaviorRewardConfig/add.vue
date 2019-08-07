@@ -189,12 +189,14 @@ export default {
     'entryForm.appName': function (newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
         this.entryForm.materialCode = null
+        this.entryForm.materialRemark = ''
         this.loadMaterialConfig()
       }
     },
     'entryForm.materialType': function (newValue, oldValue) {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
+        this.entryForm.materialRemark = ''
       }
     },
     'entryForm.materialCode': function () {
