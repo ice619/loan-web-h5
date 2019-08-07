@@ -165,6 +165,9 @@ export default {
     },
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
+        if (!this.checkVersion()) {
+          return
+        }
         if (valid) {
           try {
             const res = await this.$http.put('/behavior-reward-config', this.entryForm)
@@ -179,7 +182,14 @@ export default {
           }
         }
       })
-    })
+    }),
+    checkVersion () {
+      if (this.entryForm.startAppVersion > this.entryForm.endAppVersion) {
+        this.$message.error('开始版本号要小于结束版本号')
+        return false
+      }
+      return true
+    }
   },
   watch: {
     'entryForm.appName': function (newValue, oldValue) {

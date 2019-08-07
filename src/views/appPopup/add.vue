@@ -234,6 +234,9 @@ export default {
         if (!this.checkAppPopup()) {
           return
         }
+        if (!this.checkVersion()) {
+          return
+        }
         if (valid) {
           try {
             const res = await this.$http.post('/app-popup', this.entryForm)
@@ -252,6 +255,13 @@ export default {
     checkAppPopup () {
       if (this.entryForm.startTime > this.entryForm.endTime) {
         this.$message.error('开始时间要小于结束时间')
+        return false
+      }
+      return true
+    },
+    checkVersion () {
+      if (this.entryForm.startAppVersion > this.entryForm.endAppVersion) {
+        this.$message.error('开始版本号要小于结束版本号')
         return false
       }
       return true
