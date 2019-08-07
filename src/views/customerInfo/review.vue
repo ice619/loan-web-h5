@@ -3,7 +3,7 @@
     <el-dialog :visible.sync="ifshow" @open="openDialog" :before-close="closeDialog" width="60%">
         <el-row type="flex" justify="center" style="margin:auto 10px auto 10px">
           <vue-json-pretty :data="this.customerFullInfo" :showLength="true" :highlightMouseoverNode="true"
-          :deep="2"></vue-json-pretty>
+          :deep="1"></vue-json-pretty>
         </el-row>
     </el-dialog>
   </div>
