@@ -99,6 +99,27 @@ export default {
     'ifshow': Boolean
   },
   data () {
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('开始版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的开始版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('结束版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的结束版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
       entryFormInitForm: {
         appName: 21,
@@ -111,7 +132,14 @@ export default {
       },
       entryForm: {},
       materialConfig: {},
-      rules: {}
+      rules: {
+        startAppVersion: [
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        endAppVersion: [
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      }
     }
   },
   methods: {
