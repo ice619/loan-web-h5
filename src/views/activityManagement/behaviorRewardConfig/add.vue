@@ -31,7 +31,7 @@
       </el-row>
       <el-row type="flex" justify="left">
         <el-col :span="30">
-          <el-form-item label="奖励物料" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
+          <el-form-item label="奖励物料" prop="materialCode" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
             <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 350px">
               <el-option v-for="item in materialConfig[this.entryForm.materialType]" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
             </el-select>
@@ -99,6 +99,27 @@ export default {
     'ifshow': Boolean
   },
   data () {
+    const versionReg = /^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/
+    const checkStartAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('开始版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的开始版本号'))
+      } else {
+        callback()
+      }
+    }
+    const checkEndAppVersion = (rule, value, callback) => {
+      if (value == null) {
+        callback(new Error('结束版本号不能为空'))
+      }
+      if (!value.match(versionReg)) {
+        callback(new Error('请输入正确的结束版本号'))
+      } else {
+        callback()
+      }
+    }
     return {
       entryFormInitForm: {
         appName: 21,
@@ -111,13 +132,19 @@ export default {
       },
       entryForm: {},
       materialConfig: {},
-      rules: {}
+      rules: {
+        startAppVersion: [
+          {validator: checkStartAppVersion, trigger: 'blur'}
+        ],
+        endAppVersion: [
+          {validator: checkEndAppVersion, trigger: 'blur'}
+        ]
+      }
     }
   },
   methods: {
     openDialog () {
       this.entryForm = clone(this.entryFormInitForm)
-      this.loadMaterialConfig()
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
@@ -133,6 +160,7 @@ export default {
             }
             this.materialConfig[config.materialType].push(config)
           })
+          this.$forceUpdate()
         }
       }).catch(e => {
         this.$message.error('load app material config error')
@@ -141,6 +169,9 @@ export default {
     },
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
+        if (!this.checkVersion()) {
+          return
+        }
         if (valid) {
           try {
             const res = await this.$http.post('/behavior-reward-config', this.entryForm)
@@ -155,12 +186,27 @@ export default {
           }
         }
       })
-    })
+    }),
+    checkVersion () {
+      if (this.entryForm.startAppVersion > this.entryForm.endAppVersion) {
+        this.$message.error('开始版本号要小于结束版本号')
+        return false
+      }
+      return true
+    }
   },
   watch: {
+    'entryForm.appName': function (newValue, oldValue) {
+      if (newValue && newValue !== oldValue) {
+        this.entryForm.materialCode = null
+        this.entryForm.materialRemark = ''
+        this.loadMaterialConfig()
+      }
+    },
     'entryForm.materialType': function (newValue, oldValue) {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
+        this.entryForm.materialRemark = ''
       }
     },
     'entryForm.materialCode': function () {

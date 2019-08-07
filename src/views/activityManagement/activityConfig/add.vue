@@ -66,6 +66,7 @@
           <el-table :data="entryForm.activityRewardConfigList" border style="width: 90%">
             <el-table-column prop="customerState" header-align="center" align="left" label="好友行为" min-width="50" v-if="entryForm.activityType === 'YQ'">
               <template slot-scope="scope">
+                <el-input v-model="scope.row.nowTimestamp" v-show="false"/>
                 <el-select v-model="scope.row.customerState" clearable placeholder="请选择好友行为" :disabled="entryForm.activityType !== 'YQ'" style="width: 100%">
                   <el-option v-for="item in $formatter.getSelectionOptions('customerState')" :key="item.value" :label="item.label" :value="item.value"/>
                 </el-select>
@@ -179,6 +180,7 @@ export default {
         validDays: null,
         usageScene: null,
         overdueCanUse: null,
+        drawTimes: null,
         ruleDesc: null,
         translateRuleDesc: null,
         activityRewardConfigList: [],
@@ -191,7 +193,8 @@ export default {
         materialCode: null,
         imageUrl: null,
         limitNum: null,
-        limitDays: null
+        limitDays: null,
+        nowTimestamp: new Date().getTime()
       },
       shareTypesValue: [],
       materialConfig: {},
@@ -207,7 +210,6 @@ export default {
     openDialog () {
       this.entryForm = clone(this.entryFormInitForm)
       this.addActivityReward()
-      this.loadMaterialConfig()
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
@@ -233,8 +235,9 @@ export default {
         this.$message.error('图片上传失败')
       }
     },
-    loadMaterialConfig () {
-      this.$http.get(`/material-config/list/${this.entryForm.appName}`).then(res => {
+    async loadMaterialConfig () {
+      this.materialConfig = {}
+      await this.$http.get(`/material-config/list/${this.entryForm.appName}`).then(res => {
         if (res && res.code === '200') {
           res.data.forEach(config => {
             if (!this.materialConfig[config.materialType]) {
@@ -246,6 +249,10 @@ export default {
       }).catch(e => {
         this.$message.error('load app material config error')
         console.info(e)
+      })
+      this.entryForm.activityRewardConfigList.forEach(reward => {
+        reward.materialCode = ' '
+        reward.nowTimestamp = new Date().getTime()
       })
     },
     save: debounce(300, function () {
@@ -288,6 +295,11 @@ export default {
     }
   },
   watch: {
+    'entryForm.appName': function (newValue, oldValue) {
+      if (newValue && newValue !== oldValue) {
+        this.loadMaterialConfig()
+      }
+    },
     'shareTypesValue': function () {
       if (this.shareTypesValue && this.shareTypesValue.length > 0) {
         this.entryForm.shareTypes = this.shareTypesValue.join(',')
