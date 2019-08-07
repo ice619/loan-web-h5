@@ -28,7 +28,7 @@
           <el-col :span="10">
             <el-form-item label="物料编码" prop="materialCode" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 300px">
-                <el-option v-for="item in materialConfigArray" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
+                <el-option v-for="item in materialConfig[this.entryForm.materialType]" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>
               <span class="tip-info" style="left: 0;color:gray">备注：{{materialRemark}}</span>
             </el-form-item>
@@ -106,7 +106,7 @@ export default {
       },
       entryForm: {},
       materialRemark: '',
-      materialConfigArray: [],
+      materialConfig: {},
       sendBtnDisabled: false,
       rules: {}
     }
@@ -118,6 +118,23 @@ export default {
     closeDialog () {
       this.$refs['entryForm'].resetFields()
       this.$emit('handleCloseDialog')
+    },
+    loadMaterialConfig () {
+      this.materialConfig = {}
+      this.$http.get(`/material-config/list/${this.entryForm.appName}`).then(res => {
+        if (res && res.code === '200') {
+          res.data.forEach(config => {
+            if (!this.materialConfig[config.materialType]) {
+              this.materialConfig[config.materialType] = []
+            }
+            this.materialConfig[config.materialType].push(config)
+          })
+          this.$forceUpdate()
+        }
+      }).catch(e => {
+        this.$message.error('load app material config error')
+        console.info(e)
+      })
     },
     save: debounce(300, function () {
       this.$refs['entryForm'].validate(async (valid) => {
@@ -151,38 +168,47 @@ export default {
     })
   },
   watch: {
+    'entryForm.appName': function (newValue, oldValue) {
+      if (newValue && newValue !== oldValue) {
+        this.entryForm.materialCode = null
+        this.materialRemark = ''
+        this.loadMaterialConfig()
+      }
+    },
     'entryForm.materialType': function (newValue, oldValue) {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
-      }
-      if (this.entryForm.materialType) {
-        this.$http.get(`/material-config/list/${this.entryForm.appName}/${this.entryForm.materialType}`).then(res => {
-          if (res && res.code === '200') {
-            this.materialConfigArray = res.data
-          }
-        }).catch(e => {
-          this.$message.error('load app material config error')
-          console.info(e)
-        })
+        this.materialRemark = ''
       }
     },
     'entryForm.validStartTime': function () {
       if (this.entryForm.materialType === 'DK' && this.entryForm.materialCode) {
-        let data = this.materialConfigArray.find(config => config.materialCode === this.entryForm.materialCode)
-        let validDays = data.validDays
-        this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
+        let materialConfigElement = this.materialConfig[this.entryForm.materialType]
+        if (materialConfigElement && materialConfigElement.length > 0) {
+          let materialConfig = materialConfigElement.find(material => material.materialCode === this.entryForm.materialCode)
+          if (materialConfig) {
+            let validDays = materialConfig.validDays
+            this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
+          }
+        }
       }
     },
     'entryForm.materialCode': function () {
       this.materialRemark = ''
-      if (this.entryForm.materialCode && this.materialConfigArray && this.materialConfigArray.length > 0) {
-        let data = this.materialConfigArray.find(config => config.materialCode === this.entryForm.materialCode)
-        if (this.entryForm.materialType === 'DK' && this.entryForm.validStartTime) {
-          let validDays = data.validDays
-          this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
-        }
-        if (data.remark) {
-          this.materialRemark = (data.remark ? data.remark.substring(0, 20) : '') + (data.remark.length > 20 ? '...' : '')
+      if (this.entryForm.materialCode && this.entryForm.materialType) {
+        let materialConfigElement = this.materialConfig[this.entryForm.materialType]
+        if (materialConfigElement && materialConfigElement.length > 0) {
+          let materialConfig = materialConfigElement.find(material => material.materialCode === this.entryForm.materialCode)
+          if (materialConfig) {
+            this.entryForm.materialRemark = materialConfig.remark
+            if (materialConfig.remark) {
+              this.materialRemark = (materialConfig.remark ? materialConfig.remark.substring(0, 20) : '') + (materialConfig.remark.length > 20 ? '...' : '')
+            }
+            if (this.entryForm.materialType === 'DK' && this.entryForm.validStartTime) {
+              let validDays = materialConfig.validDays
+              this.entryForm.validEndTime = this.dateAddDays(this.parserDate(this.entryForm.validStartTime), validDays)
+            }
+          }
         }
       }
     }

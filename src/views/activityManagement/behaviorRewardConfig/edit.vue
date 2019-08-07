@@ -31,7 +31,7 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="奖励物料" prop="materialType" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
+            <el-form-item label="奖励物料" prop="materialCode" :rules="[{ required: true, message: '请选择奖励物料', trigger: 'change' }]">
               <el-select v-model="entryForm.materialCode" clearable placeholder="请选择奖励物料" style="width: 350px">
                 <el-option v-for="item in materialConfig[this.entryForm.materialType]" :key="item.materialCode" :label="item.materialCode" :value="item.materialCode"/>
               </el-select>
@@ -113,7 +113,6 @@ export default {
   methods: {
     openDialog () {
       this.entryForm = clone(this.entry)
-      this.loadMaterialConfig()
     },
     closeDialog () {
       this.$refs['entryForm'].resetFields()
@@ -129,6 +128,7 @@ export default {
             }
             this.materialConfig[config.materialType].push(config)
           })
+          this.$forceUpdate()
         }
       }).catch(e => {
         this.$message.error('load app material config error')
@@ -154,6 +154,12 @@ export default {
     })
   },
   watch: {
+    'entryForm.appName': function (newValue, oldValue) {
+      if (newValue && newValue !== oldValue) {
+        this.entryForm.materialCode = null
+        this.loadMaterialConfig()
+      }
+    },
     'entryForm.materialType': function (newValue, oldValue) {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
