@@ -32,7 +32,22 @@
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :span="12">
-            <el-form-item label="上传icon:" prop="iconUrl">
+            <el-form-item label="上传选中Icon:" prop="selectIconUrl">
+              <el-upload
+                :headers = "headers"
+                class="avatar-uploader"
+                :action="activityUrl"
+                :show-file-list="false"
+                :on-success="handleAvatarSelectSuccess">
+                <img v-if="tabFrom.selectIconUrl" :src="tabFrom.selectIconUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item label="上传未选中Icon:" prop="iconUrl">
               <el-upload
                 :headers = "headers"
                 class="avatar-uploader"
@@ -71,7 +86,8 @@ export default {
         appName: 21,
         tabType: null,
         defaultFirst: 0,
-        iconUrl: null
+        iconUrl: null,
+        selectIconUrl: null
       },
       tabFrom: {},
       rules: {
@@ -82,7 +98,10 @@ export default {
           {required: true, message: '请选择Tab页名称', trigger: 'blur'}
         ],
         iconUrl: [
-          {required: true, message: '上传icon图标', trigger: 'blur'}
+          {required: true, message: '上传未选中该Icon图标', trigger: 'blur'}
+        ],
+        selectIconUrl: [
+          {required: true, message: '上传选中Icon图标', trigger: 'blur'}
         ]
       },
       activityUrl: `${process.env.API_ROOT}/upload-image-file`,
@@ -99,6 +118,11 @@ export default {
         this.tabFrom.iconUrl = res.data
       }
     },
+    handleAvatarSelectSuccess (res, file) {
+      if (res.code === '200') {
+        this.tabFrom.selectIconUrl = res.data
+      }
+    },
     handleFilesChange: function (file, fileList) {
       if (fileList.length > 1) {
         fileList.shift()
@@ -108,6 +132,20 @@ export default {
       }
       if (file.status === 'success' && file.response.code === '200') {
         this.tabFrom.iconUrl = file.response.data
+        this.$message.success('图片上传成功')
+      } else {
+        this.$message.error('图片上传失败')
+      }
+    },
+    handleSelectFilesChange: function (file, fileList) {
+      if (fileList.length > 1) {
+        fileList.shift()
+      }
+      if (file.status === 'ready') {
+        return
+      }
+      if (file.status === 'success' && file.response.code === '200') {
+        this.tabFrom.selectIconUrl = file.response.data
         this.$message.success('图片上传成功')
       } else {
         this.$message.error('图片上传失败')
