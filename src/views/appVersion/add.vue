@@ -260,6 +260,15 @@ export default {
         }
       })
     })
+  },
+  watch: {
+    'appVersionForm.appType': function () {
+      alert(11)
+      if (this.appVersionForm.appType === 1) {
+        this.appVersionForm.waistcoat = ''
+        alert(222)
+      }
+    }
   }
 }
 </script>

@@ -34,8 +34,8 @@
         </el-row>
         <el-row type="flex" justify="left">
           <el-col :span="30">
-            <el-form-item label="每日弹窗次数" prop="popupTimes">
-              <el-input v-model="entryForm.popupTimes" clearable style="width: 350px"></el-input>
+            <el-form-item label="每日弹窗次数" prop="popupTimes" >
+              <el-input v-model="entryForm.popupTimes" :disabled="entryForm.position === 4"  clearable style="width: 350px"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -265,6 +265,13 @@ export default {
         return false
       }
       return true
+    }
+  },
+  watch: {
+    'entryForm.position': function () {
+      if (this.entryForm.position === 4) {
+        this.entryForm.popupTimes = null
+      }
     }
   }
 }
