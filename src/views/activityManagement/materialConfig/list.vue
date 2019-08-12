@@ -60,7 +60,7 @@
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
       <el-table-column label="操作" header-align="center" align="center" fixed="right" min-width="125" v-if="$permission.hasPermission('MATERIAL_CONFIG_DELETE')">
         <template slot-scope="scope">
-          <el-button icon="el-icon-info" @click="editVariable(scope.row)" type="text" size="small" v-if="$permission.hasPermission('MATERIAL_CONFIG_SELECT')">详情</el-button>
+          <el-button icon="el-icon-info" @click="showDetailFn(scope.row)" type="text" size="small" v-if="$permission.hasPermission('MATERIAL_CONFIG_SELECT')">详情</el-button>
           <el-button icon="el-icon-delete" @click="removeBanner(scope.row)" type="text" size="small" v-if="$permission.hasPermission('MATERIAL_CONFIG_DELETE')" style="color: #F56C6C">删除</el-button>
         </template>
       </el-table-column>
@@ -76,7 +76,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"/>
-    <edit :ifshow="showEditFlag" :entity="entity" @handleCloseDialog="showEditFlag=false;"/>
+    <detail :ifshow="showDetailFlag" :entity="entity" @handleCloseDialog="showDetailFlag=false;"/>
   </div>
 </template>
 
@@ -97,7 +97,7 @@ export default {
       total: 0,
       selectIds: [],
       showAddFlag: false,
-      showEditFlag: false
+      showDetailFlag: false
     }
   },
   created () {
@@ -139,8 +139,8 @@ export default {
         this.selectIds.push(v.id)
       })
     },
-    editVariable (row) {
-      this.showEditFlag = true
+    showDetailFn (row) {
+      this.showDetailFlag = true
       this.entity = row
     },
     async removeBanner (row) {
@@ -195,7 +195,7 @@ export default {
   },
   components: {
     'add': () => import('./add'),
-    'edit': () => import('./edit')
+    'detail': () => import('./detail')
   }
 }
 </script>
