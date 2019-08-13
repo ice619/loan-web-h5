@@ -41,6 +41,15 @@
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
     </el-table>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
+      :current-page="pageIndex"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="pageSize"
+      layout="->,total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
   </div>
 </template>
 
@@ -101,7 +110,7 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(v => {
-        this.selectIds.push(v.thirdPartyCertificationId)
+        this.selectIds.push(v.increaseQuotaCertificationId)
       })
     }
   }
