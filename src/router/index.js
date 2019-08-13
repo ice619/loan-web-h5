@@ -25,7 +25,7 @@ import systemDict from '@/views/systemDict/list'
 import systemDictChildList from '@/views/systemDict/child-list'
 import faceLevelConfig from '@/views/faceLevelConfig/list'
 import customerLatestReviewInfo from '@/views/customerLatestReviewInfo/list'
-import customerThirdPartyCertification from '@/views/customerThirdPartyCertification/list'
+import customerIncreaseCertification from '@/views/customerIncreaseCertification/list'
 import customerExt from '@/views/customerInfo/ext-list'
 import customerLoginLog from '@/views/customerLoginLog/list'
 import taobaoCertificationSwitch from '@/views/taobaoCertificationSwitch/list'
@@ -178,9 +178,9 @@ const router = new Router({
       component: customerLatestReviewInfo
     },
     {
-      path: '/customer-third-party-certification',
-      name: 'customerThirdPartyCertification',
-      component: customerThirdPartyCertification
+      path: '/customer-increase-certification',
+      name: 'customerIncreaseCertification',
+      component: customerIncreaseCertification
     },
     {
       path: '/customer-ext',
