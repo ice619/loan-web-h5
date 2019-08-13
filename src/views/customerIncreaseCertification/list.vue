@@ -92,6 +92,7 @@ export default {
         const res = await this.$http.post('/customer/increase-certification-info', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
+          this.total = res.data.total
         } else {
           this.$message.error(res.message)
         }
