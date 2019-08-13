@@ -123,7 +123,6 @@ export default {
     }
     return {
       entryForm: {
-        appName: 21,
         materialType: null,
         materialCode: ''
       },
