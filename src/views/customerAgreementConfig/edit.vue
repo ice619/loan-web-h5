@@ -130,7 +130,7 @@ export default {
     },
     async initFrom () {
       try {
-        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreeTip.customerAgreementConfigId)
+        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreeTip.appName + '/' + this.agreeTip.customerAgreementConfigId)
         if (res.code === '200') {
           this.agreementForm = clone(this.agreeTip)
           this.configDetails = res.data
