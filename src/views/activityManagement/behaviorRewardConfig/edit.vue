@@ -23,7 +23,7 @@
         <el-row type="flex" justify="left">
           <el-col :span="30">
             <el-form-item label="物料类型" prop="materialType" :rules="[{ required: true, message: '请选择物料类型', trigger: 'change' }]">
-              <el-select v-model="entryForm.materialType" placeholder="请选择物料类型" style="width: 350px">
+              <el-select v-model="entryForm.materialType" placeholder="请选择物料类型" @change="clearMaterialFn()" style="width: 350px">
                 <el-option v-for="item in $formatter.getSelectionOptions('materialType')" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -123,8 +123,6 @@ export default {
     }
     return {
       entryForm: {
-        materialType: null,
-        materialCode: ''
       },
       materialConfig: {},
       rules: {
@@ -188,6 +186,10 @@ export default {
         return false
       }
       return true
+    },
+    clearMaterialFn () {
+      this.entryForm.materialCode = null
+      this.entryForm.materialRemark = ''
     }
   },
   watch: {
@@ -195,12 +197,6 @@ export default {
       if (newValue && newValue !== oldValue) {
         this.loadMaterialConfig()
       }
-      if (oldValue && oldValue !== newValue) {
-        this.entryForm.materialCode = null
-        this.entryForm.materialRemark = ''
-      }
-    },
-    'entryForm.materialType': function (newValue, oldValue) {
       if (oldValue && oldValue !== newValue) {
         this.entryForm.materialCode = null
         this.entryForm.materialRemark = ''

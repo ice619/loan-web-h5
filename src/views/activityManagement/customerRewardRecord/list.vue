@@ -16,7 +16,7 @@
         <el-input v-model="searchForm.activityCode" maxlength="20" clearable placeholder="活动编码" style="width: 150px"/>
       </el-form-item>
       <el-form-item label="发送状态">
-        <el-select v-model="searchForm.status" clearable placeholder="请选择" style="width: 100px">
+        <el-select v-model="searchForm.sendStatus" clearable placeholder="请选择" style="width: 100px">
           <el-option v-for="item in $formatter.getSelectionOptions('rewardSendStatus')" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -83,7 +83,7 @@ export default {
         beInviterCustomerState: null,
         sendTime: this.formatDate(new Date(), 'yyyy-MM-dd 00:00:00'),
         sendTimeTo: this.formatDate(new Date(), 'yyyy-MM-dd 23:59:59'),
-        status: null
+        sendStatus: null
       },
       entry: {},
       tableData: [],
