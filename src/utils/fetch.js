@@ -67,6 +67,6 @@ function checkStatus (response) {
 }
 
 function parseJSON (text) {
-  let res = text.replace(/("[^"]*"\s*:\s*)(\d{16,})/g, '$1"$2"')
+  let res = text.replace(/(\\"[^"]*\\"\s*:\s*)(\d{16,})/g, '$1\\"$2\\"').replace(/("[^"]*"\s*:\s*)(\d{16,})/g, '$1"$2"')
   return JSON.parse(res)
 }
