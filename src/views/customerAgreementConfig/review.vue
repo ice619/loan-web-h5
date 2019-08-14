@@ -48,7 +48,7 @@ export default {
     },
     async initFrom () {
       try {
-        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreementWindow.customerAgreementConfigId)
+        const res = await this.$http.post('/agreement-config/agreement-query/' + this.agreementWindow.appName + '/' + this.agreementWindow.customerAgreementConfigId)
         if (res.code === '200') {
           this.agreementForm = res.data
         } else {
