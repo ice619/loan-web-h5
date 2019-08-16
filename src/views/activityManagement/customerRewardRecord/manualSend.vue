@@ -146,6 +146,7 @@ export default {
             let validStartTime = this.entryForm.validStartTime
             if (sendTime > validStartTime) {
               this.$message.warning('发送时间不能大于生效时间!')
+              this.sendBtnDisabled = false
               return
             }
           }
