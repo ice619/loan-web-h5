@@ -63,7 +63,6 @@ import customerPage from '@/views/customerInfo/base'
 import twoDimensionalCode from '@/views/twoDimensionalCodeConfig/list'
 import appDownUrl from '@/views/appDownUrl/list'
 import tabConfig from '@/views/tabConfig/list'
-import cardConfig from '@/views/cardConfig/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -362,11 +361,6 @@ const router = new Router({
       path: '/tab-config',
       name: 'tabConfig',
       component: tabConfig
-    },
-    {
-      path: '/card-config',
-      name: 'cardConfig',
-      component: cardConfig
     }
   ],
   mode: 'history'// 去除#号
