@@ -63,6 +63,7 @@ import customerPage from '@/views/customerInfo/base'
 import twoDimensionalCode from '@/views/twoDimensionalCodeConfig/list'
 import appDownUrl from '@/views/appDownUrl/list'
 import tabConfig from '@/views/tabConfig/list'
+import advanceLevelConfig from '@/views/advanceLevelConfig/add'
 Vue.use(Router)
 
 const router = new Router({
@@ -361,7 +362,12 @@ const router = new Router({
       path: '/tab-config',
       name: 'tabConfig',
       component: tabConfig
-    }
+    },
+    {
+      path: '/advance-level-config',
+      name: 'advanceLevelConfig',
+      component: advanceLevelConfig
+    },
   ],
   mode: 'history'// 去除#号
 })
