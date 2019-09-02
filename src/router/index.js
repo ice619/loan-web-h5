@@ -365,9 +365,8 @@ const router = new Router({
     },
     {
       path: '/advance-level-config',
-      name: 'advanceLevelConfig',
       component: advanceLevelConfig
-    },
+    }
   ],
   mode: 'history'// 去除#号
 })
