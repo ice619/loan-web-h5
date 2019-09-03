@@ -30,7 +30,7 @@
         <el-row type="flex" justify="center">
           <el-col :span="12">
             <el-form-item label="状态：">
-              <el-radio-group v-model="increaseButtonForm.status" style="width: 250px;">
+              <el-radio-group v-model="increaseButtonForm.status">
                 <el-radio v-for="item in $formatter.getSelectionOptions('status')" :key="item.value" :label="item.value">{{item.label}}</el-radio>
               </el-radio-group>
             </el-form-item>
