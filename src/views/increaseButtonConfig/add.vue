@@ -73,7 +73,7 @@ export default {
         ],
         percent: [
           {required: true, message: '请填写流量占比', trigger: 'blur'},
-          {type: 'number', min: 1, max: 100, message: '百分比数值范围0-100', trigger: 'blur'}
+          {type: 'number', min: 0, max: 100, message: '百分比数值范围正整数0-100', trigger: 'blur'}
         ]
       },
       dialogVisible: false
