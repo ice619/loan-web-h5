@@ -18,22 +18,37 @@
           <span>{{$formatter.simpleFormatSelection('appName', scope.row.appName)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="tabType" label="Tab页名称" header-align="center" align="center">
+      <el-table-column prop="customerLevel" label="用户类型" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('tabType', scope.row.tabType)}}</span>
+          <span>{{$formatter.simpleFormatSelection('userType', scope.row.customerLevel)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="defaultFirst" label="默认首页" header-align="center" align="center">
+      <el-table-column prop="percent" label="流量占比" header-align="center" align="center">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('whetherOrNot', scope.row.defaultFirst)}}</span>
+          <span>{{scope.row.percent}}%</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updateUser" label="操作人" header-align="center" align="center">
+      <el-table-column prop="status" label="状态" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{$formatter.simpleFormatSelection('status', scope.row.status)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createUser" label="创建人" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.createUser}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" header-align="center" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.createTime}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="updateUser" label="修改人" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.updateUser}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updateTime" label="操作时间" header-align="center" align="center">
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.updateTime}}</span>
         </template>
@@ -56,7 +71,7 @@
     </el-pagination>
     <!--子组件-->
     <add :ifshow="showAddFlag" @handleCloseDialog="showAddFlag=false;list();"></add>
-    <edit :ifshow="showEditFlag" :tab="tab" @handleCloseDialog="showEditFlag=false;list();"></edit>
+    <edit :ifshow="showEditFlag" :increaseButton="increaseButton" @handleCloseDialog="showEditFlag=false;list();"></edit>
   </div>
 </template>
 
@@ -71,8 +86,8 @@ export default {
       searchForm: {
         appName: 21
       },
-      tabsPage: {},
-      tab: {},
+      increaseButtonPage: {},
+      increaseButton: {},
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
@@ -94,7 +109,7 @@ export default {
         pageSize: this.pageSize
       }
       try {
-        const res = await this.$http.post('/tab-config/page', params)
+        const res = await this.$http.post('/increase-button-config/page', params)
         if (res.code === '200') {
           this.tableData = res.data.rows
           this.total = res.data.total
@@ -121,13 +136,13 @@ export default {
     },
     edit (row) {
       this.showEditFlag = true
-      this.tab = row
+      this.increaseButton = row
     },
     async remove (row) {
       this.showDeleteFlag = true
       this.$confirm('确认删除该条数据吗？', '提示', {type: 'warning'}).then(async () => {
         try {
-          const res = await this.$http.delete('/tab-config/remove', row)
+          const res = await this.$http.delete('/increase-button-config/' + row.id)
           console.log(res)
           if (res.code === '200') {
             this.$message.success('删除成功!')

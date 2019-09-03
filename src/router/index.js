@@ -64,6 +64,7 @@ import twoDimensionalCode from '@/views/twoDimensionalCodeConfig/list'
 import appDownUrl from '@/views/appDownUrl/list'
 import tabConfig from '@/views/tabConfig/list'
 import advanceLevelConfig from '@/views/advanceLevelConfig/add'
+import increaseButtonConfig from '@/views/increaseButtonConfig/list'
 Vue.use(Router)
 
 const router = new Router({
@@ -366,6 +367,10 @@ const router = new Router({
     {
       path: '/advance-level-config',
       component: advanceLevelConfig
+    },
+    {
+      path: '/increase-button-config',
+      component: increaseButtonConfig
     }
   ],
   mode: 'history'// 去除#号
