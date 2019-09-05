@@ -33,10 +33,10 @@
         </template>
       </el-table-column>
       <el-table-column prop="lastReviewTime" label="最新申请时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="againsubmitAuditTime" label="可再次提交审核时间" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="againSubmitAuditTime" label="可再次提交审核时间" header-align="center" align="center" min-width="160"/>
       <el-table-column prop="repeatReviewData" label="需补充资料类型" header-align="center" align="center" min-width="160" show-overflow-tooltip/>
       <el-table-column prop="createTime" label="创建时间" header-align="center" align="center" min-width="160"/>
-      <el-table-column prop="modifyTime" label="修改时间" header-align="center" align="center" min-width="160"/>
+      <el-table-column prop="updateTime" label="修改时间" header-align="center" align="center" min-width="160"/>
     </el-table>
     <el-pagination
       @current-change="handleCurrentChange"
