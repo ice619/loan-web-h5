@@ -27,9 +27,9 @@
           <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.latestRiskIncomingStatus)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="latestRiskWithdrawStatus" label="提现状态" header-align="center" align="center" min-width="150">
+      <el-table-column prop="installmentIncomingStatus" label="分期进件状态" header-align="center" align="center" min-width="150">
         <template slot-scope="scope">
-          <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.latestRiskWithdrawStatus)}}</span>
+          <span>{{$formatter.simpleFormatSelection('auditingState', scope.row.installmentIncomingStatus)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="lastReviewTime" label="最新申请时间" header-align="center" align="center" min-width="160"/>
